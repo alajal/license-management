@@ -2,9 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
+    <script src="main.js"></script>
+    <title>Application input form</title>
 </head>
 <body>
-    <p>Hello license people!</p>
+<div ng-app="application" ng-controller="formCtrl">
+    <form>
+        Name:
+        <input type="text" ng-model="user.name"><br>
+        Organization:
+        <input type="text" ng-model="user.organization"><br>
+        Email:
+        <input type="email" ng-model="user.email"><br>
+        Skype:
+        <input type="text" ng-model="user.skype"><br>
+        Phone:
+        <input type="number" ng-model="user.phone"><br>
+        Application area:
+        <input type="text" ng-model="user.applicationArea"><br>
+    </form>
+    <br>
+    <button ng-click="saveData()">SUBMIT</button>
+
+</div>
 </body>
 </html>

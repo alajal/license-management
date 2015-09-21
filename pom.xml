@@ -14,9 +14,14 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
-            <!--provided - vajalik selleks, et seda servleti-api(jar) ei pakitaks wari sisse,
-            sest see on igas server juba olemas-->
+            <!-- provided - vajalik selleks, et seda servleti-apit(jar) ei pakitaks wari sisse,
+            sest see on igas serveris juba olemas-->
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
         </dependency>
     </dependencies>
 
