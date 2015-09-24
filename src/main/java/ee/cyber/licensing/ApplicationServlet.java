@@ -25,9 +25,11 @@ public class ApplicationServlet extends HttpServlet {
             //gsoniga hetkel, aga tulevikus saab teha Jersey'ga
             Gson gson = new Gson();
             Application application = gson.fromJson(reader, Application.class);
+            //lisa andmed andmebaasi
             System.out.println(application.organization);
+            resp.setStatus(HttpServletResponse.SC_OK);
         }
-        resp.setStatus(HttpServletResponse.SC_OK);
+
     }
 
 }

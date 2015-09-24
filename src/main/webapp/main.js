@@ -2,10 +2,15 @@
 
 var application = angular.module('application', []);
 application.controller('formCtrl', ['$scope','$http', '$window', function ($scope, $http, $window) {
+
     $scope.saveData = function () {
          console.log($scope.user);
         //tee päring
         //urliks /application
+        if(!$scope.form.$valid) {
+            return;
+        }
+
         $http.post('/application', $scope.user).
             then(function(response) {
                 // this callback will be called asynchronously
