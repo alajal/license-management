@@ -10,13 +10,13 @@ application.controller('formCtrl', ['$scope','$http', '$window', function ($scop
             return;
         }
 
-        $http.post('/licenses', $scope.user).
+        $http.post('rest/licenses', $scope.user).
             then(function(response) {
                 // this callback will be called asynchronously
                 // when the response is available
 
                 //vii mind uuele lehele
-                $window.location.href = '/licenses';
+                $window.location.href = 'rest/licenses';
             }, function(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
