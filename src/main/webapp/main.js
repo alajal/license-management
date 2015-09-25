@@ -1,5 +1,4 @@
 
-
 var application = angular.module('application', []);
 application.controller('formCtrl', ['$scope','$http', '$window', function ($scope, $http, $window) {
 
@@ -11,13 +10,13 @@ application.controller('formCtrl', ['$scope','$http', '$window', function ($scop
             return;
         }
 
-        $http.post('/application', $scope.user).
+        $http.post('/licenses', $scope.user).
             then(function(response) {
                 // this callback will be called asynchronously
                 // when the response is available
 
                 //vii mind uuele lehele
-                $window.location.href = '/application';
+                $window.location.href = '/licenses';
             }, function(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
