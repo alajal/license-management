@@ -3,6 +3,7 @@ package ee.cyber.licensing.license;
 import java.util.Date;
 
 public class License {
+    Integer id;
     String product;
     String name;
     String organization;
@@ -22,7 +23,9 @@ public class License {
     public License() {
     }
 
-    public License(String product, String name, String organization, String email, String skype, String phone, String applicationArea) {
+
+    public License(Integer id, String product, String name, String organization, String email, String skype, String phone, String applicationArea) {
+        this.id = id;
         this.product = product;
         this.name = name;
         this.organization = organization;
@@ -33,6 +36,14 @@ public class License {
     }
 
     //UNUSED GETTERS AND SETTERS FOR JERSEY WHEN DEALING WITH ARRAYS
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getProduct() {
         return product;

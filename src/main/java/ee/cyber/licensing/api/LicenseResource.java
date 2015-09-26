@@ -4,10 +4,8 @@ import ee.cyber.licensing.license.License;
 import ee.cyber.licensing.dao.LicenseRepository;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("licenses")
@@ -20,6 +18,14 @@ public class LicenseResource {
     @Produces("application/json")
     public List<License> getLicenses() throws Exception {
         return licenseRepository.findAll();
+    }
+
+    @Path("/{id}")
+    @GET
+    @Produces("application/json")
+    public License getLicenseById(@PathParam("id") Integer id) throws Exception{
+        //TODO Response.ok(License objekt)
+        return licenseRepository.findById(id);
     }
 
     @POST

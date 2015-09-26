@@ -30,11 +30,28 @@ public class LicenseRepository {
             statement.setString(6, license.getPhone());
             statement.setString(7, license.getApplicationArea());
             statement.execute();
-        }
-        //TODO lisa litsentsile id;
 
-        //TODO tagastada sama litsents, aga nüüd juba id-ga
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    license.setId(generatedKeys.getInt(1));
+                }
+            }
+        }
         return license;
+    }
+
+    public License findById(int id) throws SQLException {
+        try (Connection connection = ds.getDBConnection()){
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM License WHERE id = ?;")){
+                statement.setInt(1, id);
+                try (ResultSet resultSet = statement.executeQuery()){
+                    if (!resultSet.next()){
+                        throw new SQLException("Ei leitud ühtegi rida id-ga " + id);
+                    }
+                    return getLicense(resultSet);
+                }
+            }
+        }
     }
 
     public List<License> findAll() throws SQLException {
@@ -43,19 +60,24 @@ public class LicenseRepository {
                 try (ResultSet resultSet = statement.executeQuery()){
                     List<License> licenses = new ArrayList<>();
                     while (resultSet.next()){
-                        licenses.add(new License(
-                                resultSet.getString("product"),
-                                resultSet.getString("name"),
-                                resultSet.getString("organization"),
-                                resultSet.getString("email"),
-                                resultSet.getString("skype"),
-                                resultSet.getString("phone"),
-                                resultSet.getString("applicationArea")));
+                        licenses.add(getLicense(resultSet));
                     }
                     return licenses;
                 }
             }
         }
+    }
+
+    private License getLicense(ResultSet resultSet) throws SQLException {
+        return new License(
+                resultSet.getInt("id"),
+                resultSet.getString("product"),
+                resultSet.getString("name"),
+                resultSet.getString("organization"),
+                resultSet.getString("email"),
+                resultSet.getString("skype"),
+                resultSet.getString("phone"),
+                resultSet.getString("applicationArea"));
     }
 
 }
