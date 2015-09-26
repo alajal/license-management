@@ -1,6 +1,9 @@
-package ee.cyber.licensing;
+package ee.cyber.licensing.license;
+
+import java.util.Date;
 
 public class License {
+    Integer id;
     String product;
     String name;
     String organization;
@@ -8,12 +11,21 @@ public class License {
     String skype;
     String phone;
     String applicationArea;
+    String contractNumber;
+    Date validFrom;
+    Date validTill;
+    State state;
+    Integer predecessor;
+    Date applicationSubmitDate;
+
 
     //DEFAULT CONSTRUCTOR FOR GSON
     public License() {
     }
 
-    public License(String product, String name, String organization, String email, String skype, String phone, String applicationArea) {
+
+    public License(Integer id, String product, String name, String organization, String email, String skype, String phone, String applicationArea) {
+        this.id = id;
         this.product = product;
         this.name = name;
         this.organization = organization;
@@ -21,6 +33,16 @@ public class License {
         this.skype = skype;
         this.phone = phone;
         this.applicationArea = applicationArea;
+    }
+
+    //UNUSED GETTERS AND SETTERS FOR JERSEY WHEN DEALING WITH ARRAYS
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getProduct() {
