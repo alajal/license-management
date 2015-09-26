@@ -1,4 +1,6 @@
-package ee.cyber.licensing;
+package ee.cyber.licensing.license;
+
+import java.util.Date;
 
 public class License {
     String product;
@@ -8,6 +10,13 @@ public class License {
     String skype;
     String phone;
     String applicationArea;
+    String contractNumber;
+    Date validFrom;
+    Date validTill;
+    State state;
+    Integer predecessor;
+    Date applicationSubmitDate;
+
 
     //DEFAULT CONSTRUCTOR FOR GSON
     public License() {
@@ -22,6 +31,8 @@ public class License {
         this.phone = phone;
         this.applicationArea = applicationArea;
     }
+
+    //UNUSED GETTERS AND SETTERS FOR JERSEY WHEN DEALING WITH ARRAYS
 
     public String getProduct() {
         return product;
