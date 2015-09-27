@@ -1,6 +1,9 @@
 
 var application = angular.module('application', []);
 application.controller('formCtrl', ['$scope','$http', '$window', function ($scope, $http, $window) {
+    $http.get('rest/products', $scope.user).success(function (result) {
+        $scope.products = result;
+    });
 
     $scope.saveData = function () {
          console.log($scope.user);
