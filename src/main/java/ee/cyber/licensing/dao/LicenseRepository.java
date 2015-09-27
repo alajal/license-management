@@ -23,8 +23,7 @@ public class LicenseRepository {
         try (Connection conn = ds.getDBConnection()) {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO License (product, name, " +
                     "organization, email, skype, phone, applicationArea) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            System.out.println("Litsentsi toode on: ");
-            statement.setString(1, String.valueOf(license.getProduct()));
+            statement.setString(1, license.getProduct());
             statement.setString(2, license.getName());
             statement.setString(3, license.getOrganization());
             statement.setString(4, license.getEmail());

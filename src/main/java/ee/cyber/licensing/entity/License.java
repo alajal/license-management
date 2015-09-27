@@ -1,5 +1,7 @@
 package ee.cyber.licensing.entity;
 
+import ee.cyber.licensing.dao.ProductRepository;
+
 import java.util.Date;
 
 public class License {
@@ -34,6 +36,7 @@ public class License {
         this.phone = phone;
         this.applicationArea = applicationArea;
     }
+
 
     //UNUSED GETTERS AND SETTERS FOR JERSEY WHEN DEALING WITH ARRAYS
 

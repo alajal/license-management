@@ -2,6 +2,7 @@ package ee.cyber.licensing.api;
 
 import ee.cyber.licensing.dao.DataSource;
 import ee.cyber.licensing.dao.LicenseRepository;
+import ee.cyber.licensing.dao.ProductRepository;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.h2.tools.RunScript;
@@ -42,6 +43,7 @@ public class RestApp extends ResourceConfig {
                 //SIIN SAAB INJECTIDA JA LUUA INJECTITAVAT
                 DataSource dataSource = createAndInitDatasource();
                 bind(new LicenseRepository(dataSource));
+                bind(new ProductRepository(dataSource));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

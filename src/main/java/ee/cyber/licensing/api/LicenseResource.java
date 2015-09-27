@@ -1,11 +1,11 @@
 package ee.cyber.licensing.api;
 
-import ee.cyber.licensing.license.License;
+import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.dao.LicenseRepository;
+import ee.cyber.licensing.entity.Product;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("licenses")

@@ -16,7 +16,7 @@ public class Product {
     }
 
     public Product(){}
-   
+
     public String getName() {
         return name;
     }
