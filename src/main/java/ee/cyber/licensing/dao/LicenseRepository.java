@@ -1,7 +1,8 @@
 package ee.cyber.licensing.dao;
 
 
-import ee.cyber.licensing.license.License;
+import ee.cyber.licensing.entity.License;
+import ee.cyber.licensing.entity.Product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +23,8 @@ public class LicenseRepository {
         try (Connection conn = ds.getDBConnection()) {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO License (product, name, " +
                     "organization, email, skype, phone, applicationArea) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            statement.setString(1, license.getProduct());
+            System.out.println("Litsentsi toode on: ");
+            statement.setString(1, String.valueOf(license.getProduct()));
             statement.setString(2, license.getName());
             statement.setString(3, license.getOrganization());
             statement.setString(4, license.getEmail());
