@@ -14,7 +14,8 @@
     <form novalidate class="form" name="form" ng-submit="saveData()">
         <div class="form-group">
             <label for="name">Product</label>
-            <input type="text" class="form-control" id="product" ng-model="user.product" required name="uProduct">
+            <select name="singleSelect" ng-options="item.id as (item.name + ' ' + item.release) for item in products" type="text" class="form-control" id="product" ng-model="user.product" required name="uProduct">
+            </select>
             <div ng-show="form.$submitted || form.uProduct.$touched">
                 <div ng-show="form.uProduct.$error.required">Product is needed.</div>
             </div>
