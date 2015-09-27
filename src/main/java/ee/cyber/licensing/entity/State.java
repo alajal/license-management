@@ -1,4 +1,4 @@
-package ee.cyber.licensing.license;
+package ee.cyber.licensing.entity;
 
 public class State {
     Integer id;
