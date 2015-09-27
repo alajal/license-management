@@ -8,3 +8,9 @@ CREATE TABLE IF NOT EXISTS License (
   phone           VARCHAR(100),
   applicationArea VARCHAR(200)
 );
+
+CREATE TABLE IF NOT EXISTS Product (
+  id        INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  name      VARCHAR(100)                   NOT NULL,
+  release   VARCHAR(100)                   NOT NULL
+);
