@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
-    <script src="main.js"></script>
+    <script src="license.js"></script>
     <link type="text/css" rel="stylesheet" media="all" href="bootstrap.css">
     <link type="text/css" rel="stylesheet" media="all" href="main.css">
     <title>Application input form</title>
 </head>
 <body>
 <div ng-app="application" ng-controller="formCtrl" class="container">
-    <h3>Application form</h3>
+    <h3>New license form</h3>
     <form novalidate class="form" name="form" ng-submit="saveData()">
         <div class="form-group">
             <label for="name">Product</label>
-            <select name="singleSelect" ng-options="item.id as (item.name + ' ' + item.release) for item in products" type="text" class="form-control" id="product" ng-model="user.product" required name="uProduct">
+            <select name="singleSelect" ng-options="item.id as (item.name + ' ' + item.release) for item in products"
+                    type="text" class="form-control" id="productName" ng-model="user.productName" required name="uProductName"
+                    selected="">
             </select>
-            <div ng-show="form.$submitted || form.uProduct.$touched">
-                <div ng-show="form.uProduct.$error.required">Product is needed.</div>
+            <div ng-show="form.$submitted || form.uProductName.$touched">
+                <div ng-show="form.uProductName.$error.required">Product is needed.</div>
             </div>
         </div>
         <div class="form-group">

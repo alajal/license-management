@@ -1,12 +1,11 @@
 package ee.cyber.licensing.entity;
 
-import ee.cyber.licensing.dao.ProductRepository;
 
 import java.util.Date;
 
 public class License {
     Integer id;
-    String product;
+    String productName;
     String name;
     String organization;
     String email;
@@ -16,19 +15,22 @@ public class License {
     String contractNumber;
     Date validFrom;
     Date validTill;
-    State state;
+    State licenseState;
     Integer predecessor;
     Date applicationSubmitDate;
 
+    //id, productName,contactName, organization, email, skype, phone, applicationArea, contractnr(Dan loob ise),
+    //dan saab valida kahe state'i vahel, license active state siduda validFrom, preecessor on täiendinfo all
 
-    //DEFAULT CONSTRUCTOR FOR GSON
+
+    //DEFAULT CONSTRUCTOR
     public License() {
     }
 
 
-    public License(Integer id, String product, String name, String organization, String email, String skype, String phone, String applicationArea) {
+    public License(Integer id, String productName, String name, String organization, String email, String skype, String phone, String applicationArea) {
         this.id = id;
-        this.product = product;
+        this.productName = productName;
         this.name = name;
         this.organization = organization;
         this.email = email;
@@ -48,12 +50,12 @@ public class License {
         this.id = id;
     }
 
-    public String getProduct() {
-        return product;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProduct(String product) {
-        this.product = product;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getName() {

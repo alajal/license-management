@@ -13,13 +13,15 @@ application.controller('formCtrl', ['$scope','$http', '$window', function ($scop
             return;
         }
 
+
         $http.post('rest/licenses', $scope.user).
+            //server töötleb post päringut ja kui ta on sellega lõpetanud, siis minnakse siin alles edasi
             then(function(response) {
                 // this callback will be called asynchronously
                 // when the response is available
 
                 //vii mind uuele lehele
-                $window.location.href = 'rest/licenses';
+                $window.location.href = 'licensesView.html';
             }, function(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.

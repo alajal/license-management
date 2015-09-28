@@ -7,6 +7,7 @@ import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.h2.tools.RunScript;
 
+import javax.inject.Singleton;
 import javax.ws.rs.ApplicationPath;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,14 +37,16 @@ public class RestApp extends ResourceConfig {
 
             //server->annan web applicationi(war), mille jetty leiab ülesse, seda hakatakse deployma->tekitab RestApp objekt tekitatakse jersey poolt-
             //<listenerid, servletid, nende eventid -nüüd on deploytud
-            //servletkontext luuakse siis kui
 
             try {
                 //injectitav objekt ->bind()
                 //SIIN SAAB INJECTIDA JA LUUA INJECTITAVAT
                 DataSource dataSource = createAndInitDatasource();
-                bind(new LicenseRepository(dataSource));
-                bind(new ProductRepository(dataSource));
+                //bind(new LicenseRepository(dataSource));    //newga ei saa hk2 injectida
+                //bind(new ProductRepository(dataSource));
+                bind(dataSource);
+                bind(LicenseRepository.class).to(LicenseRepository.class).in(Singleton.class);
+                bind(ProductRepository.class).to(ProductRepository.class).in(Singleton.class);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

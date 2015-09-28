@@ -3,6 +3,7 @@ package ee.cyber.licensing.dao;
 import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.Product;
 
+import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,13 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by siiri on 26/09/15.
- */
 public class ProductRepository {
 
     private final DataSource ds;
 
+    @Inject
     public ProductRepository(DataSource ds) {
         this.ds = ds;
     }

@@ -4,6 +4,7 @@ package ee.cyber.licensing.dao;
 import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.Product;
 
+import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,17 +14,14 @@ import java.util.List;
 
 public class LicenseRepository {
 
-    private final DataSource ds;
-
-    public LicenseRepository(DataSource ds) {
-        this.ds = ds;
-    }
+    @Inject
+    private DataSource ds;
 
     public License save(License license) throws SQLException {
         try (Connection conn = ds.getDBConnection()) {
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO License (product, name, " +
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO License (productName, name, " +
                     "organization, email, skype, phone, applicationArea) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            statement.setString(1, license.getProduct());
+            statement.setString(1, license.getProductName());
             statement.setString(2, license.getName());
             statement.setString(3, license.getOrganization());
             statement.setString(4, license.getEmail());
@@ -72,7 +70,7 @@ public class LicenseRepository {
     private License getLicense(ResultSet resultSet) throws SQLException {
         return new License(
                 resultSet.getInt("id"),
-                resultSet.getString("product"),
+                resultSet.getString("productName"),
                 resultSet.getString("name"),
                 resultSet.getString("organization"),
                 resultSet.getString("email"),

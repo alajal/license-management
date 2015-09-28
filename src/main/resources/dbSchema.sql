@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS License (
   id              INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  product         VARCHAR(100)                   NOT NULL,
+  productName         VARCHAR(100)                   NOT NULL,
   name            VARCHAR(100)                   NOT NULL,
   organization    VARCHAR(200)                   NOT NULL,
   email           VARCHAR(50)                    NOT NULL,

@@ -1,16 +1,12 @@
 package ee.cyber.licensing.api;
 
 import ee.cyber.licensing.dao.ProductRepository;
-import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.Product;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import java.util.List;
 
-/**
- * Created by siiri on 26/09/15.
- */
 @Path("products")
 public class ProductResource {
 
