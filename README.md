@@ -2,7 +2,7 @@
 
 For using the application:
 
-Make sure you have Maven and Jetty web server.
+Make sure you have Maven and JDK 8.
 
 git clone
 
