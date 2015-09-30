@@ -1,6 +1,10 @@
-var application = angular.module('application', []);
-application.controller('productController', ['$scope','$http', '$window', function ($scope, $http, $window) {
+// Add controller to module.
+angular
+    .module('LM')
+    .controller('AddProductCtrl', AddLicenseCtrl);
 
+function AddProductCtrl($scope, $http, $window){
+	
     $scope.saveData = function () {
         console.log($scope.product);
 
@@ -17,5 +21,5 @@ application.controller('productController', ['$scope','$http', '$window', functi
                 console.error('Tekkis viga');
             });
     }
-}]);
+};
 
