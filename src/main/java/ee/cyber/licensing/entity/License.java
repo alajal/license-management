@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class License {
     Integer id;
-    String productName;
+    Product product;
     String name;
     String organization;
     String email;
@@ -19,7 +19,7 @@ public class License {
     Integer predecessor;
     Date applicationSubmitDate;
 
-    //id, productName,contactName, organization, email, skype, phone, applicationArea, contractnr(Dan loob ise),
+    //id, productId,contactName, organization, email, skype, phone, applicationArea, contractnr(Dan loob ise),
     //dan saab valida kahe state'i vahel, license active state siduda validFrom, preecessor on täiendinfo all
 
 
@@ -28,9 +28,9 @@ public class License {
     }
 
 
-    public License(Integer id, String productName, String name, String organization, String email, String skype, String phone, String applicationArea) {
+    public License(Integer id, Product product, String name, String organization, String email, String skype, String phone, String applicationArea) {
         this.id = id;
-        this.productName = productName;
+        this.product = product;
         this.name = name;
         this.organization = organization;
         this.email = email;
@@ -50,12 +50,12 @@ public class License {
         this.id = id;
     }
 
-    public String getProductName() {
-        return productName;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public String getName() {

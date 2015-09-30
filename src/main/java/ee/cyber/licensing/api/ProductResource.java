@@ -22,8 +22,8 @@ public class ProductResource {
     @Path("/{id}")
     @GET
     @Produces("application/json")
-    public Product getLicenseById(@PathParam("id") Integer id) throws Exception{
-        //TODO Response.ok(License objekt)
+    public Product getProductById(@PathParam("id") Integer id) throws Exception{
+        //TODO Response.ok(Product objekt)
         return productRepository.getProductById(id);
     }
 

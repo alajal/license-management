@@ -25,7 +25,7 @@
             </theader>
             <tbody>
                 <tr ng-repeat="license in licenses">
-                    <td>{{ license.productName }}</td>
+                    <td>{{ license.product.name + ' ' + license.product.release }}</td>
                     <td>{{ license.name }}</td>
                     <td>{{ license.organization }}</td>
                     <td>{{ license.email }}</td>

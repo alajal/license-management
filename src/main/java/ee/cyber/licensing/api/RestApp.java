@@ -44,6 +44,8 @@ public class RestApp extends ResourceConfig {
                 DataSource dataSource = createAndInitDatasource();
                 //bind(new LicenseRepository(dataSource));    //newga ei saa hk2 injectida
                 //bind(new ProductRepository(dataSource));
+
+
                 bind(dataSource);
                 bind(LicenseRepository.class).to(LicenseRepository.class).in(Singleton.class);
                 bind(ProductRepository.class).to(ProductRepository.class).in(Singleton.class);

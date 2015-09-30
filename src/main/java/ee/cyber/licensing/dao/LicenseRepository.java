@@ -17,11 +17,14 @@ public class LicenseRepository {
     @Inject
     private DataSource ds;
 
+    @Inject
+    private ProductRepository productRepository;
+
     public License save(License license) throws SQLException {
         try (Connection conn = ds.getDBConnection()) {
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO License (productName, name, " +
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO License (productId, name, " +
                     "organization, email, skype, phone, applicationArea) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            statement.setString(1, license.getProductName());
+            statement.setInt(1, license.getProduct().getId());
             statement.setString(2, license.getName());
             statement.setString(3, license.getOrganization());
             statement.setString(4, license.getEmail());
@@ -47,7 +50,7 @@ public class LicenseRepository {
                     if (!resultSet.next()){
                         throw new SQLException("Ei leitud ühtegi rida id-ga " + id);
                     }
-                    return getLicense(resultSet);
+                    return getLicense(resultSet,productRepository.getProductById(resultSet.getInt("productId")));
                 }
             }
         }
@@ -58,8 +61,12 @@ public class LicenseRepository {
             try(PreparedStatement statement = conn.prepareStatement("SELECT * FROM License")){
                 try (ResultSet resultSet = statement.executeQuery()){
                     List<License> licenses = new ArrayList<>();
+                    // ToDo optimeeri päringute arvu
                     while (resultSet.next()){
-                        licenses.add(getLicense(resultSet));
+                        int productId = resultSet.getInt("productId");
+                        Product productById = productRepository.getProductById(productId);
+                        License license = getLicense(resultSet, productById);
+                        licenses.add(license);
                     }
                     return licenses;
                 }
@@ -67,10 +74,10 @@ public class LicenseRepository {
         }
     }
 
-    private License getLicense(ResultSet resultSet) throws SQLException {
+    private License getLicense(ResultSet resultSet, Product product) throws SQLException {
         return new License(
                 resultSet.getInt("id"),
-                resultSet.getString("productName"),
+                product,
                 resultSet.getString("name"),
                 resultSet.getString("organization"),
                 resultSet.getString("email"),

@@ -13,7 +13,6 @@ application.controller('formCtrl', ['$scope','$http', '$window', function ($scop
             return;
         }
 
-
         $http.post('rest/licenses', $scope.user).
             //server töötleb post päringut ja kui ta on sellega lõpetanud, siis minnakse siin alles edasi
             then(function(response) {
@@ -27,7 +26,7 @@ application.controller('formCtrl', ['$scope','$http', '$window', function ($scop
                 // or server returns response with an error status.
 
                 //nt kui päringus on midagi valesti - emailis on ainult numbrid
-                console.error('Mis iganes.');
+                console.error('Mis iganes litsents.');
             });
     }
 }]);

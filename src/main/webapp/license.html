@@ -14,12 +14,12 @@
     <form novalidate class="form" name="form" ng-submit="saveData()">
         <div class="form-group">
             <label for="name">Product</label>
-            <select name="singleSelect" ng-options="item.id as (item.name + ' ' + item.release) for item in products"
-                    type="text" class="form-control" id="productName" ng-model="user.productName" required name="uProductName"
+            <select ng-options="product as (product.name + ' ' + product.release) for product in products"
+                    type="text" class="form-control" id="product" ng-model="user.product" required name="uProduct"
                     selected="">
             </select>
-            <div ng-show="form.$submitted || form.uProductName.$touched">
-                <div ng-show="form.uProductName.$error.required">Product is needed.</div>
+            <div ng-show="form.$submitted || form.uProduct.$touched">
+                <div ng-show="form.uProduct.$error.required">Product is needed.</div>
             </div>
         </div>
         <div class="form-group">
