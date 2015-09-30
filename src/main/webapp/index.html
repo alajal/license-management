@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html data-ng-app="LM">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
+    <link type="text/css" rel="stylesheet" media="all" href="assets/bootstrap.css">
+    <link type="text/css" rel="stylesheet" media="all" href="assets/main.css">
+    <title>License management</title>
+
+    <script src="app.module.js"></script>
+    <script src="app.routes.js"></script>
+
+    <!-- Configuration -->
+    <!-- <script src="app/shared/config.js"></script> -->
+
+    <!-- Controllers -->
+    <script src="shared/header/headerController.js"></script>
+    <script src="components/license/licensesView.js"></script>
+    <script src="components/license/add/addLicense.js"></script>
+    <script src="components/product/add/addProduct.js"></script>
+
+    <!-- Services -->
+
+    <!-- Filters -->
+
+    <!-- Directives -->
+
+</head>
+<body>
+<!-- Header -->
+<div data-ng-include="'shared/header/header.html'"></div>
+<!-- *View.html -->
+<div data-ng-view></div>
+</body>
+</html>

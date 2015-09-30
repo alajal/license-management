@@ -1,0 +1,30 @@
+<div data-ng-controller="HeaderController as vm">
+    <!-- nav -->
+    <nav class="navbar navbar-default ">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-left">
+
+                    <!-- Dropdowns -->
+                    <li class="dropdown" data-ng-repeat="link in vm.menu" data-ng-if="link.type == 'dropdown'">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <span class="{{link.glyph}}"></span> {{link.name}}<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li data-ng-repeat="item in link.dropdown"><a
+                                    data-ng-href="#/{{item.url}}">{{item.name}}</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Links -->
+                    <li data-ng-class="{active:vm.isActive('/{{link.url}}')}" data-ng-repeat="link in vm.menu"
+                        data-ng-if="link.type == 'link'">
+                        <a data-ng-href="#/{{link.url}}">
+                            <span class="{{link.glyph}}"></span> {{link.name}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>

@@ -1,0 +1,22 @@
+[
+  {
+    "type": "link",
+    "url": "license/add",
+    "name": "Add licenses"
+  },
+  {
+    "type": "link",
+    "url": "licenses",
+    "name": "View licenses"
+  },
+  {
+    "type": "link",
+    "url": "product/add",
+    "name": "Add products"
+  },
+  {
+    "type": "link",
+    "url": "products",
+    "name": "View products"
+  }
+]

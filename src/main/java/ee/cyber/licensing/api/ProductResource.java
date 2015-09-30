@@ -15,14 +15,14 @@ public class ProductResource {
 
     @GET
     @Produces("application/json")
-    public List<Product> getProducts() throws Exception{
+    public List<Product> getProducts() throws Exception {
         return productRepository.findAll();
     }
 
     @Path("/{id}")
     @GET
     @Produces("application/json")
-    public Product getProductById(@PathParam("id") Integer id) throws Exception{
+    public Product getProductById(@PathParam("id") Integer id) throws Exception {
         //TODO Response.ok(Product objekt)
         return productRepository.getProductById(id);
     }

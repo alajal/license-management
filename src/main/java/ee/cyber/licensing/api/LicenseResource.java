@@ -23,7 +23,7 @@ public class LicenseResource {
     @Path("/{id}")
     @GET
     @Produces("application/json")
-    public License getLicenseById(@PathParam("id") Integer id) throws Exception{
+    public License getLicenseById(@PathParam("id") Integer id) throws Exception {
         //TODO return Response.ok(License objekt)
         return licenseRepository.findById(id);
     }

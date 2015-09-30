@@ -56,7 +56,7 @@ public class RestApp extends ResourceConfig {
 
         private DataSource createAndInitDatasource() throws SQLException, IOException {
             DataSource myDataSource = getPlaceToSaveData();
-            try (Connection dbConnection = myDataSource.getDBConnection()){
+            try (Connection dbConnection = myDataSource.getDBConnection()) {
                 executeScriptFromClasspath(dbConnection, "dbSchema.sql");
                 executeScriptFromClasspath(dbConnection, "sampleData.sql");
             }

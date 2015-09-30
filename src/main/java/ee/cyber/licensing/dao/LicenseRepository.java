@@ -43,26 +43,26 @@ public class LicenseRepository {
     }
 
     public License findById(int id) throws SQLException {
-        try (Connection connection = ds.getDBConnection()){
-            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM License WHERE id = ?;")){
+        try (Connection connection = ds.getDBConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM License WHERE id = ?;")) {
                 statement.setInt(1, id);
-                try (ResultSet resultSet = statement.executeQuery()){
-                    if (!resultSet.next()){
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (!resultSet.next()) {
                         throw new SQLException("Ei leitud ühtegi rida id-ga " + id);
                     }
-                    return getLicense(resultSet,productRepository.getProductById(resultSet.getInt("productId")));
+                    return getLicense(resultSet, productRepository.getProductById(resultSet.getInt("productId")));
                 }
             }
         }
     }
 
     public List<License> findAll() throws SQLException {
-        try (Connection conn = ds.getDBConnection()){
-            try(PreparedStatement statement = conn.prepareStatement("SELECT * FROM License")){
-                try (ResultSet resultSet = statement.executeQuery()){
+        try (Connection conn = ds.getDBConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM License")) {
+                try (ResultSet resultSet = statement.executeQuery()) {
                     List<License> licenses = new ArrayList<>();
                     // ToDo optimeeri päringute arvu
-                    while (resultSet.next()){
+                    while (resultSet.next()) {
                         int productId = resultSet.getInt("productId");
                         Product productById = productRepository.getProductById(productId);
                         License license = getLicense(resultSet, productById);

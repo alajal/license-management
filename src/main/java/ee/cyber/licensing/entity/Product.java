@@ -9,13 +9,14 @@ public class Product {
     String name;
     String release;
 
-    public Product(Integer id, String name, String release){
+    public Product(Integer id, String name, String release) {
         this.id = id;
         this.name = name;
         this.release = release;
     }
 
-    public Product(){}
+    public Product() {
+    }
 
     public String getName() {
         return name;
