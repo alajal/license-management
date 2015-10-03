@@ -6,3 +6,7 @@
 .form input.ng-invalid.ng-touched {
     background-color: rgba(250, 88, 86, 0.23);
 }
+
+body{
+    color:red;
+}
