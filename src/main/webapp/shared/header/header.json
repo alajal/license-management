@@ -23,5 +23,10 @@
     "type": "link",
     "url": "licenseOwner/add",
     "name": "Add license owners"
+  },
+  {
+    "type": "link",
+    "url": "licenseOwners",
+    "name": "View license owners"
   }
 ]

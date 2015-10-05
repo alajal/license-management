@@ -16,6 +16,10 @@ function config($routeProvider) {
             templateUrl: 'components/product/add/addProduct.html',
             controller: 'AddProductCtrl',
         })
+        .when('/licenseOwners', {
+            templateUrl: 'components/licenseOwner/licenseOwnersView.html',
+            controller: 'ViewLicenseOwnersCtrl',
+        })
         .when('/licenseOwner/add', {
             templateUrl: 'components/licenseOwner/add/addLicenseOwner.html',
             controller: 'AddLicenseOwnerCtrl',

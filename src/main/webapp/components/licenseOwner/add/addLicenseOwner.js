@@ -13,7 +13,7 @@ angular
             $http.post('rest/licenseOwners', $scope.licenseOwner).
                 then(function (response) {
 
-                    $window.location.href = 'rest/licenseOwners';
+                    $window.location.href = '#/licenseOwners';
                 }, function (response) {
 
                     console.error('[addLicenseOwner.js] Error');
