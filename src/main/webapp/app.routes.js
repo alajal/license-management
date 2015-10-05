@@ -16,5 +16,9 @@ function config($routeProvider) {
             templateUrl: 'components/product/add/addProduct.html',
             controller: 'AddProductCtrl',
         })
+        .when('/licenseOwner/add', {
+            templateUrl: 'components/licenseOwner/add/addLicenseOwner.html',
+            controller: 'AddLicenseOwnerCtrl',
+        })
     //$routeProvider.otherwise({redirectTo: '/'}); Is not needed at the moment.
 };

@@ -18,5 +18,10 @@
     "type": "link",
     "url": "products",
     "name": "View products"
+  },
+  {
+    "type": "link",
+    "url": "licenseOwner/add",
+    "name": "Add license owners"
   }
 ]

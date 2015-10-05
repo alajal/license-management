@@ -17,3 +17,15 @@ CREATE TABLE IF NOT EXISTS License (
   FOREIGN KEY (productId) REFERENCES Product (id)
 );
 
+
+CREATE TABLE IF NOT EXISTS LicenseOwner (
+  id      INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  name    VARCHAR(200)                   NOT NULL,
+  address VARCHAR(100)                   NOT NULL,
+  webpage VARCHAR(100)                   NOT NULL,
+  registrationCode VARCHAR(100)                   NOT NULL,
+  phone VARCHAR(20),
+  bankaccount VARCHAR(50),
+  fax VARCHAR(20),
+  unitOrFaculty VARCHAR(100)
+);

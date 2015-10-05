@@ -1,0 +1,62 @@
+<!-- Add licenseOwner form -->
+<div class="container">
+    <h3>License owner form</h3>
+
+    <form novalidate class="form" name="form" ng-submit="saveData()">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" ng-model="licenseOwner.name" required name="pName">
+
+            <div ng-show="form.$submitted || form.pName.$touched">
+                <div ng-show="form.pName.$error.required">Name is needed.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address" ng-model="licenseOwner.address" required
+                   name="pAddress">
+
+            <div ng-show="form.$submitted || form.pAddress.$touched">
+                <div ng-show="form.pAddress.$error.required">Address is needed.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="webpage">Webpage</label>
+            <input type="text" class="form-control" id="webpage" ng-model="licenseOwner.webpage" required
+                   name="pWebpage">
+
+            <div ng-show="form.$submitted || form.pWebpage.$touched">
+                <div ng-show="form.pWebpage.$error.required">Webpage is needed.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="registrationCode">Registration code</label>
+            <input type="text" class="form-control" id="registrationCode" ng-model="licenseOwner.registrationCode" required
+                   name="pRegistrationCode">
+
+            <div ng-show="form.$submitted || form.pRegistrationCode.$touched">
+                <div ng-show="form.pRegistrationCode.$error.required">Registration code is needed.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" class="form-control" id="phone" ng-model="licenseOwner.phone">
+        </div>
+        <div class="form-group">
+            <label for="bankAccount">Bank account</label>
+            <input type="text" class="form-control" id="bankAccount" ng-model="licenseOwner.bankAccount">
+        </div>
+        <div class="form-group">
+            <label for="fax">Fax</label>
+            <input type="text" class="form-control" id="fax" ng-model="licenseOwner.fax">
+        </div>
+        <div class="form-group">
+            <label for="unitOrFaculty">Unit or Faculty</label>
+            <input type="text" class="form-control" id="unitOrFaculty" ng-model="licenseOwner.unitOrFaculty">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">SUBMIT</button>
+        </div>
+    </form>
+
+</div>
