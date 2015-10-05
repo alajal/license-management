@@ -1,8 +1,5 @@
 package ee.cyber.licensing.entity;
 
-/**
- * Created by siiri on 25/09/15.
- */
 public class Product {
 
     Integer id;

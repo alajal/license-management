@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.sql.DataSource;
 
 import ee.cyber.licensing.entity.LicenseOwner;
 
@@ -18,7 +19,7 @@ public class LicenseOwnerRepository {
     private DataSource ds;
 
     public LicenseOwner save(LicenseOwner licenseOwner) throws SQLException {
-        try (Connection conn = ds.getDBConnection()) {
+        try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO LicenseOwner (name, address, " +
                     "webpage, registrationCode, phone, bankAccount, fax, unitOrFaculty) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             statement.setString(1, licenseOwner.getname());
@@ -41,7 +42,7 @@ public class LicenseOwnerRepository {
     }
 
     public LicenseOwner getLicenseOwnerById(int id) throws SQLException {
-        try (Connection connection = ds.getDBConnection()) {
+        try (Connection connection = ds.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM LicenseOwner WHERE id = ?;")) {
                 statement.setInt(1, id);
                 try (ResultSet resultSet = statement.executeQuery()) {
@@ -55,7 +56,7 @@ public class LicenseOwnerRepository {
     }
 
     public List<LicenseOwner> findAll() throws SQLException {
-        try (Connection conn = ds.getDBConnection()) {
+        try (Connection conn = ds.getConnection()) {
             try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM LicenseOwner")) {
                 try (ResultSet resultSet = statement.executeQuery()) {
                     List<LicenseOwner> licenseOwners = new ArrayList<>();

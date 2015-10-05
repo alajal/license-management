@@ -5,6 +5,7 @@ import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.Product;
 
 import javax.inject.Inject;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +22,7 @@ public class LicenseRepository {
     private ProductRepository productRepository;
 
     public License save(License license) throws SQLException {
-        try (Connection conn = ds.getDBConnection()) {
+        try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO License (productId, name, " +
                     "organization, email, skype, phone, applicationArea) VALUES (?, ?, ?, ?, ?, ?, ?)");
             statement.setInt(1, license.getProduct().getId());
@@ -43,7 +44,7 @@ public class LicenseRepository {
     }
 
     public License findById(int id) throws SQLException {
-        try (Connection connection = ds.getDBConnection()) {
+        try (Connection connection = ds.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM License WHERE id = ?;")) {
                 statement.setInt(1, id);
                 try (ResultSet resultSet = statement.executeQuery()) {
@@ -57,7 +58,7 @@ public class LicenseRepository {
     }
 
     public List<License> findAll() throws SQLException {
-        try (Connection conn = ds.getDBConnection()) {
+        try (Connection conn = ds.getConnection()) {
             try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM License")) {
                 try (ResultSet resultSet = statement.executeQuery()) {
                     List<License> licenses = new ArrayList<>();

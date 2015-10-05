@@ -1,6 +1,6 @@
 <div class="container">
     <h3>Licenses</h3>
-    <table class="table">
+    <table class="table" id="licensesTable">
         <theader>
             <tr>
                 <td>Product name</td>
@@ -12,7 +12,6 @@
                 <td>Application area</td>
             </tr>
         </theader>
-        <tbody>
         <tr ng-repeat="license in licenses">
             <td>{{ license.product.name + ' ' + license.product.release }}</td>
             <td>{{ license.name }}</td>
@@ -23,7 +22,6 @@
             <td>{{ license.applicationArea }}</td>
             <td><a ng-href="#/edit/{{ license.email }}?name={{license.organization}}">Edit</a></td>
         </tr>
-        </tbody>
     </table>
 </div>
 

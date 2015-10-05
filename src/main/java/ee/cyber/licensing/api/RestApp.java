@@ -1,14 +1,19 @@
 package ee.cyber.licensing.api;
 
-import ee.cyber.licensing.dao.DataSource;
 import ee.cyber.licensing.dao.LicenseOwnerRepository;
 import ee.cyber.licensing.dao.LicenseRepository;
 import ee.cyber.licensing.dao.ProductRepository;
+import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.monitoring.ApplicationEvent;
+import org.glassfish.jersey.server.monitoring.ApplicationEventListener;
+import org.glassfish.jersey.server.monitoring.RequestEvent;
+import org.glassfish.jersey.server.monitoring.RequestEventListener;
 import org.h2.tools.RunScript;
 
 import javax.inject.Singleton;
+import javax.sql.DataSource;
 import javax.ws.rs.ApplicationPath;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,9 +31,13 @@ public class RestApp extends ResourceConfig {
         register(new InjectableObjectConfig());
     }
 
-    static class InjectableObjectConfig extends AbstractBinder {
-        //configute() (jersey spetsiifiline) on võrdväärne contextInitialized() meetodiga
+    public static class InjectableObjectConfig extends AbstractBinder implements ApplicationEventListener {
         // RTFM https://jersey.java.net/documentation/latest/ioc.html
+
+        //There are to types of DataSources: tomcat's and sql's. We use both. This is the reason for long field names.
+        //Pool'i loomine
+        private org.apache.tomcat.jdbc.pool.DataSource dataSource;
+
         @Override
         protected void configure() {
             //enne Resource'ide tekitamist
@@ -42,12 +51,10 @@ public class RestApp extends ResourceConfig {
             try {
                 //injectitav objekt ->bind()
                 //SIIN SAAB INJECTIDA JA LUUA INJECTITAVAT
-                DataSource dataSource = createAndInitDatasource();
+                dataSource = createAndInitDatasource();
                 //bind(new LicenseRepository(dataSource));    //newga ei saa hk2 injectida
                 //bind(new ProductRepository(dataSource));
-
-
-                bind(dataSource);
+                bind(dataSource).to(DataSource.class);
                 bind(LicenseRepository.class).to(LicenseRepository.class).in(Singleton.class);
                 bind(ProductRepository.class).to(ProductRepository.class).in(Singleton.class);
                 bind(LicenseOwnerRepository.class).to(LicenseOwnerRepository.class).in(Singleton.class);
@@ -56,28 +63,46 @@ public class RestApp extends ResourceConfig {
             }
         }
 
-        private DataSource createAndInitDatasource() throws SQLException, IOException {
-            DataSource myDataSource = getPlaceToSaveData();
-            try (Connection dbConnection = myDataSource.getDBConnection()) {
+        protected org.apache.tomcat.jdbc.pool.DataSource createAndInitDatasource() throws SQLException, IOException {
+            org.apache.tomcat.jdbc.pool.DataSource myDataSource = getPlaceToSaveData();
+            try (Connection dbConnection = myDataSource.getConnection()) {
                 executeScriptFromClasspath(dbConnection, "dbSchema.sql");
                 executeScriptFromClasspath(dbConnection, "sampleData.sql");
             }
             return myDataSource;
         }
 
-        private DataSource getPlaceToSaveData() {
+        private org.apache.tomcat.jdbc.pool.DataSource getPlaceToSaveData() {
             Path path = Paths.get(System.getProperty("java.io.tmpdir"), "h2-licence-db");
             //Windows users have "\", linux users have "/" but h2-database needs always "/" -> replacement
             String replace = path.toString().replace("\\", "/");
             String url = "jdbc:h2:" + replace;
-            System.out.println("ANDMEBAAS ASUB: " + url);
-            return new DataSource(url, "", "");
+            System.out.println("DATABASE LOCATION IN: " + url);
+            PoolProperties pp = new PoolProperties();
+            pp.setUrl(url);
+            pp.setDriverClassName("org.h2.Driver");
+            return new org.apache.tomcat.jdbc.pool.DataSource(pp);
         }
 
-        private void executeScriptFromClasspath(Connection conn, String fileName) throws SQLException, IOException {
+        protected void executeScriptFromClasspath(Connection conn, String fileName) throws SQLException, IOException {
             try (InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(fileName)) {
                 RunScript.execute(conn, new InputStreamReader(resourceAsStream));
             }
         }
+
+        //Pool'i kinni panemine: siin pannakse datasource ka kinni
+        @Override
+        public void onEvent(ApplicationEvent event) {
+            if (event.getType() == ApplicationEvent.Type.DESTROY_FINISHED) {
+                dataSource.close();
+            }
+        }
+
+        @Override
+        public RequestEventListener onRequest(RequestEvent requestEvent) {
+            return null;
+        }
     }
+
+
 }

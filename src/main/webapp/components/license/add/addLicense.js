@@ -15,7 +15,6 @@ angular
                 return;
             }
 
-
             $http.post('rest/licenses', $scope.user).
                 //server töötleb post päringut ja kui ta on sellega lõpetanud, siis minnakse siin alles edasi
                 then(function (response) {

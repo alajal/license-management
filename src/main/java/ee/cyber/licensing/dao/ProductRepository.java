@@ -1,9 +1,9 @@
 package ee.cyber.licensing.dao;
 
-import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.Product;
 
 import javax.inject.Inject;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +21,7 @@ public class ProductRepository {
     }
 
     public List<Product> findAll() throws SQLException {
-        try (Connection conn = ds.getDBConnection()) {
+        try (Connection conn = ds.getConnection()) {
             try (PreparedStatement stmt = conn.prepareStatement("SELECT * from Product")) {
                 try (ResultSet rs = stmt.executeQuery()) {
                     List<Product> products = new ArrayList<>();
@@ -35,7 +35,7 @@ public class ProductRepository {
     }
 
     public Product save(Product product) throws SQLException {
-        try (Connection conn = ds.getDBConnection()) {
+        try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO Product (name, release) VALUES (?, ?)");
             statement.setString(1, product.getName());
             statement.setString(2, product.getRelease());
@@ -51,7 +51,7 @@ public class ProductRepository {
     }
 
     public Product getProductById(int id) throws SQLException {
-        try (Connection connection = ds.getDBConnection()) {
+        try (Connection connection = ds.getConnection()) {
             try (PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Product WHERE id = ?;")) {
                 stmt.setInt(1, id);
                 try (ResultSet resultSet = stmt.executeQuery()) {
