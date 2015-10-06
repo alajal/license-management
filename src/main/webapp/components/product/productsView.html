@@ -1,0 +1,15 @@
+<div class="container">
+    <h3>Products</h3>
+    <table class="table" id="productsTable">
+        <theader>
+            <tr>
+                <td>Product name</td>
+                <td>Product release</td>
+            </tr>
+        </theader>
+        <tr ng-repeat="product in products">
+            <td>{{ product.name }}</td>
+            <td>{{ product.release }}</td>
+        </tr>
+    </table>
+</div>

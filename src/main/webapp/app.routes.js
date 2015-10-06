@@ -10,6 +10,10 @@ angular
                 templateUrl: 'components/license/licensesView.html',
                 controller: 'ViewLicensesCtrl'
             })
+            .when('/products', {
+                templateUrl: 'components/product/productsView.html',
+                controller: 'ViewProductsCtrl'
+            })
             .when('/product/add', {
                 templateUrl: 'components/product/add/addProduct.html',
                 controller: 'AddProductCtrl'
