@@ -9,8 +9,10 @@ import org.junit.Test;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ProductPostAndGetTest extends JerseyTest {
 
@@ -36,17 +38,15 @@ public class ProductPostAndGetTest extends JerseyTest {
     @Test
     public void licenseAddedTest() throws SQLException {
 
-        Response before = target("products").request("application/json").get();
-        String beforeInString = before.readEntity(String.class);
-        Assert.assertFalse(beforeInString.contains("6.6.6"));
+        Product testProduct = new Product(1,"MindShare", "6.6.6");
+        List<Product> before = target("products").request("application/json").get(new GenericType<List<Product>>(){});
+        Assert.assertFalse(before.contains(testProduct));
 
-        Product testProduct = new Product(1, "MindShare", "6.6.6");
-            Entity<Product> productEntity = Entity.entity(testProduct, "application/json");
+        Entity<Product> productEntity = Entity.entity(testProduct, "application/json");
         target("products").request("application/json").post(productEntity);
 
-        Response response = target("products").request("application/json").get();
-        String responseInString = response.readEntity(String.class);
-        Assert.assertTrue(responseInString.contains("6.6.6"));
-        Assert.assertTrue(responseInString.contains("MindShare"));
+        List<Product> after = target("products").request("application/json").get(new GenericType<List<Product>>(){});
+        Assert.assertTrue(after.contains(testProduct));
+
     }
 }

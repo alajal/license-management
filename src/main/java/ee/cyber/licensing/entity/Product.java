@@ -15,6 +15,20 @@ public class Product {
     public Product() {
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        if (!name.equals(product.name)) return false;
+        if (!release.equals(product.release)) return false;
+
+        return true;
+    }
+
+
     public String getName() {
         return name;
     }
