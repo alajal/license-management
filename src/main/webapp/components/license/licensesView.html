@@ -1,35 +1,28 @@
 <div class="container">
     <h3>Licenses</h3>
     <table class="table" id="licensesTable">
-        <theader>
-            <tr>
-                <td>Product name</td>
-                <td>Applicant name</td>
-                <td>Organization</td>
-                <td>Email</td>
-                <td>Skype</td>
-                <td>Phone</td>
-                <td>Application area</td>
-            </tr>
-        </theader>
-        <tr ng-repeat="license in licenses">
-            <td>{{ license.product.name + ' ' + license.product.release }}</td>
-            <td>{{ license.name }}</td>
-            <td>{{ license.organization }}</td>
-            <td>{{ license.email }}</td>
-            <td>{{ license.skype }}</td>
-            <td>{{ license.phone }}</td>
-            <td>{{ license.applicationArea }}</td>
-            <td><a ng-href="#/edit/{{ license.email }}?name={{license.organization}}">Edit</a></td>
+        <tr>
+            <td>Product name</td>
+            <td>Applicant name</td>
+            <td>Organization</td>
+            <td>Email</td>
+            <td>Skype</td>
+            <td>Phone</td>
+            <td>Application area</td>
         </tr>
+        <tbody>
+            <tr ng-repeat="license in licenses">
+                <td>{{ license.product.name + ' ' + license.product.release }}</td>
+                <td>{{ license.name }}</td>
+                <td>{{ license.organization }}</td>
+                <td>{{ license.email }}</td>
+                <td>{{ license.skype }}</td>
+                <td>{{ license.phone }}</td>
+                <td>{{ license.applicationArea }}</td>
+                <td><a ng-href="#/edit/{{ license }}">Edit</a></td>
+                <td><a ng-href="#/license/{{license.id}}">View profile</a></td>
+            </tr>
+        </tbody>
     </table>
 </div>
 
-<!--
-<div>
-    <p>Current organization: {{ license.organization }}</p>
-    <label>Email: </label>
-    <input type="text" class="form-control" id="email" ng-model="license.email" required name="email">
-
-    <p> You have selected: {{license.email}}</p>
-</div>-->

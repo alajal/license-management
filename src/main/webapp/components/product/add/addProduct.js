@@ -13,10 +13,10 @@ angular
             $http.post('rest/products', $scope.product).
                 then(function (response) {
 
-                    $window.location.href = 'rest/products';
+                    $window.location.href = '#/products';
                 }, function (response) {
 
-                    console.error('Tekkis viga');
+                    console.error('There was something wrong with the add product request.');
                 });
         }
     });
