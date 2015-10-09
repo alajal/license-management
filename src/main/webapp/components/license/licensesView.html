@@ -20,12 +20,13 @@
             <td>{{ license.skype }}</td>
             <td>{{ license.phone }}</td>
             <td>{{ license.applicationArea }}</td>
-            <td><a ng-href="#/edit/{{ license.email }}?name={{license.organization}}">Edit</a></td>
+            <td><a ng-href="#/edit/{{license.id}}">Edit</a></td>
         </tr>
     </table>
 </div>
 
 <!--
+/{{ license.email }}?name={{license.organization}}
 <div>
     <p>Current organization: {{ license.organization }}</p>
     <label>Email: </label>
