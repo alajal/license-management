@@ -5,7 +5,7 @@
     <form novalidate class="form" name="form" ng-submit="saveData()">
         <div class="form-group">
             <label for="name">Product</label>
-            <select ng-options="product as (product.name + ' ' + product.release) for product in products"
+            <select ng-options="product as (product.name + ' ' + product.release) for product in products | orderBy: 'name'"
                     type="text" class="form-control" id="product" ng-model="user.product" required name="uProduct"
                     selected="">
             </select>

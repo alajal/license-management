@@ -29,6 +29,11 @@ angular
             .when('/licenseOwner/:id', {
                 templateUrl: 'components/licenseOwner/profile/profileLicenseOwner.html',
                 controller: 'ProfileLicenseOwnerCtrl',
-            });
+            })
+            .when('/edit/:id', {
+                templateUrl: 'components/license/edit.html',
+                controller: 'EditController'
+             })
+
         //$routeProvider.otherwise({redirectTo: '/'}); Is not needed at the moment.
     });
