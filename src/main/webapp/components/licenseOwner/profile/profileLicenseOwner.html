@@ -1,30 +1,29 @@
 <div class="container">
     <h3>Profile</h3>
-    <p><b>Name: </b>{{licenseOwner.name}}</br>
-      <b>Address: </b>{{licenseOwner.address}}</br>
-      <b>Webpage: </b>{{licenseOwner.webpage}}</br>
-      <b>Registration code: </b>{{licenseOwner.registrationCode}}</br>
-      <b>Phone: </b>{{licenseOwner.phone}}</br>
-      <b>Bank account: </b>{{licenseOwner.bankAccount}}</br>
-      <b>Fax: </b>{{licenseOwner.fax}}</br>
-      <b>Unit or faculty: </b>{{licenseOwner.unitOrFaculty}}</p></br>
+
+    <p><b>Name: </b>{{licenseOwner.name}}<br>
+        <b>Address: </b>{{licenseOwner.address}}<br>
+        <b>Webpage: </b>{{licenseOwner.webpage}}<br>
+        <b>Registration code: </b>{{licenseOwner.registrationCode}}<br>
+        <b>Phone: </b>{{licenseOwner.phone}}<br>
+        <b>Bank account: </b>{{licenseOwner.bankAccount}}<br>
+        <b>Fax: </b>{{licenseOwner.fax}}<br>
+        <b>Unit or faculty: </b>{{licenseOwner.unitOrFaculty}}</p><br>
 </div>
 
 
 <div class="container">
     <h3>Licenses</h3>
     <table class="table" id="licensesTable">
-        <theader>
-            <tr>
-                <td>Product name</td>
-                <td>Applicant name</td>
-                <td>Organization</td>
-                <td>Email</td>
-                <td>Skype</td>
-                <td>Phone</td>
-                <td>Application area</td>
-            </tr>
-        </theader>
+        <tr>
+            <td>Product name</td>
+            <td>Applicant name</td>
+            <td>Organization</td>
+            <td>Email</td>
+            <td>Skype</td>
+            <td>Phone</td>
+            <td>Application area</td>
+        </tr>
 
         <tr ng-repeat="license in licenses" data-ng-if="license.organization == licenseOwner.unitOrFaculty">
             <td>{{ license.product.name + ' ' + license.product.release }}</td>

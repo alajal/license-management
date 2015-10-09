@@ -1,18 +1,16 @@
 <div class="container">
     <h3>License owners</h3>
     <table class="table">
-        <theader>
-            <tr>
-                <td>Name</td>
-                <td>Address</td>
-                <td>Webpage</td>
-                <td>Registration code</td>
-                <td>Phone</td>
-                <td>Bank account</td>
-                <td>Fax</td>
-                <td>Unit or faculty</td>
-            </tr>
-        </theader>
+        <tr>
+            <td>Name</td>
+            <td>Address</td>
+            <td>Webpage</td>
+            <td>Registration code</td>
+            <td>Phone</td>
+            <td>Bank account</td>
+            <td>Fax</td>
+            <td>Unit or faculty</td>
+        </tr>
         <tbody>
         <tr ng-repeat="licenseOwner in licenseOwners">
             <td>{{ licenseOwner.name }}</td>

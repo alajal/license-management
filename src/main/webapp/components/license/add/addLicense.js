@@ -28,7 +28,7 @@ angular
                     // or server returns response with an error status.
 
                     //nt kui päringus on midagi valesti - emailis on ainult numbrid
-                    console.error('Mis iganes litsents');
+                    console.error('There was something wrong with the add license request.');
                 });
         }
     });
