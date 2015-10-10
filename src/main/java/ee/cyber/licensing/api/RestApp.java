@@ -1,5 +1,6 @@
 package ee.cyber.licensing.api;
 
+import ee.cyber.licensing.dao.AuthorisedUserRepository;
 import ee.cyber.licensing.dao.LicenseOwnerRepository;
 import ee.cyber.licensing.dao.LicenseRepository;
 import ee.cyber.licensing.dao.ProductRepository;
@@ -58,6 +59,7 @@ public class RestApp extends ResourceConfig {
                 bind(LicenseRepository.class).to(LicenseRepository.class).in(Singleton.class);
                 bind(ProductRepository.class).to(ProductRepository.class).in(Singleton.class);
                 bind(LicenseOwnerRepository.class).to(LicenseOwnerRepository.class).in(Singleton.class);
+                bind(AuthorisedUserRepository.class).to(AuthorisedUserRepository.class).in(Singleton.class);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

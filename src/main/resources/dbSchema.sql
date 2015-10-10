@@ -29,3 +29,13 @@ CREATE TABLE IF NOT EXISTS LicenseOwner (
   fax              VARCHAR(20),
   unitOrFaculty    VARCHAR(100)
 );
+
+CREATE TABLE IF NOT EXISTS AuthorisedUser (
+  id           INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  licenseId    INT                            NOT NULL,
+  firstName    VARCHAR(200)                   NOT NULL,
+  lastName     VARCHAR(100)                   NOT NULL,
+  email        VARCHAR(100)                   NOT NULL,
+  occupation   VARCHAR(100)                   NOT NULL,
+  FOREIGN KEY (licenseId) REFERENCES License (id)
+);

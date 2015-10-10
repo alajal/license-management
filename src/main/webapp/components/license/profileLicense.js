@@ -3,6 +3,12 @@ angular
     .controller('ProfileLicenseCtrl', function ($scope, $http, $routeParams, $location) {
         $scope.editorDisabled = true;
 
+        $scope.AuthorisedUserForm = false;
+
+        $scope.openAuthorisedUserForm = function () {
+            $scope.AuthorisedUserForm = true;
+        };
+
         $scope.enableEditor = function () {
             $scope.editorDisabled = false;
         };
@@ -17,7 +23,7 @@ angular
             $http.put('rest/licenses/' + $scope.license.id, $scope.license).
                 then(function (response) {
                     console.log($scope.license);
-                }, function (response){
+                }, function (response) {
                     console.error(response);
                 });
 
@@ -40,6 +46,29 @@ angular
                 console.error('There was something wrong with the view license request.');
             });
 
+        $scope.saveData = function () {
+            console.log($scope.authorised);
+            if (!$scope.form.$valid) {
+                return;
+            }
 
+            $http.post('rest/authorisedUser/bylicense/' + $routeParams.id, $scope.authorised).
+                then(function (response) {
+                    $scope.authorisedUser.push($scope.authorised);
+                    $scope.form.$setUntouched();
+                    $scope.form.$setPristine();
+                    $scope.authorised = null;
+                    $scope.AuthorisedUserForm = false;
+                }, function (response) {
+                    console.error('Something went wrong with post authorised users request.');
+                });
+        };
+
+        $http.get('rest/authorisedUser/bylicense/' + $routeParams.id).
+            then(function (response) {
+                $scope.authorisedUser = response.data;
+            }, function (response) {
+                console.error('Something went wrong with the authorised users get method.');
+            });
     });
 

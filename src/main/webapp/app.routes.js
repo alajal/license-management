@@ -33,6 +33,6 @@ angular
             .when('/licenseOwner/:id', {
                 templateUrl: 'components/licenseOwner/profile/profileLicenseOwner.html',
                 controller: 'ProfileLicenseOwnerCtrl'
-            });
+            })
         //$routeProvider.otherwise({redirectTo: '/'}); Is not needed at the moment.
     });
