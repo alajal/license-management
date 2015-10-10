@@ -1,15 +1,21 @@
 <div class="container">
     <h3>License</h3>
 
-    <p>
+    <div>
         <b>Product: </b>{{license.product.name}}<br>
-        <b>Applicant name: </b>{{license.name}}<br>
-        <b>Organization: </b>{{license.organization}}<br>
-        <b>Email: </b>{{license.email}}<br>
-        <b>Phone: </b>{{license.phone}}<br>
-        <b>Skype: </b>{{license.skype}}<br>
-        <b>Application area: </b>{{license.applicationArea}}<br>
-    </p>
+        <b>Applicant name: </b><input ng-model="license.name" ng-disabled="editorDisabled"/><br>
+        <b>Organization: </b><input ng-model="license.organization" ng-disabled="editorDisabled"/><br>
+        <b>Email: </b><input ng-model="license.email" ng-disabled="editorDisabled"/><br>
+        <b>Phone: </b><input ng-model="license.phone" ng-disabled="editorDisabled"/><br>
+        <b>Skype: </b><input ng-model="license.skype" ng-disabled="editorDisabled"/><br>
+        <b>Application area: </b><input ng-model="license.applicationArea" ng-disabled="editorDisabled"/><br>
+    </div>
+
+    <button ng-click="enableEditor()">Edit</button><br>
+    <button ng-click="save()" ng-disabled="editorDisabled">Save</button> <br>
+    <!--<button ng-click="disableEditor()" ng-disabled="editorDisabled">Cancel</button>-->
+
+
     <h3>Authorised Users</h3>
     <table class="table" id="authorisedUsersTable">
         <tr>
