@@ -87,4 +87,19 @@ public class LicenseRepository {
                 resultSet.getString("applicationArea"));
     }
 
+    public License edit(License license) throws SQLException {
+        try (Connection conn = ds.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement("UPDATE License SET name=?, organization=?, " +
+                    "email=?, skype=?, phone=?, applicationArea=? WHERE id=?");
+            statement.setString(1, license.getName());
+            statement.setString(2, license.getOrganization());
+            statement.setString(3, license.getEmail());
+            statement.setString(4, license.getSkype());
+            statement.setString(5, license.getPhone());
+            statement.setString(6, license.getApplicationArea());
+            statement.setInt(7, license.getId());
+            statement.execute();
+        }
+        return license;
+    }
 }

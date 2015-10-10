@@ -1,18 +1,21 @@
 <div class="container">
     <h3>License</h3>
 
-    <div>
-        <b>Product: </b>{{license.product.name}}<br>
-        <b>Applicant name: </b><input ng-model="license.name" ng-disabled="editorDisabled"/><br>
-        <b>Organization: </b><input ng-model="license.organization" ng-disabled="editorDisabled"/><br>
-        <b>Email: </b><input ng-model="license.email" ng-disabled="editorDisabled"/><br>
-        <b>Phone: </b><input ng-model="license.phone" ng-disabled="editorDisabled"/><br>
-        <b>Skype: </b><input ng-model="license.skype" ng-disabled="editorDisabled"/><br>
-        <b>Application area: </b><input ng-model="license.applicationArea" ng-disabled="editorDisabled"/><br>
+    <div class="form-group">
+        <b>Product: </b><input class="form-control" ng-model="license.product.name" disabled/><br>
+        <b>Applicant name: </b><input class="form-control" ng-model="license.name" ng-disabled="editorDisabled"/><br>
+        <b>Organization: </b><input class="form-control" ng-model="license.organization" ng-disabled="editorDisabled"/><br>
+        <b>Email: </b><input class="form-control" ng-model="license.email" ng-disabled="editorDisabled"/><br>
+        <b>Phone: </b><input class="form-control" ng-model="license.phone" ng-disabled="editorDisabled"/><br>
+        <b>Skype: </b><input class="form-control" ng-model="license.skype" ng-disabled="editorDisabled"/><br>
+        <b>Application area: </b><input class="form-control" ng-model="license.applicationArea" maxlength="200"
+                                        ng-disabled="editorDisabled"/><br>
     </div>
 
-    <button ng-click="enableEditor()">Edit</button><br>
-    <button ng-click="save()" ng-disabled="editorDisabled">Save</button> <br>
+    <button ng-click="enableEditor()">Edit</button>
+    <br>
+    <button ng-click="save()" ng-disabled="editorDisabled">Save</button>
+    <br>
     <!--<button ng-click="disableEditor()" ng-disabled="editorDisabled">Cancel</button>-->
 
 
