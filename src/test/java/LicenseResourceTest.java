@@ -1,8 +1,6 @@
 import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.Product;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.server.internal.monitoring.ApplicationEventImpl;
-import org.glassfish.jersey.server.monitoring.ApplicationEvent;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,7 +10,7 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 
-public class SaveAndGetLicenseTest extends JerseyTest {
+public class LicenseResourceTest extends JerseyTest {
 
     ObjConf component;
 
@@ -25,35 +23,45 @@ public class SaveAndGetLicenseTest extends JerseyTest {
         return resourceConfig;
     }
 
-    @Override
-    public void tearDown() throws Exception {
-        super.tearDown();
-        //Testkeskonnas in-memory db ei kutsu stop() meetodit, mis paneks kinni datasource'i.
-        //Siin öeldakse käsitsi, et kui Jersey jõuab testide jookustamisega lõpule, anna
-        //edasi event nimega "DESTROY_FINISHED", mille saamisel pannakse datasource kinni.
-        component.onEvent(new ApplicationEventImpl(
-                ApplicationEvent.Type.DESTROY_FINISHED,
-                null, null, null, null, null));
-    }
-
     @Test
     public void licenseAddedTest() throws SQLException {
         Response beforeResp = target("licenses").request("application/json").get();
         String beforeRespInString = beforeResp.readEntity(String.class);
         Assert.assertFalse(beforeRespInString.contains("MindShare"));
-        Assert.assertFalse(beforeRespInString.contains("anu@mail.com"));
+        Assert.assertFalse(beforeRespInString.contains("test@mail.com"));
 
         License license = new License();
         license.setProduct(new Product(1, "MindShare", "11.2"));
-        license.setName("Anu");
-        license.setOrganization("Tuulepiu");
-        license.setEmail("anu@mail.ee");
+        license.setName("Test");
+        license.setOrganization("Test Foundation");
+        license.setEmail("test@mail.ee");
         Entity<License> licenseEntity = Entity.entity(license, "application/json");
         target("licenses").request("application/json").post(licenseEntity);
 
         Response response = target("licenses").request("application/json").get();
         String responseInString = response.readEntity(String.class);
-        Assert.assertTrue(responseInString.contains("anu@mail.ee"));
+        Assert.assertTrue(responseInString.contains("test@mail.ee"));
         Assert.assertTrue(responseInString.contains("MindShare"));
+    }
+
+    @Test
+    public void licenseEditTest() throws SQLException {
+        License license = new License();
+        license.setName("Test");
+        license.setOrganization("Test Foundation");
+        license.setEmail("test@mail.ee");
+        license.setProduct(new Product(1, "MindShare", "11.2"));
+
+        Entity<License> licenseEntity = Entity.entity(license, "application/json");
+        License ls = target("licenses").request("application/json").post(licenseEntity).readEntity(License.class);
+        Assert.assertFalse(ls.getOrganization().contains("Cactus Foundation"));
+
+        ls.setOrganization("Cactus Foundation");
+        Entity<License> licenseEntityR = Entity.entity(ls, "application/json");
+        Response response = target("licenses/" + ls.getId()).request("application/json").put(licenseEntityR);
+        License s = response.readEntity(License.class);
+        Assert.assertFalse(s.getOrganization().contains("Test Foundation"));
+        Assert.assertTrue(s.getOrganization().contains("Cactus Foundation"));
+
     }
 }
