@@ -28,6 +28,19 @@ public class LicenseOwner {
     public LicenseOwner() {
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        LicenseOwner licenseOwner = (LicenseOwner) o;
+
+        if (!name.equals(licenseOwner.name)) return false;
+        if (!unitOrFaculty.equals(licenseOwner.unitOrFaculty)) return false;
+
+        return true;
+    }
+
     public Integer getId() {
         return id;
     }

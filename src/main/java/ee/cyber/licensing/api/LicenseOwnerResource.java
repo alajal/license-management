@@ -1,11 +1,13 @@
 package ee.cyber.licensing.api;
 
 import ee.cyber.licensing.dao.LicenseOwnerRepository;
+import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.LicenseOwner;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import java.util.List;
+import java.util.Objects;
 
 @Path("licenseOwners")
 public class LicenseOwnerResource {
@@ -32,4 +34,13 @@ public class LicenseOwnerResource {
         return licenseOwnerRepository.save(licenseOwner);
     }
 
+    @Path("/{id}")
+    @PUT
+    public LicenseOwner editLicenseOwner(@PathParam("id")Integer id, LicenseOwner licenseOwner) throws Exception{
+        if(Objects.equals(licenseOwner.getId(), id)){
+            return licenseOwnerRepository.edit(licenseOwner);
+        } else {
+            throw new Exception("The licenseOwner that needs update is not the one requested by browser.");
+        }
+    }
 }

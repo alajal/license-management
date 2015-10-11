@@ -11,6 +11,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
+import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.LicenseOwner;
 
 public class LicenseOwnerRepository {
@@ -81,6 +82,25 @@ public class LicenseOwnerRepository {
                 resultSet.getString("bankAccount"),
                 resultSet.getString("fax"),
                 resultSet.getString("unitOrFaculty"));
+    }
+
+    public LicenseOwner edit(LicenseOwner licenseOwner) throws SQLException {
+        try (Connection conn = ds.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement("UPDATE LicenseOwner SET name=?, " +
+                    "address=?, webpage=?, registrationCode=?, phone=?, bankAccount=?, fax=?, " +
+                    "unitOrFaculty=? WHERE id=?");
+            statement.setString(1, licenseOwner.getname());
+            statement.setString(2, licenseOwner.getAddress());
+            statement.setString(3, licenseOwner.getWebpage());
+            statement.setString(4, licenseOwner.getRegistrationCode());
+            statement.setString(5, licenseOwner.getPhone());
+            statement.setString(6, licenseOwner.getBankAccount());
+            statement.setString(7, licenseOwner.getFax());
+            statement.setString(8, licenseOwner.getUnitOrFaculty());
+            statement.setInt(9, licenseOwner.getId());
+            statement.execute();
+        }
+        return licenseOwner;
     }
 
 }

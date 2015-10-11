@@ -28,7 +28,7 @@ public class LicenseOwnerResourceTest extends JerseyTest {
 
     @Test
     public void licenseOwnerAddedTest() throws SQLException {
-        LicenseOwner testLicenseOwner = new LicenseOwner(1, "Test University", "123 Test", "www.test.com", "1TEST", "+372 55TEST", "E10TEST", "+372 55TEST", "Test Science");
+        LicenseOwner testLicenseOwner = new LicenseOwner(2, "Test University", "123 Test", "www.test.com", "1TEST", "+372 55TEST", "E10TEST", "+372 55TEST", "Test Science");
         List<LicenseOwner> before = target("licenseOwners").request("application/json").get(new GenericType<List<LicenseOwner>>(){});
         Assert.assertFalse(before.contains(testLicenseOwner));
 
@@ -55,6 +55,8 @@ public class LicenseOwnerResourceTest extends JerseyTest {
         Entity<LicenseOwner> licenseOwnerEntityR = Entity.entity(lo, "application/json");
         Response response = target("licenseOwners/" + lo.getId()).request("application/json").put(licenseOwnerEntityR);
         LicenseOwner responseLicenseOwner = response.readEntity(LicenseOwner.class);
+        System.out.println(response);
+        System.out.println(responseLicenseOwner);
         Assert.assertFalse(responseLicenseOwner.getRegistrationCode().contains("1TEST"));
         Assert.assertTrue(responseLicenseOwner.getRegistrationCode().contains("2test"));
 
