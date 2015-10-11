@@ -7,7 +7,7 @@ public class License {
     Integer id;
     Product product;
     String name;
-    String organization;
+    LicenseOwner licenseOwner;
     String email;
     String skype;
     String phone;
@@ -28,11 +28,11 @@ public class License {
     }
 
 
-    public License(Integer id, Product product, String name, String organization, String email, String skype, String phone, String applicationArea) {
+    public License(Integer id, Product product, String name, LicenseOwner licenseOwner, String email, String skype, String phone, String applicationArea) {
         this.id = id;
         this.product = product;
         this.name = name;
-        this.organization = organization;
+        this.licenseOwner = licenseOwner;
         this.email = email;
         this.skype = skype;
         this.phone = phone;
@@ -66,12 +66,12 @@ public class License {
         this.name = name;
     }
 
-    public String getOrganization() {
-        return organization;
+    public LicenseOwner getLicenseOwner() {
+        return licenseOwner;
     }
 
-    public void setOrganization(String organization) {
-        this.organization = organization;
+    public void setLicenseOwner(LicenseOwner licenseOwner) {
+        this.licenseOwner = licenseOwner;
     }
 
     public String getEmail() {

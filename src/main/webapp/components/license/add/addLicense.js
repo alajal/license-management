@@ -7,6 +7,10 @@ angular
             $scope.products = result;
         });
 
+        $http.get('rest/licenseOwners', $scope.user).success(function (result) {
+            $scope.licenseOwners = result;
+        });
+
         $scope.saveData = function () {
             console.log($scope.user);
             //tee päring

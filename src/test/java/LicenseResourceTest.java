@@ -1,4 +1,5 @@
 import ee.cyber.licensing.entity.License;
+import ee.cyber.licensing.entity.LicenseOwner;
 import ee.cyber.licensing.entity.Product;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
@@ -28,12 +29,13 @@ public class LicenseResourceTest extends JerseyTest {
         Response beforeResp = target("licenses").request("application/json").get();
         String beforeRespInString = beforeResp.readEntity(String.class);
         Assert.assertFalse(beforeRespInString.contains("MindShare"));
+        Assert.assertFalse(beforeRespInString.contains("Example University"));
         Assert.assertFalse(beforeRespInString.contains("test@mail.com"));
 
         License license = new License();
         license.setProduct(new Product(1, "MindShare", "11.2"));
         license.setName("Test");
-        license.setOrganization("Test Foundation");
+        license.setLicenseOwner(new LicenseOwner(1, "Example University", "123 Fake Street", "www.example.com", "1A2B", "+372 555555", "E100101", "+372 555555", "Example Science"));
         license.setEmail("test@mail.ee");
         Entity<License> licenseEntity = Entity.entity(license, "application/json");
         target("licenses").request("application/json").post(licenseEntity);
@@ -42,26 +44,27 @@ public class LicenseResourceTest extends JerseyTest {
         String responseInString = response.readEntity(String.class);
         Assert.assertTrue(responseInString.contains("test@mail.ee"));
         Assert.assertTrue(responseInString.contains("MindShare"));
+        Assert.assertTrue(responseInString.contains("Example University"));
     }
 
     @Test
     public void licenseEditTest() throws SQLException {
         License license = new License();
         license.setName("Test");
-        license.setOrganization("Test Foundation");
+        license.setLicenseOwner(new LicenseOwner(1, "Example University", "123 Fake Street", "www.example.com", "1A2B", "+372 555555", "E100101", "+372 555555", "Example Science"));
         license.setEmail("test@mail.ee");
         license.setProduct(new Product(1, "MindShare", "11.2"));
 
         Entity<License> licenseEntity = Entity.entity(license, "application/json");
         License ls = target("licenses").request("application/json").post(licenseEntity).readEntity(License.class);
-        Assert.assertFalse(ls.getOrganization().contains("Cactus Foundation"));
+        Assert.assertFalse(ls.getEmail().contains("cactus@mail.ee"));
 
-        ls.setOrganization("Cactus Foundation");
+        ls.setEmail("cactus@mail.ee");
         Entity<License> licenseEntityR = Entity.entity(ls, "application/json");
         Response response = target("licenses/" + ls.getId()).request("application/json").put(licenseEntityR);
         License s = response.readEntity(License.class);
-        Assert.assertFalse(s.getOrganization().contains("Test Foundation"));
-        Assert.assertTrue(s.getOrganization().contains("Cactus Foundation"));
+        Assert.assertFalse(s.getEmail().contains("test@mail.ee"));
+        Assert.assertTrue(s.getEmail().contains("cactus@mail.ee"));
 
     }
 }
