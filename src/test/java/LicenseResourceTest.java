@@ -33,7 +33,7 @@ public class LicenseResourceTest extends JerseyTest {
         Assert.assertFalse(beforeRespInString.contains("test@mail.com"));
 
         License license = new License();
-        license.setProduct(new Product(1, "MindShare", "11.2"));
+        license.setProduct(new Product(1, "i-Voting", "11.2"));
         license.setName("Test");
         license.setLicenseOwner(new LicenseOwner(1, "Example University", "123 Fake Street", "www.example.com", "1A2B", "+372 555555", "E100101", "+372 555555", "Example Science"));
         license.setEmail("test@mail.ee");
@@ -43,7 +43,7 @@ public class LicenseResourceTest extends JerseyTest {
         Response response = target("licenses").request("application/json").get();
         String responseInString = response.readEntity(String.class);
         Assert.assertTrue(responseInString.contains("test@mail.ee"));
-        Assert.assertTrue(responseInString.contains("MindShare"));
+        Assert.assertTrue(responseInString.contains("i-Voting"));
         Assert.assertTrue(responseInString.contains("Example University"));
     }
 
