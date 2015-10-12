@@ -1,4 +1,4 @@
-INSERT INTO Product (name, release) VALUES ('MindShare', '11.2');
+INSERT INTO Product (name, release) VALUES ('i-Voting', '11.2');
 INSERT INTO Product (name, release) VALUES ('ShareMind','12.6');
 
 INSERT INTO LicenseOwner (name, address, webpage, registrationCode, phone, bankAccount, fax, unitOrFaculty)
