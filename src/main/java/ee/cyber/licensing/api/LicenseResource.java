@@ -40,7 +40,7 @@ public class LicenseResource {
         if(Objects.equals(license.getId(), id)){
             return licenseRepository.edit(license);
         } else {
-            throw new Exception("The license that needs update is not the one requested by browser.");
+            throw new Exception("The license that needs update is not the one requested by client.");
         }
     }
 

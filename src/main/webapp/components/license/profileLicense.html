@@ -4,7 +4,7 @@
     <div class="form-group">
         <b>Product: </b><input class="form-control" ng-model="license.product.name" disabled/><br>
         <b>Applicant name: </b><input class="form-control" ng-model="license.name" ng-disabled="editorDisabled"/><br>
-        <b>Organization: </b><input class="form-control" ng-model="license.organization" ng-disabled="editorDisabled"/><br>
+        <b>Organization: </b><input class="form-control" ng-model="license.licenseOwner.name" disabled/><br>
         <b>Email: </b><input class="form-control" ng-model="license.email" ng-disabled="editorDisabled"/><br>
         <b>Phone: </b><input class="form-control" ng-model="license.phone" ng-disabled="editorDisabled"/><br>
         <b>Skype: </b><input class="form-control" ng-model="license.skype" ng-disabled="editorDisabled"/><br>
@@ -14,7 +14,7 @@
 
     <button ng-click="enableEditor()">Edit</button>
     <br>
-    <button ng-click="save()" ng-disabled="editorDisabled">Save</button>
+    <button ng-click="saveProfile()" ng-disabled="editorDisabled">Save</button>
     <br>
     <!--<button ng-click="disableEditor()" ng-disabled="editorDisabled">Cancel</button>-->
 

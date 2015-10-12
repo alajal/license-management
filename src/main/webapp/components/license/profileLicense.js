@@ -17,7 +17,7 @@ angular
             $scope.editorDisabled = true;
         };
 
-        $scope.save = function () {
+        $scope.saveProfile = function () {
             $scope.disableEditor();
 
             $http.put('rest/licenses/' + $scope.license.id, $scope.license).
@@ -40,6 +40,7 @@ angular
                 // this callback will be called asynchronously
                 // when the response is available
                 $scope.license = response.data[$routeParams.id - 1];
+                console.log($scope.license)
             }, function (response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.

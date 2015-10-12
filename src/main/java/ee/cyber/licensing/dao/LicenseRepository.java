@@ -55,7 +55,8 @@ public class LicenseRepository {
                     if (!resultSet.next()) {
                         throw new SQLException("Ei leitud ühtegi rida id-ga " + id);
                     }
-                    return getLicense(resultSet, productRepository.getProductById(resultSet.getInt("productId")), licenseOwnerRepository.getLicenseOwnerById(resultSet.getInt("licenseOwnerId")));
+                    return getLicense(resultSet, productRepository.getProductById(resultSet.getInt("productId")),
+                            licenseOwnerRepository.getLicenseOwnerById(resultSet.getInt("licenseOwnerId")));
                 }
             }
         }
@@ -104,7 +105,10 @@ public class LicenseRepository {
             statement.setString(4, license.getPhone());
             statement.setString(5, license.getApplicationArea());
             statement.setInt(6, license.getId());
-            statement.execute();
+            int rowCount = statement.executeUpdate();
+            if (rowCount == 0) {
+                throw new RuntimeException("No license with id: " + license.getId());
+            }
         }
         return license;
     }
