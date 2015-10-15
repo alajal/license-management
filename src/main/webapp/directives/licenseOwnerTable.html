@@ -1,0 +1,76 @@
+<form>
+ <div class="form-group">
+   <div class="input-group">
+     <div class="input-group-addon"><i class="fa fa-search"></i></div>
+     <input type="text" class="form-control" placeholder="Search license owners" ng-model="searchLicenseOwner">
+   </div>
+ </div>
+</form>
+
+<table class="table table-condensed table-striped" id="licenseOwnerTable">
+  <thead>
+    <tr>
+      <th>
+        <a href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">Name
+          <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a href="" ng-click="sortType = 'address'; sortReverse = !sortReverse">Address
+          <span ng-show="sortType == 'address' && !sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'address' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a href="" ng-click="sortType = 'webpage'; sortReverse = !sortReverse">Webpage
+          <span ng-show="sortType == 'webpage' && !sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'webpage' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a href="" ng-click="sortType = 'registrationCode'; sortReverse = !sortReverse">Registration code
+          <span ng-show="sortType == 'registrationCode' && !sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'registrationCode' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a href="" ng-click="sortType = 'Phone'; sortReverse = !sortReverse">Phone
+          <span ng-show="sortType == 'Phone' && !sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'Phone' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a href="" ng-click="sortType = 'bankAccount'; sortReverse = !sortReverse">Bank account
+          <span ng-show="sortType == 'bankAccount' && !sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'bankAccount' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a href="" ng-click="sortType = 'fax'; sortReverse = !sortReverse">Fax
+          <span ng-show="sortType == 'fax' && !sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'fax' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a href="" ng-click="sortType = 'unitOrFaculty'; sortReverse = !sortReverse">Unit or faculty
+          <span ng-show="sortType == 'unitOrFaculty' && !sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'unitOrFaculty' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="licenseOwner in licenseOwners | orderBy:sortType:sortReverse | filter:searchLicenseOwner">
+        <td>{{ licenseOwner.name }}</td>
+        <td>{{ licenseOwner.address }}</td>
+        <td>{{ licenseOwner.webpage }}</td>
+        <td>{{ licenseOwner.registrationCode }}</td>
+        <td>{{ licenseOwner.phone }}</td>
+        <td>{{ licenseOwner.bankAccount }}</td>
+        <td>{{ licenseOwner.fax }}</td>
+        <td>{{ licenseOwner.unitOrFaculty }}</td>
+        <td><a ng-href="#/licenseOwner/{{licenseOwner.id}}">View profile</a></td>
+    </tr>
+  </tbody>
+</table>

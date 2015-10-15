@@ -1,15 +1,4 @@
 <div class="container">
     <h3>Products</h3>
-    <table class="table" id="productsTable">
-        <tr>
-            <td>Product name</td>
-            <td>Product release</td>
-        </tr>
-        <tbody>
-            <tr ng-repeat="product in products">
-                <td>{{ product.name }}</td>
-                <td>{{ product.release }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <product-Table products="products"></product-Table>
 </div>
