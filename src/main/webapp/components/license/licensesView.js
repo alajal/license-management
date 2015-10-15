@@ -8,7 +8,13 @@ angular
             then(function (response) {
                 // this callback will be called asynchronously
                 // when the response is available
+                $scope.currentDate = new Date().getTime();
                 $scope.licenses = response.data;
+
+                $scope.compare = function(expDate) {
+                  var eDate = new Date(expDate);
+                  return eDate.getTime();
+                };
             }, function (response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.

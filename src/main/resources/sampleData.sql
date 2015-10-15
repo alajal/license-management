@@ -5,8 +5,8 @@ INSERT INTO LicenseOwner (name, address, webpage, registrationCode, phone, bankA
 VALUES ('Example University', '123 Fake Street', 'www.example.com', '1A2B', '+372 555555', 'E100101', '+372 555555',
         'Example Science');
 
-INSERT INTO License (productId, name, licenseOwnerId, email, skype, phone, applicationArea)
-VALUES (1, 'Mari Maasikas', 1, 'mari@test.ee', 'mari.test', '+372 555555', 'testing');
+INSERT INTO License (productId, name, licenseOwnerId, email, skype, phone, applicationArea, validFrom, ValidTill)
+VALUES (1, 'Mari Maasikas', 1, 'mari@test.ee', 'mari.test', '+372 555555', 'testing', '2015-10-17', '2015-12-17');
 
 INSERT INTO AuthorisedUser (licenseId, firstName, lastName, email, occupation)
 VALUES (1, 'John', 'Doe', 'johanna@test.com', 'student');

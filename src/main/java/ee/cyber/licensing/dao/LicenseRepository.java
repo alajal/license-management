@@ -28,7 +28,7 @@ public class LicenseRepository {
     public License save(License license) throws SQLException {
         try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO License (productId, name, " +
-                    "licenseOwnerId, email, skype, phone, applicationArea) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                    "licenseOwnerId, email, skype, phone, applicationArea, validFrom, validTill) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             statement.setInt(1, license.getProduct().getId());
             statement.setString(2, license.getName());
             statement.setInt(3, license.getLicenseOwner().getId());
@@ -36,6 +36,8 @@ public class LicenseRepository {
             statement.setString(5, license.getSkype());
             statement.setString(6, license.getPhone());
             statement.setString(7, license.getApplicationArea());
+            statement.setDate(8, license.getValidFrom());
+            statement.setDate(9, license.getValidTill());
             statement.execute();
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -92,7 +94,9 @@ public class LicenseRepository {
                 resultSet.getString("email"),
                 resultSet.getString("skype"),
                 resultSet.getString("phone"),
-                resultSet.getString("applicationArea"));
+                resultSet.getString("applicationArea"),
+                resultSet.getDate("validFrom"),
+                resultSet.getDate("validTill"));
     }
 
     public License edit(License license) throws SQLException {

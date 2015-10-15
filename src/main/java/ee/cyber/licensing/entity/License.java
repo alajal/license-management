@@ -1,7 +1,7 @@
 package ee.cyber.licensing.entity;
 
 
-import java.util.Date;
+import java.sql.Date;
 
 public class License {
     Integer id;
@@ -28,7 +28,7 @@ public class License {
     }
 
 
-    public License(Integer id, Product product, String name, LicenseOwner licenseOwner, String email, String skype, String phone, String applicationArea) {
+    public License(Integer id, Product product, String name, LicenseOwner licenseOwner, String email, String skype, String phone, String applicationArea, Date validFrom, Date validTill) {
         this.id = id;
         this.product = product;
         this.name = name;
@@ -37,6 +37,11 @@ public class License {
         this.skype = skype;
         this.phone = phone;
         this.applicationArea = applicationArea;
+        /* Enne uncommentimist tuleb liisada argumendid Date validFrom, Date validTill
+        */
+        this.validFrom = validFrom;
+        this.validTill = validTill;
+
     }
 
 
@@ -105,4 +110,23 @@ public class License {
     public void setApplicationArea(String applicationArea) {
         this.applicationArea = applicationArea;
     }
+
+
+    public Date getValidFrom() {
+        return validFrom;
+    }
+
+    public void setValidFrom(Date validFrom) {
+        this.validFrom = validFrom;
+    }
+
+
+    public Date getValidTill() {
+        return validTill;
+    }
+
+    public void setValidTill(Date validTill) {
+        this.validTill = validTill;
+    }
+
 }

@@ -1,3 +1,5 @@
+DROP TABLE License;
+
 CREATE TABLE IF NOT EXISTS Product (
   id      INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   name    VARCHAR(100)                   NOT NULL,
@@ -17,7 +19,7 @@ CREATE TABLE IF NOT EXISTS LicenseOwner (
   unitOrFaculty    VARCHAR(100)
 );
 
-CREATE TABLE IF NOT EXISTS License (
+CREATE TABLE License (
   id              INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   productId       INT                            NOT NULL,
   name            VARCHAR(100)                   NOT NULL,
@@ -26,6 +28,8 @@ CREATE TABLE IF NOT EXISTS License (
   skype           VARCHAR(20),
   phone           VARCHAR(100),
   applicationArea VARCHAR(200),
+  validFrom       DATE                           NOT NULL,
+  validTill       DATE                           NOT NULL,
   FOREIGN KEY (productId) REFERENCES Product (id),
   FOREIGN KEY (licenseOwnerId) REFERENCES LicenseOwner (id)
 );
