@@ -1,5 +1,3 @@
-DROP TABLE License;
-
 CREATE TABLE IF NOT EXISTS Product (
   id      INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   name    VARCHAR(100)                   NOT NULL,
@@ -19,7 +17,7 @@ CREATE TABLE IF NOT EXISTS LicenseOwner (
   unitOrFaculty    VARCHAR(100)
 );
 
-CREATE TABLE License (
+CREATE TABLE IF NOT EXISTS License (
   id              INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   productId       INT                            NOT NULL,
   name            VARCHAR(100)                   NOT NULL,
