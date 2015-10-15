@@ -26,8 +26,8 @@ CREATE TABLE IF NOT EXISTS License (
   skype           VARCHAR(20),
   phone           VARCHAR(100),
   applicationArea VARCHAR(200),
-  validFrom       DATE                           NOT NULL,
-  validTill       DATE                           NOT NULL,
+  validFrom       DATE,
+  validTill       DATE,
   FOREIGN KEY (productId) REFERENCES Product (id),
   FOREIGN KEY (licenseOwnerId) REFERENCES LicenseOwner (id)
 );
