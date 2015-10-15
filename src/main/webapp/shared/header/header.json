@@ -1,32 +1,50 @@
 [
   {
-    "type": "link",
-    "url": "license/add",
-    "name": "Add licenses"
+    "type": "dropdown",
+    "name": "Licenses",
+    "dropdown": [
+      {
+        "type": "link",
+        "url": "licenses",
+        "name": "View licenses"
+      },
+      {
+        "type": "link",
+        "url": "license/add",
+        "name": "Add licenses"
+      }
+    ]
   },
   {
-    "type": "link",
-    "url": "licenses",
-    "name": "View licenses"
+    "type": "dropdown",
+    "name": "Products",
+    "dropdown": [
+      {
+        "type": "link",
+        "url": "products",
+        "name": "View products"
+      },
+      {
+        "type": "link",
+        "url": "product/add",
+        "name": "Add products"
+      }
+    ]
   },
   {
-    "type": "link",
-    "url": "product/add",
-    "name": "Add products"
-  },
-  {
-    "type": "link",
-    "url": "products",
-    "name": "View products"
-  },
-  {
-    "type": "link",
-    "url": "licenseOwner/add",
-    "name": "Add license owners"
-  },
-  {
-    "type": "link",
-    "url": "licenseOwners",
-    "name": "View license owners"
+    "type": "dropdown",
+    "name": "Products",
+    "dropdown": [
+      {
+        "type": "link",
+        "url": "licenseOwners",
+        "name": "View license owners"
+      },
+      {
+        "type": "link",
+        "url": "licenseOwner/add",
+        "name": "Add license owners"
+      }
+    ]
   }
 ]
