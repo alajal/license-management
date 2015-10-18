@@ -1,0 +1,64 @@
+<div class="container">
+    <!-- Header -->
+    <div data-ng-include="'components/license/profileNavigation.html'"></div>
+    <h3>Authorised Users</h3>
+    <table class="table" id="authorisedUsersTable">
+        <tr>
+            <td>First name</td>
+            <td>Surname</td>
+            <td>Email</td>
+            <td>Occupation</td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="au in authorisedUser track by $index">
+            <td>{{ au.firstName }}</td>
+            <td>{{ au.lastName }}</td>
+            <td>{{ au.email }}</td>
+            <td>{{ au.occupation }}</td>
+            <td>
+                <button ng-click="deleteEntry(au)" class="btn btn-default">DELETE</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button ng-click="openAuthorisedUserForm()">Add authorised user</button>
+    <div ng-show="AuthorisedUserForm">
+        <form novalidate class="form" name="form" ng-submit="saveData()">
+            <div class="form-group">
+                <label for="firstName">First name</label>
+                <input type="text" class="form-control" id="firstName" ng-model="authorised.firstName" required name="authName">
+                <div ng-show="form.$submitted || form.authName.$touched">
+                    <div ng-show="form.authName.$error.required">First name is needed.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="surname">Surname</label>
+                <input type="text" class="form-control" id="surname" ng-model="authorised.lastName" required
+                       name="authSurname">
+
+                <div ng-show="form.$submitted || form.authSurname.$touched">
+                    <!--<div ng-show="form.pRelease.$error.required">Release number is needed.</div>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="text" class="form-control" id="email" ng-model="authorised.email" required
+                       name="authEmail">
+
+                <div ng-show="form.$submitted || form.authEmail.$touched">
+                    <div ng-show="form.authEmail.$error.required">Email is needed.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="occupation">Occupation</label>
+                <input type="text" class="form-control" id="occupation" ng-model="authorised.occupation" required
+                       name="authOccupation">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">SAVE</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+</div>

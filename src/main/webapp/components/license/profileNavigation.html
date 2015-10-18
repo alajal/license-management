@@ -1,0 +1,20 @@
+<div class="container">
+<!--<a ng-href="#/authorisedUser/bylicense/{{licenseId}}">Authorised Users</a>-->
+<ul class="nav navbar-nav navbar-left">
+    <li data-ng-class="{active:vm.isActive('/{{link.url}}')}">
+        <a data-ng-href="#/license/{{licenseId}}">
+            <span class="{{link.glyph}}"></span> License
+        </a>
+    </li>
+    <li data-ng-class="{active:vm.isActive('/{{link.url}}')}">
+        <a data-ng-href="#/authorisedUser/bylicense/{{licenseId}}">
+            <span class="{{link.glyph}}"></span> Authorised Users
+        </a>
+    </li>
+    <li data-ng-class="{active:vm.isActive('/{{link.url}}')}">
+        <a data-ng-href="">
+            <span class="{{link.glyph}}"></span>Contact Persons
+        </a>
+    </li>
+</ul>
+</div>
