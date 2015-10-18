@@ -1,6 +1,19 @@
 angular
     .module('LM')
     .controller('ProfileLicenseCtrl', function ($scope, $http, $routeParams, $location) {
+
+        //var vm = this;
+
+        //$http.get('').success(function (data) {
+            //vm.menu = $interpolate(data)($scope);
+        //});
+
+        //vm.isActive = function (route) {
+            //return route === $location.path();
+        //};
+
+        $scope.licenseId = $routeParams.id;
+
         $scope.editorDisabled = true;
 
         $scope.AuthorisedUserForm = false;
@@ -25,6 +38,24 @@ angular
         $scope.openAuthorisedUsersForm = function () {
             var a = $location.param1;
             $location.path('/authorisedUser/add/addAuthorisedUser');
+        };
+
+        $scope.deleteEntry = function(au){
+
+            $http.delete('rest/authorisedUser/bylicense/' + $routeParams.id + '/' + au.email).
+                then(function(response){
+                    var deletableUserIndex = $scope.authorisedUser.indexOf(au);
+                    $scope.authorisedUser.splice(deletableUserIndex,1);
+
+            },  function (response) {
+
+                    console.error('HTTP delete request failed');
+                });
+
+        };
+
+        $scope.isActive = function (viewLocation) {
+            return viewLocation === $location.path();
         };
 
         $http.get('rest/licenses').

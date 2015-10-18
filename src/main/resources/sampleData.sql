@@ -9,4 +9,3 @@ VALUES (1, 'Mari Maasikas', 'Tuulepuumets', 'marii@kiisumets.ee', 'marii.kiisume
 INSERT INTO LicenseOwner (name, address, webpage, registrationCode, phone, bankAccount, fax, unitOrFaculty)
 VALUES ('Example University', '123 Fake Street', 'www.example.com', '1A2B', '+372 555555', 'E100101', '+372 555555', 'Example Science');
 
-INSERT INTO AuthorisedUser (licenseId, firstName, lastName, email, occupation) VALUES (1, 'John','Doe', 'johanna@gmail.com','student');
