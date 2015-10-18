@@ -2,6 +2,7 @@ package ee.cyber.licensing.dao;
 
 
 import ee.cyber.licensing.entity.License;
+import ee.cyber.licensing.entity.LicenseOwner;
 import ee.cyber.licensing.entity.Product;
 
 import javax.inject.Inject;
@@ -21,17 +22,22 @@ public class LicenseRepository {
     @Inject
     private ProductRepository productRepository;
 
+    @Inject
+    private LicenseOwnerRepository licenseOwnerRepository;
+
     public License save(License license) throws SQLException {
         try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO License (productId, name, " +
-                    "organization, email, skype, phone, applicationArea) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                    "licenseOwnerId, email, skype, phone, applicationArea, validFrom, validTill) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             statement.setInt(1, license.getProduct().getId());
             statement.setString(2, license.getName());
-            statement.setString(3, license.getOrganization());
+            statement.setInt(3, license.getLicenseOwner().getId());
             statement.setString(4, license.getEmail());
             statement.setString(5, license.getSkype());
             statement.setString(6, license.getPhone());
             statement.setString(7, license.getApplicationArea());
+            statement.setDate(8, license.getValidFrom());
+            statement.setDate(9, license.getValidTill());
             statement.execute();
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -51,7 +57,8 @@ public class LicenseRepository {
                     if (!resultSet.next()) {
                         throw new SQLException("Ei leitud ühtegi rida id-ga " + id);
                     }
-                    return getLicense(resultSet, productRepository.getProductById(resultSet.getInt("productId")));
+                    return getLicense(resultSet, productRepository.getProductById(resultSet.getInt("productId")),
+                            licenseOwnerRepository.getLicenseOwnerById(resultSet.getInt("licenseOwnerId")));
                 }
             }
         }
@@ -66,7 +73,10 @@ public class LicenseRepository {
                     while (resultSet.next()) {
                         int productId = resultSet.getInt("productId");
                         Product productById = productRepository.getProductById(productId);
-                        License license = getLicense(resultSet, productById);
+                        int licenseOwnerId = resultSet.getInt("licenseOwnerId");
+                        LicenseOwner licenseOwnerById = licenseOwnerRepository.getLicenseOwnerById(licenseOwnerId);
+
+                        License license = getLicense(resultSet, productById, licenseOwnerById);
                         licenses.add(license);
                     }
                     return licenses;
@@ -75,16 +85,35 @@ public class LicenseRepository {
         }
     }
 
-    private License getLicense(ResultSet resultSet, Product product) throws SQLException {
+    private License getLicense(ResultSet resultSet, Product product, LicenseOwner licenseOwner) throws SQLException {
         return new License(
                 resultSet.getInt("id"),
                 product,
                 resultSet.getString("name"),
-                resultSet.getString("organization"),
+                licenseOwner,
                 resultSet.getString("email"),
                 resultSet.getString("skype"),
                 resultSet.getString("phone"),
-                resultSet.getString("applicationArea"));
+                resultSet.getString("applicationArea"),
+                resultSet.getDate("validFrom"),
+                resultSet.getDate("validTill"));
     }
 
+    public License edit(License license) throws SQLException {
+        try (Connection conn = ds.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement("UPDATE License SET name=?, " +
+                    "email=?, skype=?, phone=?, applicationArea=? WHERE id=?");
+            statement.setString(1, license.getName());
+            statement.setString(2, license.getEmail());
+            statement.setString(3, license.getSkype());
+            statement.setString(4, license.getPhone());
+            statement.setString(5, license.getApplicationArea());
+            statement.setInt(6, license.getId());
+            int rowCount = statement.executeUpdate();
+            if (rowCount == 0) {
+                throw new RuntimeException("No license with id: " + license.getId());
+            }
+        }
+        return license;
+    }
 }

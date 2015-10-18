@@ -38,5 +38,9 @@ angular
                 templateUrl: 'components/licenseOwner/profile/profileLicenseOwner.html',
                 controller: 'ProfileLicenseOwnerCtrl'
             })
+            .when('/', {
+              templateUrl: 'components/home/home.html',
+              controller: 'HomeCtrl'
+            })
         //$routeProvider.otherwise({redirectTo: '/'}); Is not needed at the moment.
     });

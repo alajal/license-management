@@ -1,40 +1,36 @@
 <div class="container">
     <h3>Profile</h3>
-
-    <p><b>Name: </b>{{licenseOwner.name}}<br>
-        <b>Address: </b>{{licenseOwner.address}}<br>
-        <b>Webpage: </b>{{licenseOwner.webpage}}<br>
-        <b>Registration code: </b>{{licenseOwner.registrationCode}}<br>
-        <b>Phone: </b>{{licenseOwner.phone}}<br>
-        <b>Bank account: </b>{{licenseOwner.bankAccount}}<br>
-        <b>Fax: </b>{{licenseOwner.fax}}<br>
-        <b>Unit or faculty: </b>{{licenseOwner.unitOrFaculty}}</p><br>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="col-lg-6">
+          <p><b>Name: <br>
+              Address: <br>
+              Webpage: <br>
+              Registration code: <br>
+              Phone: <br>
+              Bank account: <br>
+              Fax: <br>
+              Unit or faculty:
+          </p></b><br>
+        </div>
+        <div class="col-lg-6">
+          <p>
+            {{licenseOwner.name}}<br>
+            {{licenseOwner.address}}<br>
+            {{licenseOwner.webpage}}<br>
+            {{licenseOwner.registrationCode}}<br>
+            {{licenseOwner.phone}}<br>
+            {{licenseOwner.bankAccount}}<br>
+            {{licenseOwner.fax}}<br>
+            {{licenseOwner.unitOrFaculty}}<br>
+          </p>
+        </div>
+      </div>
+    </div>
 </div>
 
 
 <div class="container">
     <h3>Licenses</h3>
-    <table class="table" id="licensesTable">
-        <tr>
-            <td>Product name</td>
-            <td>Applicant name</td>
-            <td>Organization</td>
-            <td>Email</td>
-            <td>Skype</td>
-            <td>Phone</td>
-            <td>Application area</td>
-        </tr>
-
-        <tr ng-repeat="license in licenses" data-ng-if="license.organization == licenseOwner.unitOrFaculty">
-            <td>{{ license.product.name + ' ' + license.product.release }}</td>
-            <td>{{ license.name }}</td>
-            <td>{{ license.organization }}</td>
-            <td>{{ license.email }}</td>
-            <td>{{ license.skype }}</td>
-            <td>{{ license.phone }}</td>
-            <td>{{ license.applicationArea }}</td>
-            <td><a ng-href="#/edit/{{ license.email }}?name={{license.organization}}">Edit</a></td>
-        </tr>
-    </table>
-
+    <license-Table licenses="licenses" license-Owner="licenseOwner"></license-Table>
 </div>

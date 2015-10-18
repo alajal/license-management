@@ -18,7 +18,7 @@ angular
 
         $scope.AuthorisedUserForm = false;
 
-        $scope.openAuthorisedUserForm = function() {
+        $scope.openAuthorisedUserForm = function () {
             $scope.AuthorisedUserForm = true;
         };
 
@@ -30,8 +30,16 @@ angular
             $scope.editorDisabled = true;
         };
 
-        $scope.save = function () {
+        $scope.saveProfile = function () {
             $scope.disableEditor();
+
+            $http.put('rest/licenses/' + $scope.license.id, $scope.license).
+                then(function (response) {
+                    console.log($scope.license);
+                }, function (response) {
+                    console.error(response);
+                });
+
         };
 
 
@@ -59,18 +67,14 @@ angular
         };
 
         $http.get('rest/licenses').
-            //server töötleb post päringut ja kui ta on sellega lõpetanud, siis minnakse siin alles edasi
             then(function (response) {
                 // this callback will be called asynchronously
                 // when the response is available
                 $scope.license = response.data[$routeParams.id - 1];
-                console.log($scope.license);
-                console.log($scope.license.product.name);
-                console.log($routeParams);
+                console.log($scope.license)
             }, function (response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-
                 console.error('There was something wrong with the view license request.');
             });
 
@@ -90,9 +94,9 @@ angular
                 }, function (response) {
                     console.error('Something went wrong with post authorised users request.');
                 });
-        }
+        };
 
-        $http.get('rest/authorisedUser/bylicense/'+ $routeParams.id).
+        $http.get('rest/authorisedUser/bylicense/' + $routeParams.id).
             then(function (response) {
                 $scope.authorisedUser = response.data;
             }, function (response) {

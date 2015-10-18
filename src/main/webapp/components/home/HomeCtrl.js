@@ -1,8 +1,6 @@
-// Add controller to module.
-angular
-    .module('LM')
-    .controller('ViewLicensesCtrl', function ($scope, $http) {
-
+angular.module('LM')
+    .controller('HomeCtrl', function ($scope, $http) {
+        /*
         $http.get('rest/licenses').
             //server töötleb post päringut ja kui ta on sellega lõpetanud, siis minnakse siin alles edasi
             then(function (response) {
@@ -17,5 +15,5 @@ angular
                 //nt kui päringus on midagi valesti - emailis on ainult numbrid
                 console.error('There was something wrong with the view licenses request.');
             });
-
+            */
     });

@@ -1,26 +1,4 @@
 <div class="container">
     <h3>Licenses</h3>
-    <table class="table" id="licensesTable">
-        <theader>
-            <tr>
-                <td>Product name</td>
-                <td>Applicant name</td>
-                <td>Organization</td>
-                <td>Email</td>
-                <td>Skype</td>
-                <td>Phone</td>
-                <td>Application area</td>
-            </tr>
-        </theader>
-        <tr ng-repeat="license in licenses">
-            <td>{{ license.product.name + ' ' + license.product.release }}</td>
-            <td>{{ license.name }}</td>
-            <td>{{ license.organization }}</td>
-            <td>{{ license.email }}</td>
-            <td>{{ license.skype }}</td>
-            <td>{{ license.phone }}</td>
-            <td>{{ license.applicationArea }}</td>
-            <td><a ng-href="#/license/{{license.id}}">View profile</a></td>
-        </tr>
-    </table>
+    <license-Table licenses="licenses"></license-Table>
 </div>

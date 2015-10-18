@@ -1,8 +1,5 @@
-import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.Product;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.server.internal.monitoring.ApplicationEventImpl;
-import org.glassfish.jersey.server.monitoring.ApplicationEvent;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,7 +7,6 @@ import org.junit.Test;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -27,16 +23,8 @@ public class ProductPostAndGetTest extends JerseyTest {
         return resourceConfig;
     }
 
-    @Override
-    public void tearDown() throws Exception {
-        super.tearDown();
-        component.onEvent(new ApplicationEventImpl(
-                ApplicationEvent.Type.DESTROY_FINISHED,
-                null, null, null, null, null));
-    }
-
     @Test
-    public void licenseAddedTest() throws SQLException {
+    public void productAddedTest() throws SQLException {
 
         Product testProduct = new Product(1,"MindShare", "6.6.6");
         List<Product> before = target("products").request("application/json").get(new GenericType<List<Product>>(){});
