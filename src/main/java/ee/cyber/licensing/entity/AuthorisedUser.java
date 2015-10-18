@@ -1,8 +1,12 @@
 package ee.cyber.licensing.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Created by siiri on 10/10/15.
  */
+
+
 public class AuthorisedUser {
 
     Integer id;
@@ -12,7 +16,9 @@ public class AuthorisedUser {
     String email;
     String occupation;
 
-    public AuthorisedUser(){}
+    public AuthorisedUser(){
+
+    }
 
     public AuthorisedUser(Integer id, License license, String firstName, String lastName, String email, String occupation) {
         this.id = id;

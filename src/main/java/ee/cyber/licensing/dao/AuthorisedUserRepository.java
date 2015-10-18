@@ -59,6 +59,16 @@ public class AuthorisedUserRepository {
         }
     }
 
+    public AuthorisedUser findByEmail(Integer licenseId, String email) throws SQLException {
+        List<AuthorisedUser> users = findAll(licenseId);
+        for(AuthorisedUser user : users){
+            if(user.getEmail().equals(email)){
+                return user;
+            }
+        }
+        throw new IllegalArgumentException("No suitable user found");
+    }
+
     private AuthorisedUser getAuthorisedUser(ResultSet rs, License license) throws SQLException {
         return new AuthorisedUser(
                 rs.getInt("id"),
@@ -74,5 +84,21 @@ public class AuthorisedUserRepository {
         License license = licenseRepository.findById(licenseId);
         au.setLicense(license);
         return save(au);
+    }
+
+    public AuthorisedUser deleteAuthorisedUser(Integer licenseId, AuthorisedUser au) throws SQLException {
+        try (Connection conn = ds.getConnection()) {
+            PreparedStatement stmnt = conn.prepareStatement("DELETE from AuthorisedUser where email=? and licenseId =?;");
+            stmnt.setString(1, au.getEmail());
+            stmnt.setInt(2, licenseId);
+            stmnt.execute();
+
+            try (ResultSet generatedKeys = stmnt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    au.setId(generatedKeys.getInt(1));
+                }
+            }
+        }
+        return au;
     }
 }

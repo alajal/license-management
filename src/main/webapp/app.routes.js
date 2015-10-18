@@ -14,6 +14,10 @@ angular
                 templateUrl: 'components/license/profileLicense.html',
                 controller: 'ProfileLicenseCtrl'
             })
+            .when('/authorisedUser/bylicense/:id', {
+                templateUrl: 'components/license/usersView.html',
+                controller: 'ProfileLicenseCtrl'
+            })
             .when('/products', {
                 templateUrl: 'components/product/productsView.html',
                 controller: 'ViewProductsCtrl'
