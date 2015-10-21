@@ -36,6 +36,26 @@
             <version>2.21</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+          <groupId>org.apache.shiro</groupId>
+          <artifactId>shiro-core</artifactId>
+          <version>1.2.4</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.shiro</groupId>
+          <artifactId>shiro-web</artifactId>
+          <version>1.2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.12</version>
+        </dependency>
+        <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.1.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -81,7 +101,7 @@
                 <version>2.6</version>
                 <configuration>
                     <warName>lm</warName>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <failOnMissingWebXml>true</failOnMissingWebXml>
                 </configuration>
             </plugin>
         </plugins>
