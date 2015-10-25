@@ -59,10 +59,10 @@ public class AuthorisedUserRepository {
         }
     }
 
-    public AuthorisedUser findByEmail(Integer licenseId, String email) throws SQLException {
+    public AuthorisedUser findById(Integer licenseId, Integer id) throws SQLException {
         List<AuthorisedUser> users = findAll(licenseId);
         for(AuthorisedUser user : users){
-            if(user.getEmail().equals(email)){
+            if(user.getId().equals(id)){
                 return user;
             }
         }
@@ -98,6 +98,20 @@ public class AuthorisedUserRepository {
                     au.setId(generatedKeys.getInt(1));
                 }
             }
+        }
+        return au;
+    }
+
+    public AuthorisedUser editAuthorisedUser(Integer licenseId, AuthorisedUser au) throws SQLException {
+        try (Connection conn = ds.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement("UPDATE AuthorisedUser SET firstName=?, lastName=?, email=?, occupation=? WHERE licenseId=? and id=?");
+            statement.setString(1, au.getFirstName());
+            statement.setString(2, au.getLastName());
+            statement.setString(3, au.getEmail());
+            statement.setString(4, au.getOccupation());
+            statement.setInt(5, licenseId);
+            statement.setInt(6, au.getId());
+            statement.executeUpdate();
         }
         return au;
     }

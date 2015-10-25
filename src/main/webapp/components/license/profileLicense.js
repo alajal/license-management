@@ -2,24 +2,29 @@ angular
     .module('LM')
     .controller('ProfileLicenseCtrl', function ($scope, $http, $routeParams, $location) {
 
-        //var vm = this;
-
-        //$http.get('').success(function (data) {
-            //vm.menu = $interpolate(data)($scope);
-        //});
-
-        //vm.isActive = function (route) {
-            //return route === $location.path();
-        //};
-
         $scope.licenseId = $routeParams.id;
 
         $scope.editorDisabled = true;
 
         $scope.AuthorisedUserForm = false;
 
+        $scope.rowforms = {};
+
         $scope.openAuthorisedUserForm = function () {
-            $scope.AuthorisedUserForm = true;
+            //$scope.AuthorisedUserForm = true;
+            var newLineNotThere = true;
+            for(var i = 0; i < $scope.authorisedUser.length; i++){
+                if(typeof $scope.authorisedUser[i].id === "undefined"){
+                    newLineNotThere = false;
+                    break;
+                }
+            }
+            if(newLineNotThere){
+                var newUser = {};
+                $scope.authorisedUser.push(newUser);
+                $scope.selected = newUser;
+            }
+
         };
 
         $scope.enableEditor = function () {
@@ -39,9 +44,7 @@ angular
                 }, function (response) {
                     console.error(response);
                 });
-
         };
-
 
         $scope.openAuthorisedUsersForm = function () {
             var a = $location.param1;
@@ -50,7 +53,7 @@ angular
 
         $scope.deleteEntry = function(au){
 
-            $http.delete('rest/authorisedUser/bylicense/' + $routeParams.id + '/' + au.email).
+            $http.delete('rest/authorisedUser/bylicense/' + $routeParams.id + '/' + au.id).
                 then(function(response){
                     var deletableUserIndex = $scope.authorisedUser.indexOf(au);
                     $scope.authorisedUser.splice(deletableUserIndex,1);
@@ -59,7 +62,6 @@ angular
 
                     console.error('HTTP delete request failed');
                 });
-
         };
 
         $scope.isActive = function (viewLocation) {
@@ -86,7 +88,7 @@ angular
 
             $http.post('rest/authorisedUser/bylicense/' + $routeParams.id, $scope.authorised).
                 then(function (response) {
-                    $scope.authorisedUser.push($scope.authorised);
+                    $scope.authorisedUser.push(response.data);
                     $scope.form.$setUntouched();
                     $scope.form.$setPristine();
                     $scope.authorised = null;
@@ -102,5 +104,74 @@ angular
             }, function (response) {
                 console.error('Something went wrong with the authorised users get method.');
             });
+
+        $scope.getScriptId = function(au){
+            if($scope.selected && au.id === $scope.selected.id){ // or au.id == null
+                return 'edit';
+            }
+            else return 'display';
+        };
+
+        $scope.editAuthorisedUser = function(au){
+            $scope.selected = angular.copy(au); //creates a copy of au and stores it to $scope.selected variable which will be edited
+
+        };
+
+        $scope.save = function(au){
+
+            if(typeof au.id === "undefined"){
+                console.log(au);
+                if (!$scope.rowforms.form.$valid) {
+                    console.log(au, " not valid");
+                    return;
+                }
+
+                $http.post('rest/authorisedUser/bylicense/' + $routeParams.id, au).
+                    then(function (response) {
+                        $.extend(au, response.data); //response.data adds id. This is stored in au.
+                        $scope.selected = {};
+
+                    }, function (response) {
+                        console.error('Something went wrong with post authorised users request.');
+                    });
+            }
+            else{
+                $.extend(au,$scope.selected); //jQuery extend method to save the changes made in $scope.selected to au
+                $http.put('rest/authorisedUser/bylicense/' + $routeParams.id, au).then(function(response){
+                    console.log($scope.selected);
+                }, function (response) {
+                    console.error(response);
+
+                });
+
+                $scope.selected = {};
+            }
+        };
+
+
+        $scope.updateAuthorisedUser = function(au){
+            $.extend(au,$scope.selected); //jQuery extend method to save the changes made in $scope.selected to au
+            $http.put('rest/authorisedUser/bylicense/' + $routeParams.id, au).then(function(response){
+            console.log($scope.selected);
+        }, function (response) {
+            console.error(response);
+
+            });
+
+            $scope.selected = {};
+
+        };
+
+        $scope.reset = function(au){
+            if(typeof au.id === "undefined"){
+                var deletableUserIndex = $scope.authorisedUser.indexOf($scope.authorisedUser.length-1);
+                $scope.authorisedUser.splice(deletableUserIndex,1);
+            }
+            else{
+                $scope.selected = {};
+            }
+        };
+
+
     });
 

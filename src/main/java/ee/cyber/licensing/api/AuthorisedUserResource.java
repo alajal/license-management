@@ -27,11 +27,18 @@ public class AuthorisedUserResource {
     }
 
     @DELETE
-    @Path("bylicense/{licenseId}/{email}")
+    @Path("bylicense/{licenseId}/{userId}")
     //@Consumes("application/json")
     @Consumes("text/plain")
-    public AuthorisedUser deleteUserByEmail(@PathParam("licenseId") int licenseId, @PathParam("email") String email) throws Exception {
-        return authorisedUserRepository.deleteAuthorisedUser(licenseId, authorisedUserRepository.findByEmail(licenseId, email));
+    public AuthorisedUser deleteUserByEmail(@PathParam("licenseId") int licenseId, @PathParam("userId") int userId) throws Exception {
+        return authorisedUserRepository.deleteAuthorisedUser(licenseId, authorisedUserRepository.findById(licenseId, userId));
 
     }
+
+    @PUT
+    @Path("bylicense/{licenseId}")
+    public AuthorisedUser editAuthorisedUser(@PathParam("licenseId") int licenseId, AuthorisedUser au) throws Exception {
+        return authorisedUserRepository.editAuthorisedUser(licenseId, au);
+    }
+
 }
