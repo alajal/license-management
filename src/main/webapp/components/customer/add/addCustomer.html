@@ -1,0 +1,57 @@
+<div class="container">
+    <h3>Create customer/applicant</h3>
+    <br>
+
+    <div>
+        <label>ORGANIZATION</label>
+
+        <form novalidate class="form" name="form" ng-submit="saveData()">
+            <div class="form-group">
+                <label for="nameOrganization">Organization name</label>
+                <input type="text" class="form-control" id="nameOrganization" ng-model="applicant.customer.name" required name="pName">
+                <div ng-show="form.$submitted || form.pName.$touched">
+                    <div ng-show="form.pName.$error.required">Organization name is needed.</div>
+                </div>
+            </div>
+
+            <div class="form-group border">
+                <label for="applicationArea">Application area</label>
+                <input type="text" class="form-control" id="applicationArea" ng-model="applicant.customer.applicationArea">
+            </div>
+
+            <br>
+            <label>CONTACT</label>
+
+            <div class="form-group">
+                <label for="nameContact">Name</label>
+                <input type="text" class="form-control" id="nameContact" ng-model="applicant.contact.name" required name="uName">
+
+                <div ng-show="form.$submitted || form.uName.$touched">
+                    <div ng-show="form.uName.$error.required">Contact name is needed.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" required ng-model="applicant.contact.email" name="email">
+
+                <div ng-show="form.$submitted || form.email.$touched">
+                    <span ng-show="form.email.$error.required">Email is needed.</span>
+                    <span ng-show="form.email.$error.email">This is not a valid email.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="skype">Skype</label>
+                <input type="text" class="form-control" id="skype" ng-model="applicant.contact.skype" name="uSkype">
+            </div>
+            <div class="form-group border">
+                <label for="phone">Phone</label>
+                <input type="text" class="form-control" id="phone" ng-model="applicant.contact.phone">
+            </div>
+        </form>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">SUBMIT and NEXT</button>
+    </div>
+
+</div>

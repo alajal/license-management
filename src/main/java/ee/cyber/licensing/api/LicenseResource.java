@@ -1,8 +1,7 @@
 package ee.cyber.licensing.api;
 
-import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.dao.LicenseRepository;
-import ee.cyber.licensing.entity.Product;
+import ee.cyber.licensing.entity.License;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -38,7 +37,7 @@ public class LicenseResource {
     @PUT
     public License editLicense(@PathParam("id")Integer id, License license) throws Exception{
         if(Objects.equals(license.getId(), id)){
-            return licenseRepository.edit(license);
+            return licenseRepository.update(license);
         } else {
             throw new Exception("The license that needs update is not the one requested by client.");
         }

@@ -7,7 +7,7 @@ app.directive('licenseOwnerTable', function() {
       //scope.heads = { h:['name', 'address', 'webpage', 'registrationCode', 'phone', 'bankAccount', 'fax', 'unitOrFaculty']};
 
       //used for sorting
-      scope.sortType     = 'name'; // set the default sort type
+      scope.sortType     = 'organizationName'; // set the default sort type
       scope.sortReverse  = false;  // set the default sort order
       scope.searchLicenseOwner   = '';     // set the default search/filter term
 

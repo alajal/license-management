@@ -2,9 +2,6 @@ package ee.cyber.licensing.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-/**
- * Created by siiri on 10/10/15.
- */
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class AuthorisedUser {

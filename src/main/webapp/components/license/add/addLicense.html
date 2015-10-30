@@ -1,59 +1,33 @@
 <!-- Add license form -->
 <div class="container">
-    <h3>New license form</h3>
+    <h3>Create license</h3>
 
     <form novalidate class="form" name="form" ng-submit="saveData()">
         <div class="form-group">
-            <label for="name">Product</label>
-            <select ng-options="product as (product.name + ' ' + product.release) for product in products | orderBy: 'name'"
-                    type="text" class="form-control" id="product" ng-model="user.product" required name="uProduct"
-                    selected="">
-            </select>
+            <label for="product">Product</label>
+            <input type="text" class="form-control" id="product" ng-model="user.product" disabled>
+        </div>
 
-            <div ng-show="form.$submitted || form.uProduct.$touched">
-                <div ng-show="form.uProduct.$error.required">Product is needed.</div>
-            </div>
-        </div>
         <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" ng-model="user.name" required name="uName">
+            <label for="customer">License owner</label>
+            <input type="text" class="form-control" id="customer" ng-model="user.customer" disabled>
+        </div>
 
-            <div ng-show="form.$submitted || form.uName.$touched">
-                <div ng-show="form.uName.$error.required">Name is needed.</div>
-            </div>
-        </div>
         <div class="form-group">
-            <label for="licenseOwner">License owner</label>
-            <select ng-options="licenseOwner as (licenseOwner.name) for licenseOwner in licenseOwners | orderBy: 'name'"
-                    type="text" class="form-control" id="licenseOwner" ng-model="user.licenseOwner" required name="uLicenseOwner"
-                    selected="">
-            </select>
+            <label for="customer">License contract number</label>
+            <input type="text" class="form-control" id="contractNumber" ng-model="user.contractNumber" disabled>
+        </div>
 
-            <div ng-show="form.$submitted || form.uOrganization.$touched">
-                <div ng-show="form.uOrganization.$error.required">Organization is needed.</div>
-            </div>
-        </div>
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" required ng-model="user.email" name="email">
+            <label for="customer">License predecessor</label>
+            <input type="text" class="form-control" id="predecessor" ng-model="user.predecessor" disabled>
+        </div>
 
-            <div ng-show="form.$submitted || form.email.$touched">
-                <span ng-show="form.email.$error.required">Email is needed.</span>
-                <span ng-show="form.email.$error.email">This is not a valid email.</span>
-            </div>
-        </div>
         <div class="form-group">
-            <label for="skype">Skype</label>
-            <input type="text" class="form-control" id="skype" ng-model="user.skype" name="uSkype">
+            <label for="customer">License state</label>
+            <input type="text" class="form-control" id="state" ng-model="user.state" disabled>
         </div>
-        <div class="form-group">
-            <label for="phone">Phone</label>
-            <input type="text" class="form-control" id="phone" ng-model="user.phone">
-        </div>
-        <div class="form-group">
-            <label for="applicationArea">Application area</label>
-            <input type="text" class="form-control" id="applicationArea" ng-model="user.applicationArea">
-        </div>
+
         <div class="form-group">
             <label for="validFrom">Valid From(ex. '2015-10-15')</label>
             <input type="text" class="form-control" id="validFrom" ng-model="user.validFrom">

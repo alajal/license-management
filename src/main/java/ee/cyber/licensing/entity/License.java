@@ -5,47 +5,49 @@ import java.sql.Date;
 
 public class License {
     Integer id;
+
     Product product;
-    String name;
-    LicenseOwner licenseOwner;
-    String email;
-    String skype;
-    String phone;
-    String applicationArea;
+    Customer customer;
+
     String contractNumber;
+    State state;
+    Integer predecessorLicenseId;
     Date validFrom;
     Date validTill;
-    State licenseState;
-    Integer predecessor;
     Date applicationSubmitDate;
 
     //id, productId,contactName, organization, email, skype, phone, applicationArea, contractnr(Dan loob ise),
     //dan saab valida kahe state'i vahel, license active state siduda validFrom, preecessor on täiendinfo all
 
-
-    //DEFAULT CONSTRUCTOR
     public License() {
     }
 
 
-    public License(Integer id, Product product, String name, LicenseOwner licenseOwner, String email, String skype, String phone, String applicationArea, Date validFrom, Date validTill) {
-        this.id = id;
+    public License(Product product, Customer customer, String contractNumber, Date validFrom, Date validTill, State state, Integer predecessorLicenseId, Date applicationSubmitDate) {
         this.product = product;
-        this.name = name;
-        this.licenseOwner = licenseOwner;
-        this.email = email;
-        this.skype = skype;
-        this.phone = phone;
-        this.applicationArea = applicationArea;
-        /* Enne uncommentimist tuleb liisada argumendid Date validFrom, Date validTill
-        */
+        this.customer = customer;
+        this.contractNumber = contractNumber;
         this.validFrom = validFrom;
         this.validTill = validTill;
-
+        this.state = state;
+        this.predecessorLicenseId = predecessorLicenseId;
+        this.applicationSubmitDate = applicationSubmitDate;
     }
 
+    public License(Integer id, Product product, Customer customer, String contractNumber, State state, Integer predecessorLicenseId, Date validFrom, Date validTill, Date applicationSubmitDate) {
+        this.id = id;
+        this.product = product;
+        this.customer = customer;
+        this.contractNumber = contractNumber;
+        this.state = state;
+        this.predecessorLicenseId = predecessorLicenseId;
+        this.validFrom = validFrom;
+        this.validTill = validTill;
+        this.applicationSubmitDate = applicationSubmitDate;
+    }
 
     //UNUSED GETTERS AND SETTERS FOR JERSEY WHEN DEALING WITH ARRAYS
+
 
     public Integer getId() {
         return id;
@@ -63,54 +65,21 @@ public class License {
         this.product = product;
     }
 
-    public String getName() {
-        return name;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public LicenseOwner getLicenseOwner() {
-        return licenseOwner;
+    public String getContractNumber() {
+        return contractNumber;
     }
 
-    public void setLicenseOwner(LicenseOwner licenseOwner) {
-        this.licenseOwner = licenseOwner;
+    public void setContractNumber(String contractNumber) {
+        this.contractNumber = contractNumber;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSkype() {
-        return skype;
-    }
-
-    public void setSkype(String skype) {
-        this.skype = skype;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getApplicationArea() {
-        return applicationArea;
-    }
-
-    public void setApplicationArea(String applicationArea) {
-        this.applicationArea = applicationArea;
-    }
-
 
     public Date getValidFrom() {
         return validFrom;
@@ -120,7 +89,6 @@ public class License {
         this.validFrom = validFrom;
     }
 
-
     public Date getValidTill() {
         return validTill;
     }
@@ -129,4 +97,27 @@ public class License {
         this.validTill = validTill;
     }
 
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public Integer getPredecessorLicenseId() {
+        return predecessorLicenseId;
+    }
+
+    public void setPredecessorLicenseId(Integer predecessorLicenseId) {
+        this.predecessorLicenseId = predecessorLicenseId;
+    }
+
+    public Date getApplicationSubmitDate() {
+        return applicationSubmitDate;
+    }
+
+    public void setApplicationSubmitDate(Date applicationSubmitDate) {
+        this.applicationSubmitDate = applicationSubmitDate;
+    }
 }

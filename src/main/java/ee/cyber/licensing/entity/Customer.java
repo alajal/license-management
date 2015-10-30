@@ -1,21 +1,33 @@
 package ee.cyber.licensing.entity;
 
-public class LicenseOwner {
+public class Customer {
 
-    Integer id;
-    String name;
-    String address;
-    String webpage;
-    String registrationCode;
-    String phone;
-    String bankAccount;
-    String fax;
-    String unitOrFaculty;
 
-    public LicenseOwner(Integer id, String name, String address, String webpage, String registrationCode,
-            String phone, String bankAccount, String fax, String unitOrFaculty) {
+    private Integer id;
+
+    private String organizationName;
+    private String applicationArea;
+
+    private String address;
+    private String webpage;
+    private String registrationCode;
+    private String phone;
+    private String bankAccount;
+    private String fax;
+    private String unitOrFaculty;
+
+    public Customer() {
+    }
+
+    public Customer(String organizationName, String applicationArea) {
+        this.organizationName = organizationName;
+        this.applicationArea = applicationArea;
+    }
+
+    public Customer(Integer id, String organizationName, String applicationArea, String address, String webpage, String registrationCode, String phone, String bankAccount, String fax, String unitOrFaculty) {
         this.id = id;
-        this.name = name;
+        this.organizationName = organizationName;
+        this.applicationArea = applicationArea;
         this.address = address;
         this.webpage = webpage;
         this.registrationCode = registrationCode;
@@ -25,20 +37,15 @@ public class LicenseOwner {
         this.unitOrFaculty = unitOrFaculty;
     }
 
-    public LicenseOwner() {
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        LicenseOwner licenseOwner = (LicenseOwner) o;
+        Customer customer = (Customer) o;
 
-        if (!name.equals(licenseOwner.name)) return false;
-        if (!unitOrFaculty.equals(licenseOwner.unitOrFaculty)) return false;
+        return organizationName.equals(customer.organizationName) && unitOrFaculty.equals(customer.unitOrFaculty);
 
-        return true;
     }
 
     public Integer getId() {
@@ -49,12 +56,12 @@ public class LicenseOwner {
         this.id = id;
     }
 
-    public String getname() {
-        return name;
+    public String getOrganizationName() {
+        return organizationName;
     }
 
-    public void setname(String name) {
-        this.name = name;
+    public void setOrganizationName(String name) {
+        this.organizationName = name;
     }
 
     public String getAddress() {
@@ -111,5 +118,13 @@ public class LicenseOwner {
 
     public void setUnitOrFaculty(String unitOrFaculty) {
         this.unitOrFaculty = unitOrFaculty;
+    }
+
+    public String getApplicationArea() {
+        return applicationArea;
+    }
+
+    public void setApplicationArea(String applicationArea) {
+        this.applicationArea = applicationArea;
     }
 }

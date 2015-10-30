@@ -7,8 +7,10 @@ angular
             $scope.products = result;
         });
 
-        $http.get('rest/licenseOwners', $scope.user).success(function (result) {
+        $http.get('rest/customers', $scope.user).then(function (result) {
             $scope.licenseOwners = result;
+        }, function() {
+
         });
 
         $scope.saveData = function () {

@@ -26,21 +26,21 @@ angular
                 templateUrl: 'components/product/add/addProduct.html',
                 controller: 'AddProductCtrl'
             })
-            .when('/licenseOwners', {
-                templateUrl: 'components/licenseOwner/licenseOwnersView.html',
-                controller: 'ViewLicenseOwnersCtrl'
+            .when('/customers', {
+                templateUrl: 'components/customer/customerView.html',
+                controller: 'ViewCustomerCtrl'
             })
-            .when('/licenseOwner/add', {
-                templateUrl: 'components/licenseOwner/add/addLicenseOwner.html',
-                controller: 'AddLicenseOwnerCtrl'
+            .when('/customer/add', {
+                templateUrl: 'components/customer/add/addCustomer.html',
+                controller: 'AddCustomerCtrl'
             })
-            .when('/licenseOwner/:id', {
-                templateUrl: 'components/licenseOwner/profile/profileLicenseOwner.html',
-                controller: 'ProfileLicenseOwnerCtrl'
+            .when('/customer/:id', {
+                templateUrl: 'components/customer/profile/profileCustomer.html',
+                controller: 'ProfileCustomerCtrl'
             })
             .when('/', {
               templateUrl: 'components/home/home.html',
               controller: 'HomeCtrl'
-            })
+            });
         //$routeProvider.otherwise({redirectTo: '/'}); Is not needed at the moment.
     });

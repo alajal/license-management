@@ -26,9 +26,9 @@
               </a>
             </th>
             <th>
-              <a href="" ng-click="sortType = 'licenseOwner.name'; sortReverse = !sortReverse">Organization
-                <span ng-show="sortType == 'licenseOwner.name' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'licenseOwner.name' && sortReverse" class="fa fa-caret-up"></span>
+              <a href="" ng-click="sortType = 'customer.name'; sortReverse = !sortReverse">Organization
+                <span ng-show="sortType == 'customer.name' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'customer.name' && sortReverse" class="fa fa-caret-up"></span>
               </a>
             </th>
             <th>
@@ -70,11 +70,11 @@
             <th>Status</th>
         </tr>
     </thead>
-    <tbody ng-if="licenseOwner == Null">
+    <tbody ng-if="customer == Null">
       <tr ng-repeat="license in licenses | orderBy:sortType:sortReverse | filter:searchLicense">
           <td>{{ license.product.name + ' ' + license.product.release }}</td>
           <td>{{ license.name }}</td>
-          <td>{{ license.licenseOwner.name }}</td>
+          <td>{{ license.customer.name }}</td>
           <td>{{ license.email }}</td>
           <td>{{ license.skype }}</td>
           <td>{{ license.phone }}</td>
@@ -100,11 +100,11 @@
       </tr>
     </tbody>
 
-    <tbody ng-if="licenseOwner != Null">
-      <tr ng-repeat="license in licenses | orderBy:sortType:sortReverse | filter:searchLicense" ng-if="license.licenseOwner.name==licenseOwner.name">
+    <tbody ng-if="customer != Null">
+      <tr ng-repeat="license in licenses | orderBy:sortType:sortReverse | filter:searchLicense" ng-if="license.customer.name==customer.name">
           <td>{{ license.product.name + ' ' + license.product.release }}</td>
           <td>{{ license.name }}</td>
-          <td>{{ license.licenseOwner.name }}</td>
+          <td>{{ license.customer.name }}</td>
           <td>{{ license.email }}</td>
           <td>{{ license.skype }}</td>
           <td>{{ license.phone }}</td>

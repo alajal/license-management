@@ -10,7 +10,7 @@ import javax.ws.rs.core.GenericType;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ProductPostAndGetTest extends JerseyTest {
+public class ProductResourceTest extends JerseyTest {
 
     ObjConf component;
 

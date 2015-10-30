@@ -3,7 +3,6 @@ package ee.cyber.licensing.dao;
 
 import ee.cyber.licensing.entity.AuthorisedUser;
 import ee.cyber.licensing.entity.License;
-import ee.cyber.licensing.entity.LicenseOwner;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;

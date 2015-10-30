@@ -33,17 +33,17 @@
   },
   {
     "type": "dropdown",
-    "name": "Products",
+    "name": "Customers",
     "dropdown": [
       {
         "type": "link",
-        "url": "licenseOwners",
-        "name": "View license owners"
+        "url": "customers",
+        "name": "View customers"
       },
       {
         "type": "link",
-        "url": "licenseOwner/add",
-        "name": "Add license owners"
+        "url": "customer/add",
+        "name": "Add customer"
       }
     ]
   }

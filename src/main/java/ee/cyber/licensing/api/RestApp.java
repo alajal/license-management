@@ -1,9 +1,6 @@
 package ee.cyber.licensing.api;
 
-import ee.cyber.licensing.dao.AuthorisedUserRepository;
-import ee.cyber.licensing.dao.LicenseOwnerRepository;
-import ee.cyber.licensing.dao.LicenseRepository;
-import ee.cyber.licensing.dao.ProductRepository;
+import ee.cyber.licensing.dao.*;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -58,8 +55,9 @@ public class RestApp extends ResourceConfig {
                 bind(dataSource).to(DataSource.class);
                 bind(LicenseRepository.class).to(LicenseRepository.class).in(Singleton.class);
                 bind(ProductRepository.class).to(ProductRepository.class).in(Singleton.class);
-                bind(LicenseOwnerRepository.class).to(LicenseOwnerRepository.class).in(Singleton.class);
+                bind(CustomerRepository.class).to(CustomerRepository.class).in(Singleton.class);
                 bind(AuthorisedUserRepository.class).to(AuthorisedUserRepository.class).in(Singleton.class);
+                bind(ContactRepository.class).to(ContactRepository.class).in(Singleton.class);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
