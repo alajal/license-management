@@ -19,7 +19,7 @@ public class CustomerRepository {
 
     public Customer save(Customer customer) throws SQLException {
         try (Connection conn = ds.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO Customer (name, applicationArea) VALUES (?, ?);");
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO Customer (organizationName, applicationArea) VALUES (?, ?);");
             statement.setString(1, customer.getOrganizationName());
             statement.setString(2, customer.getApplicationArea());
             statement.execute();

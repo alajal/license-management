@@ -9,9 +9,11 @@ angular
                 return;
             }
 
+            console.log($scope.applicant);
+
             $http.post('rest/customers', $scope.applicant).
                 then(function (response) {
-                    $window.location.href = '#/products';
+                    $window.location.href = '#/product/add';
                 }, function (response) {
 
                     console.error('[addCustomer.js] Error');

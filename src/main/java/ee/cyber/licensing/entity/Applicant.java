@@ -3,7 +3,7 @@ package ee.cyber.licensing.entity;
 public class Applicant {
 
     String organizationName;
-    String applicantArea;
+    String applicationArea;
 
     String contactName;
     String email;
@@ -11,9 +11,12 @@ public class Applicant {
     String phone;
 
 
-    public Applicant(String organizationName, String applicantArea, String contactName, String email, String skype, String phone) {
+    public Applicant() {
+    }
+
+    public Applicant(String organizationName, String applicationArea, String contactName, String email, String skype, String phone) {
         this.organizationName = organizationName;
-        this.applicantArea = applicantArea;
+        this.applicationArea = applicationArea;
         this.contactName = contactName;
         this.email = email;
         this.skype = skype;
@@ -30,12 +33,12 @@ public class Applicant {
         this.organizationName = organizationName;
     }
 
-    public String getApplicantArea() {
-        return applicantArea;
+    public String getApplicationArea() {
+        return applicationArea;
     }
 
-    public void setApplicantArea(String applicantArea) {
-        this.applicantArea = applicantArea;
+    public void setApplicationArea(String applicationArea) {
+        this.applicationArea = applicationArea;
     }
 
     public String getContactName() {

@@ -23,7 +23,7 @@ angular
                 controller: 'ViewProductsCtrl'
             })
             .when('/product/add', {
-                templateUrl: 'components/product/add/addProduct.html',
+                templateUrl: 'components/product/addProduct.html',
                 controller: 'AddProductCtrl'
             })
             .when('/customers', {
@@ -31,11 +31,11 @@ angular
                 controller: 'ViewCustomerCtrl'
             })
             .when('/customer/add', {
-                templateUrl: 'components/customer/add/addCustomer.html',
+                templateUrl: 'components/customer/addCustomer.html',
                 controller: 'AddCustomerCtrl'
             })
             .when('/customer/:id', {
-                templateUrl: 'components/customer/profile/profileCustomer.html',
+                templateUrl: 'components/customer/profileCustomer.html',
                 controller: 'ProfileCustomerCtrl'
             })
             .when('/', {
