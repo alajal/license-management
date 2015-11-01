@@ -33,16 +33,16 @@ public class CustomerResource {
     }
 
     @POST
-    public Applicant saveCustomer(Applicant applicant) throws Exception {
+    public Customer saveCustomer(Applicant applicant) throws Exception {
         //Customer == Organization == Applicant
         // status turns customer into "license owner"
         Customer customer = new Customer(applicant.getOrganizationName(), applicant.getApplicationArea());
-        Customer save = customerRepository.save(customer);
+        Customer savedCustomer = customerRepository.save(customer);
         //Every contact is connected at least with one customer
-        Contact contact = new Contact(save.getId(), applicant.getContactName(), applicant.getEmail(),
+        Contact contact = new Contact(savedCustomer.getId(), applicant.getContactName(), applicant.getEmail(),
                 applicant.getSkype(), applicant.getPhone());
         contactRepository.save(contact);
-        return applicant;
+        return savedCustomer;
     }
 
     @Path("/{id}")

@@ -5,27 +5,27 @@
     <form novalidate class="form" name="form" ng-submit="saveData()">
         <div class="form-group">
             <label for="product">Product</label>
-            <input type="text" class="form-control" id="product" ng-model="user.product" disabled>
+            <input type="text" class="form-control" id="product" ng-model="prefillProduct.name" disabled>
         </div>
 
         <div class="form-group">
             <label for="customer">License owner</label>
-            <input type="text" class="form-control" id="customer" ng-model="user.customer" disabled>
+            <input type="text" class="form-control" id="customer" ng-model="prefillCustomer.organizationName" disabled>
         </div>
 
         <div class="form-group">
             <label for="customer">License contract number</label>
-            <input type="text" class="form-control" id="contractNumber" ng-model="user.contractNumber" disabled>
+            <input type="text" class="form-control" id="contractNumber" ng-model="prefillContractNumber" disabled>
         </div>
 
         <div class="form-group">
             <label for="customer">License predecessor</label>
-            <input type="text" class="form-control" id="predecessor" ng-model="user.predecessor" disabled>
+            <input type="text" class="form-control" id="predecessor" ng-model="prefillPredecessor" disabled>
         </div>
 
         <div class="form-group">
             <label for="customer">License state</label>
-            <input type="text" class="form-control" id="state" ng-model="user.state" disabled>
+            <input type="text" class="form-control" id="state" ng-model="prefillState" disabled>
         </div>
 
         <div class="form-group">

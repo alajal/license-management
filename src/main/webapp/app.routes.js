@@ -3,7 +3,7 @@ angular
     .config(function config($routeProvider) {
         $routeProvider
             .when('/license/add', {
-                templateUrl: 'components/license/add/addLicense.html',
+                templateUrl: 'components/license/addLicense.html',
                 controller: 'AddLicenseCtrl'
             })
             .when('/licenses', {
@@ -42,5 +42,6 @@ angular
               templateUrl: 'components/home/home.html',
               controller: 'HomeCtrl'
             });
+        
         //$routeProvider.otherwise({redirectTo: '/'}); Is not needed at the moment.
     });

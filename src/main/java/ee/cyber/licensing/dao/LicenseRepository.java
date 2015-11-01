@@ -35,7 +35,7 @@ public class LicenseRepository {
             statement.setInt(1, license.getProduct().getId());
             statement.setInt(2, license.getCustomer().getId());
             statement.setString(3, license.getContractNumber());
-            statement.setString(4, String.valueOf(license.getState()));
+            statement.setInt(4, license.getState().getStateNumber());
             statement.setInt(5, license.getPredecessorLicenseId());
             statement.setDate(6, license.getValidFrom());
             statement.setDate(7, license.getValidTill());

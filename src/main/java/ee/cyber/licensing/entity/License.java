@@ -16,12 +16,8 @@ public class License {
     Date validTill;
     Date applicationSubmitDate;
 
-    //id, productId,contactName, organization, email, skype, phone, applicationArea, contractnr(Dan loob ise),
-    //dan saab valida kahe state'i vahel, license active state siduda validFrom, preecessor on täiendinfo all
-
     public License() {
     }
-
 
     public License(Product product, Customer customer, String contractNumber, Date validFrom, Date validTill, State state, Integer predecessorLicenseId, Date applicationSubmitDate) {
         this.product = product;

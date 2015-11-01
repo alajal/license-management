@@ -1,7 +1,7 @@
 // Add controller to module.
 angular
     .module('LM')
-    .controller('AddProductCtrl', function ($scope, $http, $window) {
+    .controller('AddProductCtrl', function ($scope, $http, $window, LicensingService) {
 
         $scope.saveData = function () {
             console.log($scope.product);
@@ -9,15 +9,8 @@ angular
             if (!$scope.form.$valid) {
                 return;
             }
-
-            $http.post('rest/products', $scope.product).
-                then(function (response) {
-
-                    $window.location.href = '#/products';
-                }, function (response) {
-
-                    console.error('There was something wrong with the add product request.');
-                });
+            LicensingService.addProduct($scope.product);
+            $window.location.href = '#/license/add';
         }
     });
 
