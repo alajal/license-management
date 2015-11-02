@@ -14,45 +14,34 @@
     <thead>
         <tr>
             <th>
+                <a href="" ng-click="sortType = 'contractNumber'; sortReverse = !sortReverse">Contract Nr
+                    <span ng-show="sortType == 'contractNumber' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'contractNumber' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </th>
+            <th>
               <a href="" ng-click="sortType = 'product.name'; sortReverse = !sortReverse">Product name
                 <span ng-show="sortType == 'product.name' && !sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'product.name' && sortReverse" class="fa fa-caret-up"></span>
               </a>
             </th>
             <th>
-              <a href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">Applicant name
-                <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </th>
-            <th>
-              <a href="" ng-click="sortType = 'customer.name'; sortReverse = !sortReverse">Organization
+              <a href="" ng-click="sortType = 'customer.name'; sortReverse = !sortReverse">Customer
                 <span ng-show="sortType == 'customer.name' && !sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'customer.name' && sortReverse" class="fa fa-caret-up"></span>
               </a>
             </th>
+
             <th>
-              <a href="" ng-click="sortType = 'email'; sortReverse = !sortReverse">Email
-                <span ng-show="sortType == 'email' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'email' && sortReverse" class="fa fa-caret-up"></span>
+              <a href="" ng-click="sortType = 'state'; sortReverse = !sortReverse">State
+                <span ng-show="sortType == 'state' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'state' && sortReverse" class="fa fa-caret-up"></span>
               </a>
             </th>
             <th>
-              <a href="" ng-click="sortType = 'skype'; sortReverse = !sortReverse">Skype
-                <span ng-show="sortType == 'skype' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'skype' && sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </th>
-            <th>
-              <a href="" ng-click="sortType = 'phone'; sortReverse = !sortReverse">Phone
-                <span ng-show="sortType == 'phone' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'phone' && sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </th>
-            <th>
-              <a href="" ng-click="sortType = 'applicationArea'; sortReverse = !sortReverse">Application area
-                <span ng-show="sortType == 'applicationArea' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'applicationArea' && sortReverse" class="fa fa-caret-up"></span>
+              <a href="" ng-click="sortType = 'predecessorLicenseId'; sortReverse = !sortReverse">Predecessor Nr
+                <span ng-show="sortType == 'predecessorLicenseId' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'predecessorLicenseId' && sortReverse" class="fa fa-caret-up"></span>
               </a>
             </th>
             <th>
@@ -67,20 +56,26 @@
                 <span ng-show="sortType == 'validTill' && sortReverse" class="fa fa-caret-up"></span>
               </a>
             </th>
+            <th>
+                <a href="" ng-click="sortType = 'applicationSubmitDate'; sortReverse = !sortReverse">Submit date
+                    <span ng-show="sortType == 'applicationSubmitDate' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'applicationSubmitDate' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </th>
             <th>Status</th>
         </tr>
     </thead>
     <tbody ng-if="customer == Null">
       <tr ng-repeat="license in licenses | orderBy:sortType:sortReverse | filter:searchLicense">
+          <td>{{ license.contractNumber }}</td>
           <td>{{ license.product.name + ' ' + license.product.release }}</td>
-          <td>{{ license.name }}</td>
           <td>{{ license.customer.name }}</td>
-          <td>{{ license.email }}</td>
-          <td>{{ license.skype }}</td>
-          <td>{{ license.phone }}</td>
-          <td>{{ license.applicationArea }}</td>
+          <td>{{ license.state}}</td>
+          <td>{{ license.predecessorLicenseId }}</td>
           <td>{{ license.validFrom }}</td>
           <td>{{license.validTill}}</td>
+          <td>{{ license.applicationSubmitDate }}</td>
+
           <!-- if more than 2 days remain for expiration -->
           <td ng-if="currentDate < compare(license.validTill) && (compare(license.validTill) - currentDate)/1000 > 172800">
             <button class="btn btn-success btn-xs">Active
