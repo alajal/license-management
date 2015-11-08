@@ -1,5 +1,4 @@
 angular.module('LM')
-<<<<<<< HEAD
     .controller('HomeCtrl', function ($http, $scope, $location, expiringLicenses) {
 
       $http.get('rest/events').
