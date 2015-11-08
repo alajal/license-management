@@ -10,7 +10,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="license in expiring">
+            <tr class="clickable" ng-repeat="license in expiring" ng-click="goToLicenseProfile(license)">
                 <td>{{license.contractNumber}}</td>
                 <td>{{license.validFrom}}</td>
                 <td>{{license.validTill}}</td>

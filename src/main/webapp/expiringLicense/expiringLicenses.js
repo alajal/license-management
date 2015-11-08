@@ -2,7 +2,7 @@
  * Created by siiri on 07/11/15.
  */
 angular.module('LM')
-    .controller('ExpiringLicensesCtrl', function ($scope, $http) {
+    .controller('ExpiringLicensesCtrl', function ($scope, $http, $location) {
 
         $http.get('rest/licenses/expiring/').
             then(function (response) {
@@ -14,4 +14,8 @@ angular.module('LM')
             }, function (response) {
                 console.error('Something went wrong with the expiring licenses get method.');
             });
+
+        $scope.goToLicenseProfile = function(license) {
+            $location.path('/license/' + license.id);
+        }
     });
