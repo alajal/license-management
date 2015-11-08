@@ -3,7 +3,7 @@ angular
     .controller('AddLicenseCtrl', function ($scope, $http, $window, LicensingService) {
         //Prefill
         $scope.prefillProduct = LicensingService.getproduct();
-        $scope.prefillCustomer = LicensingService.getCustomer();
+        $scope.prefillCustomer = LicensingService.getApplicant() || LicensingService.getCustomer();
         $scope.prefillContractNumber = LicensingService.getContractNumber();
 
         //TODO dropdown choose for state (negotiated, cancelled)
@@ -12,33 +12,31 @@ angular
         $scope.prefillPredecessor = 1;
 
         $scope.saveData = function () {
-            if (!$scope.form.$valid) {
-                return;
-            }
-
             $scope.user = $scope.user || {};
 
             $scope.user.contractNumber = $scope.prefillContractNumber;
             $scope.user.state = $scope.prefillState;
             $scope.user.predecessorLicenseId = $scope.prefillPredecessor;
 
+            var applicant = LicensingService.getApplicant();
             var customer = LicensingService.getCustomer();
-            var product = LicensingService.getproduct();
+            console.log("Applicant");
+            console.log(applicant);
+            console.log("Customer");
+            console.log(customer);
 
-            $http.post('rest/customers', customer).
+            //TODO if applicant == 'undefined', siis tuleb valida customer ning post päringut applicantile'ile ei tule
+            var product = LicensingService.getproduct();
+            //TODO lahendada probleem, kus olemasolevat valitud producti/customeri ei lisata post päringuga uuesti
+            //kui applicanti pole, võib loota, et customer on olemas, seega see tuleb anda litsentsile
+
+            $http.post('rest/customers', applicant).
                 then(function (response) {
-                    console.log("customer response:");
-                    console.log(response);
-                    //$scope.user.customerId = response.data.id;
                     $scope.user.customer = response.data;
 
                     $http.post('rest/products', product).
                         then(function (response) {
-                            console.log("product response:");
-                            console.log(response);
-                            //$scope.user.productId = response.data.id;
                             $scope.user.product = response.data;
-                            console.log($scope.user);
 
                             $http.post('rest/licenses', $scope.user).
                                 //If POST request has been processed:

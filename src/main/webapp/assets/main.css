@@ -112,6 +112,16 @@
     margin-right: 100px;
 }
 
+/*
+.customerForm {
+    /!* Float both forms to the left *!/
+    float: left;
+    /!* borders added for visibility. Just remove them *!/
+    /!*border: 1px solid rgba(17, 51, 22, 0.41);*!/
+    margin-right: 100px;
+
+}*/
+
 .clickable {
     cursor: pointer;
 }

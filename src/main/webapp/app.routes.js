@@ -39,13 +39,17 @@ angular
                 controller: 'ProfileCustomerCtrl'
             })
             .when('/', {
-              templateUrl: 'components/home/home.html',
-              controller: 'HomeCtrl'
+                templateUrl: 'components/home/home.html',
+                controller: 'HomeCtrl'
             })
             .when('/expiring-licenses', {
-                templateUrl:'expiringLicense/expiringLicenses.html',
+                templateUrl: 'expiringLicense/expiringLicenses.html',
                 controller: 'ExpiringLicensesCtrl'
-        });
-        
+            })
+            .when('/addMailTemplate',{
+                templateUrl: 'components/template/addMailTemplate.html',
+                controller: 'TemplateCtrl'
+            });
+
         //$routeProvider.otherwise({redirectTo: '/'}); Is not needed at the moment.
     });

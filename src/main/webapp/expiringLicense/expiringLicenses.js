@@ -1,6 +1,3 @@
-/**
- * Created by siiri on 07/11/15.
- */
 angular.module('LM')
     .controller('ExpiringLicensesCtrl', function ($scope, $http, $location) {
 
@@ -8,7 +5,7 @@ angular.module('LM')
             then(function (response) {
                 $scope.expiring = response.data;
                 //if ($scope.expiring.length > 0) {
-                    //expiringLicenses.setExpiring(true);
+                //expiringLicenses.setExpiring(true);
                 //}
                 //alert($scope.expiring.length);
             }, function (response) {
