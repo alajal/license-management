@@ -1,5 +1,3 @@
-DROP TABLE Event;
-
 CREATE TABLE IF NOT EXISTS Product (
   id      INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   name    VARCHAR(100)                   NOT NULL,
