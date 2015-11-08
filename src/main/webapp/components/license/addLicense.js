@@ -1,26 +1,15 @@
 angular
     .module('LM')
     .controller('AddLicenseCtrl', function ($scope, $http, $window, LicensingService) {
-
-        //TODO vaadata üle, see päring võib katki olla
-        $http.get('rest/products', $scope.user).success(function (result) {
-            $scope.products = result;
-        });
-
-        //TODO vaadata üle, see päring võib katki olla
-        $http.get('rest/customers', $scope.user).then(function (result) {
-            $scope.licenseOwners = result;
-        }, function () {
-
-        });
-
         //Prefill
         $scope.prefillProduct = LicensingService.getproduct();
         $scope.prefillCustomer = LicensingService.getCustomer();
         $scope.prefillContractNumber = LicensingService.getContractNumber();
+
+        //TODO dropdown choose for state (negotiated, cancelled)
         $scope.prefillState = 'NEGOTIATED';
+        //TODO dropdown with existing license contract numbers
         $scope.prefillPredecessor = 1;
-        console.log("contract number");
 
         $scope.saveData = function () {
             if (!$scope.form.$valid) {
@@ -28,6 +17,7 @@ angular
             }
 
             $scope.user = $scope.user || {};
+
             $scope.user.contractNumber = $scope.prefillContractNumber;
             $scope.user.state = $scope.prefillState;
             $scope.user.predecessorLicenseId = $scope.prefillPredecessor;
