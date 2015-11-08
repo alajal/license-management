@@ -5,8 +5,10 @@
 // Add controller to module.
 angular
     .module('LM')
-    .controller('HeaderController', function ($http, $location) {
+    .controller('HeaderController', function ($http, $scope, $location, expiringLicenses) {
         var vm = this;
+
+        $scope.expiringLicenses = false;
 
         $http.get('shared/header/header.json').success(function (data) {
             vm.menu = data;
@@ -14,5 +16,14 @@ angular
 
         vm.isActive = function (route) {
             return route === $location.path();
-        }
+        };
+
+        $scope.$watch(function () {
+            return expiringLicenses.isExpiring
+            },
+                function(newVal, oldVal) {
+                    $scope.expiringLicenses = newVal;
+                }, true);
+
+
     });

@@ -7,7 +7,7 @@ VALUES ('Example University', 'example area', '123 Fake Street', 'www.example.co
         'Example Science');
 
 INSERT INTO License (productId, customerId, contractNumber, validFrom, validTill, state, applicationSubmitDate)
-VALUES (1, 1, '1234qwer', '2015-10-17', '2015-12-17', 2, '2015-09-17');
+VALUES (1, 1, '1234qwer', '2015-10-17', '2015-12-17', 3, '2015-09-17');
 
 INSERT INTO AuthorisedUser (licenseId, firstName, lastName, email, occupation)
 VALUES (1, 'John', 'Doe', 'johanna@test.com', 'student');

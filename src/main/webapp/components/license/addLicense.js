@@ -2,10 +2,12 @@ angular
     .module('LM')
     .controller('AddLicenseCtrl', function ($scope, $http, $window, LicensingService) {
 
+        //TODO vaadata üle, see päring võib katki olla
         $http.get('rest/products', $scope.user).success(function (result) {
             $scope.products = result;
         });
 
+        //TODO vaadata üle, see päring võib katki olla
         $http.get('rest/customers', $scope.user).then(function (result) {
             $scope.licenseOwners = result;
         }, function () {
@@ -25,6 +27,7 @@ angular
                 return;
             }
 
+            $scope.user = $scope.user || {};
             $scope.user.contractNumber = $scope.prefillContractNumber;
             $scope.user.state = $scope.prefillState;
             $scope.user.predecessorLicenseId = $scope.prefillPredecessor;
