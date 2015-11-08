@@ -96,8 +96,12 @@
     color: #5bc0de;
 }
 
+.fa-bell {
+    color: white;
+}
+
 .notification-on {
-    color:#ffff00;
+    color:yellow;
 }
 
 
