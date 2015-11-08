@@ -58,6 +58,7 @@ public class RestApp extends ResourceConfig {
                 bind(CustomerRepository.class).to(CustomerRepository.class).in(Singleton.class);
                 bind(AuthorisedUserRepository.class).to(AuthorisedUserRepository.class).in(Singleton.class);
                 bind(ContactRepository.class).to(ContactRepository.class).in(Singleton.class);
+                bind(EventRepository.class).to(EventRepository.class).in(Singleton.class);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

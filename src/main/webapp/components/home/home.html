@@ -8,23 +8,30 @@
       </div>
     </div>
     <div class="col-lg-4">
-      <ul style="list-style-type: none;">
-        <li>
+      <ul style="list-style-type: none;" ng-repeat="event in events">
+        <li ng-if="event.type=='Add'">
+          <div class="bs-callout bs-callout-success">
+            <h4> {{ event.name }}
+              (<a href="#/license/{{event.license.id}}">{{ event.license.contractNumber }}</a>)
+            </h4>
+            <p>{{ event.description }}</p>
+            <p><i>{{ event.dateCreated }}</i></p>
+          </div>
+        </li>
+        <li ng-if="event.type=='Remove'">
           <div class="bs-callout bs-callout-danger">
-            <h4> Event name</h4>
-            <p>Event description comes here</p>
+            <h4> {{ event.name }}</h4>
+            <p>{{ event.description }}</p>
+            <p><i>{{ event.dateCreated }}</i></p>
           </div>
         </li>
-        <li>
-          <div class="bs-callout bs-callout-success">
-            <h4> Event name</h4>
-            <p>Event description comes here</p>
-          </div>
-        </li>
-        <li>
-          <div class="bs-callout bs-callout-success">
-            <h4> Event name</h4>
-            <p>Event description comes here</p>
+        <li ng-if="event.type=='Modify'">
+          <div class="bs-callout bs-callout-danger">
+            <h4> {{ event.name }}
+              (<a href="#/license/{{event.license.id}}">{{ event.license.contractNumber }}</a>)
+            </h4>
+            <p>{{ event.description }}</p>
+            <p><i>{{ event.dateCreated }}</i></p>
           </div>
         </li>
       </ul>

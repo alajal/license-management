@@ -1,3 +1,5 @@
+DROP TABLE Event;
+
 CREATE TABLE IF NOT EXISTS Product (
   id      INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   name    VARCHAR(100)                   NOT NULL,
@@ -55,5 +57,12 @@ CREATE TABLE IF NOT EXISTS Contact (
   FOREIGN KEY (customerId) REFERENCES Customer (id)
 );
 
-
-
+CREATE TABLE IF NOT EXISTS Event (
+  id            INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  licenseId     INT NULL,
+  name          VARCHAR(100),
+  description   VARCHAR(200),
+  type          VARCHAR(100),
+  dateCreated   datetime,
+  FOREIGN KEY (licenseId) REFERENCES License (id)
+);

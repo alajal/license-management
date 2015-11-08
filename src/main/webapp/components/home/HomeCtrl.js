@@ -1,5 +1,14 @@
 angular.module('LM')
     .controller('HomeCtrl', function ($scope, $http) {
+
+      $http.get('rest/events').
+        then(function(response) {
+          $scope.events = response.data;
+          //console.log($scope.events[0]);
+        }, function(reponse) {
+          console.error('Error occured.');
+          //console.error(reponse);  //Use this for detailed error. Make sure to comment out before publishing!
+        });
         /*
         $http.get('rest/licenses').
             //server töötleb post päringut ja kui ta on sellega lõpetanud, siis minnakse siin alles edasi
