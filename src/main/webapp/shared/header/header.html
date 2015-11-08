@@ -68,11 +68,19 @@
                       </ul>
                     </form>
                   </li>
-                  <li>
+                  <!--<li>
                     <a data-ng-href="#/profile">
                         <span class="{{link.glyph}}"></span> Profile
                     </a>
-                  </li>
+                  </li>-->
+                    <li>
+                        <a data-ng-href="#/expiring-licenses">
+                            <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i data-ng-class='["fa", "fa-bell-o", "fa-stack-1x", {"notification-on":expiringLicenses}]'></i>
+                            </span>
+                        </a>
+                    </li>
                   <li>
                     <a data-ng-href="/logout">
                         <span class="{{link.glyph}}"></span> Log Out

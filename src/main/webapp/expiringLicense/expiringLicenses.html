@@ -1,0 +1,21 @@
+<div class="container">
+    <h3>Expiring licenses</h3>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Contract Number</th>
+                <th>Valid From</th>
+                <th>Valid Till</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="license in expiring">
+                <td>{{license.contractNumber}}</td>
+                <td>{{license.validFrom}}</td>
+                <td>{{license.validTill}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+</div>

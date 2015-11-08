@@ -119,4 +119,25 @@ public class LicenseRepository {
         }
         return license;
     }
+
+    public List<License> findExpiringLicenses() throws SQLException {
+        try(Connection connection = ds.getConnection()) {
+            try(PreparedStatement stmnt = connection.prepareStatement("Select *, DATEDIFF('DAY', CURRENT_DATE, validTill),CURRENT_DATE from License where DATEDIFF('DAY', CURRENT_DATE, validTill) < 31 AND DATEDIFF('DAY', CURRENT_DATE, validTill) > 0")) {
+                try (ResultSet resultSet = stmnt.executeQuery()) {
+                    List<License> expiringLicenses = new ArrayList<>();
+                    while (resultSet.next()) {
+                        int productId = resultSet.getInt("productId");
+                        Product productById = productRepository.getProductById(productId);
+                        int customerId = resultSet.getInt("customerId");
+                        Customer customerById = customerRepository.getCustomerById(customerId);
+
+                        License license = getLicense(resultSet, productById, customerById);
+                        expiringLicenses.add(license);
+                    }
+                    return expiringLicenses;
+                }
+            }
+        }
+
+    }
 }

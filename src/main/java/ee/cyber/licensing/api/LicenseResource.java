@@ -28,6 +28,13 @@ public class LicenseResource {
         return licenseRepository.findById(id);
     }
 
+    @Path("/expiring")
+    @GET
+    @Produces("application/json")
+    public List<License> getExpiringLicenses() throws Exception {
+        return licenseRepository.findExpiringLicenses();
+    }
+
     @POST
     public License saveLicense(License license) throws Exception {
         return licenseRepository.save(license);

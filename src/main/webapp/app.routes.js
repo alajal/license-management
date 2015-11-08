@@ -41,7 +41,11 @@ angular
             .when('/', {
               templateUrl: 'components/home/home.html',
               controller: 'HomeCtrl'
-            });
+            })
+            .when('/expiring-licenses', {
+                templateUrl:'expiringLicense/expiringLicenses.html',
+                controller: 'ExpiringLicensesCtrl'
+        });
         
         //$routeProvider.otherwise({redirectTo: '/'}); Is not needed at the moment.
     });
