@@ -92,8 +92,39 @@
             </button>
           </td>
           <td><a ng-href="#/license/{{license.id}}">View profile</a></td>
+          <td><a ng-href="#/license/{{license.id}}/history">History</a></td>
       </tr>
     </tbody>
 
+    <tbody ng-if="customer != Null">
+      <tr ng-repeat="license in licenses | orderBy:sortType:sortReverse | filter:searchLicense" ng-if="license.customer.name==customer.name">
+          <td>{{ license.product.name + ' ' + license.product.release }}</td>
+          <td>{{ license.name }}</td>
+          <td>{{ license.customer.organizationName }}</td>
+          <td>{{ license.email }}</td>
+          <td>{{ license.skype }}</td>
+          <td>{{ license.phone }}</td>
+          <td>{{ license.applicationArea }}</td>
+          <td>{{ license.validFrom }}</td>
+          <td>{{license.validTill}}</td>
+          <!-- if more than 2 days remain for expiration -->
+          <td ng-if="currentDate < compare(license.validTill) && (compare(license.validTill) - currentDate)/1000 > 172800">
+            <button class="btn btn-success btn-xs">Active
+            </button>
+          </td>
+          <!-- if less than 2 days remain for expiration -->
+          <td ng-if="(compare(license.validTill) - currentDate)/1000 < 172800 && (compare(license.validTill) - currentDate)/1000 > 0">
+            <button class="btn btn-warning btn-xs">Will Expire
+            </button>
+          </td>
+          <!-- if expired -->
+          <td ng-if="currentDate > compare(license.validTill) ">
+            <button class="btn btn-danger btn-xs">Expired
+            </button>
+          </td>
+          <td><a ng-href="#/license/{{license.id}}">View profile</a></td>
+           <td><a ng-href="#/license/{{license.id}}/history">History</a></td>
+      </tr>
+    </tbody>
 
 </table>
