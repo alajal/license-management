@@ -49,6 +49,10 @@ angular
             .when('/addMailTemplate',{
                 templateUrl: 'components/template/addMailTemplate.html',
                 controller: 'TemplateCtrl'
+            })
+            .when('/events',{
+                templateUrl: 'components/license/eventsView.html',
+                controller: 'ViewEventsCtrl'
             });
 
         //$routeProvider.otherwise({redirectTo: '/'}); Is not needed at the moment.
