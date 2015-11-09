@@ -61,6 +61,11 @@
                 <artifactId>commons-logging</artifactId>
                 <version>1.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>2.48.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -90,6 +95,20 @@
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.3.3.v20150827</version>
+                <!-- Trying to add SSL -->
+<!--                 <configuration>
+                    <connectors>
+                        <connector implementation="org.eclipse.jetty.server.bio.SocketConnector">
+                            <port>7777</port>
+                        </connector>
+                        <connector implementation="org.eclipse.jetty.server.ssl.SslSocketConnector">
+                            <port>7443</port>
+                            <keystore>${project.basedir}/src/main/config/jetty-ssl.keystore</keystore>
+                            <keyPassword>jetty8</keyPassword>
+                            <password>jetty8</password>
+                        </connector>
+                    </connectors>
+                </configuration> -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -109,6 +128,22 @@
                     <failOnMissingWebXml>true</failOnMissingWebXml>
                 </configuration>
             </plugin>
+            <!-- Trying to add SSL -->
+<!--             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>keytool-maven-plugin</artifactId>
+                <version>1.5</version>
+                <configuration>
+                    <keystore>${project.basedir}/src/main/config/jetty-ssl.keystore</keystore>
+                    <dname>cn=localhost</dname>
+                    Both `keypass` and `storepass` must be at least 6 characters long.
+                    <keypass>jetty8</keypass>
+                    <storepass>jetty8</storepass>
+                    <alias>jetty8</alias>
+                    <keyalg>RSA</keyalg>
+                    <validity>99999</validity>
+                </configuration>
+            </plugin> -->
         </plugins>
     </build>
 
