@@ -15,6 +15,7 @@ angular.module('LM')
               $scope.expiring = response.data;
               if($scope.expiring.length > 0) {
                   expiringLicenses.setExpiring(true);
+                  expiringLicenses.setNumberOfExpiringLicenses($scope.expiring.length);
               }
               //alert($scope.expiring.length);
           }, function (response) {
@@ -43,8 +44,12 @@ angular.module('LM')
 angular
     .module('LM').service("expiringLicenses",function() {
         this.isExpiring = false;
+        this.numberOfExpiringLicenses = 0;
         this.setExpiring = function(boolean) {
             this.isExpiring = boolean;
+        }
+        this.setNumberOfExpiringLicenses = function(number) {
+            this.numberOfExpiringLicenses = number;
         }
 
     });
