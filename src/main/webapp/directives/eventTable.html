@@ -1,0 +1,40 @@
+<form>
+ <div class="form-group">
+   <div class="input-group">
+     <div class="input-group-addon"><i class="fa fa-search"></i></div>
+     <input type="text" class="form-control" placeholder="Search events" ng-model="searchEvent">
+   </div>
+ </div>
+</form>
+
+<table class="table table-condensed table-striped" id="eventsTable">
+  <thead>
+    <tr>
+      <th>
+        <a href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">Name
+          <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a href="" ng-click="sortType = 'description'; sortReverse = !sortReverse">Description
+          <span ng-show="sortType == 'description' && !sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a href="" ng-click="sortType = 'dateCreated'; sortReverse = !sortReverse">Date created
+          <span ng-show="sortType == 'dateCreated' && !sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'dateCreated' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="event in events | orderBy:sortType:sortReverse | filter:searchEvent">
+      <td>{{ event.name }}</td>
+      <td>{{ event.description }}</td>
+      <td>{{ event.dateCreated }}</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,8 +1,14 @@
-app.service('LicensingService', function ($http) {
+app.service('LicensingService', function () {
 
-    var customerL;
+    var applicantL;
     var productL;
     var licenseL;
+    var customerL;
+
+    this.addApplicant = function (applicantV) {
+        applicantL = applicantV;
+        console.log(applicantL);
+    };
 
     this.addCustomer = function (customerV) {
         customerL = customerV;
@@ -17,6 +23,10 @@ app.service('LicensingService', function ($http) {
     this.addLicense = function (licenseV) {
         licenseL = licenseV;
         console.log(licenseL)
+    };
+
+    this.getApplicant = function () {
+        return applicantL;
     };
 
     this.getCustomer = function () {

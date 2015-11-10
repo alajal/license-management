@@ -14,6 +14,10 @@ angular
                 templateUrl: 'components/license/profileLicense.html',
                 controller: 'ProfileLicenseCtrl'
             })
+            .when('/license/:id/history', {
+                templateUrl: 'components/license/history.html',
+                controller: 'ViewHistoryCtrl'
+            })
             .when('/authorisedUser/bylicense/:id', {
                 templateUrl: 'components/license/usersView.html',
                 controller: 'ProfileLicenseCtrl'
@@ -39,13 +43,21 @@ angular
                 controller: 'ProfileCustomerCtrl'
             })
             .when('/', {
-              templateUrl: 'components/home/home.html',
-              controller: 'HomeCtrl'
+                templateUrl: 'components/home/home.html',
+                controller: 'HomeCtrl'
             })
             .when('/expiring-licenses', {
-                templateUrl:'expiringLicense/expiringLicenses.html',
+                templateUrl: 'expiringLicense/expiringLicenses.html',
                 controller: 'ExpiringLicensesCtrl'
-        });
-        
+            })
+            .when('/addMailTemplate',{
+                templateUrl: 'components/template/addMailTemplate.html',
+                controller: 'TemplateCtrl'
+            })
+            .when('/events',{
+                templateUrl: 'components/license/eventsView.html',
+                controller: 'ViewEventsCtrl'
+            });
+
         //$routeProvider.otherwise({redirectTo: '/'}); Is not needed at the moment.
     });
