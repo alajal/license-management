@@ -1,1 +1,2 @@
-var app = angular.module('LM', ['ngRoute']);
+var app = angular.module('LM', ['ngRoute',
+    '720kb.tooltips']);
