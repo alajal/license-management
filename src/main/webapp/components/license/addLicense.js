@@ -11,6 +11,37 @@ angular
         //TODO dropdown with existing license contract numbers
         $scope.prefillPredecessor = 1;
 
+        function createLicense() {
+            $http.post('rest/licenses', $scope.user).
+                //If POST request has been processed:
+                then(function (response) {
+                }, function (response) {
+                    console.error('There was something wrong with the add license request.');
+                });
+        }
+
+        function createProduct() {
+            $http.post('rest/products', product).
+                then(function (response) {
+                    $scope.user.product = response.data;
+                    createLicense();
+                }, function (response) {
+                    console.error('There was something wrong with the add product request.');
+                });
+            $window.location.href = '#/';
+        }
+
+        function createCustomer() {
+            $http.post('rest/customers', applicant).
+                then(function (response) {
+                    $scope.user.customer = response.data;
+                    createProduct();
+                }, function (response) {
+                    console.error('There was something wrong with the add customer request.');
+                });
+        }
+
+
         $scope.saveData = function () {
             $scope.user = $scope.user || {};
 
@@ -30,30 +61,9 @@ angular
             //TODO lahendada probleem, kus olemasolevat valitud producti/customeri ei lisata post päringuga uuesti
             //kui applicanti pole, võib loota, et customer on olemas, seega see tuleb anda litsentsile
 
-            $http.post('rest/customers', applicant).
-                then(function (response) {
-                    $scope.user.customer = response.data;
 
-                    $http.post('rest/products', product).
-                        then(function (response) {
-                            $scope.user.product = response.data;
 
-                            $http.post('rest/licenses', $scope.user).
-                                //If POST request has been processed:
-                                then(function (response) {
-
-                                }, function (response) {
-                                    console.error('There was something wrong with the add license request.');
-                                });
-
-                        }, function (response) {
-                            console.error('There was something wrong with the add product request.');
-                        });
-
-                    $window.location.href = '#/';
-                }, function (response) {
-                    console.error('There was something wrong with the add customer request.');
-                });
+            createCustomer();
         }
     });
 
