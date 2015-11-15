@@ -26,10 +26,15 @@ angular
                 templateUrl: 'components/product/productsView.html',
                 controller: 'ViewProductsCtrl'
             })
+            .when('/product/addSingleProduct', {
+                templateUrl: 'components/product/addSingleProduct.html',
+                controller: 'AddSingleProductCtrl'
+            })
             .when('/product/add', {
                 templateUrl: 'components/product/addProduct.html',
                 controller: 'AddProductCtrl'
             })
+
             .when('/customers', {
                 templateUrl: 'components/customer/customerView.html',
                 controller: 'ViewCustomerCtrl'
@@ -37,6 +42,10 @@ angular
             .when('/customer/add', {
                 templateUrl: 'components/customer/addCustomer.html',
                 controller: 'AddCustomerCtrl'
+            })
+            .when('/customer/addSingleCustomer',{
+                templateUrl: 'components/customer/addSingleCustomer.html',
+                controller: 'AddSingleCustomerCtrl'
             })
             .when('/customer/:id', {
                 templateUrl: 'components/customer/profileCustomer.html',

@@ -1,0 +1,20 @@
+<div class="container">
+    <h3>Product form</h3>
+
+    <form novalidate class="form productForm" name="addProductForm" ng-submit="addNewSingleProduct()">
+        <div class="form-group">
+            <label for="name">Create product</label>
+            <input type="text" class="form-control" id="name" ng-model="product.name" required name="pName">
+        </div>
+
+        <div class="form-group">
+            <label for="release">Release</label>
+            <input type="text" class="form-control" id="release" ng-model="product.release" required
+                   name="pRelease">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">SUBMIT</button>
+        </div>
+    </form>
+
+</div>
