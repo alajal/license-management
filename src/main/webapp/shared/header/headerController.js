@@ -9,6 +9,7 @@ angular
         var vm = this;
 
         $scope.expiringLicenses = false;
+        $scope.numberOfExpiringLicenses = 0;
 
         $http.get('shared/header/header.json').success(function (data) {
             vm.menu = data;
@@ -25,5 +26,11 @@ angular
                     $scope.expiringLicenses = newVal;
                 }, true);
 
+        $scope.$watch(function () {
+                return expiringLicenses.numberOfExpiringLicenses
+            },
+            function(newVal, oldVal) {
+                $scope.numberOfExpiringLicenses = newVal;
+            }, true);
 
     });

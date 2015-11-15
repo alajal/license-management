@@ -76,10 +76,11 @@
                         </form>
                     </li>
                     <li>
-                        <a data-ng-href="#/expiring-licenses">
+                        <a data-ng-href="#/expiring-licenses" tooltips tooltip-class="tooltip-for-me" tooltip-title= '{{numberOfExpiringLicenses}} {{numberOfExpiringLicenses === 1 ? "license is expiring in 31 days" : "licenses are expiring in 31 days"}}' tooltip-side="bottom" tooltip-try="false">
                             <span class="fa-stack fa-lg">
                             <i class="fa fa-circle fa-stack-2x"></i>
-                            <i data-ng-class='["fa", "fa-bell", "fa-stack-1x", {"notification-on":expiringLicenses}]'></i>
+                            <i data-ng-class='["fa", "fa-bell", "fa-stack-1x", {"notification-on":expiringLicenses}]'>
+                            </i>
                             </span>
                         </a>
                     </li>
