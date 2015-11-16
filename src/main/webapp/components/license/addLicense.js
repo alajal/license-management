@@ -15,6 +15,8 @@ angular
             $http.post('rest/licenses', $scope.user).
                 //If POST request has been processed:
                 then(function (response) {
+                  // If something breaks and events are not created, comment the line below.
+                  createEvent(response.data.id);
                 }, function (response) {
                     console.error('There was something wrong with the add license request.');
                 });
@@ -41,6 +43,21 @@ angular
                 });
         }
 
+        function createEvent(id) {
+          $scope.event = {
+            name : 'User name',
+            description : '*user name* added license *license nr*',
+            type : 'Add'
+          };
+
+          $http.post('rest/events/'+id, $scope.event).
+              then(function(response) {
+                  console.log("Event created");
+                  console.log(response.data);
+              }, function(response) {
+                  console.error(response.errors);
+              });
+        }
 
         $scope.saveData = function () {
             $scope.user = $scope.user || {};
@@ -66,4 +83,3 @@ angular
             createCustomer();
         }
     });
-
