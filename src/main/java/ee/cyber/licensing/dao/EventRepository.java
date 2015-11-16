@@ -23,12 +23,11 @@ public class EventRepository {
 
     public Event save(Event ev) throws SQLException {
         try (Connection conn = ds.getConnection()) {
-            PreparedStatement stmnt = conn.prepareStatement("INSERT INTO Event (licenseId, name, description, type, dateCreated) VALUES (?, ?, ?, ?, ?)");
+            PreparedStatement stmnt = conn.prepareStatement("INSERT INTO Event (licenseId, name, description, type, dateCreated) VALUES (?, ?, ?, ?, GETDATE())");
             stmnt.setInt(1, ev.getLicense().getId());
             stmnt.setString(2, ev.getName());
             stmnt.setString(3, ev.getDescription());
             stmnt.setString(4, ev.getType());
-            stmnt.setDate(5, ev.getDateCreated());
             stmnt.execute();
 
             try (ResultSet generatedKeys = stmnt.getGeneratedKeys()) {
