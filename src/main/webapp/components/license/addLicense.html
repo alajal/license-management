@@ -22,8 +22,8 @@
         <div class="form-group">
             <label for="predecessor">License predecessor</label>
             <select type="text" class="form-control" id="predecessor" ng-model="predecessor"
-                    ng-options="predecessor as license.contractNumber for license in licenses"
-                    selected="-- " name="selectedPredecessor">
+                    ng-options="license as license.contractNumber for license in licenses"
+                    name="selectedPredecessor">
                 <option value=""> </option>
             </select>
         </div>

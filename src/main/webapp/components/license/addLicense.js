@@ -89,8 +89,8 @@ angular
             $scope.user.contractNumber = $scope.prefillContractNumber;
             $scope.user.state = $scope.state;
             console.log("Predecessor");
-            console.log($scope.predecessor);
-            $scope.user.predecessorLicenseId = $scope.predecessor;
+            console.log($scope.predecessor.contractNumber);
+            $scope.user.predecessorLicenseId = $scope.predecessor.contractNumber;
 
             var applicant = LicensingService.getApplicant();
             if (applicant != 'undefined') {
