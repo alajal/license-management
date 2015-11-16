@@ -21,12 +21,20 @@
 
         <div class="form-group">
             <label for="predecessor">License predecessor</label>
-            <input type="text" class="form-control" id="predecessor" ng-model="prefillPredecessor" disabled>
+            <select type="text" class="form-control" id="predecessor" ng-model="predecessor"
+                    ng-options="predecessor as license.contractNumber for license in licenses"
+                    selected="-- " name="selectedPredecessor">
+                <option value=""> </option>
+            </select>
         </div>
 
         <div class="form-group">
             <label for="state">License state</label>
-            <input type="text" class="form-control" id="state" ng-model="prefillState" disabled>
+            <select ng-options="state for state in allStates"
+                    type="text" class="form-control" id="state" ng-model="state" required name="selectedState"
+                    selected="">
+            </select>
+
         </div>
 
         <div class="form-group">

@@ -8,7 +8,6 @@ angular
             }
             $http.post('rest/customers', $scope.applicant).
                 then(function (response) {
-                    console.log("New applicant created.");
                     $window.location.href = '#/';
                 }, function (response) {
                     console.error('There was something wrong with the add single customer request.');

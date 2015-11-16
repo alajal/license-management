@@ -104,7 +104,7 @@
     color: yellow;
 }
 
-.productForm {
+.productForm, .customerForm {
     /* Float both forms to the left */
     float: left;
     /* borders added for visibility. Just remove them */
