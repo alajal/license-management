@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS License (
   validFrom             DATE,
   validTill             DATE,
   state                 INT                            NOT NULL,
-  predecessorLicenseId  INT,
+  predecessorLicenseId  VARCHAR(100),
   applicationSubmitDate DATE,
   FOREIGN KEY (productId) REFERENCES Product (id),
   FOREIGN KEY (customerId) REFERENCES Customer (id)
@@ -56,11 +56,11 @@ CREATE TABLE IF NOT EXISTS Contact (
 );
 
 CREATE TABLE IF NOT EXISTS Event (
-  id            INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  licenseId     INT NULL,
-  name          VARCHAR(100),
-  description   VARCHAR(200),
-  type          VARCHAR(100),
-  dateCreated   datetime,
+  id          INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  licenseId   INT                            NULL,
+  name        VARCHAR(100),
+  description VARCHAR(200),
+  type        VARCHAR(100),
+  dateCreated DATETIME,
   FOREIGN KEY (licenseId) REFERENCES License (id)
 );

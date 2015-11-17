@@ -13,7 +13,7 @@ angular
         $scope.allStates = ['CANCELLED', 'NEGOTIATED', 'WAITING_FOR_SIGNATURE'];
         $scope.state = {};
 
-        //Prefill
+        //Only for showing
         $scope.prefillProduct = LicensingService.getproduct() || LicensingService.getproductNew();
         $scope.prefillCustomer = LicensingService.getApplicant() || LicensingService.getCustomer();
         $scope.prefillContractNumber = LicensingService.getContractNumber();
@@ -24,8 +24,9 @@ angular
             console.log($scope.user);
             $http.post('rest/licenses', $scope.user).
                 then(function (response) {
-                  // If something breaks and events are not created, comment the line below.
-                  createEvent(response.data.id);
+                    // If something breaks and events are not created, comment the line below.
+                    createEvent(response.data.id);
+                    $window.location.href = '#/';
                 }, function (response) {
                     console.error('There was something wrong with the add license request.');
                 });
@@ -44,7 +45,6 @@ angular
                 }, function (response) {
                     console.error('There was something wrong with the add product request.');
                 });
-            $window.location.href = '#/';
         }
 
         function createCustomer(applicant) {
@@ -57,7 +57,7 @@ angular
                     console.log($scope.user.customer);
 
                     var newProduct = LicensingService.getproductNew();
-                    if (newProduct != 'undefined') {
+                    if (newProduct != undefined) {
                         createProduct(newProduct);
                     } else {
                         //var existingProduct = LicensingService.getproduct() != 'undefined';
@@ -68,19 +68,19 @@ angular
         }
 
         function createEvent(id) {
-          $scope.event = {
-            name : 'User name',
-            description : '*user name* added license *license nr*',
-            type : 'Add'
-          };
+            $scope.event = {
+                name: 'User name',
+                description: '*user name* added license *license nr*',
+                type: 'Add'
+            };
 
-          $http.post('rest/events/'+id, $scope.event).
-              then(function(response) {
-                  console.log("Event created");
-                  console.log(response.data);
-              }, function(response) {
-                  console.error(response.errors);
-              });
+            $http.post('rest/events/' + id, $scope.event).
+                then(function (response) {
+                    console.log("Event created");
+                    console.log(response.data);
+                }, function (response) {
+                    console.error(response.errors);
+                });
         }
 
         $scope.saveData = function () {
@@ -93,9 +93,16 @@ angular
             $scope.user.predecessorLicenseId = $scope.predecessor.contractNumber;
 
             var applicant = LicensingService.getApplicant();
-            if (applicant != 'undefined') {
+            if (applicant != undefined) {
                 createCustomer(applicant);
             } else {
+                console.log("else haru");
+                console.log($scope.user.customer);
+                console.log($scope.user.product);
+                console.log($scope.user)
+                $scope.user.customer = LicensingService.getCustomer();
+                $scope.user.product = LicensingService.getproduct();
+                createLicense();
                 //LicensingService.getCustomer() != 'undefined')
             }
         }
