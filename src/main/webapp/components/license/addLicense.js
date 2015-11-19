@@ -10,7 +10,7 @@ angular
             $scope.licenses = result;
         });
 
-        $scope.allStates = ['CANCELLED', 'NEGOTIATED', 'WAITING_FOR_SIGNATURE'];
+        $scope.allStates = ['REJECTED', 'NEGOTIATED', 'WAITING_FOR_SIGNATURE'];
         $scope.state = {};
 
         //Only for showing
