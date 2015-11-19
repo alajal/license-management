@@ -31,7 +31,7 @@ angular
                 controller: 'AddSingleProductCtrl'
             })
             .when('/product/add', {
-                templateUrl: 'components/product/addProduct.html',
+                templateUrl: 'components/product/chooseProduct.html',
                 controller: 'AddProductCtrl'
             })
 
