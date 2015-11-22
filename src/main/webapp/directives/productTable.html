@@ -6,12 +6,6 @@
    </div>
  </div>
 </form>
-<uib-accordion close-others="oneAtATime">
-    <uib-accordion-group heading="Dynamic Body Content">
-        <p>The body of the uib-accordion group grows to fit the contents</p>
-        <button type="button" class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
-    </uib-accordion-group>
-</uib-accordion>
 <!--<table class="table table-condensed table-striped" id="productsTable">
   <thead>
     <tr>
@@ -58,7 +52,7 @@
         <uib-accordion-heading>
             <div ng-if="!product.editing">{{product.name}}</div>
             <button ng-if="!product.editing" class="btn btn-small btn-primary" ng-click="editProduct(product)">Edit</button>
-            <button ng-if="!product.editing" class="btn btn-small btn-danger" ng-click="deleteProduct(product)">Delete</button>
+            <button ng-if="!product.editing" tooltip-enable="showDeleteNotification" popover-placement="right" uib-popover="This product is connected with license(s). To delete this product, delete the licenses for this product first." type="button" id="productDeleteButton" class="btn btn-small btn-danger" ng-click="deleteProduct(product)">Delete</button>
             <div ng-if="product.editing"><input type="text" ng-model="product.name"></div>
             <div ng-if="product.editing"><button class="btn btn-default" ng-click="saveProduct(product)">SAVE</button></div>
             <div ng-if="product.editing"><button class="btn btn-default" ng-click="cancelProductEditing(product)">CANCEL</button></div>

@@ -47,7 +47,7 @@ angular
                         $scope.products.splice(deletableProductIndex,1);
                     }
                     else{
-                        alert('This product is connected with license(s). To delete this product, delete the licenses first.');
+                        $scope.showDeleteNotification = true;
                     }
 
                 },  function (response) {
