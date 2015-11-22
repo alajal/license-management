@@ -1,5 +1,9 @@
-INSERT INTO Product (name, release) VALUES ('i-Voting', '11.2');
-INSERT INTO Product (name, release) VALUES ('ShareMind', '12.6');
+INSERT INTO Product (name) VALUES ('i-Voting');
+INSERT INTO Product (name) VALUES ('ShareMind');
+
+INSERT INTO Release (productId, version, additionDate) VALUES (1, 11.2, '2015-10-22');
+INSERT INTO Release (productId, version, additionDate) VALUES (1, 11.4, '2015-10-24');
+INSERT INTO Release (productId, version, additionDate) VALUES (1, 11.6, '2015-10-26');
 
 INSERT INTO Customer (organizationName, applicationArea, address, webpage, registrationCode, phone, bankAccount, fax, unitOrFaculty)
 VALUES ('Example University', 'example area', '123 Fake Street', 'www.example.com', '1A2B', '+372 555555', 'E100101',

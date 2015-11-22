@@ -1,6 +1,7 @@
 package ee.cyber.licensing.api;
 
 import ee.cyber.licensing.dao.ProductRepository;
+import ee.cyber.licensing.entity.AuthorisedUser;
 import ee.cyber.licensing.entity.Product;
 
 import javax.inject.Inject;
@@ -30,6 +31,18 @@ public class ProductResource {
     @POST
     public Product saveProduct(Product product) throws Exception {
         return productRepository.save(product);
+    }
+
+    @PUT
+    public Product editProduct(Product product) throws Exception {
+        return productRepository.editProduct(product);
+    }
+
+    @DELETE
+    @Path("/{productId}")
+    public Product deleteProductById(@PathParam("productId") int productId) throws Exception {
+        return productRepository.deleteProduct(productRepository.getProductById(productId));
+
     }
 
 }

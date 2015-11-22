@@ -1,6 +1,8 @@
 package ee.cyber.licensing.dao;
 
+import ee.cyber.licensing.entity.AuthorisedUser;
 import ee.cyber.licensing.entity.Contact;
+import ee.cyber.licensing.entity.License;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -8,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactRepository {
 
@@ -33,6 +37,24 @@ public class ContactRepository {
         }
         return contact;
     }
+
+/*    public List<Contact> findAll(Integer licenseId) throws SQLException {
+        try (Connection conn = ds.getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM Contact where licenseId = ?;")) {
+                statement.setInt(1,licId);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    List<AuthorisedUser> authorisedUsers = new ArrayList<>();
+                    while (resultSet.next()) {
+                        int licenseId = resultSet.getInt("licenseId");
+                        License license = licenseRepository.findById(licenseId);
+                        AuthorisedUser au = getAuthorisedUser(resultSet, license);
+                        authorisedUsers.add(au);
+                    }
+                    return authorisedUsers;
+                }
+            }
+        }
+    }*/
 }
 
 

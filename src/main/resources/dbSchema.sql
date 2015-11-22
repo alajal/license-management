@@ -1,9 +1,16 @@
 CREATE TABLE IF NOT EXISTS Product (
   id      INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  name    VARCHAR(100)                   NOT NULL,
-  release VARCHAR(100)                   NOT NULL
+  name    VARCHAR(100)                   NOT NULL
 );
 
+
+CREATE TABLE IF NOT EXISTS Release (
+  id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  productId INT NOT NULL,
+  version VARCHAR(100),
+  additionDate DATE NOT NULL,
+  FOREIGN KEY (productId) REFERENCES Product (id),
+);
 
 CREATE TABLE IF NOT EXISTS Customer (
   id               INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -18,7 +25,6 @@ CREATE TABLE IF NOT EXISTS Customer (
   fax              VARCHAR(20),
   unitOrFaculty    VARCHAR(100)
 );
-
 
 CREATE TABLE IF NOT EXISTS License (
   id                    INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -54,6 +60,7 @@ CREATE TABLE IF NOT EXISTS Contact (
   phone      VARCHAR(100),
   FOREIGN KEY (customerId) REFERENCES Customer (id)
 );
+
 
 CREATE TABLE IF NOT EXISTS Event (
   id            INT AUTO_INCREMENT PRIMARY KEY NOT NULL,

@@ -59,5 +59,6 @@ angular
                 controller: 'ViewEventsCtrl'
             });
 
+
         //$routeProvider.otherwise({redirectTo: '/'}); Is not needed at the moment.
     });

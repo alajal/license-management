@@ -141,7 +141,6 @@ angular
                     console.log($scope.selected);
                 }, function (response) {
                     console.error(response);
-
                 });
 
                 $scope.selected = {};
