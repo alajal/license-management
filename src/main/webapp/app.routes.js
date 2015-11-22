@@ -34,7 +34,6 @@ angular
                 templateUrl: 'components/product/chooseProduct.html',
                 controller: 'AddProductCtrl'
             })
-
             .when('/customers', {
                 templateUrl: 'components/customer/customerView.html',
                 controller: 'ViewCustomerCtrl'

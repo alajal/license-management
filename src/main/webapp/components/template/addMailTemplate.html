@@ -1,18 +1,18 @@
 <div class="container blaa">
 
-    <form novalidate class="form" name="addFileForm" ng-submit="saveFile()">
 
-        <label class="control-label">Choose file for attachment</label>
-        <input class="file" type="file"/>
+    <label class="control-label">Choose file for attachment</label>
+    <input type="file" id="file" name="file"/>
 
-        <label for="name">Give file a name</label><br>
-        <input type="text" id="name" value=""><br>
-        <button type="submit" id="upload-button">Upload</button>
+    <label for="name">Give file a name</label><br>
+    <input type="text" id="name" value="" ng-model="upload.fileName"><br>
 
-    </form>
+
+    <button ng-click="uploadFile()">Add</button>
+
     <br>
 
-    <form novalidate class="form" name="addTemplateForm" ng-submit="saveTemplate()">
+    <form novalidate class="form" name="addTemplateForm" ng-submit="saveMailBody()">
 
         <label class="control-label">Paste mail body</label><br>
         <textarea rows="4" cols="50">
