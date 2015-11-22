@@ -2,11 +2,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>License Management : Login</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
+    <script src="assets/lib/jquery/jquery-2.1.4.min.js"></script>
+    <script src="assets/lib/bootstrap/bootstrap.min.js"></script>
+    <script src="assets/lib/bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script>
+    <link type="text/css" rel="stylesheet" media="all" href="assets/lib/bootstrap/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" media="all" href="assets/main.css">
+    <link href="assets/lib/angular-tooltip/angular-tooltips.css" rel="stylesheet" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>License management</title>
+
+    <!-- Controllers -->
+    <script src="shared/header/headerController.js"></script>
+
 </head>
 <body>
+    <!-- nav -->
+    <nav class="navbar navbar-default ">
+
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <h2>License management</h2>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4 vertical-center">
@@ -23,11 +48,11 @@
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Password (admin)" name="password" type="password" value="">
                                 </div>
-                                <div class="checkbox">
+                                <!--<div class="checkbox">
                                     <label>
                                         <input name="rememberMe" type="checkbox" value="true"> Remember Me
                                     </label>
-                                </div>
+                                </div>-->
                                 <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
                             </fieldset>
                         </form>

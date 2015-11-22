@@ -20,6 +20,10 @@ app.service('LicensingService', function () {
         console.log(productL);
     };
 
+    this.addProductNew = function(productV){
+        productL = productV;
+    };
+
     this.addLicense = function (licenseV) {
         licenseL = licenseV;
         console.log(licenseL)
@@ -34,6 +38,10 @@ app.service('LicensingService', function () {
     };
 
     this.getproduct = function () {
+        return productL;
+    };
+
+    this.getproductNew = function () {
         return productL;
     };
 

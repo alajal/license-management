@@ -20,8 +20,8 @@ public class EventResource {
     }
 
     @POST
-    @Path ("bylicense/{id}")
-    public Event saveEvent(Event ev, @PathParam("id") int licenseId) throws Exception {
+    @Path("/{licenseId}")
+    public Event saveEvent(@PathParam("licenseId") int licenseId, Event ev) throws Exception {
         return eventRepository.save(ev, licenseId);
     }
 }

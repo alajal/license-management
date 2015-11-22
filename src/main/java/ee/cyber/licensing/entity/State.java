@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum  State {
-    CANCELLED(1),
+    REJECTED(1),
     NEGOTIATED(2),
     WAITING_FOR_SIGNATURE(3),
     ACTIVE(4),

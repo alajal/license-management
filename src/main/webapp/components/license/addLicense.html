@@ -16,26 +16,25 @@
 
         <div class="form-group">
             <label for="contractNumber">License contract number</label>
-            <input type="text" class="form-control" id="contractNumber" ng-model="prefillContractNumber" disabled>
+            <input type="text" class="form-control" id="contractNumber" ng-model="contractNumber" required>
         </div>
 
         <div class="form-group">
             <label for="predecessor">License predecessor</label>
-            <input type="text" class="form-control" id="predecessor" ng-model="prefillPredecessor" disabled>
+            <select type="text" class="form-control" id="predecessor" ng-model="predecessor"
+                    ng-options="license as license.contractNumber for license in licenses"
+                    name="selectedPredecessor">
+                <option value=""> </option>
+            </select>
         </div>
 
         <div class="form-group">
             <label for="state">License state</label>
-            <input type="text" class="form-control" id="state" ng-model="prefillState" disabled>
-        </div>
+            <select ng-options="state for state in allStates"
+                    type="text" class="form-control" id="state" ng-model="state" required name="selectedState"
+                    selected="">
+            </select>
 
-        <div class="form-group">
-            <label for="validFrom">Valid From(ex. '2015-10-15')</label>
-            <input type="text" class="form-control" id="validFrom" ng-model="user.validFrom">
-        </div>
-        <div class="form-group">
-            <label for="validTill">Valid Till(ex. '2015-10-15')</label>
-            <input type="text" class="form-control" id="validTill" ng-model="user.validTill">
         </div>
         <br>
 

@@ -11,7 +11,7 @@ public class License {
 
     String contractNumber;
     State state;
-    Integer predecessorLicenseId;
+    String predecessorLicenseId;
     Date validFrom;
     Date validTill;
     Date applicationSubmitDate;
@@ -19,7 +19,7 @@ public class License {
     public License() {
     }
 
-    public License(Product product, Customer customer, String contractNumber, Date validFrom, Date validTill, State state, Integer predecessorLicenseId, Date applicationSubmitDate) {
+    public License(Product product, Customer customer, String contractNumber, Date validFrom, Date validTill, State state, String predecessorLicenseId, Date applicationSubmitDate) {
         this.product = product;
         this.customer = customer;
         this.contractNumber = contractNumber;
@@ -30,7 +30,7 @@ public class License {
         this.applicationSubmitDate = applicationSubmitDate;
     }
 
-    public License(Integer id, Product product, Customer customer, String contractNumber, State state, Integer predecessorLicenseId, Date validFrom, Date validTill, Date applicationSubmitDate) {
+    public License(Integer id, Product product, Customer customer, String contractNumber, State state, String predecessorLicenseId, Date validFrom, Date validTill, Date applicationSubmitDate) {
         this.id = id;
         this.product = product;
         this.customer = customer;
@@ -101,11 +101,11 @@ public class License {
         this.state = state;
     }
 
-    public Integer getPredecessorLicenseId() {
+    public String getPredecessorLicenseId() {
         return predecessorLicenseId;
     }
 
-    public void setPredecessorLicenseId(Integer predecessorLicenseId) {
+    public void setPredecessorLicenseId(String predecessorLicenseId) {
         this.predecessorLicenseId = predecessorLicenseId;
     }
 

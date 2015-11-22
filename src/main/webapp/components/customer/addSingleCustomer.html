@@ -1,7 +1,10 @@
 <div class="container">
-    <h3>Create or choose customer</h3>
+    <h3>Create customer/applicant</h3>
+    <br>
 
-    <form novalidate class="form customerForm" name="form" ng-submit="addNewCustomer()">
+    <label>ORGANIZATION</label>
+
+    <form novalidate class="form singleCustomerForm" name="form" ng-submit="addNewSingleCustomer()">
         <div class="form-group">
 
             <label for="nameOrganization">Organization name</label>
@@ -55,28 +58,5 @@
         </div>
 
     </form>
-
-    <form novalidate class="form customerForm" name="chooseCustomerForm" ng-submit="chooseCustomer()">
-        <div class="form-group">
-            <label for="customer">Choose customer</label>
-
-            <select ng-options="customer as (customer.organizationName) for customer in customers | orderBy: 'name'"
-                    type="text" class="form-control" id="customer" ng-model="customer" required name="selectedCustomer"
-                    selected="">
-            </select>
-
-            <!--<search-organization ng-model="customer"></search-organization>-->
-
-            <div ng-show="chooseCustomerForm.$submitted || chooseCustomerForm.selectedCustomer.$touched">
-                <div ng-show="chooseCustomerForm.selectedCustomer.$error.required">Customer is needed.</div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <button type="submit" class="btn btn-default">CHOOSE</button>
-        </div>
-    </form>
-
-
 
 </div>

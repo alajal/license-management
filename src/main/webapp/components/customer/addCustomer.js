@@ -10,7 +10,6 @@ angular
                 return;
             }
             LicensingService.addApplicant($scope.applicant);
-            console.log($scope.applicant);
             $window.location.href = '#/product/add';
         };
 
@@ -19,7 +18,6 @@ angular
                 return;
             }
             LicensingService.addCustomer($scope.customer);
-            console.log($scope.customer);
             $window.location.href = '#/product/add';
         }
 

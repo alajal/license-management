@@ -28,15 +28,14 @@ public class LicenseRepository {
 
     public License save(License license) throws SQLException {
         try (Connection conn = ds.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO License " +
-                    "(productId, customerId, contractNumber, state, predecessorLicenseId, validFrom, validTill, " +
-                    "applicationSubmitDate) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement statement = conn.prepareStatement(
+                    "INSERT INTO License (productId, customerId, contractNumber, state, predecessorLicenseId, " +
+                            "validFrom, validTill, applicationSubmitDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             statement.setInt(1, license.getProduct().getId());
             statement.setInt(2, license.getCustomer().getId());
             statement.setString(3, license.getContractNumber());
             statement.setInt(4, license.getState().getStateNumber());
-            statement.setInt(5, license.getPredecessorLicenseId());
+            statement.setString(5, license.getPredecessorLicenseId());
             statement.setDate(6, license.getValidFrom());
             statement.setDate(7, license.getValidTill());
             statement.setDate(8, license.getApplicationSubmitDate());
@@ -95,7 +94,7 @@ public class LicenseRepository {
                 customer,
                 resultSet.getString("contractNumber"),
                 State.getByStateNumber(state),
-                resultSet.getInt("predecessorLicenseId"),
+                resultSet.getString("predecessorLicenseId"),
                 resultSet.getDate("validFrom"),
                 resultSet.getDate("validTill"),
                 resultSet.getDate("applicationSubmitDate"));

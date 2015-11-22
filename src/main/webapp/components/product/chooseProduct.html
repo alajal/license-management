@@ -1,0 +1,23 @@
+<div class="container">
+    <h3>Product form</h3>
+
+    <form novalidate class="form productForm" name="chooseProductForm" ng-submit="chooseProduct()">
+        <div class="form-group">
+            <label for="product">Choose product</label>
+            <select ng-options="product as (product.name + ' ' + product.release) for product in products | orderBy: 'name'"
+                    type="text" class="form-control" id="product" ng-model="product" required name="selectedProduct"
+                    selected="">
+            </select>
+
+            <div ng-show="chooseProductForm.$submitted || chooseProductForm.uselectedProduct.$touched">
+                <div ng-show="chooseProductForm.uselectedProduct.$error.required">Product is needed.</div>
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">CHOOSE</button>
+        </div>
+    </form>
+
+</div>

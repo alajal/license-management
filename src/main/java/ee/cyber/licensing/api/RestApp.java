@@ -60,6 +60,7 @@ public class RestApp extends ResourceConfig {
                 bind(ContactRepository.class).to(ContactRepository.class).in(Singleton.class);
                 bind(EventRepository.class).to(EventRepository.class).in(Singleton.class);
                 bind(ReleaseRepository.class).to(ReleaseRepository.class).in(Singleton.class);
+                bind(FileRepository.class).to(FileRepository.class).in(Singleton.class);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

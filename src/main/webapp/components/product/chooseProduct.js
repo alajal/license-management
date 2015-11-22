@@ -7,16 +7,14 @@ angular
         });
 
         $scope.addNewProduct = function () {
-            console.log($scope.newProduct);
             if (!$scope.addProductForm.$valid) {
                 return;
             }
-            LicensingService.addProduct($scope.newProduct);
+            LicensingService.addProductNew($scope.newProduct);
             $window.location.href = '#/license/add';
         };
 
         $scope.chooseProduct = function () {
-            console.log($scope.product);
             if (!$scope.chooseProductForm.$valid) {
                 return;
             }

@@ -41,10 +41,27 @@ angular
             $http.put('rest/licenses/' + $scope.license.id, $scope.license).
                 then(function (response) {
                     console.log($scope.license);
+                    createEvent($scope.license.id);
                 }, function (response) {
                     console.error(response);
                 });
         };
+
+        function createEvent(id) {
+          $scope.event = {
+            name : 'User name',
+            description : '*user name* modified license *license nr*',
+            type : 'Modify'
+          };
+
+          $http.post('rest/events/'+id, $scope.event).
+              then(function(response) {
+                  console.log("Event created");
+                  console.log(response.data);
+              }, function(response) {
+                  console.error(response.errors);
+              });
+        }
 
         $scope.openAuthorisedUsersForm = function () {
             var a = $location.param1;
@@ -173,4 +190,3 @@ angular
 
 
     });
-
