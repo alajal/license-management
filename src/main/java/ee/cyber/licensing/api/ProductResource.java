@@ -40,7 +40,7 @@ public class ProductResource {
 
     @DELETE
     @Path("/{productId}")
-    public Product deleteProductById(@PathParam("productId") int productId) throws Exception {
+    public boolean deleteProductById(@PathParam("productId") int productId) throws Exception {
         return productRepository.deleteProduct(productRepository.getProductById(productId));
 
     }

@@ -42,8 +42,13 @@ angular
 
             $http.delete('rest/products/' + product.id).
                 then(function(response){
-                    var deletableProductIndex = $scope.products.indexOf(product);
-                    $scope.products.splice(deletableProductIndex,1);
+                    if(response.data == 'true'){
+                        var deletableProductIndex = $scope.products.indexOf(product);
+                        $scope.products.splice(deletableProductIndex,1);
+                    }
+                    else{
+                        alert('This product is connected with license(s). To delete this product, delete the licenses first.');
+                    }
 
                 },  function (response) {
 

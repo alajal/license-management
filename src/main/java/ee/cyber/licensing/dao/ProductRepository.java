@@ -2,6 +2,7 @@ package ee.cyber.licensing.dao;
 
 import ee.cyber.licensing.entity.AuthorisedUser;
 import ee.cyber.licensing.entity.Product;
+import ee.cyber.licensing.entity.ReferentialIntegrityException;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -87,19 +88,19 @@ public class ProductRepository {
         return product;
     }
 
-    public Product deleteProduct(Product product) throws ClassNotFoundException, URISyntaxException {
+    public boolean deleteProduct(Product product) {
         try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement("DELETE from Product where id=?");
             statement.setInt(1, product.getId());
             statement.execute();
 
-            return product;
+            return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        return null;
+            return false;
+
+        }
 
     }
 }
