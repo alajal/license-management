@@ -2,8 +2,6 @@ package ee.cyber.licensing.dao;
 
 import ee.cyber.licensing.entity.AuthorisedUser;
 import ee.cyber.licensing.entity.Product;
-import ee.cyber.licensing.entity.ReferentialIntegrityException;
-
 import javax.inject.Inject;
 import javax.sql.DataSource;
 import java.net.URISyntaxException;
