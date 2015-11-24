@@ -67,4 +67,14 @@ angular
 
         };
 
+        $scope.saveRelease = function(release){
+            $http.put('rest/releases', release).then(function(response){
+                console.log(release);
+            }, function (response) {
+                console.error(response);
+            });
+
+            release.editing = false;
+        };
+
     });
