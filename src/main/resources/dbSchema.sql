@@ -3,7 +3,6 @@ CREATE TABLE IF NOT EXISTS Product (
   name    VARCHAR(100)                   NOT NULL
 );
 
-
 CREATE TABLE IF NOT EXISTS Release (
   id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   productId INT NOT NULL,
@@ -26,9 +25,11 @@ CREATE TABLE IF NOT EXISTS Customer (
   unitOrFaculty    VARCHAR(100)
 );
 
+
 CREATE TABLE IF NOT EXISTS License (
   id                    INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   productId             INT                            NOT NULL,
+  releaseId             INT                            NOT NULL,
   customerId            INT                            NOT NULL,
   contractNumber        VARCHAR(100)                   NOT NULL,
   validFrom             DATE,

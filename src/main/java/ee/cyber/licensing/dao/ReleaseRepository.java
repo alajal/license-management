@@ -50,4 +50,18 @@ public class ReleaseRepository {
         }
         return release;
     }
+
+    public Release getReleaseById(int id) throws SQLException {
+        try (Connection connection = ds.getConnection()) {
+            try (PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Release WHERE id = ?;")) {
+                stmt.setInt(1, id);
+                try (ResultSet resultSet = stmt.executeQuery()) {
+                    if (!resultSet.next()) {
+                        throw new SQLException("Ei leitud ühtegi rida id-ga " + id);
+                    }
+                    return getRelease(resultSet);
+                }
+            }
+        }
+    }
 }

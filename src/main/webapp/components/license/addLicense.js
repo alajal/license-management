@@ -39,6 +39,7 @@ angular
                     // new customer/applicant has id now
                     $scope.user.customer = response.data;
                     $scope.user.product = LicensingService.getproduct();
+                    $scope.user.release = LicensingService.getRelease();
                     createLicense();
                 }, function (response) {
                     console.error('There was something wrong with the add customer request.');
@@ -72,6 +73,7 @@ angular
             } else {
                 $scope.user.customer = LicensingService.getCustomer();
                 $scope.user.product = LicensingService.getproduct();
+                $scope.user.release = LicensingService.getRelease();
                 createLicense();
             }
         }
