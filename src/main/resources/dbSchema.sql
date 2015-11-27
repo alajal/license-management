@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS Product (
   name    VARCHAR(100)                   NOT NULL
 );
 
+Drop Table Release;
 CREATE TABLE IF NOT EXISTS Release (
   id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   productId INT NOT NULL,
@@ -24,8 +25,7 @@ CREATE TABLE IF NOT EXISTS Customer (
   fax              VARCHAR(20),
   unitOrFaculty    VARCHAR(100)
 );
-
-
+DROP Table License;
 CREATE TABLE IF NOT EXISTS License (
   id                    INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   productId             INT                            NOT NULL,
@@ -61,7 +61,6 @@ CREATE TABLE IF NOT EXISTS Contact (
   phone      VARCHAR(100),
   FOREIGN KEY (customerId) REFERENCES Customer (id)
 );
-
 
 CREATE TABLE IF NOT EXISTS Event (
   id          INT AUTO_INCREMENT PRIMARY KEY NOT NULL,

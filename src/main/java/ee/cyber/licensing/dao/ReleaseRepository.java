@@ -64,4 +64,18 @@ public class ReleaseRepository {
             }
         }
     }
+
+    public boolean deleteRelease(Release release) {
+        try (Connection conn = ds.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement("DELETE from Release where id=?");
+            statement.setInt(1, release.getId());
+            statement.execute();
+
+            return true;
+
+        } catch (SQLException e) {
+
+            return false;
+        }
+    }
 }

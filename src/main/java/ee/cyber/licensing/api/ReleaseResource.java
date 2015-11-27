@@ -25,4 +25,10 @@ public class ReleaseResource {
     public Release editRelease(Release release) throws Exception {
         return releaseRepository.editRelease(release);
     }
+
+    @DELETE
+    @Path("/{releaseId}")
+    public boolean deleteReleaseById(@PathParam("releaseId") int releaseId) throws Exception {
+        return releaseRepository.deleteRelease(releaseRepository.getReleaseById(releaseId));
+    }
 }

@@ -47,7 +47,7 @@ angular
                         $scope.products.splice(deletableProductIndex,1);
                     }
                     else{
-                        $scope.showDeleteNotification = true;
+                        $scope.showProductDeleteNotification = true;
                     }
 
                 },  function (response) {
@@ -75,6 +75,23 @@ angular
             });
 
             release.editing = false;
+        };
+
+        $scope.deleteRelease = function(release, product){
+
+            $http.delete('rest/releases/' + release.id).
+                then(function(response){
+                    if(response.data == 'true'){
+                        product.releases.splice(product.releases.indexOf(release), 1);
+                    }
+                    else{
+                        $scope.showReleaseDeleteNotification = true;
+                    }
+
+                },  function (response) {
+
+                    console.error('Release delete request failed');
+                });
         };
 
     });
