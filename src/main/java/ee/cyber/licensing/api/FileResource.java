@@ -25,6 +25,7 @@ public class FileResource {
     }*/
 
     @Path("/mailBody")
+    @Consumes({"application/json"})
     @POST
     public void saveBody(MailBody mailBody) throws Exception {
         List<String> keywords = Arrays.asList("$(organizationName)", "$(contactName)", "$(phone)", "$(email)", "$(product)",
@@ -37,6 +38,7 @@ public class FileResource {
     @Path("/attachment")
     @POST
     public void saveFile(MailAttachment mailAttachment) throws Exception {
+        System.out.println("tere");
         fileRepository.saveFile(mailAttachment);
     }
 

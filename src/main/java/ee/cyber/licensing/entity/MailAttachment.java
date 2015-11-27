@@ -2,8 +2,11 @@ package ee.cyber.licensing.entity;
 
 public class MailAttachment {
     private Integer id;
-    private final String data;
-    private final String fileName;
+    private String data;
+    private String fileName;
+
+    public MailAttachment() {
+    }
 
     public MailAttachment(String data, String fileName) {
         this.data = data;
