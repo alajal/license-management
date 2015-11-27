@@ -28,7 +28,7 @@ angular.module('LM')
                 console.log("upload");
                 console.log(upload);
 
-                $http.post('#/template/attachment', upload).
+                $http.post('#/file/attachment', upload).
                     then(function (response) {
                         console.log("File was uploaded");
                     }, function (rsponse) {

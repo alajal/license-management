@@ -7,6 +7,8 @@ import ee.cyber.licensing.entity.MailBody;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Path("file")
@@ -25,6 +27,8 @@ public class FileResource {
     @Path("/mailBody")
     @POST
     public void saveBody(MailBody mailBody) throws Exception {
+        List<String> keywords = Arrays.asList("$(organizationName)", "$(contactName)", "$(phone)", "$(email)", "$(product)",
+                "$(release)");
         fileRepository.saveMailBody(mailBody);
 
     }
