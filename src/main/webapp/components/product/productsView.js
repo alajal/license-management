@@ -4,6 +4,7 @@ angular
 
         $scope.rowforms = {};
 
+        //PRODUCT METHODS
         $http.get('rest/products').
             then(function (response) {
 
@@ -19,7 +20,6 @@ angular
                 console.error('Error occured with Product get request.');
             });
 
-        //PRODUCT METHODS
         $scope.editProduct = function(entry){
             entry.editing = true;
         };
@@ -56,6 +56,9 @@ angular
                 });
         };
 
+        $scope.sayHello = function(){
+            alert("hi");
+        };
 
         //RELEASE METHODS
         $scope.editRelease = function(release){

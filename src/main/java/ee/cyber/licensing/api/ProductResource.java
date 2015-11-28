@@ -1,8 +1,10 @@
 package ee.cyber.licensing.api;
 
 import ee.cyber.licensing.dao.ProductRepository;
+import ee.cyber.licensing.dao.ReleaseRepository;
 import ee.cyber.licensing.entity.AuthorisedUser;
 import ee.cyber.licensing.entity.Product;
+import ee.cyber.licensing.entity.Release;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -13,6 +15,9 @@ public class ProductResource {
 
     @Inject
     private ProductRepository productRepository;
+
+    @Inject
+    private ReleaseRepository releaseRepository;
 
     @GET
     @Produces("application/json")
@@ -30,7 +35,12 @@ public class ProductResource {
 
     @POST
     public Product saveProduct(Product product) throws Exception {
-        return productRepository.save(product);
+        Product productWithId = productRepository.save(product);
+        Release release;
+        if(productWithId.getReleases().size() == 1){
+            releaseRepository.saveRelease(productWithId.getId(), product.getReleases().get(0));
+        }
+        return productWithId;
     }
 
     @PUT

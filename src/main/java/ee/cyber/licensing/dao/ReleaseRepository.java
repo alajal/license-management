@@ -21,7 +21,8 @@ public class ReleaseRepository {
 
     public List<Release> findByProductId(int productId) throws SQLException {
         try (Connection conn = ds.getConnection()) {
-            try (PreparedStatement stmt = conn.prepareStatement("SELECT * from Release INNER JOIN Product on product.id=release.productId;")) {
+            try (PreparedStatement stmt = conn.prepareStatement("SELECT * from Release WHERE productId = ?;")) {
+                stmt.setInt(1, productId);
                 try (ResultSet rs = stmt.executeQuery()) {
                     List<Release> releases = new ArrayList<>();
                     while (rs.next()) {
@@ -77,5 +78,22 @@ public class ReleaseRepository {
 
             return false;
         }
+    }
+
+
+    public Release saveRelease(int productId, Release release) throws SQLException {
+        try (Connection conn = ds.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO Release (productId, version) VALUES (?, ?)");
+            statement.setInt(1, productId);
+            statement.setString(2, release.getVersionNumber());
+            statement.execute();
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    release.setId(generatedKeys.getInt(1));
+                }
+            }
+        }
+        return release;
     }
 }

@@ -7,11 +7,18 @@ angular
             if (!$scope.addProductForm.$valid) {
                 return;
             }
+            $scope.product.releases = [];
+
+            if($scope.release != null){
+                $scope.product.releases.push($scope.release);
+            }
+
+
             $http.post('rest/products', $scope.product).
                 then(function (response) {
                     $window.location.href = '#/';
                 }, function (response) {
-                    console.error('There was something wrong with the add single product request.');
+                    console.error('There was something wrong with the add product request.');
                 });
         };
     });
