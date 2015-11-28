@@ -1,22 +1,29 @@
 package ee.cyber.licensing.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@JsonIgnoreProperties("editing")
 public class Product {
 
     Integer id;
     String name;
-    String release;
+    //String release;
+    List<Release> releases;
 
-    public Product(Integer id, String name, String release) {
+    public Product(Integer id, String name, List<Release> releases) {
         this.id = id;
         this.name = name;
-        this.release = release;
+        this.releases = releases;
     }
 
     public Product() {
     }
 
-    @Override
-    public boolean equals(Object o) {
+    //@Override
+    /*public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -26,7 +33,7 @@ public class Product {
         if (!release.equals(product.release)) return false;
 
         return true;
-    }
+    }*/
 
 
     public String getName() {
@@ -45,11 +52,11 @@ public class Product {
         this.id = id;
     }
 
-    public String getRelease() {
-        return release;
+    public List<Release> getReleases() {
+        return releases;
     }
 
-    public void setRelease(String release) {
-        this.release = release;
+    public void setReleases(List<Release> releases) {
+        this.releases = releases;
     }
 }

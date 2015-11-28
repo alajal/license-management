@@ -14,11 +14,12 @@ angular
             $window.location.href = '#/license/add';
         };
 
-        $scope.chooseProduct = function () {
+        $scope.chooseProductAndRelease = function () {
             if (!$scope.chooseProductForm.$valid) {
                 return;
             }
             LicensingService.addProduct($scope.product);
+            LicensingService.addRelease($scope.release);
             $window.location.href = '#/license/add';
         }
     });

@@ -8,6 +8,7 @@ public class License {
 
     Product product;
     Customer customer;
+    Release release;
 
     String contractNumber;
     State state;
@@ -19,8 +20,9 @@ public class License {
     public License() {
     }
 
-    public License(Product product, Customer customer, String contractNumber, Date validFrom, Date validTill, State state, String predecessorLicenseId, Date applicationSubmitDate) {
+    public License(Product product, Release release, Customer customer, String contractNumber, Date validFrom, Date validTill, State state, String predecessorLicenseId, Date applicationSubmitDate) {
         this.product = product;
+        this.release = release;
         this.customer = customer;
         this.contractNumber = contractNumber;
         this.validFrom = validFrom;
@@ -30,9 +32,10 @@ public class License {
         this.applicationSubmitDate = applicationSubmitDate;
     }
 
-    public License(Integer id, Product product, Customer customer, String contractNumber, State state, String predecessorLicenseId, Date validFrom, Date validTill, Date applicationSubmitDate) {
+    public License(Integer id, Product product, Release release, Customer customer, String contractNumber, State state, String predecessorLicenseId, Date validFrom, Date validTill, Date applicationSubmitDate) {
         this.id = id;
         this.product = product;
+        this.release = release;
         this.customer = customer;
         this.contractNumber = contractNumber;
         this.state = state;
@@ -43,7 +46,6 @@ public class License {
     }
 
     //UNUSED GETTERS AND SETTERS FOR JERSEY WHEN DEALING WITH ARRAYS
-
 
     public Integer getId() {
         return id;
@@ -63,6 +65,14 @@ public class License {
 
     public Customer getCustomer() {
         return customer;
+    }
+
+    public Release getRelease() {
+        return release;
+    }
+
+    public void setRelease(Release release) {
+        this.release = release;
     }
 
     public void setCustomer(Customer customer) {

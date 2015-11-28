@@ -1,10 +1,87 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<div class="container">
+    <!-- Header -->
+    <div data-ng-include="'components/license/profileNavigation.html'"></div>
+    <h3>Contact Persons</h3>
+    <table class="table table-striped" id="contactPersonsTable">
+        <thead>
+        <tr>
+            <th>First name</th>
+            <th>Surname</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
 
-</body>
-</html>
+        <tr ng-repeat="cp in contactPersons" ng-include="getScriptId(cp)">
+            <script type="text/ng-template" id="display">
+                <td>{{cp.firstName}}</td>
+                <td>{{cp.lastName}}</td>
+                <td>{{cp.email}}</td>
+                <td>
+                    <button class="btn btn-default" ng-click="editContactPerson(cp)">EDIT</button>
+                    <button ng-click="deleteEntry(cp)" class="btn btn-default">DELETE</button>
+                </td>
+            </script>
+            <script type="text/ng-template" id="edit">
+                <td>
+                    <form id ="row-form" novalidate class="form" name="rowforms.form" ng-submit="save(cp)" >
+                        <input form="row-form" type="text" ng-model="selected.firstName" class="form-control input-sm" required="" name="firstName"/></form>
+                    <div ng-show="rowforms.form.$submitted || rowforms.form.firstName.$touched">
+                        <div ng-show="rowforms.form.firstName.$error.required">First name is needed.</div>
+                    </div>
+
+                </td>
+                <td><input form="row-form" type="text" ng-model="selected.lastName" class="form-control input-sm"/></td>
+                <td><input form="row-form" type="text" ng-model="selected.email" class="form-control input-sm"/></td>
+                <td><input form="row-form" type="text" ng-model="selected.occupation" class="form-control input-sm"/></td>
+                <td>
+                    <button form="row-form" type="submit" class="btn btn-default" >Save</button>
+                    <button class="btn btn-default" ng-click="reset(au)">Cancel</button>
+                </td>
+                </form>
+            </script>
+
+        </tr>
+        </form>
+        </tbody>
+    </table>
+    <button ng-click="openContactPersonForm()">Add user</button>
+    <div ng-show="contactPersonForm">
+        <form novalidate class="form" name="form" ng-submit="saveData()">
+            <div class="form-group">
+                <label for="firstName">First name</label>
+                <input type="text" class="form-control" id="firstName" ng-model="authorised.firstName" required name="authName">
+                <div ng-show="form.$submitted || form.authName.$touched">
+                    <div ng-show="form.authName.$error.required">First name is needed.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="surname">Surname</label>
+                <input type="text" class="form-control" id="surname" ng-model="authorised.lastName" required
+                       name="authSurname">
+
+                <div ng-show="form.$submitted || form.authSurname.$touched">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="text" class="form-control" id="email" ng-model="authorised.email" required
+                       name="authEmail">
+
+                <div ng-show="form.$submitted || form.authEmail.$touched">
+                    <div ng-show="form.authEmail.$error.required">Email is needed.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="occupation">Occupation</label>
+                <input type="text" class="form-control" id="occupation" ng-model="authorised.occupation" required
+                       name="authOccupation">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">SAVE</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+</div>

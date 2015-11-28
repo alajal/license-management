@@ -3,9 +3,12 @@ package ee.cyber.licensing.api;
 import ee.cyber.licensing.dao.FileRepository;
 import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.MailAttachment;
+import ee.cyber.licensing.entity.MailBody;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Path("file")
@@ -22,16 +25,20 @@ public class FileResource {
     }*/
 
     @Path("/mailBody")
+    @Consumes({"application/json"})
     @POST
-    public void saveBody(byte[] mailBody) throws Exception {
-        //MailBody save = fileRepository.save(mailBody);
+    public void saveBody(MailBody mailBody) throws Exception {
+        List<String> keywords = Arrays.asList("$(organizationName)", "$(contactName)", "$(phone)", "$(email)", "$(product)",
+                "$(release)");
+        fileRepository.saveMailBody(mailBody);
 
     }
 
 
     @Path("/attachment")
     @POST
-    public void saveFile(byte[] mailAttachment) throws Exception {
+    public void saveFile(MailAttachment mailAttachment) throws Exception {
+        System.out.println("tere");
         fileRepository.saveFile(mailAttachment);
     }
 

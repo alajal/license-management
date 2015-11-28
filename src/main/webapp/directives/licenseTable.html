@@ -25,6 +25,7 @@
                 <span ng-show="sortType == 'product.name' && sortReverse" class="fa fa-caret-up"></span>
               </a>
             </th>
+            <th>Release</th>
             <th>
               <a href="" ng-click="sortType = 'customer.organizationName'; sortReverse = !sortReverse">Customer
                 <span ng-show="sortType == 'customer.name' && !sortReverse" class="fa fa-caret-down"></span>
@@ -68,12 +69,13 @@
     <tbody ng-if="customer == Null">
       <tr ng-repeat="license in licenses | orderBy:sortType:sortReverse | filter:searchLicense">
           <td>{{ license.contractNumber }}</td>
-          <td>{{ license.product.name + ' ' + license.product.release }}</td>
+          <td>{{ license.product.name }}</td>
+          <td>{{ license.release.versionNumber }}</td>
           <td>{{ license.customer.organizationName }}</td>
           <td>{{ license.state}}</td>
           <td>{{ license.predecessorLicenseId }}</td>
           <td>{{ license.validFrom }}</td>
-          <td>{{license.validTill}}</td>
+          <td>{{ license.validTill}}</td>
           <td>{{ license.applicationSubmitDate }}</td>
 
           <!-- if more than 2 days remain for expiration -->

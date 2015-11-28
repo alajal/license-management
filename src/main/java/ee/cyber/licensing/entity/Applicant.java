@@ -6,6 +6,8 @@ public class Applicant {
     String applicationArea;
 
     String contactName;
+    //String contactFirstName;
+    //String contactLastName;
     String email;
     String skype;
     String phone;
@@ -48,6 +50,22 @@ public class Applicant {
     public void setContactName(String contactName) {
         this.contactName = contactName;
     }
+
+    /*    public void setContactFirstName(String contactFirstName) {
+        this.contactFirstName = contactFirstName;
+    }
+
+    public void setContactLastName(String contactLastName) {
+        this.contactLastName = contactLastName;
+    }
+
+    public String getContactFirstName() {
+        return contactFirstName;
+    }
+
+    public String getContactLastName() {
+        return contactLastName;
+    }*/
 
     public String getEmail() {
         return email;

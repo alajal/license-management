@@ -43,6 +43,22 @@ public class Contact {
         this.contactName = contactName;
     }
 
+    /*    public String getContactFirstName() {
+        return contactFirstName;
+    }
+
+    public String getContactLastName() {
+        return contactLastName;
+    }
+
+    public void setContactFirstName(String contactFirstName) {
+        this.contactFirstName = contactFirstName;
+    }
+
+    public void setContactLastName(String contactLastName) {
+        this.contactLastName = contactLastName;
+    }*/
+
     public String getEmail() {
         return email;
     }

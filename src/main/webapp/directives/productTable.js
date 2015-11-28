@@ -12,3 +12,4 @@ app.directive('productTable', function() {
     }
   };
 });
+

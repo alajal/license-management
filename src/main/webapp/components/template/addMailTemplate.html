@@ -1,23 +1,26 @@
-<div class="container blaa">
+<div class="container " >
 
-
-    <label class="control-label">Choose file for attachment</label>
-    <input type="file" id="file" name="file"/>
-
-    <label for="name">Give file a name</label><br>
-    <input type="text" id="name" value="" ng-model="upload.fileName"><br>
-
-
-    <button ng-click="uploadFile()">Add</button>
+    <div id="fileUpload" class="form-group mail">
+        <label class="control-label">Choose file for attachment</label><br>
+        <input type="file" id="file" name="file"/>
+        <!--<input type="text" id="name" value="File name" ng-model="upload.fileName"><br>-->
+        <button ng-click="uploadFile()">Add</button>
+    </div>
 
     <br>
 
-    <form novalidate class="form" name="addTemplateForm" ng-submit="saveMailBody()">
+    <div class="form-group mail" id="mailBodyUpload">
+        <form novalidate class="form" name="addTemplateForm" ng-submit="saveMailBody()">
+            <div class="form-group">
 
-        <label class="control-label">Paste mail body</label><br>
-        <textarea rows="4" cols="50">
-        </textarea><br>
-        <button type="submit" id="mailBody-button">Upload</button>
+                <label class="control-label">Mail subject/mailbody name</label><br>
+                <input type="text" id="mailBodyName" value="" ng-model="mailBody.name"><br>
+                <label class="control-label">Paste mail body</label><br>
+                <textarea rows="4" cols="50" ng-model="mailBody.data" value="" required></textarea><br>
+                <button type="submit" id="mailBody-button">Upload</button>
+            </div>
+        </form>
+    </div>
 
-    </form>
+
 </div>

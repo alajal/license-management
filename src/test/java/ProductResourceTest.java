@@ -23,8 +23,8 @@ public class ProductResourceTest extends JerseyTest {
         return resourceConfig;
     }
 
-    @Test
-    public void productAddedTest() throws SQLException {
+    //@Test
+    /*public void productAddedTest() throws SQLException {
 
         Product testProduct = new Product(1,"MindShare", "6.6.6");
         List<Product> before = target("products").request("application/json").get(new GenericType<List<Product>>(){});
@@ -36,5 +36,5 @@ public class ProductResourceTest extends JerseyTest {
         List<Product> after = target("products").request("application/json").get(new GenericType<List<Product>>(){});
         Assert.assertTrue(after.contains(testProduct));
 
-    }
+    }*/
 }

@@ -1,9 +1,16 @@
 CREATE TABLE IF NOT EXISTS Product (
-  id      INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  name    VARCHAR(100)                   NOT NULL,
-  release VARCHAR(100)                   NOT NULL
+  id   INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  name VARCHAR(100)                   NOT NULL
 );
 
+Drop Table Release;
+CREATE TABLE IF NOT EXISTS Release (
+  id           INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  productId    INT                            NOT NULL,
+  version      VARCHAR(100),
+  additionDate DATE                           NOT NULL,
+  FOREIGN KEY (productId) REFERENCES Product (id),
+);
 
 CREATE TABLE IF NOT EXISTS Customer (
   id               INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -18,11 +25,11 @@ CREATE TABLE IF NOT EXISTS Customer (
   fax              VARCHAR(20),
   unitOrFaculty    VARCHAR(100)
 );
-
-
+DROP Table License;
 CREATE TABLE IF NOT EXISTS License (
   id                    INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   productId             INT                            NOT NULL,
+  releaseId             INT                            NOT NULL,
   customerId            INT                            NOT NULL,
   contractNumber        VARCHAR(100)                   NOT NULL,
   validFrom             DATE,
@@ -34,6 +41,17 @@ CREATE TABLE IF NOT EXISTS License (
   FOREIGN KEY (customerId) REFERENCES Customer (id)
 );
 
+CREATE TABLE IF NOT EXISTS MailAttachment (
+  id       INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  fileName VARCHAR(100)                   NOT NULL,
+  fileData BLOB                           NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS MailBody (
+  id      INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  subject VARCHAR(100)                   NOT NULL,
+  body    VARCHAR(500)                   NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS AuthorisedUser (
   id         INT AUTO_INCREMENT PRIMARY KEY NOT NULL,

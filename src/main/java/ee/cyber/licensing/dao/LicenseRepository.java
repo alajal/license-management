@@ -1,10 +1,7 @@
 package ee.cyber.licensing.dao;
 
 
-import ee.cyber.licensing.entity.Customer;
-import ee.cyber.licensing.entity.License;
-import ee.cyber.licensing.entity.Product;
-import ee.cyber.licensing.entity.State;
+import ee.cyber.licensing.entity.*;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -26,19 +23,23 @@ public class LicenseRepository {
     @Inject
     private CustomerRepository customerRepository;
 
+    @Inject
+    private ReleaseRepository releaseRepository;
+
     public License save(License license) throws SQLException {
         try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(
-                    "INSERT INTO License (productId, customerId, contractNumber, state, predecessorLicenseId, " +
-                            "validFrom, validTill, applicationSubmitDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                    "INSERT INTO License (productId, releaseId, customerId, contractNumber, state, predecessorLicenseId, " +
+                            "validFrom, validTill, applicationSubmitDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             statement.setInt(1, license.getProduct().getId());
-            statement.setInt(2, license.getCustomer().getId());
-            statement.setString(3, license.getContractNumber());
-            statement.setInt(4, license.getState().getStateNumber());
-            statement.setString(5, license.getPredecessorLicenseId());
-            statement.setDate(6, license.getValidFrom());
-            statement.setDate(7, license.getValidTill());
-            statement.setDate(8, license.getApplicationSubmitDate());
+            statement.setInt(2, license.getRelease().getId());
+            statement.setInt(3, license.getCustomer().getId());
+            statement.setString(4, license.getContractNumber());
+            statement.setInt(5, license.getState().getStateNumber());
+            statement.setString(6, license.getPredecessorLicenseId());
+            statement.setDate(7, license.getValidFrom());
+            statement.setDate(8, license.getValidTill());
+            statement.setDate(9, license.getApplicationSubmitDate());
             statement.execute();
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -58,7 +59,7 @@ public class LicenseRepository {
                     if (!resultSet.next()) {
                         throw new SQLException("Ei leitud ühtegi rida id-ga " + id);
                     }
-                    return getLicense(resultSet, productRepository.getProductById(resultSet.getInt("productId")),
+                    return getLicense(resultSet, productRepository.getProductById(resultSet.getInt("productId")), releaseRepository.getReleaseById(resultSet.getInt("releaseId")),
                             customerRepository.getCustomerById(resultSet.getInt("customerId")));
                 }
             }
@@ -73,10 +74,12 @@ public class LicenseRepository {
                     while (resultSet.next()) {
                         int productId = resultSet.getInt("productId");
                         Product productById = productRepository.getProductById(productId);
+                        int releaseId = resultSet.getInt("releaseId");
+                        Release release = releaseRepository.getReleaseById(releaseId);
                         int customerId = resultSet.getInt("customerId");
                         Customer customerById = customerRepository.getCustomerById(customerId);
 
-                        License license = getLicense(resultSet, productById, customerById);
+                        License license = getLicense(resultSet, productById, release, customerById);
                         licenses.add(license);
                     }
                     return licenses;
@@ -85,12 +88,13 @@ public class LicenseRepository {
         }
     }
 
-    private License getLicense(ResultSet resultSet, Product product, Customer customer) throws SQLException {
+    private License getLicense(ResultSet resultSet, Product product, Release release, Customer customer) throws SQLException {
         Integer state = resultSet.getInt("state");
 
         return new License(
                 resultSet.getInt("id"),
                 product,
+                release,
                 customer,
                 resultSet.getString("contractNumber"),
                 State.getByStateNumber(state),
@@ -127,10 +131,12 @@ public class LicenseRepository {
                     while (resultSet.next()) {
                         int productId = resultSet.getInt("productId");
                         Product productById = productRepository.getProductById(productId);
+                        int releaseId = resultSet.getInt("releaseId");
+                        Release release = releaseRepository.getReleaseById(releaseId);
                         int customerId = resultSet.getInt("customerId");
                         Customer customerById = customerRepository.getCustomerById(customerId);
 
-                        License license = getLicense(resultSet, productById, customerById);
+                        License license = getLicense(resultSet, productById, release, customerById);
                         expiringLicenses.add(license);
                     }
                     return expiringLicenses;

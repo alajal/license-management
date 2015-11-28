@@ -1,9 +1,9 @@
 <div class="container">
     <h3>Product form</h3>
 
-    <form novalidate class="form productForm" name="chooseProductForm" ng-submit="chooseProduct()">
+    <form novalidate class="form productForm" name="chooseProductForm" ng-submit="chooseProductAndRelease()">
         <div class="form-group">
-            <label for="product">Choose product</label>
+            <label for="product">Choose Product</label>
             <select ng-options="product as (product.name + ' ' + product.release) for product in products | orderBy: 'name'"
                     type="text" class="form-control" id="product" ng-model="product" required name="selectedProduct"
                     selected="">
@@ -12,6 +12,11 @@
             <div ng-show="chooseProductForm.$submitted || chooseProductForm.uselectedProduct.$touched">
                 <div ng-show="chooseProductForm.uselectedProduct.$error.required">Product is needed.</div>
             </div>
+        </div>
+
+        <div class="form-group">
+            <label for="release">Choose Release</label>
+            <select ng-options="release as (release.versionNumber) for release in product.releases" type="text" class="form-control" id="release" ng-model="release"></select>
         </div>
         <br>
 
