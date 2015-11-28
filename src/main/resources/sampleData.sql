@@ -19,3 +19,5 @@ VALUES (1, 'John', 'Doe', 'johanna@test.com', 'student');
 INSERT INTO Contact(customerId, fullName) VALUES (1, 'Contact Testname');
 
 INSERT INTO Event(licenseId, name, description, type, dateCreated) VALUES (1, 'New license added', 'New license added description', 'Add', GETDATE());
+
+INSERT INTO Event(name, description, type, dateCreated) VALUES ('New customer added', 'New customer added description', 'Add', GETDATE());

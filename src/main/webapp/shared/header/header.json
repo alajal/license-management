@@ -10,7 +10,7 @@
       },
       {
         "type": "link",
-        "url": "events",
+        "url": "eventsLicense",
         "name": "View events"
       }
     ]
@@ -39,6 +39,11 @@
         "type": "link",
         "url": "customers",
         "name": "View customers"
+      },
+      {
+        "type": "link",
+        "url": "eventsCustomer",
+        "name": "View events"
       },
       {
         "type": "link",

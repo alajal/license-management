@@ -28,6 +28,14 @@ public class Event {
         this.dateCreated = dateCreated;
     }
 
+    public Event(Integer id, String name, String description, String type, Date dateCreated) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.dateCreated = dateCreated;
+    }
+
 
     //Getters/Setters
     public Integer getId() {  return id;  }

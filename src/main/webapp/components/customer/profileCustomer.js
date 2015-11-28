@@ -16,4 +16,32 @@ angular
             }, function (response) {
                 console.error('[customerView.js] Error retrieving license owners.');
             });
+
+        function createEvent(customer, event_nr) {
+          // Event numbers
+          // 0 - edit customer info
+          // 1 - remove customer
+          var customer_name = customer.organizationName;
+
+          $scope.events = [
+            {
+              name: 'Modified Customer',
+              description: ' modified customer '+customer_name,
+              type: 'Modify'
+            },
+            {
+              name: 'Deleted Customer',
+              description: ' deleted customer '+customer_name,
+              type: 'Remove'
+            }
+            ];
+
+          $http.post('rest/events/'+0, $scope.events[event_nr]).
+              then(function(response) {
+                  console.log("Event created");
+                  console.log(response.data);
+              }, function(response) {
+                  console.error(response.errors);
+              });
+        }
     });
