@@ -1,12 +1,13 @@
 angular.module('LM')
     .controller('TemplateCtrl', function ($scope, $http) {
+
         $scope.mailBody ={};
         $scope.saveMailBody = function () {
             console.log($scope.mailBody);
-            $http.post('#/template/mailBody', $scope.mailBody).
+            $http.post('rest/template/mailBody', $scope.mailBody).
                 then(function (response) {
-                    $scope.mailBody.data = "";
-                    $scope.mailBody.name = "";
+                    $scope.mailBody.body = "";
+                    $scope.mailBody.subject = "";
 
                 }, function (response) {
                     console.error('Something went wrong with adding template post method.');
@@ -28,7 +29,7 @@ angular.module('LM')
                 console.log("upload");
                 console.log(upload);
 
-                $http.post('rest/file/attachment', upload).
+                $http.post('rest/template/attachment', upload).
                     then(function (response) {
                         console.log("File was uploaded");
                     }, function (rsponse) {

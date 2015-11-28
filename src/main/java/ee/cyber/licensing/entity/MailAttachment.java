@@ -8,17 +8,6 @@ public class MailAttachment {
     public MailAttachment() {
     }
 
-    public MailAttachment(String data, String fileName) {
-        this.data = data;
-        this.fileName = fileName;
-    }
-
-    public MailAttachment(Integer id, String data, String fileName) {
-        this.id = id;
-        this.data = data;
-        this.fileName = fileName;
-    }
-
     public String getData() {
         return data;
     }
@@ -33,5 +22,13 @@ public class MailAttachment {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

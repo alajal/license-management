@@ -38,7 +38,20 @@ public class FileRepository {
 
     }
 
-    public void saveMailBody(MailBody mailBody) {
+    public void saveMailBody(MailBody mailBody) throws SQLException {
+        try (Connection conn = ds.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO MailBody (subject, body) " +
+                    "VALUES (?, ?);");
+            statement.setString(1, mailBody.getSubject());
+            statement.setString(2, mailBody.getBody());
+            statement.execute();
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    mailBody.setId(generatedKeys.getInt(1));
+                }
+            }
+        }
 
     }
 

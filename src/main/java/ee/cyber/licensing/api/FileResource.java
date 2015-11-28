@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Path("file")
+@Path("template")
 public class FileResource {
     @Inject
     private FileRepository fileRepository;
@@ -24,23 +24,22 @@ public class FileResource {
         return fileRepository.find();
     }*/
 
+    @Path("/attachment")
+    @POST
+    public void saveFile(MailAttachment mailAttachment) throws Exception {
+        fileRepository.saveFile(mailAttachment);
+    }
+
     @Path("/mailBody")
-    @Consumes({"application/json"})
     @POST
     public void saveBody(MailBody mailBody) throws Exception {
         List<String> keywords = Arrays.asList("$(organizationName)", "$(contactName)", "$(phone)", "$(email)", "$(product)",
                 "$(release)");
+
+        //find keywords from the text, kui tahetakse templatei
+
         fileRepository.saveMailBody(mailBody);
 
     }
-
-
-    @Path("/attachment")
-    @POST
-    public void saveFile(MailAttachment mailAttachment) throws Exception {
-        System.out.println("tere");
-        fileRepository.saveFile(mailAttachment);
-    }
-
 
 }
