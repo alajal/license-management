@@ -41,7 +41,8 @@ CREATE TABLE IF NOT EXISTS License (
   predecessorLicenseId  VARCHAR(100),
   applicationSubmitDate DATE,
   FOREIGN KEY (productId) REFERENCES Product (id),
-  FOREIGN KEY (customerId) REFERENCES Customer (id)
+  FOREIGN KEY (customerId) REFERENCES Customer (id),
+  FOREIGN KEY (releaseId) REFERENCES Release (id)
 );
 
 DROP Table IF EXISTS MailAttachment;
