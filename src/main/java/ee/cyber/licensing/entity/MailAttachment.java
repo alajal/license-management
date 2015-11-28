@@ -1,12 +1,11 @@
 package ee.cyber.licensing.entity;
 
 public class MailAttachment {
-    private final String data;
-    private final String fileName;
+    private Integer id;
+    private String data;
+    private String fileName;
 
-    public MailAttachment(String data, String fileName) {
-        this.data = data;
-        this.fileName = fileName;
+    public MailAttachment() {
     }
 
     public String getData() {
@@ -15,5 +14,21 @@ public class MailAttachment {
 
     public String getFileName() {
         return fileName;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

@@ -26,7 +26,8 @@ angular
             $http.post('rest/licenses', $scope.user).
                 then(function (response) {
                     // If something breaks and events are not created, comment the line below.
-                    createEvent(response.data.id);
+                    console.log(response.data);
+                    createEvent(response.data, 0);
                     $window.location.href = '#/';
                 }, function (response) {
                     console.error('There was something wrong with the add license request.');
@@ -40,20 +41,48 @@ angular
                     $scope.user.customer = response.data;
                     $scope.user.product = LicensingService.getproduct();
                     $scope.user.release = LicensingService.getRelease();
+                    createEvent(response.data, 1);
+                    console.log("Customer event created!!!");
                     createLicense();
                 }, function (response) {
                     console.error('There was something wrong with the add customer request.');
                 });
         }
 
-        function createEvent(id) {
+        function createEvent(obj, event_nr) {
+            // Event numbers
+            // 0 - add new license
+            // 1 - add new customer
+
+            $scope.events = [
+              {
+                name: 'Created License',
+                description: '*user name* added license '+obj.contractNumber+', state is: '+obj.state,
+                type: 'Add'
+              },
+              {
+                name: 'Created Customer',
+                description: '*user name* added customer '+obj.organizationName,
+                type: 'Add'
+              }
+              ];
+
+              /*
             $scope.event = {
                 name: 'User name',
-                description: '*user name* added license *license nr*',
+                description: '*user name* added license '+license.contractNumber+', state is: '+license.state,
                 type: 'Add'
             };
+            */
 
-            $http.post('rest/events/' + id, $scope.event).
+            if(event_nr == 0) {
+              id = obj.id;
+            }
+            else {
+              id = 0;
+            }
+
+            $http.post('rest/events/' + id, $scope.events[event_nr]).
                 then(function (response) {
                     console.log("Event created");
                     console.log(response.data);

@@ -23,18 +23,38 @@ public class EventRepository {
 
     public Event save(Event ev) throws SQLException {
         try (Connection conn = ds.getConnection()) {
-            PreparedStatement stmnt = conn.prepareStatement("INSERT INTO Event (licenseId, name, description, type, dateCreated) VALUES (?, ?, ?, ?, GETDATE())");
-            stmnt.setInt(1, ev.getLicense().getId());
-            stmnt.setString(2, ev.getName());
-            stmnt.setString(3, ev.getDescription());
-            stmnt.setString(4, ev.getType());
-            stmnt.execute();
 
-            try (ResultSet generatedKeys = stmnt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    ev.setId(generatedKeys.getInt(1));
-                }
+            if(ev.getLicense() == null) {
+              PreparedStatement stmnt = conn.prepareStatement("INSERT INTO Event (name, description, type, dateCreated) VALUES (?, ?, ?, GETDATE())");
+
+              stmnt.setString(1, ev.getName());
+              stmnt.setString(2, ev.getDescription());
+              stmnt.setString(3, ev.getType());
+              stmnt.execute();
+
+              try (ResultSet generatedKeys = stmnt.getGeneratedKeys()) {
+                  if (generatedKeys.next()) {
+                      ev.setId(generatedKeys.getInt(1));
+                  }
+              }
             }
+            else {
+              PreparedStatement stmnt = conn.prepareStatement("INSERT INTO Event (licenseId, name, description, type, dateCreated) VALUES (?, ?, ?, ?, GETDATE())");
+
+              stmnt.setInt(1, ev.getLicense().getId());
+              stmnt.setString(2, ev.getName());
+              stmnt.setString(3, ev.getDescription());
+              stmnt.setString(4, ev.getType());
+              stmnt.execute();
+
+              try (ResultSet generatedKeys = stmnt.getGeneratedKeys()) {
+                  if (generatedKeys.next()) {
+                      ev.setId(generatedKeys.getInt(1));
+                  }
+              }
+            }
+
+
         }
         return ev;
     }
@@ -45,11 +65,20 @@ public class EventRepository {
                 try (ResultSet resultSet = statement.executeQuery()) {
                     List<Event> events = new ArrayList<>();
                     while (resultSet.next()) {
-                      //System.out.println(resultSet.getDate("dateCreated"));
                       int licenseId = resultSet.getInt("licenseId");
-                      License license = licenseRepository.findById(licenseId);
-                      Event ev = getEvent(resultSet, license);
-                      events.add(ev);
+
+                      if(licenseId == 0) {
+                        License license = null;
+                        System.out.println(license);
+                        Event ev = getEvent(resultSet, null);
+                        events.add(ev);
+                      }
+                      else {
+                        License license = licenseRepository.findById(licenseId);
+                        System.out.println(license);
+                        Event ev = getEvent(resultSet, license);
+                        events.add(ev);
+                      }
                     }
                     return events;
                 }
@@ -68,6 +97,16 @@ public class EventRepository {
     }
 
     private Event getEvent(ResultSet rs, License license) throws SQLException {
+        if(license == null) {
+          return new Event(
+                  rs.getInt("id"),
+                  rs.getString("name"),
+                  rs.getString("description"),
+                  rs.getString("type"),
+                  rs.getDate("dateCreated")
+          );
+        }
+
         return new Event(
                 rs.getInt("id"),
                 license,
@@ -79,8 +118,15 @@ public class EventRepository {
     }
 
     public Event save(Event ev, int licenseId) throws SQLException {
-        License license = licenseRepository.findById(licenseId);
-        ev.setLicense(license);
+        if(licenseId == 0) {
+          License license = null;
+          ev.setLicense(license);
+        }
+        else {
+          License license = licenseRepository.findById(licenseId);
+          ev.setLicense(license);
+        }
+
         return save(ev);
     }
 }

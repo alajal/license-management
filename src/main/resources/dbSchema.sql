@@ -1,8 +1,10 @@
+DROP Table IF EXISTS Product;
 CREATE TABLE IF NOT EXISTS Product (
   id      INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   name    VARCHAR(100)                   NOT NULL
 );
 
+Drop Table IF EXISTS Release;
 CREATE TABLE IF NOT EXISTS Release (
   id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   productId INT NOT NULL,
@@ -11,6 +13,7 @@ CREATE TABLE IF NOT EXISTS Release (
   FOREIGN KEY (productId) REFERENCES Product (id),
 );
 
+DROP Table IF EXISTS Customer;
 CREATE TABLE IF NOT EXISTS Customer (
   id               INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   organizationName VARCHAR(200)                   NOT NULL,
@@ -25,6 +28,7 @@ CREATE TABLE IF NOT EXISTS Customer (
   unitOrFaculty    VARCHAR(100)
 );
 
+DROP Table IF EXISTS License;
 CREATE TABLE IF NOT EXISTS License (
   id                    INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   productId             INT                            NOT NULL,
@@ -40,7 +44,21 @@ CREATE TABLE IF NOT EXISTS License (
   FOREIGN KEY (customerId) REFERENCES Customer (id)
 );
 
+DROP Table IF EXISTS MailAttachment;
+CREATE TABLE IF NOT EXISTS MailAttachment (
+  id       INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  fileName VARCHAR(100)                   NOT NULL,
+  fileData BLOB                           NOT NULL
+);
 
+DROP Table IF EXISTS MailBody;
+CREATE TABLE IF NOT EXISTS MailBody (
+  id      INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  subject VARCHAR(100)                   NOT NULL,
+  body    VARCHAR(500)                   NOT NULL
+);
+
+DROP Table IF EXISTS AuthorisedUser;
 CREATE TABLE IF NOT EXISTS AuthorisedUser (
   id         INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   licenseId  INT                            NOT NULL,
@@ -51,6 +69,7 @@ CREATE TABLE IF NOT EXISTS AuthorisedUser (
   FOREIGN KEY (licenseId) REFERENCES License (id)
 );
 
+DROP Table IF EXISTS Contact;
 CREATE TABLE IF NOT EXISTS Contact (
   id         INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   customerId INT                            NOT NULL,
@@ -61,9 +80,10 @@ CREATE TABLE IF NOT EXISTS Contact (
   FOREIGN KEY (customerId) REFERENCES Customer (id)
 );
 
+DROP Table IF EXISTS Event;
 CREATE TABLE IF NOT EXISTS Event (
   id          INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  licenseId   INT                            NULL,
+  licenseId   INT,
   name        VARCHAR(100),
   description VARCHAR(200),
   type        VARCHAR(100),

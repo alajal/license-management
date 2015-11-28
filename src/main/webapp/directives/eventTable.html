@@ -31,7 +31,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="event in events | orderBy:sortType:sortReverse | filter:searchEvent">
+    <tr ng-repeat="event in data.events | orderBy:sortType:sortReverse | filter:searchEvent" ng-if="event.license != null && data.type ==0">
+      <td>{{ event.name }}</td>
+      <td>{{ event.description }}</td>
+      <td>{{ event.dateCreated }}</td>
+    </tr>
+
+    <tr ng-repeat="event in data.events | orderBy:sortType:sortReverse | filter:searchEvent" ng-if="event.license == null && data.type ==1">
       <td>{{ event.name }}</td>
       <td>{{ event.description }}</td>
       <td>{{ event.dateCreated }}</td>

@@ -1,7 +1,5 @@
 <div class="container">
-    <!-- Header -->
     <div data-ng-include="'components/license/profileNavigation.html'"></div>
-    <!--<a ng-href="#/authorisedUser/bylicense/{{licenseId}}">Authorised Users</a>-->
     <h3>License</h3>
 
     <div class="form-group">
@@ -11,30 +9,29 @@
                    disabled/><br>
         </div>
         <div>
-            <b><label for="applicantName">Applicant name (person): </label></b><br>
-            <input id="applicantName" class="form-group" ng-model="license.name" ng-disabled="editorDisabled"/><br>
+            <b><label for="applicantName">Contract number: </label></b><br>
+            <input id="applicantName" class="form-group" ng-model="license.contractNumber" ng-disabled="editorDisabled"/><br>
         </div>
         <div>
             <b><label>Customer: </label></b><br>
-            <input class="form-group" ng-model="license.customer.name" disabled/><br>
+            <input class="form-group" ng-model="license.customer.organizationName" disabled/><br>
         </div>
         <div>
-            <b><label>Email: </label></b><br>
-            <input class="form-group" ng-model="license.email" ng-disabled="editorDisabled"/><br>
+            <b><label>State: </label></b><br>
+            <input class="form-group" ng-model="license.state" ng-disabled="editorDisabled"/><br>
         </div>
         <div>
-            <b><label>Phone: </label></b><br>
-            <input class="form-group" ng-model="license.phone" ng-disabled="editorDisabled"/><br>
+            <b><label>predecessorLicenseId: </label></b><br>
+            <input class="form-group" ng-model="license.predecessorLicenseId" ng-disabled="editorDisabled"/><br>
         </div>
         <div>
-            <b><label>Skype: </label></b><br>
-            <input class="form-group" ng-model="license.skype" ng-disabled="editorDisabled"/><br>
+            <b><label>Application submit date: </label></b><br>
+            <input class="form-group" ng-model="license.applicationSubmitDate" ng-disabled="editorDisabled"/><br>
         </div>
-        <div >
-            <b><label>Application area: </label></b><br>
-            <input class="form-group" ng-model="license.applicationArea" maxlength="200" ng-disabled="editorDisabled"/><br>
+        <div>
+            <b><label>License type: </label></b><br>
+            <input class="form-group" ng-model="license.licenseType" disabled/><br>
         </div>
-
     </div>
 
     <button ng-click="enableEditor()">Edit</button>
@@ -42,7 +39,6 @@
     <button ng-click="saveProfile()" ng-disabled="editorDisabled">Save</button>
     <br>
     <!--<button ng-click="disableEditor()" ng-disabled="editorDisabled">Cancel</button>-->
-
 
 </div>
 

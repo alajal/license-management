@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container " >
 
-    <div id="fileUpload" class="form-group">
+    <div id="fileUpload" class="form-group mail">
         <label class="control-label">Choose file for attachment</label><br>
         <input type="file" id="file" name="file"/>
         <!--<input type="text" id="name" value="File name" ng-model="upload.fileName"><br>-->
@@ -9,14 +9,18 @@
 
     <br>
 
-    <form novalidate class="form" name="addTemplateForm" ng-submit="saveMailBody()">
-        <div class="form-group">
+    <div class="form-group mail" id="mailBodyUpload">
+        <form novalidate class="form" name="addTemplateForm" ng-submit="saveMailBody()">
+            <div class="form-group">
 
-            <label class="control-label">Mail subject/mailbody name</label><br>
-            <input type="text" id="mailBodyName" value="" ng-model="mailBody.name"><br>
-            <label class="control-label">Paste mail body</label><br>
-            <textarea rows="4" cols="50" ng-model="mailBody.data" value="" required></textarea><br>
-            <button type="submit" id="mailBody-button">Upload</button>
-        </div>
-    </form>
+                <label class="control-label">Mail subject/mailbody name</label><br>
+                <input type="text" id="mailBodyName" value="" ng-model="mailBody.subject"><br>
+                <label class="control-label">Paste mail body</label><br>
+                <textarea rows="4" cols="50" ng-model="mailBody.body" value="" required></textarea><br>
+                <button type="submit" id="mailBody-button">Upload</button>
+            </div>
+        </form>
+    </div>
+
+
 </div>

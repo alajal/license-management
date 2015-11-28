@@ -50,6 +50,10 @@ angular
                 templateUrl: 'components/customer/profileCustomer.html',
                 controller: 'ProfileCustomerCtrl'
             })
+            .when('/customer/:id/history', {
+                templateUrl: 'components/license/history.html',
+                controller: 'ViewHistoryCtrl'
+            })
             .when('/', {
                 templateUrl: 'components/home/home.html',
                 controller: 'HomeCtrl'
@@ -62,7 +66,11 @@ angular
                 templateUrl: 'components/template/addMailTemplate.html',
                 controller: 'TemplateCtrl'
             })
-            .when('/events',{
+            .when('/eventsLicense',{
+                templateUrl: 'components/license/eventsView.html',
+                controller: 'ViewEventsCtrl'
+            })
+            .when('/eventsCustomer',{
                 templateUrl: 'components/license/eventsView.html',
                 controller: 'ViewEventsCtrl'
             });
