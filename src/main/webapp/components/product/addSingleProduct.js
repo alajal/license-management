@@ -11,6 +11,8 @@ angular
 
             if($scope.release != null){
                 $scope.product.releases.push($scope.release);
+                $scope.release.additionDate = new Date();
+                console.log($scope.release.additionDate);
             }
 
 
