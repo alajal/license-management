@@ -41,20 +41,38 @@ angular
             $http.put('rest/licenses/' + $scope.license.id, $scope.license).
                 then(function (response) {
                     console.log($scope.license);
-                    createEvent($scope.license.id);
+                    createEvent($scope.license, 0);
                 }, function (response) {
                     console.error(response);
                 });
         };
 
-        function createEvent(id) {
-          $scope.event = {
-            name : 'User name',
-            description : '*user name* modified license *license nr*',
-            type : 'Modify'
-          };
+        function createEvent(license, event_nr) {
+          var contract_nr = license.contractNumber;
+          // Event numbers
+          // 0 - edit license info
+          // 1 - remove license
+          // 2 - change license status
 
-          $http.post('rest/events/'+id, $scope.event).
+          $scope.events = [
+            {
+              name: 'User name',
+              description: ' modified license '+contract_nr,
+              type: 'Modify'
+            },
+            {
+              name: 'User name',
+              description: ' deleted license '+contract_nr,
+              type: 'Remove'
+            },
+            {
+              name: 'User name',
+              description: ' modified status of license '+contract_nr+' to '+license.state,
+              type: 'Modify'
+            }
+            ];
+
+          $http.post('rest/events/'+license.id, $scope.events[event_nr]).
               then(function(response) {
                   console.log("Event created");
                   console.log(response.data);

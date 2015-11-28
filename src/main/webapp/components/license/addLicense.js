@@ -26,7 +26,8 @@ angular
             $http.post('rest/licenses', $scope.user).
                 then(function (response) {
                     // If something breaks and events are not created, comment the line below.
-                    createEvent(response.data.id);
+                    console.log(response.data);
+                    createEvent(response.data);
                     $window.location.href = '#/';
                 }, function (response) {
                     console.error('There was something wrong with the add license request.');
@@ -45,14 +46,14 @@ angular
                 });
         }
 
-        function createEvent(id) {
+        function createEvent(license) {
             $scope.event = {
                 name: 'User name',
-                description: '*user name* added license *license nr*',
+                description: '*user name* added license '+license.contractNumber+', state is: '+license.state,
                 type: 'Add'
             };
 
-            $http.post('rest/events/' + id, $scope.event).
+            $http.post('rest/events/' + license.id, $scope.event).
                 then(function (response) {
                     console.log("Event created");
                     console.log(response.data);
