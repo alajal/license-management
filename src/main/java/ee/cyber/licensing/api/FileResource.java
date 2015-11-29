@@ -33,11 +33,7 @@ public class FileResource {
     public void saveBody(MailBody mailBody) throws Exception {
         List<String> keywords = Arrays.asList("$(organizationName)", "$(contactName)", "$(phone)", "$(email)", "$(product)",
                 "$(release)");
-
-        //find keywords from the text, kui tahetakse templatei
-
         fileRepository.saveMailBody(mailBody);
-
     }
 
 }

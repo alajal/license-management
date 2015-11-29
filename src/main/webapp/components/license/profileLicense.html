@@ -42,7 +42,8 @@
     <div class="form-group">
         <label>Choose mail subject: </label>
         <select ng-options="body as body.subject for body in bodies"
-                type="text" class="form-control" id="body" ng-model="mailBody" required name="selectedTemplate">
+                type="text" class="form-control" id="body" ng-model="mailBody" ng-change="mailBodySelected()"
+                required name="selectedTemplate">
         </select>
         <br>
         <label>Chosen mail body: </label>

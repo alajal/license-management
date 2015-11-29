@@ -209,5 +209,30 @@ angular
                 console.error('Something went wrong with the bodies get method.');
             });
 
+        $scope.mailBodySelected = function () {
+            console.log("tere");
+            console.log($scope.mailBody);
+            console.log($scope.license);
+            var map = {
+                "${organizationName}": $scope.license.customer.organizationName,
+                "${phone}": $scope.license.customer.phone,
+                "${email}": $scope.license.customer.email,
+                "${product}": $scope.license.product.name,
+                "${release}": $scope.license.release
+            };
+
+            var bodyAsString = $scope.mailBody.body;
+            for (var key in map) {
+                console.log(key);
+                bodyAsString = bodyAsString.replace(key, map[key]);
+            }
+            console.log("Bady as string");
+            console.log(bodyAsString);
+
+            $scope.mailBody.body = bodyAsString;
+        };
+
+        //todo otsi contact object, mille customerId = praegune customer id
+
     });
 

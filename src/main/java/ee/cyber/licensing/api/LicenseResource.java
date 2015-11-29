@@ -37,8 +37,7 @@ public class LicenseResource {
 
     @POST
     public License saveLicense(License license) throws Exception {
-        License save = licenseRepository.save(license);
-        return save;
+        return licenseRepository.save(license);
     }
 
     @Path("/{id}")
