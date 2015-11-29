@@ -210,12 +210,9 @@ angular
             });
 
         $scope.mailBodySelected = function () {
-            console.log("tere");
-            console.log($scope.mailBody);
-            console.log($scope.license);
             var map = {
                 "${organizationName}": $scope.license.customer.organizationName,
-                "${phone}": $scope.license.customer.phone,
+                //"${phone}": $scope.license.contact.phone,
                 "${email}": $scope.license.customer.email,
                 "${product}": $scope.license.product.name,
                 "${release}": $scope.license.release
@@ -226,13 +223,17 @@ angular
                 console.log(key);
                 bodyAsString = bodyAsString.replace(key, map[key]);
             }
-            console.log("Bady as string");
-            console.log(bodyAsString);
-
             $scope.mailBody.body = bodyAsString;
         };
 
+
         //todo otsi contact object, mille customerId = praegune customer id
 
+        $http.get('rest/template').
+            then(function (response) {
+                $scope.bodies = response.data;
+            }, function (response) {
+                console.error('Something went wrong with the bodies get method.');
+            });
     });
 

@@ -1,7 +1,8 @@
 package ee.cyber.licensing.entity;
 
-public class Customer {
+import java.util.List;
 
+public class Customer {
 
     private Integer id;
 
@@ -16,15 +17,20 @@ public class Customer {
     private String fax;
     private String unitOrFaculty;
 
+    private List<Contact> contacts;
+
     public Customer() {
     }
 
-    public Customer(String organizationName, String applicationArea) {
+    public Customer(String organizationName, String applicationArea, List<Contact> contacts) {
         this.organizationName = organizationName;
         this.applicationArea = applicationArea;
+        this.contacts = contacts;
     }
 
-    public Customer(Integer id, String organizationName, String applicationArea, String address, String webpage, String registrationCode, String phone, String bankAccount, String fax, String unitOrFaculty) {
+    public Customer(Integer id, String organizationName, String applicationArea, String address, String webpage,
+                    String registrationCode, String phone, String bankAccount, String fax, String unitOrFaculty,
+                    List<Contact> contacts) {
         this.id = id;
         this.organizationName = organizationName;
         this.applicationArea = applicationArea;
@@ -35,7 +41,17 @@ public class Customer {
         this.bankAccount = bankAccount;
         this.fax = fax;
         this.unitOrFaculty = unitOrFaculty;
+        this.contacts = contacts;
     }
+
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
 
     @Override
     public boolean equals(Object o) {

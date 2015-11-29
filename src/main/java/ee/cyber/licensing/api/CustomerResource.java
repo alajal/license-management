@@ -1,6 +1,5 @@
 package ee.cyber.licensing.api;
 
-import ee.cyber.licensing.dao.ContactRepository;
 import ee.cyber.licensing.dao.CustomerRepository;
 import ee.cyber.licensing.entity.Applicant;
 import ee.cyber.licensing.entity.Contact;
@@ -8,6 +7,8 @@ import ee.cyber.licensing.entity.Customer;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,8 +17,6 @@ public class CustomerResource {
 
     @Inject
     private CustomerRepository customerRepository;
-    @Inject
-    private ContactRepository contactRepository;
 
     @GET
     @Produces("application/json")
@@ -35,14 +34,9 @@ public class CustomerResource {
     @POST
     public Customer saveCustomer(Applicant applicant) throws Exception {
         //Customer == Organization == Applicant
-        // status turns customer into "license owner"
-        Customer customer = new Customer(applicant.getOrganizationName(), applicant.getApplicationArea());
-        Customer savedCustomer = customerRepository.save(customer);
-        //Every contact is connected at least with one customer
-        Contact contact = new Contact(savedCustomer.getId(), applicant.getContactName(), applicant.getEmail(),
-                applicant.getSkype(), applicant.getPhone());
-        contactRepository.save(contact);
-        return savedCustomer;
+        Contact contact = new Contact(applicant.getContactName(), applicant.getEmail(), applicant.getSkype(), applicant.getPhone());
+        Customer customer = new Customer(applicant.getOrganizationName(), applicant.getApplicationArea(), Arrays.asList(contact));
+        return customerRepository.save(customer);
     }
 
     @Path("/{id}")

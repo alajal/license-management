@@ -57,7 +57,6 @@ public class RestApp extends ResourceConfig {
                 bind(ProductRepository.class).to(ProductRepository.class).in(Singleton.class);
                 bind(CustomerRepository.class).to(CustomerRepository.class).in(Singleton.class);
                 bind(AuthorisedUserRepository.class).to(AuthorisedUserRepository.class).in(Singleton.class);
-                bind(ContactRepository.class).to(ContactRepository.class).in(Singleton.class);
                 bind(EventRepository.class).to(EventRepository.class).in(Singleton.class);
                 bind(ReleaseRepository.class).to(ReleaseRepository.class).in(Singleton.class);
                 bind(FileRepository.class).to(FileRepository.class).in(Singleton.class);

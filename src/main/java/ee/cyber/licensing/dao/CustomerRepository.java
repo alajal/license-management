@@ -1,6 +1,7 @@
 package ee.cyber.licensing.dao;
 
 
+import ee.cyber.licensing.entity.Contact;
 import ee.cyber.licensing.entity.Customer;
 
 import javax.inject.Inject;
@@ -19,7 +20,8 @@ public class CustomerRepository {
 
     public Customer save(Customer customer) throws SQLException {
         try (Connection conn = ds.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO Customer (organizationName, applicationArea) VALUES (?, ?);");
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO Customer " +
+                    "(organizationName, applicationArea) VALUES (?, ?)");
             statement.setString(1, customer.getOrganizationName());
             statement.setString(2, customer.getApplicationArea());
             statement.execute();
@@ -29,24 +31,29 @@ public class CustomerRepository {
                     customer.setId(generatedKeys.getInt(1));
                 }
             }
+            //todo transaction needed
+            for (Contact contact : customer.getContacts()) {
+                save(contact, customer, conn);
+            }
         }
         return customer;
     }
 
 
-    public Customer getCustomerById(int id) throws SQLException {
+    public Customer getCustomerById(int customerId) throws SQLException {
         try (Connection connection = ds.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM Customer WHERE id = ?;")) {
-                statement.setInt(1, id);
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM Customer WHERE id = ?")) {
+                statement.setInt(1, customerId);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (!resultSet.next()) {
-                        throw new SQLException("No customer with id: " + id);
+                        throw new SQLException("No customer with id: " + customerId);
                     }
-                    return getCustomer(resultSet);
+                    return getCustomer(connection, resultSet);
                 }
             }
         }
     }
+
 
     public List<Customer> findAll() throws SQLException {
         try (Connection conn = ds.getConnection()) {
@@ -54,7 +61,7 @@ public class CustomerRepository {
                 try (ResultSet resultSet = statement.executeQuery()) {
                     List<Customer> customers = new ArrayList<>();
                     while (resultSet.next()) {
-                        Customer customer = getCustomer(resultSet);
+                        Customer customer = getCustomer(conn, resultSet);
                         customers.add(customer);
                     }
                     return customers;
@@ -63,7 +70,7 @@ public class CustomerRepository {
         }
     }
 
-    private Customer getCustomer(ResultSet resultSet) throws SQLException {
+    private Customer getCustomer(Connection conn, ResultSet resultSet) throws SQLException {
         return new Customer(
                 resultSet.getInt("id"),
                 resultSet.getString("organizationName"),
@@ -74,7 +81,31 @@ public class CustomerRepository {
                 resultSet.getString("phone"),
                 resultSet.getString("bankAccount"),
                 resultSet.getString("fax"),
-                resultSet.getString("unitOrFaculty"));
+                resultSet.getString("unitOrFaculty"),
+                getContacts(conn, resultSet.getInt("id")));
+    }
+
+    private List<Contact> getContacts(Connection conn, Integer customerId) throws SQLException {
+        PreparedStatement statement = conn.prepareStatement("SELECT * FROM Contact WHERE customerId = ?");
+        statement.setInt(1, customerId);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            List<Contact> contacts = new ArrayList<>();
+            while (resultSet.next()) {
+                Contact contact = getContact(resultSet);
+                contacts.add(contact);
+            }
+            return contacts;
+        }
+
+    }
+
+    private Contact getContact(ResultSet resultSet) throws SQLException {
+        return new Contact(
+                resultSet.getString("fullName"),
+                resultSet.getString("email"),
+                resultSet.getString("skype"),
+                resultSet.getString("phone")
+        );
     }
 
     public Customer update(Customer customer) throws SQLException {
@@ -95,6 +126,20 @@ public class CustomerRepository {
             statement.execute();
         }
         return customer;
+    }
+
+
+    private Contact save(Contact contact, Customer customer, Connection conn) throws SQLException {
+        PreparedStatement statement = conn.prepareStatement("INSERT INTO Contact " +
+                "(customerId, fullName, email, skype, phone) VALUES (?, ?, ?, ?, ?)");
+        statement.setInt(1, customer.getId());
+        statement.setString(2, contact.getContactName());
+        statement.setString(3, contact.getEmail());
+        statement.setString(4, contact.getSkype());
+        statement.setString(5, contact.getPhone());
+        statement.execute();
+
+        return contact;
     }
 
 }
