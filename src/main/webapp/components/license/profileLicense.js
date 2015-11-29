@@ -212,10 +212,10 @@ angular
         $scope.mailBodySelected = function () {
             var map = {
                 "${organizationName}": $scope.license.customer.organizationName,
-                //"${phone}": $scope.license.contact.phone,
-                "${email}": $scope.license.customer.email,
+                "${contactPerson}": $scope.license.customer.contacts[0].contactName,
+                "${email}": $scope.license.customer.contacts[0].email,
                 "${product}": $scope.license.product.name,
-                "${release}": $scope.license.release
+                "${release}": $scope.license.release.versionNumber
             };
 
             var bodyAsString = $scope.mailBody.body;
@@ -228,12 +228,5 @@ angular
 
 
         //todo otsi contact object, mille customerId = praegune customer id
-
-        $http.get('rest/template').
-            then(function (response) {
-                $scope.bodies = response.data;
-            }, function (response) {
-                console.error('Something went wrong with the bodies get method.');
-            });
     });
 
