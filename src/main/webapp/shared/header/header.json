@@ -27,7 +27,7 @@
       {
         "type": "link",
         "url": "product/addSingleProduct",
-        "name": "Add single product"
+        "name": "Add product"
       }
     ]
   },
@@ -48,7 +48,7 @@
       {
         "type": "link",
         "url": "customer/addSingleCustomer",
-        "name": "Add single customer"
+        "name": "Add customer"
       }
     ]
   }

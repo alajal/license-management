@@ -7,7 +7,7 @@ angular
         $scope.applicant = {};
         $scope.user = $scope.user || {};
 
-        $http.get('rest/licenses', $scope.license).success(function (result) {
+        $http.get('rest/licenses').success(function (result) {
             $scope.licenses = result;
         });
 

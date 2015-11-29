@@ -16,13 +16,11 @@ public class FileResource {
     @Inject
     private FileRepository fileRepository;
 
-    //byte array
-    //jdbc api
-   /* @GET
+    @GET
     @Produces("application/json")
-    public List<License> getLicenses() throws Exception {
-        return fileRepository.find();
-    }*/
+    public List<MailBody> getBodies() throws Exception {
+        return fileRepository.findBodies();
+    }
 
     @Path("/attachment")
     @POST
