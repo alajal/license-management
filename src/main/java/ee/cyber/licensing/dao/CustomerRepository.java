@@ -31,7 +31,7 @@ public class CustomerRepository {
                     customer.setId(generatedKeys.getInt(1));
                 }
             }
-            //todo transaction needed
+            //todo transaction needed - kas sama nimega customer on juba olemas?
             for (Contact contact : customer.getContacts()) {
                 save(contact, customer, conn);
             }

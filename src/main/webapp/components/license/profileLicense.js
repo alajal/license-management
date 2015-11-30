@@ -226,7 +226,5 @@ angular
             $scope.mailBody.body = bodyAsString;
         };
 
-
-        //todo otsi contact object, mille customerId = praegune customer id
     });
 

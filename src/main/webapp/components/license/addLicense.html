@@ -17,6 +17,7 @@
         <div class="form-group">
             <label for="contractNumber">License contract number</label>
             <input type="text" class="form-control" id="contractNumber" ng-model="contractNumber" required>
+            <div ng-if="errorMessage">{{ errorMessage }}</div>
         </div>
 
         <div class="form-group">

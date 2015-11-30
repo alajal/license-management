@@ -40,6 +40,7 @@ public class ProductRepository {
 
     public Product save(Product product) throws SQLException {
         try (Connection conn = ds.getConnection()) {
+
             PreparedStatement statement = conn.prepareStatement("INSERT INTO Product (name) VALUES (?)");
             statement.setString(1, product.getName());
             statement.execute();

@@ -9,6 +9,7 @@
             <div ng-show="addProductForm.$submitted || addProductForm.pName.$touched">
                 <div ng-show="form.pName.$error.required">Name is needed.</div>
             </div>
+            <div ng-if="errorMessage">{{ errorMessage }}</div>
         </div>
 
         <div class="form-group">

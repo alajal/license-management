@@ -30,7 +30,8 @@ angular
                     createEvent(response.data, 0);
                     $window.location.href = '#/';
                 }, function (response) {
-                    console.error('There was something wrong with the add license request.');
+                    $scope.errorMessage = 'Something went wrong. Maybe license with this id already exists?';
+                    console.error(response);
                 });
         }
 
