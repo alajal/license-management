@@ -38,6 +38,24 @@ public class ProductRepository {
         }
     }
 
+    public List<Product> findByKeyword(String kword) throws SQLException {
+      System.out.println(kword);
+      try (Connection conn = ds.getConnection()) {
+        try (PreparedStatement statement = conn.prepareStatement(
+        "SELECT * FROM Product WHERE name LIKE (CONCAT('%',?,'%'));")) {
+          statement.setString(1, kword);
+          try (ResultSet resultSet = statement.executeQuery()) {
+            List<Product> products = new ArrayList();
+            while (resultSet.next()) {
+                Product product = getProduct(resultSet);
+                products.add(product);
+            }
+            return products;
+          }
+        }
+      }
+    }
+
     public Product save(Product product) throws SQLException {
         try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO Product (name) VALUES (?)");

@@ -229,4 +229,3 @@ angular
 
         //todo otsi contact object, mille customerId = praegune customer id
     });
-

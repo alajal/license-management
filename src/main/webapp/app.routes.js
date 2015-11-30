@@ -73,7 +73,12 @@ angular
             .when('/eventsCustomer',{
                 templateUrl: 'components/license/eventsView.html',
                 controller: 'ViewEventsCtrl'
+            })
+            .when('/search/:keyword',{
+                templateUrl: 'components/home/search.html',
+                controller: 'SearchCtrl'
             });
+
 
 
         //$routeProvider.otherwise({redirectTo: '/'}); Is not needed at the moment.

@@ -39,11 +39,13 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <form class="navbar-form" role="search">
+
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
+                                <input type="text" class="form-control" placeholder="Search" ng-model="searchbox">
                             </div>
 
-                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            <button type="submit" class="btn btn-default" ng-click="find(searchbox)"><i class="fa fa-search"></i></button>
+
                             <button type="submit" class="btn btn-default dropdown" data-toggle="dropdown"><i
                                     class="fa fa-level-down"></i></button>
 

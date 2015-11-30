@@ -70,6 +70,31 @@ public class CustomerRepository {
         }
     }
 
+    public List<Customer> findByKeyword(String kword) throws SQLException {
+      try (Connection conn = ds.getConnection()) {
+        try (PreparedStatement statement = conn.prepareStatement(
+        "SELECT * FROM Customer WHERE organizationName LIKE (CONCAT('%',?,'%')) OR applicationArea  LIKE (CONCAT('%',?,'%')) OR address LIKE (CONCAT('%',?,'%')) OR webpage LIKE (CONCAT('%',?,'%')) OR registrationCode LIKE (CONCAT('%',?,'%')) OR phone LIKE (CONCAT('%',?,'%')) OR bankaccount LIKE (CONCAT('%',?,'%')) OR fax LIKE (CONCAT('%',?,'%')) OR unitOrFaculty LIKE (CONCAT('%',?,'%'));")) {
+          statement.setString(1, kword);
+          statement.setString(2, kword);
+          statement.setString(3, kword);
+          statement.setString(4, kword);
+          statement.setString(5, kword);
+          statement.setString(6, kword);
+          statement.setString(7, kword);
+          statement.setString(8, kword);
+          statement.setString(9, kword);
+          try (ResultSet resultSet = statement.executeQuery()) {
+            List<Customer> customers = new ArrayList();
+            while (resultSet.next()) {
+                Customer customer = getCustomer(conn, resultSet);
+                customers.add(customer);
+            }
+            return customers;
+          }
+        }
+      }
+    }
+
     private Customer getCustomer(Connection conn, ResultSet resultSet) throws SQLException {
         return new Customer(
                 resultSet.getInt("id"),

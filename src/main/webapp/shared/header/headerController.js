@@ -33,4 +33,7 @@ angular
                 $scope.numberOfExpiringLicenses = newVal;
             }, true);
 
+        $scope.find = function(keyword) {
+          $location.path('/search/'+keyword);
+        }
     });

@@ -52,6 +52,7 @@ public class LicenseRepository {
     }
 
     public License findById(int id) throws SQLException {
+        System.out.println(id);
         try (Connection connection = ds.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM License WHERE id = ?;")) {
                 statement.setInt(1, id);
@@ -86,6 +87,37 @@ public class LicenseRepository {
                 }
             }
         }
+    }
+
+    public List<License> findByKeyword(String kword) throws SQLException {
+      System.out.println(kword);
+      try (Connection conn = ds.getConnection()) {
+        try (PreparedStatement statement = conn.prepareStatement(
+        "SELECT * FROM License WHERE contractNumber LIKE (CONCAT('%',?,'%')) OR productId  LIKE (CONCAT('%',?,'%')) OR releaseId LIKE (CONCAT('%',?,'%')) OR customerId LIKE (CONCAT('%',?,'%')) OR validFrom LIKE (CONCAT('%',?,'%')) OR validTill LIKE (CONCAT('%',?,'%'));")) {
+          statement.setString(1, kword);
+          statement.setString(2, kword);
+          statement.setString(3, kword);
+          statement.setString(4, kword);
+          statement.setString(5, kword);
+          statement.setString(6, kword);
+          System.out.println(statement);
+          try (ResultSet resultSet = statement.executeQuery()) {
+            List<License> licenses = new ArrayList();
+            while (resultSet.next()) {
+                int productId = resultSet.getInt("productId");
+                Product productById = productRepository.getProductById(productId);
+                int releaseId = resultSet.getInt("releaseId");
+                Release release = releaseRepository.getReleaseById(releaseId);
+                int customerId = resultSet.getInt("customerId");
+                Customer customerById = customerRepository.getCustomerById(customerId);
+
+                License license = getLicense(resultSet, productById, release, customerById);
+                licenses.add(license);
+            }
+            return licenses;
+          }
+        }
+      }
     }
 
     private License getLicense(ResultSet resultSet, Product product, Release release, Customer customer) throws SQLException {

@@ -31,6 +31,13 @@ public class CustomerResource {
         return customerRepository.getCustomerById(id);
     }
 
+    @Path("/search/{keyword}")
+    @GET
+    @Produces("application/json")
+    public List<Customer> getCustomersSearch(@PathParam("keyword") String keyword) throws Exception {
+      return customerRepository.findByKeyword(keyword);
+    }
+
     @POST
     public Customer saveCustomer(Applicant applicant) throws Exception {
         //Customer == Organization == Applicant
