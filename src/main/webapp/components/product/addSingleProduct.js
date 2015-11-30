@@ -15,12 +15,12 @@ angular
                 console.log($scope.release.additionDate);
             }
 
-
             $http.post('rest/products', $scope.product).
                 then(function (response) {
                     $window.location.href = '#/';
                 }, function (response) {
-                    console.error('There was something wrong with the add product request.');
+                    $scope.errorMessage = 'Something went wrong. Maybe product with this name already exists?';
+                    console.error(response);
                 });
         };
     });
