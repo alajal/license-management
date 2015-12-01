@@ -74,11 +74,15 @@ angular
                 templateUrl: 'components/license/eventsView.html',
                 controller: 'ViewEventsCtrl'
             })
-            .when('/search/:keyword',{
+            .when('/search/:keyword/',{
                 templateUrl: 'components/home/search.html',
                 controller: 'SearchCtrl'
             });
 
+            //.when('/search/:keyword/'... kohta
+            // Millegipärast, kui lisada lõppu kaldkriips, siis
+            // location.path(...) laeb lehe uuesti(kontrolleri). Ilma kriipsuta
+            // ta seda ei tee. Bug?
 
 
         //$routeProvider.otherwise({redirectTo: '/'}); Is not needed at the moment.

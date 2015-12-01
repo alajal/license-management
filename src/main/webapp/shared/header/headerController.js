@@ -5,7 +5,7 @@
 // Add controller to module.
 angular
     .module('LM')
-    .controller('HeaderController', function ($http, $scope, $location, expiringLicenses) {
+    .controller('HeaderController', function ($http, $scope, $location, expiringLicenses, SearchService) {
         var vm = this;
 
         $scope.expiringLicenses = false;
@@ -34,6 +34,9 @@ angular
             }, true);
 
         $scope.find = function(keyword) {
-          $location.path('/search/'+keyword);
+          SearchService.setLicenses($scope.checkLicense);
+          SearchService.setCustomers($scope.checkCustomer);
+          SearchService.setProducts($scope.checkProduct);
+          $location.path('/search/'+keyword).replace();
         }
     });
