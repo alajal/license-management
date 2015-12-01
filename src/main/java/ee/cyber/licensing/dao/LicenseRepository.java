@@ -1,16 +1,24 @@
 package ee.cyber.licensing.dao;
 
 
-import ee.cyber.licensing.entity.*;
-
-import javax.inject.Inject;
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.sql.DataSource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import ee.cyber.licensing.entity.Customer;
+import ee.cyber.licensing.entity.License;
+import ee.cyber.licensing.entity.Product;
+import ee.cyber.licensing.entity.Release;
+import ee.cyber.licensing.entity.State;
 
 public class LicenseRepository {
 
@@ -32,7 +40,12 @@ public class LicenseRepository {
                     "INSERT INTO License (productId, releaseId, customerId, contractNumber, state, predecessorLicenseId, " +
                             "validFrom, validTill, applicationSubmitDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             statement.setInt(1, license.getProduct().getId());
-            statement.setInt(2, license.getRelease().getId());
+            if(license.getRelease() == null){
+                statement.setNull(2, java.sql.Types.INTEGER);
+            }
+            else{
+              statement.setInt(2, license.getRelease().getId());
+            }
             statement.setInt(3, license.getCustomer().getId());
             statement.setString(4, license.getContractNumber());
             statement.setInt(5, license.getState().getStateNumber());
@@ -60,7 +73,10 @@ public class LicenseRepository {
                     if (!resultSet.next()) {
                         throw new SQLException("Ei leitud ühtegi rida id-ga " + id);
                     }
-                    return getLicense(resultSet, productRepository.getProductById(resultSet.getInt("productId")), releaseRepository.getReleaseById(resultSet.getInt("releaseId")),
+                    int releaseId = resultSet.getInt("releaseId");
+                    Release release = null;
+                    if(releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
+                    return getLicense(resultSet, productRepository.getProductById(resultSet.getInt("productId")), release,
                             customerRepository.getCustomerById(resultSet.getInt("customerId")));
                 }
             }
@@ -76,7 +92,8 @@ public class LicenseRepository {
                         int productId = resultSet.getInt("productId");
                         Product productById = productRepository.getProductById(productId);
                         int releaseId = resultSet.getInt("releaseId");
-                        Release release = releaseRepository.getReleaseById(releaseId);
+                        Release release = null;
+                        if(releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
                         int customerId = resultSet.getInt("customerId");
                         Customer customerById = customerRepository.getCustomerById(customerId);
 
@@ -107,7 +124,8 @@ public class LicenseRepository {
                 int productId = resultSet.getInt("productId");
                 Product productById = productRepository.getProductById(productId);
                 int releaseId = resultSet.getInt("releaseId");
-                Release release = releaseRepository.getReleaseById(releaseId);
+                Release release = null;
+                if(releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
                 int customerId = resultSet.getInt("customerId");
                 Customer customerById = customerRepository.getCustomerById(customerId);
 
@@ -164,7 +182,8 @@ public class LicenseRepository {
                         int productId = resultSet.getInt("productId");
                         Product productById = productRepository.getProductById(productId);
                         int releaseId = resultSet.getInt("releaseId");
-                        Release release = releaseRepository.getReleaseById(releaseId);
+                        Release release = null;
+                        if(releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
                         int customerId = resultSet.getInt("customerId");
                         Customer customerById = customerRepository.getCustomerById(customerId);
 

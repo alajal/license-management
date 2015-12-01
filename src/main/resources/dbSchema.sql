@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS License;
 CREATE TABLE IF NOT EXISTS License (
   id                    INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   productId             INT                            NOT NULL,
-  releaseId             INT                            NOT NULL,
+  releaseId             INT,
   customerId            INT                            NOT NULL,
   contractNumber        VARCHAR(100) UNIQUE            NOT NULL,
   validFrom             DATE,
