@@ -110,7 +110,7 @@ public class LicenseRepository {
       System.out.println(kword);
       try (Connection conn = ds.getConnection()) {
         try (PreparedStatement statement = conn.prepareStatement(
-        "SELECT * FROM License WHERE contractNumber LIKE (CONCAT('%',?,'%')) OR productId  LIKE (CONCAT('%',?,'%')) OR releaseId LIKE (CONCAT('%',?,'%')) OR customerId LIKE (CONCAT('%',?,'%')) OR validFrom LIKE (CONCAT('%',?,'%')) OR validTill LIKE (CONCAT('%',?,'%'));")) {
+        "SELECT * FROM License LEFT JOIN Customer ON License.customerId = Customer.id LEFT JOIN Release ON License.releaseId = Release.id LEFT JOIN Product ON License.productId = Product.id WHERE License.contractNumber LIKE (LOWER(CONCAT('%',?,'%'))) OR ( License.productId = Product.id AND Product.name LIKE (CONCAT('%',?,'%')) ) OR ( License.releaseId = Release.id AND Release.version LIKE (CONCAT('%',?,'%')) ) OR ( License.customerId = Customer.id AND Customer.organizationName LIKE (CONCAT('%',?,'%')) ) OR License.validFrom LIKE (CONCAT('%',?,'%')) OR License.validTill LIKE (CONCAT('%',?,'%'));")) {
           statement.setString(1, kword);
           statement.setString(2, kword);
           statement.setString(3, kword);
@@ -130,6 +130,7 @@ public class LicenseRepository {
                 Customer customerById = customerRepository.getCustomerById(customerId);
 
                 License license = getLicense(resultSet, productById, release, customerById);
+                System.out.println(license.getState());
                 licenses.add(license);
             }
             return licenses;
