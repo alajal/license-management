@@ -35,7 +35,7 @@ angular
                 controller: 'AddProductCtrl'
             })
             .when('/customers', {
-                templateUrl: 'components/customer/customerView.html',
+                templateUrl: 'components/customer/customersView.html',
                 controller: 'ViewCustomerCtrl'
             })
             .when('/customer/add', {

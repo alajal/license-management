@@ -1,7 +1,7 @@
 package ee.cyber.licensing.dao;
 
 
-import ee.cyber.licensing.entity.Product;
+
 import ee.cyber.licensing.entity.Release;
 
 import javax.inject.Inject;
