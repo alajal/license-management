@@ -1,19 +1,28 @@
 angular
     .module('LM')
     .controller('SearchCtrl', function ($scope, $http, $routeParams, SearchService) {
-
+        var ss = SearchService;
         $scope.data = {};
 
         //
-        $scope.licensesBool = SearchService.getLicenses();
-        $scope.customersBool = SearchService.getCustomers();
-        $scope.productsBool = SearchService.getProducts();
+        $scope.licensesBool = ss.getLicenses();
+        $scope.customersBool = ss.getCustomers();
+        $scope.productsBool = ss.getProducts();
         //console.log($scope.licensesBool);
-        console.log($scope.customersBool);
-        console.log($scope.productsBool);
 
         if($scope.licensesBool == true) {
-          $http.get('rest/licenses/search/'+$routeParams.keyword).
+          $scope.states = {
+            REJECTED : ss.getREJECTED(),
+            NEGOTIATED : ss.getNEGOTIATED(),
+            WAITING_FOR_SIGNATURE : ss.getWAITING_FOR_SIGNATURE(),
+            ACTIVE : ss.getACTIVE(),
+            EXPIRATION_NEARING : ss.getEXPIRATION_NEARING(),
+            TERMINATED : ss.getTERMINATED()
+            };
+            
+          console.log($scope.states);
+
+          $http.get('rest/licenses/search/'+$routeParams.keyword, $scope.states).
               then(function (response) {
                   $scope.licenses = response.data;
                   //console.log($scope.data.licenses[0]);
