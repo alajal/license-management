@@ -17,7 +17,7 @@ public class ReleaseResource {
 
     @GET
     @Produces("application/json")
-    public List<Release> getReleasesByProductId(int id) throws Exception {
+    public List<Release> getReleasesByProductId(@PathParam("id")Integer id) throws Exception {
         return releaseRepository.findByProductId(id);
     }
 
