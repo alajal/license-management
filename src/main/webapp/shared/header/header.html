@@ -39,18 +39,20 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <form class="navbar-form" role="search">
+
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
+                                <input type="text" class="form-control" placeholder="Search" ng-model="searchbox">
                             </div>
 
-                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            <button type="submit" class="btn btn-default" ng-click="find(searchbox)"><i class="fa fa-search"></i></button>
+
                             <button type="submit" class="btn btn-default dropdown" data-toggle="dropdown"><i
                                     class="fa fa-level-down"></i></button>
 
                             <ul class="dropdown-menu search-list" role="menu">
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="checkbox1">
+                                        <input type="checkbox" id="checkbox1" ng-model="checkLicense" ng-init="checkLicense=true">
                                         <label for="checkbox1">
                                             Licenses
                                         </label>
@@ -58,17 +60,67 @@
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="checkbox2">
-                                        <label for="checkbox2">
-                                            Products
+                                        <input type="checkbox" id="checkbox3" ng-model="checkCustomer" ng-init="checkCustomer=true">
+                                        <label for="checkbox3">
+                                            Customers
                                         </label>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="checkbox3">
-                                        <label for="checkbox3">
-                                            Customers
+                                        <input type="checkbox" id="checkbox2" ng-model="checkProduct" ng-init="checkProduct=true">
+                                        <label for="checkbox2">
+                                            Products
+                                        </label>
+                                    </div>
+                                </li>
+                              </br>
+                                Search by license status</br>
+                                <li>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="checkbox2" ng-model="checkREJECTED" ng-init="checkREJECTED=false">
+                                        <label for="checkbox2">
+                                            REJECTED
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="checkbox2" ng-model="checkNEGOTIATED" ng-init="checkNEGOTIATED=false">
+                                        <label for="checkbox2">
+                                            NEGOTIATED
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="checkbox2" ng-model="checkWAITING_FOR_SIGNATURE" ng-init="checkWAITING_FOR_SIGNATURE=false">
+                                        <label for="checkbox2">
+                                            WAITING_FOR_SIGNATURE
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="checkbox2" ng-model="checkACTIVE" ng-init="checkACTIVE=false">
+                                        <label for="checkbox2">
+                                            ACTIVE
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="checkbox2" ng-model="checkEXPIRATION_NEARING" ng-init="checkEXPIRATION_NEARING=false">
+                                        <label for="checkbox2">
+                                            EXPIRATION_NEARING
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="checkbox2" ng-model="checkTERMINATED" ng-init="checkTERMINATED=false">
+                                        <label for="checkbox2">
+                                            TERMINATED
                                         </label>
                                     </div>
                                 </li>

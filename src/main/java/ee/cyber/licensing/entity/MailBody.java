@@ -8,6 +8,12 @@ public class MailBody {
     public MailBody() {
     }
 
+    public MailBody(Integer id, String subject, String body) {
+        this.id = id;
+        this.subject = subject;
+        this.body = body;
+    }
+
     public Integer getId() {
         return id;
     }

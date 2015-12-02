@@ -16,13 +16,11 @@ public class FileResource {
     @Inject
     private FileRepository fileRepository;
 
-    //byte array
-    //jdbc api
-   /* @GET
+    @GET
     @Produces("application/json")
-    public List<License> getLicenses() throws Exception {
-        return fileRepository.find();
-    }*/
+    public List<MailBody> getBodies() throws Exception {
+        return fileRepository.findBodies();
+    }
 
     @Path("/attachment")
     @POST
@@ -35,11 +33,7 @@ public class FileResource {
     public void saveBody(MailBody mailBody) throws Exception {
         List<String> keywords = Arrays.asList("$(organizationName)", "$(contactName)", "$(phone)", "$(email)", "$(product)",
                 "$(release)");
-
-        //find keywords from the text, kui tahetakse templatei
-
         fileRepository.saveMailBody(mailBody);
-
     }
 
 }

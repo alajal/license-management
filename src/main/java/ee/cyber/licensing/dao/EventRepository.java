@@ -69,7 +69,6 @@ public class EventRepository {
 
                       if(licenseId == 0) {
                         License license = null;
-                        System.out.println(license);
                         Event ev = getEvent(resultSet, null);
                         events.add(ev);
                       }

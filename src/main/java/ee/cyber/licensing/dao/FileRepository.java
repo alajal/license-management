@@ -1,7 +1,6 @@
 package ee.cyber.licensing.dao;
 
-import ee.cyber.licensing.entity.MailAttachment;
-import ee.cyber.licensing.entity.MailBody;
+import ee.cyber.licensing.entity.*;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -11,7 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.zip.InflaterInputStream;
 
 public class FileRepository {
@@ -58,4 +59,22 @@ public class FileRepository {
 
     }
 
+    public List<MailBody> findBodies() throws SQLException {
+        try (Connection conn = ds.getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM MailBody")) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    List<MailBody> bodies = new ArrayList<>();
+                    while (resultSet.next()) {
+                        Integer id = resultSet.getInt("id");
+                        String subject = resultSet.getString("subject");
+                        String body = resultSet.getString("body");
+
+                        MailBody mailBody = new MailBody(id, subject, body);
+                        bodies.add(mailBody);
+                    }
+                    return bodies;
+                }
+            }
+        }
+    }
 }

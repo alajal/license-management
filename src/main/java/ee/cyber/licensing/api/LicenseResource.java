@@ -35,10 +35,16 @@ public class LicenseResource {
         return licenseRepository.findExpiringLicenses();
     }
 
+    @Path("/search/{keyword}")
+    @GET
+    @Produces("application/json")
+    public List<License> getLicensesSearch(@PathParam("keyword") String keyword) throws Exception {
+      return licenseRepository.findByKeyword(keyword);
+    }
+
     @POST
     public License saveLicense(License license) throws Exception {
-        License save = licenseRepository.save(license);
-        return save;
+        return licenseRepository.save(license);
     }
 
     @Path("/{id}")

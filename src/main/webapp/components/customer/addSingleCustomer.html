@@ -13,7 +13,7 @@
             <div ng-show="form.$submitted || form.pName.$touched">
                 <div ng-show="form.pName.$error.required">Organization name is needed.</div>
             </div>
-
+            <div ng-if="errorMessage">{{ errorMessage }}</div>
         </div>
 
         <div class="form-group border">

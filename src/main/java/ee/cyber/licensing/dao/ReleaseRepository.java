@@ -1,7 +1,7 @@
 package ee.cyber.licensing.dao;
 
 
-import ee.cyber.licensing.entity.Product;
+
 import ee.cyber.licensing.entity.Release;
 
 import javax.inject.Inject;
@@ -57,7 +57,7 @@ public class ReleaseRepository {
             try (PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Release WHERE id = ?;")) {
                 stmt.setInt(1, id);
                 try (ResultSet resultSet = stmt.executeQuery()) {
-                    if (!resultSet.next()) {
+                    if (id != 0 && !resultSet.next()) {
                         throw new SQLException("Ei leitud ühtegi rida id-ga " + id);
                     }
                     return getRelease(resultSet);

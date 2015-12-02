@@ -1,0 +1,16 @@
+<div class="container" ng-if="!licenses.length > 0 && !customers.length > 0 && !products.length > 0">
+    <h3>Search did not return any results.</h3>
+</div>
+
+<div class="container" ng-if="licenses.length > 0">
+    <h3>Licenses</h3>
+    <license-Table licenses="licenses"></license-Table>
+</div>
+<div class="container" ng-if="customers.length > 0">
+    <h3>Customers</h3>
+    <license-Owner-Table customers="customers"></license-Owner-Table>
+</div>
+<div class="container" ng-if="products.length > 0">
+    <h3>Products</h3>
+    <product-Table products="products"></product-Table>
+</div>

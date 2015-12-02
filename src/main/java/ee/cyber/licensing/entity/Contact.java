@@ -1,38 +1,19 @@
 package ee.cyber.licensing.entity;
 
 public class Contact {
-    Integer id;
-
-    Integer customerId;
     String contactName;
     String email;
     String skype;
     String phone;
 
+    public Contact() {
+    }
 
-    public Contact(Integer customerId, String contactName, String email, String skype, String phone) {
-        this.customerId = customerId;
+    public Contact(String contactName, String email, String skype, String phone) {
         this.contactName = contactName;
         this.email = email;
         this.skype = skype;
         this.phone = phone;
-    }
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
     }
 
     public String getContactName() {

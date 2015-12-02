@@ -1,22 +1,22 @@
-DROP Table IF EXISTS Product;
+DROP TABLE IF EXISTS Product;
 CREATE TABLE IF NOT EXISTS Product (
-  id      INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  name    VARCHAR(100)                   NOT NULL
+  id   INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  name VARCHAR(100) UNIQUE            NOT NULL
 );
 
-Drop Table IF EXISTS Release;
+DROP TABLE IF EXISTS Release;
 CREATE TABLE IF NOT EXISTS Release (
-  id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  productId INT NOT NULL,
-  version VARCHAR(100),
+  id           INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  productId    INT                            NOT NULL,
+  version      VARCHAR(100),
   additionDate DATE,
   FOREIGN KEY (productId) REFERENCES Product (id),
 );
 
-DROP Table IF EXISTS Customer;
+DROP TABLE IF EXISTS Customer;
 CREATE TABLE IF NOT EXISTS Customer (
   id               INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  organizationName VARCHAR(200)                   NOT NULL,
+  organizationName VARCHAR(200) UNIQUE            NOT NULL,
   applicationArea  VARCHAR(200),
 
   address          VARCHAR(100),
@@ -28,38 +28,40 @@ CREATE TABLE IF NOT EXISTS Customer (
   unitOrFaculty    VARCHAR(100)
 );
 
-DROP Table IF EXISTS License;
+DROP TABLE IF EXISTS License;
 CREATE TABLE IF NOT EXISTS License (
   id                    INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   productId             INT                            NOT NULL,
-  releaseId             INT                            NOT NULL,
+  releaseId             INT,
   customerId            INT                            NOT NULL,
-  contractNumber        VARCHAR(100)                   NOT NULL,
+  contractNumber        VARCHAR(100) UNIQUE            NOT NULL,
   validFrom             DATE,
   validTill             DATE,
+  licenseTypeId         INT,
   state                 INT                            NOT NULL,
   predecessorLicenseId  VARCHAR(100),
+
   applicationSubmitDate DATE,
   FOREIGN KEY (productId) REFERENCES Product (id),
   FOREIGN KEY (customerId) REFERENCES Customer (id),
   FOREIGN KEY (releaseId) REFERENCES Release (id)
 );
 
-DROP Table IF EXISTS MailAttachment;
+DROP TABLE IF EXISTS MailAttachment;
 CREATE TABLE IF NOT EXISTS MailAttachment (
   id       INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   fileName VARCHAR(100)                   NOT NULL,
   fileData BLOB                           NOT NULL
 );
 
-DROP Table IF EXISTS MailBody;
+DROP TABLE IF EXISTS MailBody;
 CREATE TABLE IF NOT EXISTS MailBody (
   id      INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   subject VARCHAR(100)                   NOT NULL,
   body    VARCHAR(500)                   NOT NULL
 );
 
-DROP Table IF EXISTS AuthorisedUser;
+DROP TABLE IF EXISTS AuthorisedUser;
 CREATE TABLE IF NOT EXISTS AuthorisedUser (
   id         INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   licenseId  INT                            NOT NULL,
@@ -70,7 +72,7 @@ CREATE TABLE IF NOT EXISTS AuthorisedUser (
   FOREIGN KEY (licenseId) REFERENCES License (id)
 );
 
-DROP Table IF EXISTS Contact;
+DROP TABLE IF EXISTS Contact;
 CREATE TABLE IF NOT EXISTS Contact (
   id         INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   customerId INT                            NOT NULL,
@@ -81,7 +83,7 @@ CREATE TABLE IF NOT EXISTS Contact (
   FOREIGN KEY (customerId) REFERENCES Customer (id)
 );
 
-DROP Table IF EXISTS Event;
+DROP TABLE IF EXISTS Event;
 CREATE TABLE IF NOT EXISTS Event (
   id          INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   licenseId   INT,

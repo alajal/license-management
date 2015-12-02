@@ -5,7 +5,7 @@
 // Add controller to module.
 angular
     .module('LM')
-    .controller('HeaderController', function ($http, $scope, $location, expiringLicenses) {
+    .controller('HeaderController', function ($http, $scope, $location, expiringLicenses, SearchService) {
         var vm = this;
 
         $scope.expiringLicenses = false;
@@ -33,4 +33,19 @@ angular
                 $scope.numberOfExpiringLicenses = newVal;
             }, true);
 
+        $scope.find = function(keyword) {
+          SearchService.setLicenses($scope.checkLicense);
+          SearchService.setCustomers($scope.checkCustomer);
+          SearchService.setProducts($scope.checkProduct);
+
+          // Set states
+          SearchService.setREJECTED($scope.checkREJECTED);
+          SearchService.setNEGOTIATED($scope.checkNEGOTIATED);
+          SearchService.setWAITING_FOR_SIGNATURE($scope.checkWAITING_FOR_SIGNATURE);
+          SearchService.setACTIVE($scope.checkACTIVE);
+          SearchService.setEXPIRATION_NEARING($scope.checkEXPIRATION_NEARING);
+          SearchService.setTERMINATED($scope.checkTERMINATED);
+
+          $location.path('/search/'+keyword).replace();
+        }
     });

@@ -33,6 +33,13 @@ public class ProductResource {
         return productRepository.getProductById(id);
     }
 
+    @Path("/search/{keyword}")
+    @GET
+    @Produces("application/json")
+    public List<Product> getProductsSearch(@PathParam("keyword") String keyword) throws Exception {
+      return productRepository.findByKeyword(keyword);
+    }
+
     @POST
     public Product saveProduct(Product product) throws Exception {
         Product productWithId = productRepository.save(product);

@@ -2,43 +2,52 @@
     <div data-ng-include="'components/license/profileNavigation.html'"></div>
     <h3>License</h3>
 
+    <form novalidate class="form">
+        <div class="form-group">
+            <label for="product">Product:</label>
+            <input id="product" class="form-control" value="{{license.product.name + ' ' + license.product.release}}"
+                   disabled/>
+        </div>
+        <div class="form-group">
+            <label for="applicantName">Contract number: </label>
+            <input id="applicantName" class="form-control" ng-model="license.contractNumber" ng-disabled="editorDisabled"/>
+        </div>
+        <div class="form-group">
+            <label>Customer: </label>
+            <input class="form-control" ng-model="license.customer.organizationName" disabled/>
+        </div>
+        <div class="form-group">
+            <label>State: </label>
+            <input class="form-control" ng-model="license.state" ng-disabled="editorDisabled"/>
+        </div>
+        <div class="form-group">
+            <label>predecessorLicenseId: </label>
+            <input class="form-control" ng-model="license.predecessorLicenseId" ng-disabled="editorDisabled"/>
+        </div>
+        <div class="form-group">
+            <label>Application submit date: </label>
+            <input class="form-control" ng-model="license.applicationSubmitDate" ng-disabled="editorDisabled"/>
+        </div>
+        <div class="form-group">
+            <label>License type: </label>
+            <input class="form-control" ng-model="license.licenseType" disabled/>
+        </div>
+
+        <button ng-click="enableEditor()">Edit</button>
+        <button ng-click="saveProfile()" ng-disabled="editorDisabled">Save</button>
+        <br>
+        <!--<button ng-click="disableEditor()" ng-disabled="editorDisabled">Cancel</button>-->
+    </form>
+    <br>
     <div class="form-group">
-        <div>
-            <b><label for="product">Product:</label></b><br>
-            <input id="product" class="form-group" value="{{license.product.name + ' ' + license.product.release}}"
-                   disabled/><br>
-        </div>
-        <div>
-            <b><label for="applicantName">Contract number: </label></b><br>
-            <input id="applicantName" class="form-group" ng-model="license.contractNumber" ng-disabled="editorDisabled"/><br>
-        </div>
-        <div>
-            <b><label>Customer: </label></b><br>
-            <input class="form-group" ng-model="license.customer.organizationName" disabled/><br>
-        </div>
-        <div>
-            <b><label>State: </label></b><br>
-            <input class="form-group" ng-model="license.state" ng-disabled="editorDisabled"/><br>
-        </div>
-        <div>
-            <b><label>predecessorLicenseId: </label></b><br>
-            <input class="form-group" ng-model="license.predecessorLicenseId" ng-disabled="editorDisabled"/><br>
-        </div>
-        <div>
-            <b><label>Application submit date: </label></b><br>
-            <input class="form-group" ng-model="license.applicationSubmitDate" ng-disabled="editorDisabled"/><br>
-        </div>
-        <div>
-            <b><label>License type: </label></b><br>
-            <input class="form-group" ng-model="license.licenseType" disabled/><br>
-        </div>
+        <label>Choose mail subject: </label>
+        <select ng-options="body as body.subject for body in bodies"
+                type="text" class="form-control" id="body" ng-model="mailBody" ng-change="mailBodySelected()"
+                required name="selectedTemplate">
+        </select>
+        <br>
+        <label>Chosen mail body: </label>
+        <textarea class="form-control" rows="6" ng-model="mailBody.body"></textarea>
     </div>
-
-    <button ng-click="enableEditor()">Edit</button>
-    <br>
-    <button ng-click="saveProfile()" ng-disabled="editorDisabled">Save</button>
-    <br>
-    <!--<button ng-click="disableEditor()" ng-disabled="editorDisabled">Cancel</button>-->
-
 </div>
 

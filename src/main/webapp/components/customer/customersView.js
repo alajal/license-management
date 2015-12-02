@@ -12,7 +12,7 @@ angular
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                console.error('[customerView.js] Error retrieving license owners.');
+                console.error('[customersView.js] Error retrieving license owners.');
             });
 
     });

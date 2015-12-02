@@ -15,6 +15,7 @@ public class License {
     String predecessorLicenseId;
     Date validFrom;
     Date validTill;
+    LicenseType type;
     Date applicationSubmitDate;
 
     public License() {
@@ -25,8 +26,6 @@ public class License {
         this.release = release;
         this.customer = customer;
         this.contractNumber = contractNumber;
-        this.validFrom = validFrom;
-        this.validTill = validTill;
         this.state = state;
         this.predecessorLicenseId = predecessorLicenseId;
         this.applicationSubmitDate = applicationSubmitDate;
@@ -87,8 +86,24 @@ public class License {
         this.contractNumber = contractNumber;
     }
 
-    public Date getValidFrom() {
-        return validFrom;
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public LicenseType getType() {
+        return type;
+    }
+
+    public void setType(LicenseType type) {
+        this.type = type;
+    }
+
+    public void setValidTill(Date validTill) {
+        this.validTill = validTill;
     }
 
     public void setValidFrom(Date validFrom) {
@@ -99,16 +114,8 @@ public class License {
         return validTill;
     }
 
-    public void setValidTill(Date validTill) {
-        this.validTill = validTill;
-    }
-
-    public State getState() {
-        return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
+    public Date getValidFrom() {
+        return validFrom;
     }
 
     public String getPredecessorLicenseId() {

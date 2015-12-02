@@ -2,7 +2,7 @@
 angular
     .module('LM')
     .controller('ProfileCustomerCtrl', function ($scope, $http, $routeParams) {
-
+        $scope.editorDisabled = true;
         $http.get('rest/licenses').
             then(function (response) {
                 $scope.licenses = response.data;
@@ -14,8 +14,16 @@ angular
             then(function (response) {
                 $scope.customer = response.data[$routeParams.id-1];
             }, function (response) {
-                console.error('[customerView.js] Error retrieving license owners.');
+                console.error('[customersView.js] Error retrieving license owners.');
             });
+
+        $scope.enableEditor = function () {
+            $scope.editorDisabled = false;
+        };
+
+        $scope.disableEditor = function () {
+            $scope.editorDisabled = true;
+        };
 
         function createEvent(customer, event_nr) {
           // Event numbers

@@ -1,16 +1,24 @@
 package ee.cyber.licensing.dao;
 
 
-import ee.cyber.licensing.entity.*;
-
-import javax.inject.Inject;
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.sql.DataSource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import ee.cyber.licensing.entity.Customer;
+import ee.cyber.licensing.entity.License;
+import ee.cyber.licensing.entity.Product;
+import ee.cyber.licensing.entity.Release;
+import ee.cyber.licensing.entity.State;
 
 public class LicenseRepository {
 
@@ -32,7 +40,12 @@ public class LicenseRepository {
                     "INSERT INTO License (productId, releaseId, customerId, contractNumber, state, predecessorLicenseId, " +
                             "validFrom, validTill, applicationSubmitDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             statement.setInt(1, license.getProduct().getId());
-            statement.setInt(2, license.getRelease().getId());
+            if(license.getRelease() == null){
+                statement.setNull(2, java.sql.Types.INTEGER);
+            }
+            else{
+              statement.setInt(2, license.getRelease().getId());
+            }
             statement.setInt(3, license.getCustomer().getId());
             statement.setString(4, license.getContractNumber());
             statement.setInt(5, license.getState().getStateNumber());
@@ -52,6 +65,7 @@ public class LicenseRepository {
     }
 
     public License findById(int id) throws SQLException {
+        System.out.println(id);
         try (Connection connection = ds.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM License WHERE id = ?;")) {
                 statement.setInt(1, id);
@@ -59,7 +73,10 @@ public class LicenseRepository {
                     if (!resultSet.next()) {
                         throw new SQLException("Ei leitud ühtegi rida id-ga " + id);
                     }
-                    return getLicense(resultSet, productRepository.getProductById(resultSet.getInt("productId")), releaseRepository.getReleaseById(resultSet.getInt("releaseId")),
+                    int releaseId = resultSet.getInt("releaseId");
+                    Release release = null;
+                    if(releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
+                    return getLicense(resultSet, productRepository.getProductById(resultSet.getInt("productId")), release,
                             customerRepository.getCustomerById(resultSet.getInt("customerId")));
                 }
             }
@@ -75,7 +92,8 @@ public class LicenseRepository {
                         int productId = resultSet.getInt("productId");
                         Product productById = productRepository.getProductById(productId);
                         int releaseId = resultSet.getInt("releaseId");
-                        Release release = releaseRepository.getReleaseById(releaseId);
+                        Release release = null;
+                        if(releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
                         int customerId = resultSet.getInt("customerId");
                         Customer customerById = customerRepository.getCustomerById(customerId);
 
@@ -86,6 +104,39 @@ public class LicenseRepository {
                 }
             }
         }
+    }
+
+    public List<License> findByKeyword(String kword) throws SQLException {
+      System.out.println(kword);
+      try (Connection conn = ds.getConnection()) {
+        try (PreparedStatement statement = conn.prepareStatement(
+        "SELECT * FROM License LEFT JOIN Customer ON License.customerId = Customer.id LEFT JOIN Release ON License.releaseId = Release.id LEFT JOIN Product ON License.productId = Product.id WHERE License.contractNumber LIKE (LOWER(CONCAT('%',?,'%'))) OR ( License.productId = Product.id AND Product.name LIKE (CONCAT('%',?,'%')) ) OR ( License.releaseId = Release.id AND Release.version LIKE (CONCAT('%',?,'%')) ) OR ( License.customerId = Customer.id AND Customer.organizationName LIKE (CONCAT('%',?,'%')) ) OR License.validFrom LIKE (CONCAT('%',?,'%')) OR License.validTill LIKE (CONCAT('%',?,'%'));")) {
+          statement.setString(1, kword);
+          statement.setString(2, kword);
+          statement.setString(3, kword);
+          statement.setString(4, kword);
+          statement.setString(5, kword);
+          statement.setString(6, kword);
+          System.out.println(statement);
+          try (ResultSet resultSet = statement.executeQuery()) {
+            List<License> licenses = new ArrayList();
+            while (resultSet.next()) {
+                int productId = resultSet.getInt("productId");
+                Product productById = productRepository.getProductById(productId);
+                int releaseId = resultSet.getInt("releaseId");
+                Release release = null;
+                if(releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
+                int customerId = resultSet.getInt("customerId");
+                Customer customerById = customerRepository.getCustomerById(customerId);
+
+                License license = getLicense(resultSet, productById, release, customerById);
+                System.out.println(license.getState());
+                licenses.add(license);
+            }
+            return licenses;
+          }
+        }
+      }
     }
 
     private License getLicense(ResultSet resultSet, Product product, Release release, Customer customer) throws SQLException {
@@ -132,7 +183,8 @@ public class LicenseRepository {
                         int productId = resultSet.getInt("productId");
                         Product productById = productRepository.getProductById(productId);
                         int releaseId = resultSet.getInt("releaseId");
-                        Release release = releaseRepository.getReleaseById(releaseId);
+                        Release release = null;
+                        if(releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
                         int customerId = resultSet.getInt("customerId");
                         Customer customerById = customerRepository.getCustomerById(customerId);
 

@@ -10,5 +10,4 @@ angular
 
                 console.error('There was something wrong with the view licenses request.');
             });
-
     });

@@ -1,35 +1,49 @@
 <div class="container">
     <h3>View</h3>
 
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="col-lg-6">
-                <p><b>Name: <br>
-                    Application area: <br>
-                    Address: <br>
-                    Webpage: <br>
-                    Registration code: <br>
-                    Phone: <br>
-                    Bank account: <br>
-                    Fax: <br>
-                    Unit or faculty:
-                </b></p><br>
-            </div>
-            <div class="col-lg-6">
-                <p>
-                    {{customer.name}}<br>
-                    {{customer.applicationArea}}<br>
-                    {{customer.address}}<br>
-                    {{customer.webpage}}<br>
-                    {{customer.registrationCode}}<br>
-                    {{customer.phone}}<br>
-                    {{customer.bankAccount}}<br>
-                    {{customer.fax}}<br>
-                    {{customer.unitOrFaculty}}<br>
-                </p>
-            </div>
+    <form novalidate class="form">
+        <div class="form-group">
+            <label for="organization">Organization</label>
+            <input id="organization" class="form-control" ng-model="customer.organizationName" ng-disabled="editorDisabled">
         </div>
-    </div>
+        <div class="form-group">
+            <label for="applicationArea">Application area</label>
+            <input id="applicationArea" class="form-control" ng-model="customer.applicationArea"  ng-disabled="editorDisabled">
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input id="address" class="form-control" ng-model="customer.address"  ng-disabled="editorDisabled">
+        </div>
+        <div class="form-group">
+            <label for="webpage">Webpage</label>
+            <input id="webpage" class="form-control" ng-model="customer.webpage"  ng-disabled="editorDisabled">
+        </div>
+        <div class="form-group">
+            <label for="registrationCode">Registration code</label>
+            <input id="registrationCode" class="form-control" ng-model="customer.registrationCode"  ng-disabled="editorDisabled">
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input id="phone" class="form-control" ng-model="customer.phone"  ng-disabled="editorDisabled">
+        </div>
+        <div class="form-group">
+            <label for="bankAccount">Pank account</label>
+            <input id="bankAccount" class="form-control" ng-model="customer.bankAccount"  ng-disabled="editorDisabled">
+        </div>
+        <div class="form-group">
+            <label for="fax">Fax</label>
+            <input id="fax" class="form-control" ng-model="customer.fax"  ng-disabled="editorDisabled">
+        </div>
+        <div class="form-group">
+            <label for="unitOrFaculty">Unit or faculty</label>
+            <input id="unitOrFaculty" class="form-control" ng-model="customer.unitOrFaculty"  ng-disabled="editorDisabled">
+        </div>
+
+        <button ng-click="enableEditor()">Edit</button>
+        <button ng-click="saveProfile()" ng-disabled="editorDisabled">Save</button>
+        <br>
+    </form>
+
 </div>
 
 

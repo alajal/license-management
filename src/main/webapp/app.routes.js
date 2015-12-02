@@ -35,7 +35,7 @@ angular
                 controller: 'AddProductCtrl'
             })
             .when('/customers', {
-                templateUrl: 'components/customer/customerView.html',
+                templateUrl: 'components/customer/customersView.html',
                 controller: 'ViewCustomerCtrl'
             })
             .when('/customer/add', {
@@ -73,7 +73,20 @@ angular
             .when('/eventsCustomer',{
                 templateUrl: 'components/license/eventsView.html',
                 controller: 'ViewEventsCtrl'
+            })
+            .when('/deliveryLicenses',{
+                templateUrl: 'components/license/deliveryLicenses.html',
+                controller: 'DeliveryLicensesCtrl'
+            })
+            .when('/search/:keyword/',{
+                templateUrl: 'components/home/search.html',
+                controller: 'SearchCtrl'
             });
+
+            //.when('/search/:keyword/'... kohta
+            // Millegipärast, kui lisada lõppu kaldkriips, siis
+            // location.path(...) laeb lehe uuesti(kontrolleri). Ilma kriipsuta
+            // ta seda ei tee. Bug?
 
 
         //$routeProvider.otherwise({redirectTo: '/'}); Is not needed at the moment.
