@@ -12,6 +12,11 @@
         "type": "link",
         "url": "eventsLicense",
         "name": "View events"
+      },
+      {
+        "type": "link",
+        "url": "deliveryLicenses",
+        "name": "Deliveries"
       }
     ]
   },

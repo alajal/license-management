@@ -74,6 +74,10 @@ angular
                 templateUrl: 'components/license/eventsView.html',
                 controller: 'ViewEventsCtrl'
             })
+            .when('/deliveryLicenses',{
+                templateUrl: 'components/license/deliveryLicenses.html',
+                controller: 'DeliveryLicensesCtrl'
+            })
             .when('/search/:keyword/',{
                 templateUrl: 'components/home/search.html',
                 controller: 'SearchCtrl'
