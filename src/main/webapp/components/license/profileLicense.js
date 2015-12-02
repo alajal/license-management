@@ -153,7 +153,7 @@ angular
         };
 
         $scope.save = function(au){
-
+            console.log(au);
             if(typeof au.id === "undefined"){
                 console.log(au);
                 if (!$scope.rowforms.form.$valid) {

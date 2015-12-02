@@ -26,6 +26,17 @@ public class ReleaseResource {
         return releaseRepository.editRelease(release);
     }
 
+    @POST
+    public boolean saveRelease(Product product) throws Exception {
+        for(int i = 0; i < product.getReleases().size(); i++){
+            if(product.getReleases().get(i).getId() == null){
+                releaseRepository.saveRelease(product.getId(), product.getReleases().get(i));
+            }
+
+        }
+        return true;
+    }
+
     @DELETE
     @Path("/{releaseId}")
     public boolean deleteReleaseById(@PathParam("releaseId") int releaseId) throws Exception {

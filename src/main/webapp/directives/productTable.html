@@ -70,7 +70,7 @@
                     <td ng-if="!release.editing">{{release.additionDate}}</td>
                     <td ng-if="!release.editing"><button class="btn btn-default" ng-click="editRelease(release)">EDIT</button></td>
                     <td ng-if="!release.editing" ><button class="btn btn-default" ng-click="deleteRelease(release,product)" tooltip-enable="showReleaseDeleteNotification" popover-placement="right" uib-popover="This release is connected with license(s). To delete this release, delete the licenses that have this release first." type="button">DELETE</button></td>
-                    <form ng-if="release.editing" id ="row-form" novalidate class="form" name="rowforms.form" ng-submit="saveRelease(release)" >
+                    <form ng-if="release.editing" id ="row-form" novalidate class="form" name="rowforms.form" ng-submit="saveRelease(product, release)" >
                         <td ng-if="release.editing"><input form="row-form" type="text" ng-model="release.versionNumber" class="form-control input-sm"/></td>
                         <td ng-if="release.editing"><input form="row-form" type="text" ng-model="release.additionDate" class="form-control input-sm"/></td>
                         <td ng-if="release.editing"><button form="row-form" class="btn btn-default">SAVE</button></td>
@@ -79,7 +79,6 @@
             </tr>
             </tbody>
         </table>
-
-        <!--<button type="button" class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>-->
+        <button class="btn btn-primary" ng-click="openReleaseForm(product)">Add release</button>
     </uib-accordion-group>
 </uib-accordion>

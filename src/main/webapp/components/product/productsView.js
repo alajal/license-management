@@ -56,28 +56,61 @@ angular
                 });
         };
 
-        $scope.sayHello = function(){
-            alert("hi");
-        };
 
         //RELEASE METHODS
         $scope.editRelease = function(release){
+            var releaseCopy = $.extend({},release);
+            release.copy = releaseCopy;
             release.editing = true;
 
         };
         $scope.cancelReleaseEditing = function(release){
-            release.editing = false;
+            if(release.new){
+                var releases = release.product.releases;
+                var deletableReleaseIndex = releases.indexOf(release);
+                releases.splice(deletableReleaseIndex,1);
+            }
+            else{
+                var copy = release.copy;
+                for (var property in copy) {
+                    if (copy.hasOwnProperty(property)) {
+                        release[property] = copy[property];
+                    }
+                }
 
+            }
+            release.editing = false;
         };
 
-        $scope.saveRelease = function(release){
-            $http.put('rest/releases', release).then(function(response){
-                console.log(release);
-            }, function (response) {
-                console.error(response);
-            });
+        $scope.saveRelease = function(product, release){
+            console.log(release);
+            if(release.new == true){
+                //if (!$scope.rowforms.form.$valid) {
+                    //console.log(au, " not valid");
+                    //return;
+                //}
+                //release.product=product;
+                delete release.copy;
+                delete release.product;
+                $http.post('rest/releases', product). // release
+                    then(function (response) {
+                        release.editing = false;
+                        release.new = false;
 
-            release.editing = false;
+                    }, function (response) {
+                        console.error('Something went wrong with post release request.');
+                    });
+            }
+            else{
+
+                $http.put('rest/releases', release).then(function(response){
+                    console.log(release);
+                }, function (response) {
+                    console.error(response);
+                });
+
+                release.editing = false;
+            }
         };
 
         $scope.deleteRelease = function(release, product){
@@ -95,6 +128,18 @@ angular
 
                     console.error('Release delete request failed');
                 });
+        };
+
+        $scope.openReleaseForm = function(product){
+            var emptyRowNotOpened = true;
+
+            if(emptyRowNotOpened){
+                var newRelease = {};
+                newRelease.new = true;
+                newRelease.editing = true;
+                newRelease.product = product;
+                product.releases.push(newRelease);
+            }
         };
 
     });
