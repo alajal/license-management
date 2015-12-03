@@ -85,6 +85,10 @@ angular
             .when('/search/:keyword/',{
                 templateUrl: 'components/home/search.html',
                 controller: 'SearchCtrl'
+            })
+            .when('/licenseType',{
+                templateUrl: 'components/license/licenseType.html',
+                controller: 'LicenseTypeCtrl'
             });
 
             //.when('/search/:keyword/'... kohta

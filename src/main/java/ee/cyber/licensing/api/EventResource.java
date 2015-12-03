@@ -4,7 +4,6 @@ import ee.cyber.licensing.entity.Event;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MultivaluedMap;
 import java.util.List;
 
 @Path("events")

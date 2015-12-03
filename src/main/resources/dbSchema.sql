@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS License (
 
 CREATE TABLE IF NOT EXISTS LicenseType (
   id             INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  name           VARCHAR(100),
   validityPeriod VARCHAR(100)                   NOT NULL,
   cost           DOUBLE,
   mailBodyId     INT                            NOT NULL
