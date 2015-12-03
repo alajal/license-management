@@ -106,5 +106,6 @@ angular
                 $scope.user.release = LicensingService.getRelease();
                 createLicense();
             }
+
         }
     });

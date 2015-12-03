@@ -126,7 +126,8 @@ public class CustomerRepository {
 
     private Contact getContact(ResultSet resultSet) throws SQLException {
         return new Contact(
-                resultSet.getString("fullName"),
+                resultSet.getString("firstName"),
+                resultSet.getString("lastName"),
                 resultSet.getString("email"),
                 resultSet.getString("skype"),
                 resultSet.getString("phone")
@@ -156,12 +157,13 @@ public class CustomerRepository {
 
     private Contact save(Contact contact, Customer customer, Connection conn) throws SQLException {
         PreparedStatement statement = conn.prepareStatement("INSERT INTO Contact " +
-                "(customerId, fullName, email, skype, phone) VALUES (?, ?, ?, ?, ?)");
+                "(customerId, firstName, lastName, email, skype, phone) VALUES (?, ?, ?, ?, ?, ?)");
         statement.setInt(1, customer.getId());
-        statement.setString(2, contact.getContactName());
-        statement.setString(3, contact.getEmail());
-        statement.setString(4, contact.getSkype());
-        statement.setString(5, contact.getPhone());
+        statement.setString(2, contact.getFirstName());
+        statement.setString(3, contact.getLastName());
+        statement.setString(4, contact.getEmail());
+        statement.setString(5, contact.getSkype());
+        statement.setString(6, contact.getPhone());
         statement.execute();
 
         return contact;

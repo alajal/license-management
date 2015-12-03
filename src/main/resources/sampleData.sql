@@ -16,7 +16,7 @@ VALUES (1, 1, 1, '1234qwer', '2015-10-17', '2015-11-20', 3, '2015-09-20');
 INSERT INTO AuthorisedUser (licenseId, firstName, lastName, email, occupation)
 VALUES (1, 'John', 'Doe', 'johanna@test.com', 'student');
 
-INSERT INTO Contact(customerId, fullName) VALUES (1, 'Contact Testname');
+//INSERT INTO Contact(customerId, fullName) VALUES (1, 'Contact Testname');
 
 INSERT INTO Event(licenseId, name, description, type, dateCreated) VALUES (1, 'New license added', 'New license added description', 'Add', GETDATE());
 

@@ -229,4 +229,11 @@ angular
             $scope.mailBody.body = bodyAsString;
         };
 
+        $http.get('rest/contactPersons/bylicense/' + $routeParams.id).
+            then(function (response) {
+                $scope.contacts = response.data;
+            }, function (response) {
+                console.error('Something went wrong with the contacts GET method.');
+            });
+
     });

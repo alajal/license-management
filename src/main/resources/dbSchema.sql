@@ -83,7 +83,8 @@ DROP TABLE IF EXISTS Contact;
 CREATE TABLE IF NOT EXISTS Contact (
   id         INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   customerId INT                            NOT NULL,
-  fullName   VARCHAR(200),
+  firstName   VARCHAR(200),
+  lastName VARCHAR(200),
   email      VARCHAR(100),
   skype      VARCHAR(100),
   phone      VARCHAR(100),

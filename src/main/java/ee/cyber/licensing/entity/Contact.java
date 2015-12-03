@@ -1,7 +1,8 @@
 package ee.cyber.licensing.entity;
 
 public class Contact {
-    String contactName;
+    String firstName;
+    String lastName;
     String email;
     String skype;
     String phone;
@@ -9,20 +10,37 @@ public class Contact {
     public Contact() {
     }
 
-    public Contact(String contactName, String email, String skype, String phone) {
-        this.contactName = contactName;
+    public Contact(String firstName, String lastName, String email, String skype, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.skype = skype;
         this.phone = phone;
     }
 
-    public String getContactName() {
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    /*public String getContactName() {
         return contactName;
     }
 
     public void setContactName(String contactName) {
         this.contactName = contactName;
-    }
+    }*/
 
     /*    public String getContactFirstName() {
         return contactFirstName;
