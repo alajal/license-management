@@ -3,6 +3,10 @@
     /*margin: 0 auto; /!*terve formi keskele paigutamiseks*!/*/
 }
 
+.form-mailBody{
+    max-width: 100px;
+}
+
 .border {
     border-bottom: 1px solid coral;
     padding-bottom: 20px

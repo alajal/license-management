@@ -1,0 +1,45 @@
+<div class="container">
+    <h3>Create license type</h3>
+
+    <form novalidate class="form" name="form" ng-submit="addNewType()">
+        <div class="form-group">
+            <label for="typeName">Type name</label>
+            <input type="text" class="form-control" id="typeName" ng-model="type.name"
+                   required name="pName">
+            <div ng-show="form.$submitted || form.pName.$touched">
+                <div ng-show="form.pName.$error.required">Type name is needed.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="typeValidityPeriod">Type validity period</label>
+            <input type="text" class="form-control" id="typeValidityPeriod" ng-model="type.validityPeriod"
+                   required name="pValidityPeriod">
+            <div ng-show="form.$submitted || form.pName.$touched">
+                <div ng-show="form.pValidityPeriod.$error.required">Type validity period is needed.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="typeCost">Type cost</label>
+            <input type="text" class="form-control" id="typeCost" ng-model="type.cost"
+                   required name="pCost">
+            <div ng-show="form.$submitted || form.pName.$touched">
+                <div ng-show="form.pCost.$error.required">Type cost is needed.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Connect type with mail template: </label>
+            <select ng-options="body as body.subject for body in bodies"
+                    type="text" class="form-control" id="body" ng-model="mailBody"
+                    required name="selectedTemplate">
+            </select>
+            <br>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+    </form>
+</div>

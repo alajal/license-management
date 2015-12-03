@@ -21,3 +21,7 @@ INSERT INTO Contact(customerId, fullName) VALUES (1, 'Contact Testname');
 INSERT INTO Event(licenseId, name, description, type, dateCreated) VALUES (1, 'New license added', 'New license added description', 'Add', GETDATE());
 
 INSERT INTO Event(name, description, type, dateCreated) VALUES ('New customer added', 'New customer added description', 'Add', GETDATE());
+
+INSERT INTO MailBody(subject, body) VALUES ('License purchasing', 'tere organisatsioon ${organizationName}, kontakt inimsega ${contactPerson}. Org. email on ${email}. Toode on ${product} ja release ${release}.');
+
+INSERT INTO LicenseType(name, validityPeriod, cost, mailBodyId) VALUES('EU stiilis 3 a akadeemilist litsents', '3 years', 300, 1);
