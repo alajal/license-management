@@ -1,6 +1,11 @@
 package ee.cyber.licensing.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"editing", "new", "copy"})
 public class Contact {
+
+    Integer id;
     String firstName;
     String lastName;
     String email;
@@ -10,12 +15,29 @@ public class Contact {
     public Contact() {
     }
 
+    public Contact(Integer id, String firstName, String lastName, String email, String skype, String phone) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.skype = skype;
+        this.phone = phone;
+    }
+
     public Contact(String firstName, String lastName, String email, String skype, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.skype = skype;
         this.phone = phone;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstName() {

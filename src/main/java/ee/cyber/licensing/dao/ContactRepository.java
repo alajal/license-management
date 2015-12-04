@@ -17,6 +17,9 @@ public class ContactRepository {
     @Inject
     private DataSource ds;
 
+    @Inject
+    private LicenseRepository licenseRepository;
+
     public List<Contact> findAll(Customer customer) throws SQLException {
 
         try (Connection conn = ds.getConnection()) {
@@ -37,6 +40,7 @@ public class ContactRepository {
 
     private Contact getContact(ResultSet resultSet) throws SQLException {
         return new Contact(
+                resultSet.getInt("id"),
                 resultSet.getString("firstName"),
                 resultSet.getString("lastName"),
                 resultSet.getString("email"),
@@ -44,4 +48,40 @@ public class ContactRepository {
                 resultSet.getString("phone")
         );
     }
+
+    public Contact save(Contact contactPerson, int licenseId) throws SQLException {
+        try (Connection conn = ds.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO Contact (customerId, firstName, lastName, email, skype, phone) VALUES (?, ?, ?, ?, ?, ?)");
+            statement.setInt(1, licenseRepository.findById(licenseId).getCustomer().getId());
+            statement.setString(2, contactPerson.getFirstName());
+            statement.setString(3, contactPerson.getLastName());
+            statement.setString(4, contactPerson.getEmail());
+            statement.setString(5, contactPerson.getSkype());
+            statement.setString(6, contactPerson.getPhone());
+            statement.execute();
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    contactPerson.setId(generatedKeys.getInt(1));
+                }
+            }
+        }
+        return contactPerson;
+    }
+
+    public Contact updateContactPerson(Contact contactPerson, int licenseId) throws SQLException {
+        try (Connection conn = ds.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement("UPDATE Contact SET firstName=?, lastName=?, email=?, skype=?, phone=? WHERE customerId=? and id=?");
+            statement.setString(1, contactPerson.getFirstName());
+            statement.setString(2, contactPerson.getLastName());
+            statement.setString(3, contactPerson.getEmail());
+            statement.setString(4, contactPerson.getSkype());
+            statement.setString(5, contactPerson.getPhone());
+            statement.setInt(6, licenseRepository.findById(licenseId).getCustomer().getId());
+            statement.setInt(7, contactPerson.getId());
+            statement.executeUpdate();
+        }
+        return contactPerson;
+    }
+
 }
