@@ -126,6 +126,7 @@ public class CustomerRepository {
 
     private Contact getContact(ResultSet resultSet) throws SQLException {
         return new Contact(
+                resultSet.getInt("id"),
                 resultSet.getString("firstName"),
                 resultSet.getString("lastName"),
                 resultSet.getString("email"),

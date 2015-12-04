@@ -237,11 +237,56 @@ angular
             $scope.mailBody.body = bodyAsString;
         };
 
+        //CONTACT PERSON METHODS
         $http.get('rest/contactPersons/bylicense/' + $routeParams.id).
             then(function (response) {
                 $scope.contacts = response.data;
             }, function (response) {
                 console.error('Something went wrong with the contacts GET method.');
             });
+
+        $scope.editContactPerson = function(cp){
+            cp.editing = true;
+        };
+
+        $scope.cancelContactPersonEditing = function(cp){
+            cp.editing = false;
+        };
+
+        $scope.openContactPersonForm = function(cp){
+            var emptyRowNotOpened = true;
+
+            if(emptyRowNotOpened){
+                var newContactPerson = {};
+                newContactPerson.new = true;
+                newContactPerson.editing = true;
+                $scope.contacts.push(newContactPerson);
+            }
+        };
+
+        $scope.saveContactPerson = function(cp){
+            if(cp.new == true){
+
+                //delete cp.copy;
+                $http.post('rest/contactPersons/bylicense/' + $routeParams.id, cp).
+                    then(function (response) {
+                        cp.editing = false;
+                        cp.new = false;
+
+                    }, function (response) {
+                        console.error('Something went wrong with contact person POST request.');
+                    });
+            }
+            else{
+
+                $http.put('rest/contactPersons/bylicense/' + $routeParams.id, cp).then(function(response){
+                    console.log(cp);
+                }, function (response) {
+                    console.error(response);
+                });
+
+                cp.editing = false;
+            }
+        };
 
     });
