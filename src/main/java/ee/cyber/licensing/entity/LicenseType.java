@@ -10,6 +10,14 @@ public class LicenseType {
     public LicenseType() {
     }
 
+    public LicenseType(int id, String name, String validityPeriod, double cost, int mailBodyId) {
+        this.id = id;
+        this.name = name;
+        this.validityPeriod = validityPeriod;
+        this.cost = cost;
+        this.mailBodyId = mailBodyId;
+    }
+
     public String getValidityPeriod() {
         return validityPeriod;
     }

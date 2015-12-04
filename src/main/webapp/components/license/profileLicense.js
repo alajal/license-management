@@ -140,6 +140,14 @@ angular
                 console.error('Something went wrong with the authorised users get method.');
             });
 
+        $http.get('rest/licenses/type').
+            then(function (response) {
+                $scope.types = response.data;
+            }, function (response) {
+                console.error('Something went wrong with the license types get method.');
+            });
+
+
         $scope.getScriptId = function(au){
             if($scope.selected && au.id === $scope.selected.id){ // or au.id == null
                 return 'edit';

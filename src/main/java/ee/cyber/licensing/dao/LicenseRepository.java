@@ -66,7 +66,6 @@ public class LicenseRepository {
     }
 
     public License findById(int id) throws SQLException {
-        System.out.println(id);
         try (Connection connection = ds.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM License WHERE id = ?;")) {
                 statement.setInt(1, id);
@@ -118,7 +117,7 @@ public class LicenseRepository {
                 statement.setString(5, kword);
                 statement.setString(6, kword);
                 try (ResultSet resultSet = statement.executeQuery()) {
-                    List<License> licenses = new ArrayList();
+                    List<License> licenses = new ArrayList<>();
                     while (resultSet.next()) {
                         int productId = resultSet.getInt("productId");
                         Product productById = productRepository.getProductById(productId);
@@ -216,4 +215,20 @@ public class LicenseRepository {
         return type;
     }
 
+    public List<LicenseType> findLicenseTypes() throws SQLException {
+        try (Connection connection = ds.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM LicenseType")) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    List<LicenseType> licenseTypes = new ArrayList<>();
+                    while (resultSet.next()) {
+                        LicenseType type = new LicenseType(resultSet.getInt("id"), resultSet.getString("name"),
+                                resultSet.getString("validityPeriod"), resultSet.getDouble("cost"),
+                                resultSet.getInt("mailBodyId"));
+                        licenseTypes.add(type);
+                    }
+                    return licenseTypes;
+                }
+            }
+        }
+    }
 }

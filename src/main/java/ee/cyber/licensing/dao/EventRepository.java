@@ -74,7 +74,6 @@ public class EventRepository {
                       }
                       else {
                         License license = licenseRepository.findById(licenseId);
-                        System.out.println(license);
                         Event ev = getEvent(resultSet, license);
                         events.add(ev);
                       }

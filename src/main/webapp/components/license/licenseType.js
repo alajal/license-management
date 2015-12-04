@@ -2,7 +2,6 @@ angular
     .module('LM')
     .controller('LicenseTypeCtrl', function ($scope, $http, $window) {
         $scope.type = {};
-
         $http.get('rest/template').
             then(function (response) {
                 $scope.bodies = response.data;
