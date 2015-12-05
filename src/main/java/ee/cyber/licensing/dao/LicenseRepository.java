@@ -41,7 +41,7 @@ public class LicenseRepository {
         try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(
                     "INSERT INTO License (productId, releaseId, customerId, contractNumber, state, predecessorLicenseId, " +
-                            "validFrom, validTill, applicationSubmitDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                            "validFrom, validTill, licenseTypeId, applicationSubmitDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             statement.setInt(1, license.getProduct().getId());
             if (license.getRelease() == null) {
                 statement.setNull(2, java.sql.Types.INTEGER);
@@ -54,7 +54,8 @@ public class LicenseRepository {
             statement.setString(6, license.getPredecessorLicenseId());
             statement.setDate(7, license.getValidFrom());
             statement.setDate(8, license.getValidTill());
-            statement.setDate(9, license.getApplicationSubmitDate());
+            statement.setInt(9, license.getType().getId());
+            statement.setDate(10, license.getApplicationSubmitDate());
             statement.execute();
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -116,7 +117,7 @@ public class LicenseRepository {
             statement.setInt(1, licenseTypeId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (!resultSet.next()) {
-                    throw new SQLException("Ei leitud ühtegi rida id-ga " + licenseTypeId);
+                    throw new SQLException("Ei leitud ühtegi litsentsi tüüpi id-ga " + licenseTypeId);
                 }
                 return new LicenseType(licenseTypeId, resultSet.getString("name"), resultSet.getString("validityPeriod"),
                         resultSet.getDouble("cost"));
