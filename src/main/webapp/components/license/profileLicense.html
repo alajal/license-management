@@ -30,11 +30,11 @@
         </div>
         <div class="form-group">
             <label>License type: </label>
-            <input class="form-control" ng-model="license.type.name" ng-disabled="editorDisabled"/>
-           <!-- <select ng-options="type as type.name for type in types"
-                    type="text" class="form-control" id="type" ng-model="license.type"
+            <!--<input class="form-control" ng-model="license.type.name" ng-disabled="editorDisabled"/>-->
+           <select ng-model="license.type" ng-options="type as type.name for type in types"
+                    type="text" class="form-control" id="type"
                     required name="selectedTemplate" ng-disabled="editorDisabled">
-            </select>-->
+            </select>
         </div>
 
         <button ng-click="enableEditor()">Edit</button>

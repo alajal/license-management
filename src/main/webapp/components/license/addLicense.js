@@ -108,7 +108,7 @@ angular
             $scope.user.contractNumber = $scope.contractNumber;
             $scope.user.state = $scope.state;
             $scope.user.predecessorLicenseId = $scope.predecessor.contractNumber;
-            $scope.user.type = $scope.type;
+            //$scope.user.type = $scope.type;
 
             var applicant = LicensingService.getApplicant();
             if (applicant != undefined) {

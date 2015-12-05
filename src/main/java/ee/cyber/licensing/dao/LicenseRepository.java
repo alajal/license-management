@@ -11,9 +11,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import ee.cyber.licensing.entity.Customer;
 import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.LicenseType;
@@ -41,7 +38,7 @@ public class LicenseRepository {
         try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(
                     "INSERT INTO License (productId, releaseId, customerId, contractNumber, state, predecessorLicenseId, " +
-                            "validFrom, validTill, licenseTypeId, applicationSubmitDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                            "validFrom, validTill, applicationSubmitDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             statement.setInt(1, license.getProduct().getId());
             if (license.getRelease() == null) {
                 statement.setNull(2, java.sql.Types.INTEGER);
@@ -54,8 +51,8 @@ public class LicenseRepository {
             statement.setString(6, license.getPredecessorLicenseId());
             statement.setDate(7, license.getValidFrom());
             statement.setDate(8, license.getValidTill());
-            statement.setInt(9, license.getType().getId());
-            statement.setDate(10, license.getApplicationSubmitDate());
+            //statement.setInt(9, license.getType().getId());
+            statement.setDate(9, license.getApplicationSubmitDate());
             statement.execute();
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -78,13 +75,22 @@ public class LicenseRepository {
                     int releaseId = resultSet.getInt("releaseId");
                     Release release = null;
                     if (releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
-                    int licenseTypeId = resultSet.getInt("licenseTypeId");
-                    LicenseType licenseType = getLicenseTypeById(connection, licenseTypeId);
+                    Integer licenseTypeId = getInteger(resultSet, "licenseTypeId");
+                    LicenseType licenseType = licenseTypeId != null
+                            ? getLicenseTypeById(connection, licenseTypeId)
+                            : null;
                     return getLicense(resultSet, productRepository.getProductById(resultSet.getInt("productId")), release,
                             customerRepository.getCustomerById(resultSet.getInt("customerId")), licenseType);
                 }
             }
         }
+    }
+
+    private Integer getInteger(ResultSet resultSet, String columnLabel) throws SQLException {
+        int result = resultSet.getInt(columnLabel);
+        if (resultSet.wasNull())
+            return null;
+        return result;
     }
 
     public List<License> findAll() throws SQLException {
@@ -100,8 +106,10 @@ public class LicenseRepository {
                         if (releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
                         int customerId = resultSet.getInt("customerId");
                         Customer customerById = customerRepository.getCustomerById(customerId);
-                        int licenseTypeId = resultSet.getInt("licenseTypeId");
-                        LicenseType licenseType = getLicenseTypeById(conn, licenseTypeId);
+                        Integer licenseTypeId = getInteger(resultSet, "licenseTypeId");
+                        LicenseType licenseType = licenseTypeId != null
+                                ? getLicenseTypeById(conn, licenseTypeId)
+                                : null;
 
                         License license = getLicense(resultSet, productById, release, customerById, licenseType);
                         licenses.add(license);
@@ -145,7 +153,7 @@ public class LicenseRepository {
                 statement.setBoolean(13, sh.getTerminated());
                 System.out.println(statement);
                 try (ResultSet resultSet = statement.executeQuery()) {
-                    List<License> licenses = new ArrayList();
+                    List<License> licenses = new ArrayList<>();
                     while (resultSet.next()) {
                         int productId = resultSet.getInt("productId");
                         Product productById = productRepository.getProductById(productId);

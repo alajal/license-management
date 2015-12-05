@@ -17,13 +17,6 @@ angular
                 console.error('Something went wrong with the authorised users get method.');
             });
 
-        $http.get('rest/licenses/type').
-            then(function (response) {
-                $scope.types = response.data;
-            }, function (response) {
-                console.error('Something went wrong with the license types get method.');
-            });
-
         $http.get('rest/licenses').
             then(function (response) {
                 // this callback will be called asynchronously
@@ -44,6 +37,12 @@ angular
                 console.error('Something went wrong with the bodies get method.');
             });
 
+        $http.get('rest/licenses/type').
+            then(function (response) {
+                $scope.types = response.data;
+            }, function (response) {
+                console.error('Something went wrong with the license types get method.');
+            });
 
         $scope.openAuthorisedUserForm = function () {
             //$scope.AuthorisedUserForm = true;
