@@ -20,9 +20,7 @@ public class LicenseResource {
     @GET
     @Produces("application/json")
     public List<License> getLicenses() throws Exception {
-      SendMailTLS sml = new SendMailTLS();  
-      System.out.println(sml);
-      sml.generateAndSendEmail();
+      
         return licenseRepository.findAll();
     }
 

@@ -1,5 +1,7 @@
 package ee.cyber.licensing.entity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class MailBody {
     private Integer id;
     private String subject;
