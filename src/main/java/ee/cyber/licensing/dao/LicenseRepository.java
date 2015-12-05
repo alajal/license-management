@@ -68,7 +68,6 @@ public class LicenseRepository {
     }
 
     public License findById(int id) throws SQLException {
-        System.out.println(id);
         try (Connection connection = ds.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM License WHERE id = ?;")) {
                 statement.setInt(1, id);
@@ -163,16 +162,15 @@ public class LicenseRepository {
                 resultSet.getDate("applicationSubmitDate"));
     }
 
-    public License update(License license) throws SQLException {
+    public License updateLicense(License license) throws SQLException {
         try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement("UPDATE License SET " +
-                    "licenseState = ?, validFrom = ?, validTill = ? WHERE id = ?");
+                    "state = ?, licenseTypeId = ? WHERE id = ?");
 
             State licenseState = license.getState();
             statement.setInt(1, licenseState.getStateNumber());
-            statement.setDate(2, license.getValidFrom());
-            statement.setDate(3, license.getValidTill());
-            statement.setInt(4, license.getId());
+            statement.setInt(2, license.getType().getId());
+            statement.setInt(3, license.getId());
 
             int rowCount = statement.executeUpdate();
             if (rowCount == 0) {
@@ -209,11 +207,10 @@ public class LicenseRepository {
     public LicenseType saveType(LicenseType type) throws SQLException {
         try (Connection connection = ds.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("INSERT INTO LicenseType " +
-                    "(name, validityPeriod, cost, mailBodyId) VALUES (?, ?, ?, ?)")) {
+                    "(name, validityPeriod, cost) VALUES (?, ?, ?)")) {
                 statement.setString(1, type.getName());
                 statement.setString(2, type.getValidityPeriod());
                 statement.setDouble(3, type.getCost());
-                statement.setInt(4, type.getMailBodyId());
                 statement.execute();
 
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -233,8 +230,7 @@ public class LicenseRepository {
                     List<LicenseType> licenseTypes = new ArrayList<>();
                     while (resultSet.next()) {
                         LicenseType type = new LicenseType(resultSet.getInt("id"), resultSet.getString("name"),
-                                resultSet.getString("validityPeriod"), resultSet.getDouble("cost"),
-                                resultSet.getInt("mailBodyId"));
+                                resultSet.getString("validityPeriod"), resultSet.getDouble("cost"));
                         licenseTypes.add(type);
                     }
                     return licenseTypes;

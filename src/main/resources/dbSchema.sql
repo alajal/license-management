@@ -51,8 +51,7 @@ CREATE TABLE IF NOT EXISTS LicenseType (
   id             INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   name           VARCHAR(100),
   validityPeriod VARCHAR(100)                   NOT NULL,
-  cost           DOUBLE,
-  mailBodyId     INT                            NOT NULL
+  cost           DOUBLE
 );
 
 DROP TABLE IF EXISTS MailAttachment;
@@ -64,9 +63,10 @@ CREATE TABLE IF NOT EXISTS MailAttachment (
 
 DROP TABLE IF EXISTS MailBody;
 CREATE TABLE IF NOT EXISTS MailBody (
-  id      INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  subject VARCHAR(100)                   NOT NULL,
-  body    VARCHAR(500)                   NOT NULL
+  id            INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  subject       VARCHAR(100)                   NOT NULL,
+  body          VARCHAR(500)                   NOT NULL,
+  licenseTypeId INT
 );
 
 DROP TABLE IF EXISTS AuthorisedUser;
@@ -84,8 +84,8 @@ DROP TABLE IF EXISTS Contact;
 CREATE TABLE IF NOT EXISTS Contact (
   id         INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   customerId INT                            NOT NULL,
-  firstName   VARCHAR(200),
-  lastName VARCHAR(200),
+  firstName  VARCHAR(200),
+  lastName   VARCHAR(200),
   email      VARCHAR(100),
   skype      VARCHAR(100),
   phone      VARCHAR(100),

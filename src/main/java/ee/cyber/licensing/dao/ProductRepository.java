@@ -2,6 +2,7 @@ package ee.cyber.licensing.dao;
 
 import ee.cyber.licensing.entity.AuthorisedUser;
 import ee.cyber.licensing.entity.Product;
+
 import javax.inject.Inject;
 import javax.sql.DataSource;
 import java.net.URISyntaxException;
@@ -39,21 +40,21 @@ public class ProductRepository {
     }
 
     public List<Product> findByKeyword(String kword) throws SQLException {
-      System.out.println(kword);
-      try (Connection conn = ds.getConnection()) {
-        try (PreparedStatement statement = conn.prepareStatement(
-        "SELECT * FROM Product WHERE LOWER(name) LIKE LOWER(CONCAT('%',?,'%'));")) {
-          statement.setString(1, kword);
-          try (ResultSet resultSet = statement.executeQuery()) {
-            List<Product> products = new ArrayList();
-            while (resultSet.next()) {
-                Product product = getProduct(resultSet);
-                products.add(product);
+        System.out.println(kword);
+        try (Connection conn = ds.getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement(
+                    "SELECT * FROM Product WHERE LOWER(name) LIKE LOWER(CONCAT('%',?,'%'))")) {
+                statement.setString(1, kword);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    List<Product> products = new ArrayList<>();
+                    while (resultSet.next()) {
+                        Product product = getProduct(resultSet);
+                        products.add(product);
+                    }
+                    return products;
+                }
             }
-            return products;
-          }
         }
-      }
     }
 
     public Product save(Product product) throws SQLException {

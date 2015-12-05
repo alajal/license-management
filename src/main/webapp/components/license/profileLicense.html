@@ -21,7 +21,7 @@
             <input class="form-control" ng-model="license.state" ng-disabled="editorDisabled"/>
         </div>
         <div class="form-group">
-            <label>predecessorLicenseId: </label>
+            <label>Predecessor License Id: </label>
             <input class="form-control" ng-model="license.predecessorLicenseId" ng-disabled="editorDisabled"/>
         </div>
         <div class="form-group">
@@ -31,7 +31,7 @@
         <div class="form-group">
             <label>License type: </label>
             <select ng-options="type as type.name for type in types"
-                    type="text" class="form-control" id="type" ng-model="license.licenseType"
+                    type="text" class="form-control" id="type" ng-model="license.type"
                     required name="selectedTemplate" ng-disabled="editorDisabled">
             </select>
         </div>
@@ -43,7 +43,7 @@
     </form>
     <br>
     <div class="form-group">
-        <label>Choose mail subject: </label>
+        <label>Choose suitable mail template. The given templates are based on license type : </label>
         <select ng-options="body as body.subject for body in bodies"
                 type="text" class="form-control" id="body" ng-model="mailBody" ng-change="mailBodySelected()"
                 required name="selectedTemplate">

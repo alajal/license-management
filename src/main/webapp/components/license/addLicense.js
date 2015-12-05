@@ -11,11 +11,23 @@ angular
             $scope.licenses = result;
         });
 
+        $http.get('rest/licenses/type').
+            then(function (response) {
+                $scope.types = response.data;
+            }, function (response) {
+                console.error('Something went wrong with the license types get method.');
+            });
+
+
         $scope.allStates = ['REJECTED', 'NEGOTIATED', 'WAITING_FOR_SIGNATURE'];
         $scope.state = {};
 
         //Only for showing
         $scope.prefillProduct = LicensingService.getproduct() || LicensingService.getproductNew();
+        console.log("new customer:");
+        console.log(LicensingService.getApplicant());
+        console.log("existing customer:");
+        console.log(LicensingService.getCustomer());
         $scope.prefillCustomer = LicensingService.getApplicant() || LicensingService.getCustomer();
         $scope.prefillContractNumber = LicensingService.getContractNumber();
 
@@ -96,6 +108,7 @@ angular
             $scope.user.contractNumber = $scope.contractNumber;
             $scope.user.state = $scope.state;
             $scope.user.predecessorLicenseId = $scope.predecessor.contractNumber;
+            $scope.user.type = $scope.type;
 
             var applicant = LicensingService.getApplicant();
             if (applicant != undefined) {

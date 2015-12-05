@@ -14,10 +14,7 @@ angular
         };
 
         $scope.chooseCustomer = function(){
-            if (!$scope.chooseCustomerForm.$valid) {
-                return;
-            }
-            LicensingService.addCustomer($scope.customer);
+            LicensingService.addCustomer($scope.applicant.organizationName);
             $window.location.href = '#/product/add';
         }
 

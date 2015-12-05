@@ -1,93 +1,101 @@
 <div class="container">
     <h3>Create or choose customer</h3>
 
-    <form novalidate class="form customerForm" name="form" ng-submit="addNewCustomer()">
+{{applicant.organizationName}}
+    <form novalidate class="form customerForm" name="form"
+        ng-submit="addNewCustomer()">
         <div class="form-group">
 
             <label for="nameOrganization">Organization name</label>
-            <input type="text" class="form-control" id="nameOrganization" ng-model="applicant.organizationName"
-                   required name="pName">
-            <div ng-show="form.$submitted || form.pName.$touched">
-                <div ng-show="form.pName.$error.required">Organization name is needed.</div>
+            <div class="input-group">
+                <input type="text" ng-model="applicant.organizationName"
+                    uib-typeahead="customer as customer.organizationName for customer in customers | filter:$viewValue | limitTo:8"
+                    class="form-control"> <span
+                    class="input-group-btn">
+                    <button
+                        ng-disabled="applicant.organizationName.id === undefined"
+                        ng-click="chooseCustomer()"
+                        class="btn btn-default">CHOOSE</button>
+                </span>
             </div>
-
+            <div ng-show="form.$submitted || form.pName.$touched">
+                <div ng-show="form.pName.$error.required">Organization
+                    name is needed.</div>
+            </div>
+            <div ng-show="applicant.organizationName.id !== undefined">
+                <small>Existing customer.</small>
+            </div>
+            <div ng-show="applicant.organizationName.id === undefined">
+                <small>New customer.</small>
+            </div>
         </div>
 
         <div class="form-group border">
-            <label for="applicationArea">Application area</label>
-            <input type="text" class="form-control" id="applicationArea"
-                   ng-model="applicant.applicationArea">
+            <label for="applicationArea">Application area</label> <input
+                ng-disabled="applicant.organizationName.id !== undefined"
+                type="text" class="form-control" id="applicationArea"
+                ng-model="applicant.applicationArea">
         </div>
 
-        <br>
-        <label>CONTACT</label>
+        <br> <label>CONTACT</label>
 
         <div class="form-group">
-            <label for="contactFirstName">First name</label>
-            <input type="text" class="form-control" id="contactFirstName" ng-model="applicant.contactFirstName" required
-                   name="uName">
+            <label for="contactFirstName">First name</label> <input
+                ng-disabled="applicant.organizationName.id !== undefined"
+                type="text" class="form-control" id="contactFirstName"
+                ng-model="applicant.contactFirstName" required
+                name="uName">
 
             <div ng-show="form.$submitted || form.uName.$touched">
-                <div ng-show="form.uName.$error.required">Contact first name is needed.</div>
+                <div ng-show="form.uName.$error.required">Contact
+                    first name is needed.</div>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="contactLastName">Last name</label>
-            <input type="text" class="form-control" id="contactLastName" ng-model="applicant.contactLastName" required
-                   name="uName">
+            <label for="contactLastName">Last name</label> <input
+                ng-disabled="applicant.organizationName.id !== undefined"
+                type="text" class="form-control" id="contactLastName"
+                ng-model="applicant.contactLastName" required
+                name="uName">
 
             <div ng-show="form.$submitted || form.uName.$touched">
-                <div ng-show="form.uName.$error.required">Contact last name is needed.</div>
+                <div ng-show="form.uName.$error.required">Contact
+                    last name is needed.</div>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" required ng-model="applicant.email"
-                   name="email">
+            <label for="email">Email</label> <input
+                ng-disabled="applicant.organizationName.id !== undefined"
+                type="email" class="form-control" id="email" required
+                ng-model="applicant.email" name="email">
 
             <div ng-show="form.$submitted || form.email.$touched">
-                <span ng-show="form.email.$error.required">Email is needed.</span>
-                <span ng-show="form.email.$error.email">This is not a valid email.</span>
+                <span ng-show="form.email.$error.required">Email
+                    is needed.</span> <span ng-show="form.email.$error.email">This
+                    is not a valid email.</span>
             </div>
         </div>
         <div class="form-group">
-            <label for="skype">Skype</label>
-            <input type="text" class="form-control" id="skype" ng-model="applicant.skype" name="uSkype">
+            <label for="skype">Skype</label> <input
+                ng-disabled="applicant.organizationName.id !== undefined"
+                type="text" class="form-control" id="skype"
+                ng-model="applicant.skype" name="uSkype">
         </div>
         <div class="form-group border">
-            <label for="phone">Phone</label>
-            <input type="text" class="form-control" id="phone" ng-model="applicant.phone">
+            <label for="phone">Phone</label> <input
+                ng-disabled="applicant.organizationName.id !== undefined"
+                type="text" class="form-control" id="phone"
+                ng-model="applicant.phone">
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-default">SUBMIT</button>
+            <button
+                ng-disabled="applicant.organizationName.id !== undefined"
+                ng-click="addNewCustomer()" class="btn btn-default">CREATE</button>
         </div>
 
     </form>
-
-    <form novalidate class="form customerForm" name="chooseCustomerForm" ng-submit="chooseCustomer()">
-        <div class="form-group">
-            <label for="customer">Choose customer</label>
-
-            <select ng-options="customer as (customer.organizationName) for customer in customers | orderBy: 'name'"
-                    type="text" class="form-control" id="customer" ng-model="customer" required name="selectedCustomer"
-                    selected="">
-            </select>
-
-            <!--<search-organization ng-model="customer"></search-organization>-->
-
-            <div ng-show="chooseCustomerForm.$submitted || chooseCustomerForm.selectedCustomer.$touched">
-                <div ng-show="chooseCustomerForm.selectedCustomer.$error.required">Customer is needed.</div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <button type="submit" class="btn btn-default">CHOOSE</button>
-        </div>
-    </form>
-
-
 
 </div>

@@ -8,11 +8,13 @@ app.service('LicensingService', function () {
 
     this.addApplicant = function (applicantV) {
         applicantL = applicantV;
+        customerL = undefined;
         console.log(applicantL);
     };
 
     this.addCustomer = function (customerV) {
         customerL = customerV;
+        applicantL = undefined;
         console.log(customerL);
     };
 
