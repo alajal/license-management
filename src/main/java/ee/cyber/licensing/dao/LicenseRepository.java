@@ -11,12 +11,12 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
-import ee.cyber.licensing.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ee.cyber.licensing.entity.Customer;
 import ee.cyber.licensing.entity.License;
+import ee.cyber.licensing.entity.LicenseType;
 import ee.cyber.licensing.entity.Product;
 import ee.cyber.licensing.entity.Release;
 import ee.cyber.licensing.entity.State;
@@ -36,30 +36,31 @@ public class LicenseRepository {
     @Inject
     private ReleaseRepository releaseRepository;
 
+
     public License save(License license) throws SQLException {
         try (Connection conn = ds.getConnection()) {
-            try (PreparedStatement statement = conn.prepareStatement(
+            PreparedStatement statement = conn.prepareStatement(
                     "INSERT INTO License (productId, releaseId, customerId, contractNumber, state, predecessorLicenseId, " +
-                            "validFrom, validTill, applicationSubmitDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
-                statement.setInt(1, license.getProduct().getId());
-                if (license.getRelease() == null) {
-                    statement.setNull(2, java.sql.Types.INTEGER);
-                } else {
-                    statement.setInt(2, license.getRelease().getId());
-                }
-                statement.setInt(3, license.getCustomer().getId());
-                statement.setString(4, license.getContractNumber());
-                statement.setInt(5, license.getState().getStateNumber());
-                statement.setString(6, license.getPredecessorLicenseId());
-                statement.setDate(7, license.getValidFrom());
-                statement.setDate(8, license.getValidTill());
-                statement.setDate(9, license.getApplicationSubmitDate());
-                statement.execute();
+                            "validFrom, validTill, applicationSubmitDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            statement.setInt(1, license.getProduct().getId());
+            if(license.getRelease() == null){
+                statement.setNull(2, java.sql.Types.INTEGER);
+            }
+            else{
+              statement.setInt(2, license.getRelease().getId());
+            }
+            statement.setInt(3, license.getCustomer().getId());
+            statement.setString(4, license.getContractNumber());
+            statement.setInt(5, license.getState().getStateNumber());
+            statement.setString(6, license.getPredecessorLicenseId());
+            statement.setDate(7, license.getValidFrom());
+            statement.setDate(8, license.getValidTill());
+            statement.setDate(9, license.getApplicationSubmitDate());
+            statement.execute();
 
-                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        license.setId(generatedKeys.getInt(1));
-                    }
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    license.setId(generatedKeys.getInt(1));
                 }
             }
         }
@@ -67,6 +68,7 @@ public class LicenseRepository {
     }
 
     public License findById(int id) throws SQLException {
+        System.out.println(id);
         try (Connection connection = ds.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM License WHERE id = ?;")) {
                 statement.setInt(1, id);
@@ -76,7 +78,7 @@ public class LicenseRepository {
                     }
                     int releaseId = resultSet.getInt("releaseId");
                     Release release = null;
-                    if (releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
+                    if(releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
                     return getLicense(resultSet, productRepository.getProductById(resultSet.getInt("productId")), release,
                             customerRepository.getCustomerById(resultSet.getInt("customerId")));
                 }
@@ -94,7 +96,7 @@ public class LicenseRepository {
                         Product productById = productRepository.getProductById(productId);
                         int releaseId = resultSet.getInt("releaseId");
                         Release release = null;
-                        if (releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
+                        if(releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
                         int customerId = resultSet.getInt("customerId");
                         Customer customerById = customerRepository.getCustomerById(customerId);
 
@@ -136,6 +138,12 @@ public class LicenseRepository {
 
                 License license = getLicense(resultSet, productById, release, customerById);
                 licenses.add(license);
+            }
+            return licenses;
+          }
+        }
+      }
+    }
 
     private License getLicense(ResultSet resultSet, Product product, Release release, Customer customer) throws SQLException {
         Integer state = resultSet.getInt("state");
@@ -173,8 +181,8 @@ public class LicenseRepository {
     }
 
     public List<License> findExpiringLicenses() throws SQLException {
-        try (Connection connection = ds.getConnection()) {
-            try (PreparedStatement stmnt = connection.prepareStatement("Select *, DATEDIFF('DAY', CURRENT_DATE, validTill),CURRENT_DATE from License where DATEDIFF('DAY', CURRENT_DATE, validTill) < 31 AND DATEDIFF('DAY', CURRENT_DATE, validTill) > 0")) {
+        try(Connection connection = ds.getConnection()) {
+            try(PreparedStatement stmnt = connection.prepareStatement("Select *, DATEDIFF('DAY', CURRENT_DATE, validTill),CURRENT_DATE from License where DATEDIFF('DAY', CURRENT_DATE, validTill) < 31 AND DATEDIFF('DAY', CURRENT_DATE, validTill) > 0")) {
                 try (ResultSet resultSet = stmnt.executeQuery()) {
                     List<License> expiringLicenses = new ArrayList<>();
                     while (resultSet.next()) {
@@ -182,7 +190,7 @@ public class LicenseRepository {
                         Product productById = productRepository.getProductById(productId);
                         int releaseId = resultSet.getInt("releaseId");
                         Release release = null;
-                        if (releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
+                        if(releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
                         int customerId = resultSet.getInt("customerId");
                         Customer customerById = customerRepository.getCustomerById(customerId);
 
