@@ -2,6 +2,7 @@ package ee.cyber.licensing.api;
 
 import ee.cyber.licensing.dao.LicenseRepository;
 import ee.cyber.licensing.entity.License;
+import ee.cyber.licensing.entity.StateHelper;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -35,13 +36,6 @@ public class LicenseResource {
         return licenseRepository.findExpiringLicenses();
     }
 
-    @Path("/search/{keyword}")
-    @GET
-    @Produces("application/json")
-    public List<License> getLicensesSearch(@PathParam("keyword") String keyword) throws Exception {
-      return licenseRepository.findByKeyword(keyword);
-    }
-
     @POST
     public License saveLicense(License license) throws Exception {
         return licenseRepository.save(license);
@@ -57,4 +51,9 @@ public class LicenseResource {
         }
     }
 
+    @Path("/search/{keyword}")
+    @PUT
+    public List<License> getLicensesSearch(@PathParam("keyword") String keyword, StateHelper sh) throws Exception {
+      return licenseRepository.findByKeyword(keyword, sh);
+    }
 }

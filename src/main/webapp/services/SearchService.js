@@ -5,12 +5,12 @@ app.service('SearchService', function () {
         customers : true,
         products : true,
         states : {
-          REJECTED : false,
-          NEGOTIATED : false,
-          WAITING_FOR_SIGNATURE : false,
-          ACTIVE : false,
-          EXPIRATION_NEARING : false,
-          TERMINATED : false
+          REJECTED : true,
+          NEGOTIATED : true,
+          WAITING_FOR_SIGNATURE : true,
+          ACTIVE : true,
+          EXPIRATION_NEARING : true,
+          TERMINATED : true
         }
     };
 

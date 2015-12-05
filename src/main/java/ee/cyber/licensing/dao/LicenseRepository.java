@@ -19,6 +19,7 @@ import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.Product;
 import ee.cyber.licensing.entity.Release;
 import ee.cyber.licensing.entity.State;
+import ee.cyber.licensing.entity.StateHelper;
 
 public class LicenseRepository {
 
@@ -106,18 +107,22 @@ public class LicenseRepository {
         }
     }
 
-    public List<License> findByKeyword(String kword) throws SQLException {
-      System.out.println(kword);
+    public List<License> findByKeyword(String kword, StateHelper sh) throws SQLException {
       try (Connection conn = ds.getConnection()) {
         try (PreparedStatement statement = conn.prepareStatement(
-        "SELECT * FROM License LEFT JOIN Customer ON License.customerId = Customer.id LEFT JOIN Release ON License.releaseId = Release.id LEFT JOIN Product ON License.productId = Product.id WHERE License.contractNumber LIKE (LOWER(CONCAT('%',?,'%'))) OR ( License.productId = Product.id AND Product.name LIKE (CONCAT('%',?,'%')) ) OR ( License.releaseId = Release.id AND Release.version LIKE (CONCAT('%',?,'%')) ) OR ( License.customerId = Customer.id AND Customer.organizationName LIKE (CONCAT('%',?,'%')) ) OR License.validFrom LIKE (CONCAT('%',?,'%')) OR License.validTill LIKE (CONCAT('%',?,'%'));")) {
+        "SELECT * FROM License LEFT JOIN Customer ON License.customerId = Customer.id LEFT JOIN Release ON License.releaseId = Release.id LEFT JOIN Product ON License.productId = Product.id WHERE (License.contractNumber LIKE (LOWER(CONCAT('%',?,'%'))) OR ( License.productId = Product.id AND Product.name LIKE (CONCAT('%',?,'%')) ) OR ( License.releaseId = Release.id AND Release.version LIKE (CONCAT('%',?,'%')) ) OR ( License.customerId = Customer.id AND Customer.organizationName LIKE (CONCAT('%',?,'%')) ) OR License.validFrom LIKE (CONCAT('%',?,'%')) OR License.validTill LIKE (CONCAT('%',?,'%'))) AND ((License.state = 1 AND ?=true) OR (License.state = 2 AND ?=true) OR (License.state = 3 AND ?=true) OR (License.state = 4 AND ?=true) OR (License.state = 5 AND ?=true) OR (License.state = 6 AND ?=true));")) {
           statement.setString(1, kword);
           statement.setString(2, kword);
           statement.setString(3, kword);
           statement.setString(4, kword);
           statement.setString(5, kword);
           statement.setString(6, kword);
-          System.out.println(statement);
+          statement.setBoolean(7, sh.getRejected());
+          statement.setBoolean(8, sh.getNegotiated());
+          statement.setBoolean(9, sh.getWaiting_for_signature());
+          statement.setBoolean(10, sh.getActive());
+          statement.setBoolean(11, sh.getExpiration_nearing());
+          statement.setBoolean(12, sh.getTerminated());
           try (ResultSet resultSet = statement.executeQuery()) {
             List<License> licenses = new ArrayList();
             while (resultSet.next()) {
@@ -130,7 +135,6 @@ public class LicenseRepository {
                 Customer customerById = customerRepository.getCustomerById(customerId);
 
                 License license = getLicense(resultSet, productById, release, customerById);
-                System.out.println(license.getState());
                 licenses.add(license);
             }
             return licenses;
