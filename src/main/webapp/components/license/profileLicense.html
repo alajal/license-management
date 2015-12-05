@@ -43,7 +43,7 @@
     </form>
     <br>
     <div class="form-group">
-        <label>Choose mail subject: </label>
+        <label>Choose suitable mail template. The given templates are based on license type : </label>
         <select ng-options="body as body.subject for body in bodies"
                 type="text" class="form-control" id="body" ng-model="mailBody" ng-change="mailBodySelected()"
                 required name="selectedTemplate">

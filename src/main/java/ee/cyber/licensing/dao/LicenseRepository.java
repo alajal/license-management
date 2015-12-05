@@ -210,7 +210,7 @@ public class LicenseRepository {
     public LicenseType saveType(LicenseType type) throws SQLException {
         try (Connection connection = ds.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("INSERT INTO LicenseType " +
-                    "(name, validityPeriod, cost, mailBodyId) VALUES (?, ?, ?)")) {
+                    "(name, validityPeriod, cost) VALUES (?, ?, ?)")) {
                 statement.setString(1, type.getName());
                 statement.setString(2, type.getValidityPeriod());
                 statement.setDouble(3, type.getCost());
