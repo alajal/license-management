@@ -21,15 +21,11 @@ public class LicensingLdapRealm extends JndiLdapRealm {
         //USERNAME
         Object username = principals.asSet().iterator().next().toString();
 
-        //TODO Create IniRealmRolePermissionSolver to add permissions to roles
-
-        //TODO Use tags for authorization checks: @RequiresPermissions("perm"), @RequiresRoles("role")
-        //(@RequiresPermissions is preferred)
-
-        //Can add roles like this:
-//        if(username.equals("user123")){
-//            sInfo.addRole("someRole");
-//        }
+        //TODO Add roles to users here:
+        if(username.equals("someUser")){
+            sInfo.addRole("licensingManager");
+//            sInfo.addRole("releaseEngineer");
+        }
 
         return sInfo;
     }

@@ -1,3 +1,4 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html>
 <html data-ng-app="LM">
 <head>
@@ -62,6 +63,17 @@
 <body>
 <!-- Header -->
 <div data-ng-include="'shared/header/header.html'"></div>
+
+<!-- Make user and roles info available to the frontend -->
+<script>
+angular.module('LM')
+.run(function($rootScope) {
+    $rootScope.username = "<shiro:principal></shiro:principal>";
+    $rootScope.isLicensingManager = <shiro:hasRole name="licensingManager">true</shiro:hasRole><shiro:lacksRole name="licensingManager">false</shiro:lacksRole>;
+    $rootScope.isReleaseEngineer = <shiro:hasRole name="releaseEngineer">true</shiro:hasRole><shiro:lacksRole name="releaseEngineer">false</shiro:lacksRole>;
+})
+</script>
+
 <!-- *View.html -->
 <div data-ng-view></div>
 </body>

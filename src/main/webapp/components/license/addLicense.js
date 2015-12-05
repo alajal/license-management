@@ -1,6 +1,6 @@
 angular
     .module('LM')
-    .controller('AddLicenseCtrl', function ($scope, $http, $window, LicensingService) {
+    .controller('AddLicenseCtrl', function ($scope, $http, $window, LicensingService, $rootScope) {
         /* $scope.allStates = {1:'CANCELLED',2: 'NEGOTIATED', 3:'WAITING_FOR_SIGNATURE', 4:'ACTIVE', 5:'EXPIRATION_NEARING',
          6:'TERMINATED'};*/
         $scope.predecessor = {};
@@ -70,12 +70,12 @@ angular
             $scope.events = [
               {
                 name: 'Created License',
-                description: '*user name* added license '+obj.contractNumber+', state is: '+obj.state,
+                description: $scope.username+' added license '+obj.contractNumber+', state is: '+obj.state,
                 type: 'Add'
               },
               {
                 name: 'Created Customer',
-                description: '*user name* added customer '+obj.organizationName,
+                description: $scope.username+' added customer '+obj.organizationName,
                 type: 'Add'
               }
               ];
