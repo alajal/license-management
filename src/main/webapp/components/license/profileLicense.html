@@ -21,7 +21,7 @@
             <input class="form-control" ng-model="license.state" ng-disabled="editorDisabled"/>
         </div>
         <div class="form-group">
-            <label>predecessorLicenseId: </label>
+            <label>Predecessor License Id: </label>
             <input class="form-control" ng-model="license.predecessorLicenseId" ng-disabled="editorDisabled"/>
         </div>
         <div class="form-group">
@@ -31,7 +31,7 @@
         <div class="form-group">
             <label>License type: </label>
             <select ng-options="type as type.name for type in types"
-                    type="text" class="form-control" id="type" ng-model="license.licenseType"
+                    type="text" class="form-control" id="type" ng-model="license.type"
                     required name="selectedTemplate" ng-disabled="editorDisabled">
             </select>
         </div>

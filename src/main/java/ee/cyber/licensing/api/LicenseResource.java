@@ -58,10 +58,10 @@ public class LicenseResource {
     @Path("/{id}")
     @PUT
     public License editLicense(@PathParam("id")Integer id, License license) throws Exception{
-        if(Objects.equals(license.getId(), id)){
-            return licenseRepository.update(license);
+        if(Objects.equals(id, license.getId())){
+            return licenseRepository.updateLicense(license);
         } else {
-            throw new Exception("The license that needs update is not the one requested by client.");
+            throw new Exception("The license that needs update is not the one requested by client. Id: " + id);
         }
     }
 
