@@ -44,7 +44,7 @@ public class LicenseResource {
 
     @Path("/licensetype")
     @POST
-    public LicenseType saveLicense(LicenseType type) throws Exception {
+    public LicenseType saveLicenseType(LicenseType type) throws Exception {
         return licenseRepository.saveType(type);
     }
 

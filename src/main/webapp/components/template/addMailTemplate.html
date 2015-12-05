@@ -4,7 +4,7 @@
         <label class="control-label">Choose file for attachment</label><br>
         <input type="file" id="file" name="file"/>
         <!--<input type="text" id="name" value="File name" ng-model="upload.fileName"><br>-->
-        <button ng-click="uploadFile()">Add</button>
+        <button ng-click="uploadFile()">Upload</button>
     </div>
 
     <br>
@@ -15,9 +15,17 @@
 
                 <label class="control-label">Mail subject/mailbody name</label><br>
                 <input type="text" id="mailBodyName" value="" ng-model="mailBody.subject"><br>
+
+                <label class="control-label">Connect mail body/template with choosing license type:</label><br>
+                <select ng-options="type as type.name for type in types"
+                        type="text" class="form-control" id="type" ng-model="licenseType"
+                        required name="selectedTemplate">
+                </select>
+
                 <label class="control-label">Paste mail body</label><br>
                 <textarea rows="4" cols="50" ng-model="mailBody.body" value="" required></textarea><br>
-                <button type="submit" id="mailBody-button">Upload</button>
+
+                <button type="submit" id="mailBody-button">Add</button>
             </div>
         </form>
     </div>

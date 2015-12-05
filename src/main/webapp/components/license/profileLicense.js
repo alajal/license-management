@@ -223,7 +223,8 @@ angular
         $scope.mailBodySelected = function () {
             var map = {
                 "${organizationName}": $scope.license.customer.organizationName,
-                "${contactPerson}": $scope.license.customer.contacts[0].contactName,
+                "${contactPersonFirstName}": $scope.license.customer.contacts[0].firstName,
+                "${contactPersonLastName}": $scope.license.customer.contacts[0].lastName,
                 "${email}": $scope.license.customer.contacts[0].email,
                 "${product}": $scope.license.product.name,
                 "${release}": $scope.license.release.versionNumber

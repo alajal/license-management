@@ -5,17 +5,15 @@ public class LicenseType {
     private String name;
     private String validityPeriod;
     private double cost;
-    private int mailBodyId;
 
     public LicenseType() {
     }
 
-    public LicenseType(int id, String name, String validityPeriod, double cost, int mailBodyId) {
+    public LicenseType(int id, String name, String validityPeriod, double cost) {
         this.id = id;
         this.name = name;
         this.validityPeriod = validityPeriod;
         this.cost = cost;
-        this.mailBodyId = mailBodyId;
     }
 
     public String getValidityPeriod() {
@@ -40,14 +38,6 @@ public class LicenseType {
 
     public void setCost(double cost) {
         this.cost = cost;
-    }
-
-    public int getMailBodyId() {
-        return mailBodyId;
-    }
-
-    public void setMailBodyId(int mailBodyId) {
-        this.mailBodyId = mailBodyId;
     }
 
     public String getName() {

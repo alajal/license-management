@@ -22,6 +22,13 @@ INSERT INTO Event(licenseId, name, description, type, dateCreated) VALUES (1, 'N
 
 INSERT INTO Event(name, description, type, dateCreated) VALUES ('New customer added', 'New customer added description', 'Add', GETDATE());
 
-INSERT INTO MailBody(subject, body) VALUES ('License purchasing', 'tere organisatsioon ${organizationName}, kontakt inimsega ${contactPerson}. Org. email on ${email}. Toode on ${product} ja release ${release}.');
+INSERT INTO LicenseType(name, validityPeriod, cost) VALUES('EU stiilis 3 a akadeemilist litsents', '3 years', 300);
+INSERT INTO LicenseType(name, validityPeriod, cost) VALUES('EU stiilis 1 a kommerts litsents', '1 years', 100);
 
-//INSERT INTO LicenseType(name, validityPeriod, cost, mailBodyId) VALUES('EU stiilis 3 a akadeemilist litsents', '3 years', 300, 1);
+INSERT INTO MailBody(subject, body, licenseTypeId) VALUES ('License purchasing', 'tere organisatsioon ${organizationName}, kontakt inimsega ${contactPerson}. Org. email on ${email}. Toode on ${product} ja release ${release}.', 1);
+INSERT INTO MailBody(subject, body, licenseTypeId) VALUES ('License purchasing', 'Dear interested customer ${organizationName}!
+Here is the agreement draft of our European 1 year commercial license for product ${product} wiht release ${release}.
+We will assume that the contact person is  ${contactPersonFirstName} ${contactPersonLastName} and the email of the company is ${email}.
+The agreement draft is in the attachment. Have a nice day! ', 2);
+
+

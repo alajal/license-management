@@ -4,15 +4,19 @@ public class MailBody {
     private Integer id;
     private String subject;
     private String body;
+    private Integer licenseTypeId;
 
     public MailBody() {
     }
 
-    public MailBody(Integer id, String subject, String body) {
+    //TODO konstruktorisse lisada licesnetypeid
+    public MailBody(Integer id, String subject, String body, Integer licenseTypeId) {
         this.id = id;
         this.subject = subject;
         this.body = body;
+        this.licenseTypeId = licenseTypeId;
     }
+
 
     public Integer getId() {
         return id;
@@ -36,5 +40,13 @@ public class MailBody {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public int getLicenseTypeId() {
+        return licenseTypeId;
+    }
+
+    public void setLicenseTypeId(int licenseTypeId) {
+        this.licenseTypeId = licenseTypeId;
     }
 }
