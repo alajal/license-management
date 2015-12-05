@@ -4,6 +4,7 @@ import ee.cyber.licensing.dao.LicenseRepository;
 import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.StateHelper;
 import ee.cyber.licensing.entity.LicenseType;
+import ee.cyber.licensing.entity.SendMailTLS;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -19,6 +20,9 @@ public class LicenseResource {
     @GET
     @Produces("application/json")
     public List<License> getLicenses() throws Exception {
+      SendMailTLS sml = new SendMailTLS();  
+      System.out.println(sml);
+      sml.generateAndSendEmail();
         return licenseRepository.findAll();
     }
 
