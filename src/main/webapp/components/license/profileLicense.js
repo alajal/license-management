@@ -36,6 +36,14 @@ angular
                 console.error('There was something wrong with the view license request.');
             });
 
+        $http.get('rest/template').
+            then(function (response) {
+                $scope.bodies = response.data;
+            }, function (response) {
+                console.error('Something went wrong with the bodies get method.');
+            });
+
+
         $scope.openAuthorisedUserForm = function () {
             //$scope.AuthorisedUserForm = true;
             var newLineNotThere = true;
@@ -63,9 +71,8 @@ angular
 
         $scope.saveProfile = function () {
             $scope.disableEditor();
-            //$scope.license.licenseTypeId = $scope.license.licenseType.id;
-            console.log("Litsentsi tüüp:");
-            console.log($scope.license.licenseType);
+            console.log("Litsents:");
+            console.log($scope.license);
             $http.put('rest/licenses/' + $scope.license.id, $scope.license).
                 then(function (response) {
                     console.log($scope.license);
@@ -211,13 +218,10 @@ angular
             }
         };
 
-        $http.get('rest/template').
-            then(function (response) {
-                $scope.bodies = response.data;
-            }, function (response) {
-                console.error('Something went wrong with the bodies get method.');
-            });
-
+        //todo kontakti eesnimi ja perenimi tuleb leida olemasoleva litsentsi jaoks kahte moodi:
+        //todo kui litsenseerimise etapi 1. sammus lisati uus customer, siis tuleb kontakt võtta Applicanti/customeri küljest
+        //todo kui valiti customer, siis tuleb kontakt võtta olemasoleva customeri küljest - mitme kontakti puhul
+        //todo võtta esimene kontakt - teeme eelduse, et esimene kontakt on main contact
         $scope.mailBodySelected = function () {
             var map = {
                 "${organizationName}": $scope.license.customer.organizationName,
