@@ -7,6 +7,12 @@ public class MailAttachment {
 
     public MailAttachment() {
     }
+    
+    public MailAttachment(Integer id, String data, String fileName) {
+      this.id = id;
+      this.data = data;
+      this.fileName = fileName;
+    }
 
     public String getData() {
         return data;
