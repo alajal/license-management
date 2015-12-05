@@ -20,7 +20,6 @@ public class LicenseResource {
     @GET
     @Produces("application/json")
     public List<License> getLicenses() throws Exception {
-      
         return licenseRepository.findAll();
     }
 
@@ -59,8 +58,8 @@ public class LicenseResource {
 
     @Path("/{id}")
     @PUT
-    public License editLicense(@PathParam("id")Integer id, License license) throws Exception{
-        if(Objects.equals(id, license.getId())){
+    public License editLicense(@PathParam("id") Integer id, License license) throws Exception {
+        if (Objects.equals(id, license.getId())) {
             return licenseRepository.updateLicense(license);
         } else {
             throw new Exception("The license that needs update is not the one requested by client. Id: " + id);
@@ -70,6 +69,6 @@ public class LicenseResource {
     @Path("/search/{keyword}")
     @PUT
     public List<License> getLicensesSearch(@PathParam("keyword") String keyword, StateHelper sh) throws Exception {
-      return licenseRepository.findByKeyword(keyword, sh);
+        return licenseRepository.findByKeyword(keyword, sh);
     }
 }

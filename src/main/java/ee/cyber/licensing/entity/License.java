@@ -31,16 +31,17 @@ public class License {
         this.applicationSubmitDate = applicationSubmitDate;
     }
 
-    public License(Integer id, Product product, Release release, Customer customer, String contractNumber, State state, String predecessorLicenseId, Date validFrom, Date validTill, Date applicationSubmitDate) {
+    public License(Integer id, Product product, Customer customer, Release release, String contractNumber, State state, String predecessorLicenseId, Date validFrom, Date validTill, LicenseType type, Date applicationSubmitDate) {
         this.id = id;
         this.product = product;
-        this.release = release;
         this.customer = customer;
+        this.release = release;
         this.contractNumber = contractNumber;
         this.state = state;
         this.predecessorLicenseId = predecessorLicenseId;
         this.validFrom = validFrom;
         this.validTill = validTill;
+        this.type = type;
         this.applicationSubmitDate = applicationSubmitDate;
     }
 
