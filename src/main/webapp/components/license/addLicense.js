@@ -16,6 +16,10 @@ angular
 
         //Only for showing
         $scope.prefillProduct = LicensingService.getproduct() || LicensingService.getproductNew();
+        console.log("new customer:");
+        console.log(LicensingService.getApplicant());
+        console.log("existing customer:");
+        console.log(LicensingService.getCustomer());
         $scope.prefillCustomer = LicensingService.getApplicant() || LicensingService.getCustomer();
         $scope.prefillContractNumber = LicensingService.getContractNumber();
 
