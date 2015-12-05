@@ -42,7 +42,7 @@ public class ProductRepository {
       System.out.println(kword);
       try (Connection conn = ds.getConnection()) {
         try (PreparedStatement statement = conn.prepareStatement(
-        "SELECT * FROM Product WHERE name LIKE (CONCAT('%',?,'%'));")) {
+        "SELECT * FROM Product WHERE LOWER(name) LIKE LOWER(CONCAT('%',?,'%'));")) {
           statement.setString(1, kword);
           try (ResultSet resultSet = statement.executeQuery()) {
             List<Product> products = new ArrayList();
