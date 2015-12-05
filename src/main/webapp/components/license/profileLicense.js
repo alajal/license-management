@@ -1,21 +1,25 @@
 angular
     .module('LM')
     .controller('ProfileLicenseCtrl', function ($scope, $http, $routeParams, $location) {
+
         $scope.licenseId = $routeParams.id;
+
         $scope.editorDisabled = true;
+
         $scope.AuthorisedUserForm = false;
+
         $scope.rowforms = {};
 
         $scope.openAuthorisedUserForm = function () {
             //$scope.AuthorisedUserForm = true;
             var newLineNotThere = true;
-            for (var i = 0; i < $scope.authorisedUser.length; i++) {
-                if (typeof $scope.authorisedUser[i].id === "undefined") {
+            for(var i = 0; i < $scope.authorisedUser.length; i++){
+                if(typeof $scope.authorisedUser[i].id === "undefined"){
                     newLineNotThere = false;
                     break;
                 }
             }
-            if (newLineNotThere) {
+            if(newLineNotThere){
                 var newUser = {};
                 $scope.authorisedUser.push(newUser);
                 $scope.selected = newUser;
@@ -44,37 +48,37 @@ angular
         };
 
         function createEvent(license, event_nr) {
-            var contract_nr = license.contractNumber;
-            // Event numbers
-            // 0 - edit license info
-            // 1 - remove license
-            // 2 - change license status
+          var contract_nr = license.contractNumber;
+          // Event numbers
+          // 0 - edit license info
+          // 1 - remove license
+          // 2 - change license status
 
-            $scope.events = [
-                {
-                    name: 'User name',
-                    description: ' modified license ' + contract_nr,
-                    type: 'Modify'
-                },
-                {
-                    name: 'User name',
-                    description: ' deleted license ' + contract_nr,
-                    type: 'Remove'
-                },
-                {
-                    name: 'User name',
-                    description: ' modified status of license ' + contract_nr + ' to ' + license.state,
-                    type: 'Modify'
-                }
+          $scope.events = [
+            {
+              name: 'User name',
+              description: ' modified license '+contract_nr,
+              type: 'Modify'
+            },
+            {
+              name: 'User name',
+              description: ' deleted license '+contract_nr,
+              type: 'Remove'
+            },
+            {
+              name: 'User name',
+              description: ' modified status of license '+contract_nr+' to '+license.state,
+              type: 'Modify'
+            }
             ];
 
-            $http.post('rest/events/' + license.id, $scope.events[event_nr]).
-                then(function (response) {
-                    console.log("Event created");
-                    console.log(response.data);
-                }, function (response) {
-                    console.error(response.errors);
-                });
+          $http.post('rest/events/'+license.id, $scope.events[event_nr]).
+              then(function(response) {
+                  console.log("Event created");
+                  console.log(response.data);
+              }, function(response) {
+                  console.error(response.errors);
+              });
         }
 
         $scope.openAuthorisedUsersForm = function () {
@@ -82,14 +86,14 @@ angular
             $location.path('/authorisedUser/add/addAuthorisedUser');
         };
 
-        $scope.deleteEntry = function (au) {
+        $scope.deleteEntry = function(au){
 
             $http.delete('rest/authorisedUser/bylicense/' + $routeParams.id + '/' + au.id).
-                then(function (response) {
+                then(function(response){
                     var deletableUserIndex = $scope.authorisedUser.indexOf(au);
-                    $scope.authorisedUser.splice(deletableUserIndex, 1);
+                    $scope.authorisedUser.splice(deletableUserIndex,1);
 
-                }, function (response) {
+            },  function (response) {
 
                     console.error('HTTP delete request failed');
                 });
@@ -136,21 +140,28 @@ angular
                 console.error('Something went wrong with the authorised users get method.');
             });
 
-        $scope.getScriptId = function (au) {
-            if ($scope.selected && au.id === $scope.selected.id) { // or au.id == null
+        $http.get('rest/licenses/type').
+            then(function (response) {
+                $scope.types = response.data;
+            }, function (response) {
+                console.error('Something went wrong with the license types get method.');
+            });
+
+
+        $scope.getScriptId = function(au){
+            if($scope.selected && au.id === $scope.selected.id){ // or au.id == null
                 return 'edit';
             }
             else return 'display';
         };
 
-        $scope.editAuthorisedUser = function (au) {
+        $scope.editAuthorisedUser = function(au){
             $scope.selected = angular.copy(au); //creates a copy of au and stores it to $scope.selected variable which will be edited
 
         };
 
-        $scope.save = function (au) {
-
-            if (typeof au.id === "undefined") {
+        $scope.save = function(au){
+            if(typeof au.id === "undefined"){
                 console.log(au);
                 if (!$scope.rowforms.form.$valid) {
                     console.log(au, " not valid");
@@ -166,9 +177,9 @@ angular
                         console.error('Something went wrong with post authorised users request.');
                     });
             }
-            else {
-                $.extend(au, $scope.selected); //jQuery extend method to save the changes made in $scope.selected to au
-                $http.put('rest/authorisedUser/bylicense/' + $routeParams.id, au).then(function (response) {
+            else{
+                $.extend(au,$scope.selected); //jQuery extend method to save the changes made in $scope.selected to au
+                $http.put('rest/authorisedUser/bylicense/' + $routeParams.id, au).then(function(response){
                     console.log($scope.selected);
                 }, function (response) {
                     console.error(response);
@@ -179,12 +190,12 @@ angular
         };
 
 
-        $scope.updateAuthorisedUser = function (au) {
-            $.extend(au, $scope.selected); //jQuery extend method to save the changes made in $scope.selected to au
-            $http.put('rest/authorisedUser/bylicense/' + $routeParams.id, au).then(function (response) {
-                console.log($scope.selected);
-            }, function (response) {
-                console.error(response);
+        $scope.updateAuthorisedUser = function(au){
+            $.extend(au,$scope.selected); //jQuery extend method to save the changes made in $scope.selected to au
+            $http.put('rest/authorisedUser/bylicense/' + $routeParams.id, au).then(function(response){
+            console.log($scope.selected);
+        }, function (response) {
+            console.error(response);
 
             });
 
@@ -192,12 +203,12 @@ angular
 
         };
 
-        $scope.reset = function (au) {
-            if (typeof au.id === "undefined") {
-                var deletableUserIndex = $scope.authorisedUser.indexOf($scope.authorisedUser.length - 1);
-                $scope.authorisedUser.splice(deletableUserIndex, 1);
+        $scope.reset = function(au){
+            if(typeof au.id === "undefined"){
+                var deletableUserIndex = $scope.authorisedUser.indexOf($scope.authorisedUser.length-1);
+                $scope.authorisedUser.splice(deletableUserIndex,1);
             }
-            else {
+            else{
                 $scope.selected = {};
             }
         };
@@ -224,6 +235,58 @@ angular
                 bodyAsString = bodyAsString.replace(key, map[key]);
             }
             $scope.mailBody.body = bodyAsString;
+        };
+
+        //CONTACT PERSON METHODS
+        $http.get('rest/contactPersons/bylicense/' + $routeParams.id).
+            then(function (response) {
+                $scope.contacts = response.data;
+            }, function (response) {
+                console.error('Something went wrong with the contacts GET method.');
+            });
+
+        $scope.editContactPerson = function(cp){
+            cp.editing = true;
+        };
+
+        $scope.cancelContactPersonEditing = function(cp){
+            cp.editing = false;
+        };
+
+        $scope.openContactPersonForm = function(cp){
+            var emptyRowNotOpened = true;
+
+            if(emptyRowNotOpened){
+                var newContactPerson = {};
+                newContactPerson.new = true;
+                newContactPerson.editing = true;
+                $scope.contacts.push(newContactPerson);
+            }
+        };
+
+        $scope.saveContactPerson = function(cp){
+            if(cp.new == true){
+
+                //delete cp.copy;
+                $http.post('rest/contactPersons/bylicense/' + $routeParams.id, cp).
+                    then(function (response) {
+                        cp.editing = false;
+                        cp.new = false;
+
+                    }, function (response) {
+                        console.error('Something went wrong with contact person POST request.');
+                    });
+            }
+            else{
+
+                $http.put('rest/contactPersons/bylicense/' + $routeParams.id, cp).then(function(response){
+                    console.log(cp);
+                }, function (response) {
+                    console.error(response);
+                });
+
+                cp.editing = false;
+            }
         };
 
     });

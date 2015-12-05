@@ -5,9 +5,9 @@ public class Applicant {
     String organizationName;
     String applicationArea;
 
-    String contactName;
-    //String contactFirstName;
-    //String contactLastName;
+    //String contactName;
+    String contactFirstName;
+    String contactLastName;
     String email;
     String skype;
     String phone;
@@ -16,16 +16,31 @@ public class Applicant {
     public Applicant() {
     }
 
-    public Applicant(String organizationName, String applicationArea, String contactName, String email, String skype, String phone) {
+    public Applicant(String organizationName, String applicationArea, String contactFirstName, String contactLastName, String email, String skype, String phone) {
         this.organizationName = organizationName;
         this.applicationArea = applicationArea;
-        this.contactName = contactName;
+        this.contactFirstName = contactFirstName;
+        this.contactLastName = contactLastName;
         this.email = email;
         this.skype = skype;
         this.phone = phone;
     }
 
+    public String getContactFirstName() {
+        return contactFirstName;
+    }
 
+    public String getContactLastName() {
+        return contactLastName;
+    }
+
+    public void setContactFirstName(String contactFirstName) {
+        this.contactFirstName = contactFirstName;
+    }
+
+    public void setContactLastName(String contactLastName) {
+        this.contactLastName = contactLastName;
+    }
 
     public String getOrganizationName() {
         return organizationName;
@@ -43,13 +58,13 @@ public class Applicant {
         this.applicationArea = applicationArea;
     }
 
-    public String getContactName() {
+    /*public String getContactName() {
         return contactName;
     }
 
     public void setContactName(String contactName) {
         this.contactName = contactName;
-    }
+    }*/
 
     /*    public void setContactFirstName(String contactFirstName) {
         this.contactFirstName = contactFirstName;

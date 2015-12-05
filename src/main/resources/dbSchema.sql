@@ -47,6 +47,14 @@ CREATE TABLE IF NOT EXISTS License (
   FOREIGN KEY (releaseId) REFERENCES Release (id)
 );
 
+CREATE TABLE IF NOT EXISTS LicenseType (
+  id             INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  name           VARCHAR(100),
+  validityPeriod VARCHAR(100)                   NOT NULL,
+  cost           DOUBLE,
+  mailBodyId     INT                            NOT NULL
+);
+
 DROP TABLE IF EXISTS MailAttachment;
 CREATE TABLE IF NOT EXISTS MailAttachment (
   id       INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -76,7 +84,8 @@ DROP TABLE IF EXISTS Contact;
 CREATE TABLE IF NOT EXISTS Contact (
   id         INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   customerId INT                            NOT NULL,
-  fullName   VARCHAR(200),
+  firstName   VARCHAR(200),
+  lastName VARCHAR(200),
   email      VARCHAR(100),
   skype      VARCHAR(100),
   phone      VARCHAR(100),

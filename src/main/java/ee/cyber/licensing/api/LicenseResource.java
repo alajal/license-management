@@ -3,6 +3,7 @@ package ee.cyber.licensing.api;
 import ee.cyber.licensing.dao.LicenseRepository;
 import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.StateHelper;
+import ee.cyber.licensing.entity.LicenseType;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -39,6 +40,19 @@ public class LicenseResource {
     @POST
     public License saveLicense(License license) throws Exception {
         return licenseRepository.save(license);
+    }
+
+    @Path("/licensetype")
+    @POST
+    public LicenseType saveLicense(LicenseType type) throws Exception {
+        return licenseRepository.saveType(type);
+    }
+
+    @Path("/type")
+    @GET
+    @Produces("application/json")
+    public List<LicenseType> getLicenseTypes() throws Exception{
+        return licenseRepository.findLicenseTypes();
     }
 
     @Path("/{id}")

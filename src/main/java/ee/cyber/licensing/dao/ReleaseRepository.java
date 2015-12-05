@@ -84,7 +84,7 @@ public class ReleaseRepository {
     public Release saveRelease(int productId, Release release) throws SQLException {
         try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO Release (productId, version, additionDate) VALUES (?, ?, ?)");
-            statement.setInt(1, productId);
+            statement.setInt(1, productId); // release.product.getId()
             statement.setString(2, release.getVersionNumber());
             statement.setDate(3, new java.sql.Date(release.getAdditionDate().getTime()));
             statement.execute();

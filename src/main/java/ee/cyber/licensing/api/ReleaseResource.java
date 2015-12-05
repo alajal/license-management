@@ -17,13 +17,24 @@ public class ReleaseResource {
 
     @GET
     @Produces("application/json")
-    public List<Release> getReleasesByProductId(int id) throws Exception {
+    public List<Release> getReleasesByProductId(@PathParam("id")Integer id) throws Exception {
         return releaseRepository.findByProductId(id);
     }
 
     @PUT
     public Release editRelease(Release release) throws Exception {
         return releaseRepository.editRelease(release);
+    }
+
+    @POST
+    public boolean saveRelease(Product product) throws Exception {
+        for(int i = 0; i < product.getReleases().size(); i++){
+            if(product.getReleases().get(i).getId() == null){
+                releaseRepository.saveRelease(product.getId(), product.getReleases().get(i));
+            }
+
+        }
+        return true;
     }
 
     @DELETE

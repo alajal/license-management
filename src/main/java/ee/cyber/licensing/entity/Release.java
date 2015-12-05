@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.Date;
 
 
-@JsonIgnoreProperties("editing")
+@JsonIgnoreProperties({"editing", "new", "copy", "product"})
 public class Release {
 
     Integer id;

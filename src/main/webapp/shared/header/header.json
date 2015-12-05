@@ -12,6 +12,16 @@
         "type": "link",
         "url": "eventsLicense",
         "name": "View events"
+      },
+      {
+        "type": "link",
+        "url": "deliveryLicenses",
+        "name": "Deliveries"
+      },
+      {
+        "type": "link",
+        "url": "licenseType",
+        "name": "Create license type"
       }
     ]
   },

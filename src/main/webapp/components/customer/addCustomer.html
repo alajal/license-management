@@ -23,14 +23,25 @@
         <label>CONTACT</label>
 
         <div class="form-group">
-            <label for="nameContact">Name</label>
-            <input type="text" class="form-control" id="nameContact" ng-model="applicant.contactName" required
+            <label for="contactFirstName">First name</label>
+            <input type="text" class="form-control" id="contactFirstName" ng-model="applicant.contactFirstName" required
                    name="uName">
 
             <div ng-show="form.$submitted || form.uName.$touched">
-                <div ng-show="form.uName.$error.required">Contact name is needed.</div>
+                <div ng-show="form.uName.$error.required">Contact first name is needed.</div>
             </div>
         </div>
+
+        <div class="form-group">
+            <label for="contactLastName">Last name</label>
+            <input type="text" class="form-control" id="contactLastName" ng-model="applicant.contactLastName" required
+                   name="uName">
+
+            <div ng-show="form.$submitted || form.uName.$touched">
+                <div ng-show="form.uName.$error.required">Contact last name is needed.</div>
+            </div>
+        </div>
+
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" required ng-model="applicant.email"

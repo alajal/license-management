@@ -22,6 +22,10 @@ angular
                 templateUrl: 'components/license/usersView.html',
                 controller: 'ProfileLicenseCtrl'
             })
+            .when('/contactPersons/bylicense/:id', {
+                templateUrl: 'components/license/contactPersonView.html',
+                controller: 'ProfileLicenseCtrl'
+            })
             .when('/products', {
                 templateUrl: 'components/product/productsView.html',
                 controller: 'ViewProductsCtrl'
@@ -74,9 +78,17 @@ angular
                 templateUrl: 'components/license/eventsView.html',
                 controller: 'ViewEventsCtrl'
             })
+            .when('/deliveryLicenses',{
+                templateUrl: 'components/license/deliveryLicenses.html',
+                controller: 'DeliveryLicensesCtrl'
+            })
             .when('/search/:keyword/',{
                 templateUrl: 'components/home/search.html',
                 controller: 'SearchCtrl'
+            })
+            .when('/licenseType',{
+                templateUrl: 'components/license/licenseType.html',
+                controller: 'LicenseTypeCtrl'
             });
 
             //.when('/search/:keyword/'... kohta

@@ -2,11 +2,20 @@ package ee.cyber.licensing.entity;
 
 public class LicenseType {
     private int id;
+    private String name;
     private String validityPeriod;
     private double cost;
     private int mailBodyId;
 
     public LicenseType() {
+    }
+
+    public LicenseType(int id, String name, String validityPeriod, double cost, int mailBodyId) {
+        this.id = id;
+        this.name = name;
+        this.validityPeriod = validityPeriod;
+        this.cost = cost;
+        this.mailBodyId = mailBodyId;
     }
 
     public String getValidityPeriod() {
@@ -40,4 +49,13 @@ public class LicenseType {
     public void setMailBodyId(int mailBodyId) {
         this.mailBodyId = mailBodyId;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }
