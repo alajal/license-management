@@ -61,7 +61,6 @@ public class FileRepository {
     }
 
 
-
     public void saveMailBody(MailBody mailBody) throws SQLException {
         try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO MailBody (subject, body, licenseTypeId) " +
@@ -100,8 +99,21 @@ public class FileRepository {
     }
 
     //TODO - selle funktsiooni tulmust kuvatakse litsentsi profiili all
-    public List<MailBody> findBodiesByLicenseType(Integer id) throws SQLException{
-        return null;
+    public List<MailBody> findBodiesByLicenseType(Integer licenseTypeId) throws SQLException {
+        try (Connection connection = ds.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM MailBody WHERE licenseTypeId = ?")) {
+                statement.setInt(1, licenseTypeId);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    List<MailBody> mailBodies = new ArrayList<>();
+                    while (resultSet.next()) {
+                        MailBody body = new MailBody(resultSet.getInt("id"), resultSet.getString("subject"), resultSet.getString("body"),
+                                licenseTypeId);
+                        mailBodies.add(body);
+                    }
+                    return mailBodies;
+                }
+            }
+        }
     }
 
 }

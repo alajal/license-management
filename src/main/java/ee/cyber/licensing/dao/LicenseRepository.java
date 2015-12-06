@@ -32,7 +32,7 @@ public class LicenseRepository {
 
     @Inject
     private ReleaseRepository releaseRepository;
-    
+
     public License save(License license) throws SQLException {
         try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(
