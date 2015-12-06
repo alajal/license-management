@@ -2,7 +2,7 @@
     <div class="form-group">
         <div class="input-group">
             <div class="input-group-addon"><i class="fa fa-search"></i></div>
-            <input type="text" class="form-control" placeholder="Search license owners" ng-model="searchLicenseOwner">
+            <input type="text" class="form-control" placeholder="Search customers" ng-model="searchCustomers">
         </div>
     </div>
 </form>
@@ -67,7 +67,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="customer in customers | orderBy:sortType:sortReverse | filter:searchLicenseOwner">
+    <tr ng-repeat="customer in customers | orderBy:sortType:sortReverse | filter:searchCustomers">
         <td>{{ customer.organizationName }}</td>
         <td>{{ customer.address }}</td>
         <td>{{ customer.applicationArea }}</td>

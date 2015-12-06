@@ -9,7 +9,7 @@ app.directive('licenseOwnerTable', function() {
       //used for sorting
       scope.sortType     = 'organizationName'; // set the default sort type
       scope.sortReverse  = false;  // set the default sort order
-      scope.searchLicenseOwner   = '';     // set the default search/filter term
+      scope.searchCustomers   = '';     // set the default search/filter term
 
     }
   };
