@@ -52,6 +52,9 @@ public class ProductResource {
 
     @PUT
     public Product editProduct(Product product) throws Exception {
+      System.out.println("siin");
+        System.out.println(product);
+        System.out.println("seal");
         return productRepository.editProduct(product);
     }
 

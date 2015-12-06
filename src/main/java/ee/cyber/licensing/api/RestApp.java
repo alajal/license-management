@@ -13,6 +13,7 @@ import org.h2.tools.RunScript;
 import javax.inject.Singleton;
 import javax.sql.DataSource;
 import javax.ws.rs.ApplicationPath;
+import javax.mail.Session;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

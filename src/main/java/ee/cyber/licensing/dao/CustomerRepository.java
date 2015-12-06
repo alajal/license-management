@@ -73,7 +73,7 @@ public class CustomerRepository {
     public List<Customer> findByKeyword(String kword) throws SQLException {
       try (Connection conn = ds.getConnection()) {
         try (PreparedStatement statement = conn.prepareStatement(
-        "SELECT * FROM Customer WHERE organizationName LIKE (CONCAT('%',?,'%')) OR applicationArea  LIKE (CONCAT('%',?,'%')) OR address LIKE (CONCAT('%',?,'%')) OR webpage LIKE (CONCAT('%',?,'%')) OR registrationCode LIKE (CONCAT('%',?,'%')) OR phone LIKE (CONCAT('%',?,'%')) OR bankaccount LIKE (CONCAT('%',?,'%')) OR fax LIKE (CONCAT('%',?,'%')) OR unitOrFaculty LIKE (CONCAT('%',?,'%'));")) {
+        "SELECT * FROM Customer WHERE LOWER(organizationName) LIKE LOWER(CONCAT('%',?,'%')) OR LOWER(applicationArea) LIKE LOWER(CONCAT('%',?,'%')) OR LOWER(address) LIKE LOWER(CONCAT('%',?,'%')) OR LOWER(webpage) LIKE LOWER(CONCAT('%',?,'%')) OR LOWER(registrationCode) LIKE LOWER(CONCAT('%',?,'%')) OR phone LIKE (CONCAT('%',?,'%')) OR LOWER(bankaccount) LIKE LOWER(CONCAT('%',?,'%')) OR fax LIKE (CONCAT('%',?,'%')) OR LOWER(unitOrFaculty) LIKE LOWER(CONCAT('%',?,'%'));")) {
           statement.setString(1, kword);
           statement.setString(2, kword);
           statement.setString(3, kword);

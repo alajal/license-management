@@ -39,12 +39,36 @@ public class FileRepository {
 
     }
 
+    public MailAttachment findById(int id) throws SQLException {
+        try (Connection connection = ds.getConnection()) {
+            try (PreparedStatement stmt = connection.prepareStatement("SELECT * FROM MailAttachment WHERE id = ?;")) {
+                stmt.setInt(1, id);
+                try (ResultSet resultSet = stmt.executeQuery()) {
+                    if (!resultSet.next()) {
+                        throw new SQLException("Ei leitud ühtegi rida id-ga " + id);
+                    }
+                    return getFile(resultSet);
+                }
+            }
+        }
+    }
+
+    private MailAttachment getFile(ResultSet rs) throws SQLException {
+        return new MailAttachment(
+                rs.getInt("id"),
+                rs.getString("fileData"),
+                rs.getString("fileName"));
+    }
+
+
+
     public void saveMailBody(MailBody mailBody) throws SQLException {
         try (Connection conn = ds.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO MailBody (subject, body) " +
-                    "VALUES (?, ?);");
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO MailBody (subject, body, licenseTypeId) " +
+                    "VALUES (?, ?, ?);");
             statement.setString(1, mailBody.getSubject());
             statement.setString(2, mailBody.getBody());
+            statement.setInt(3, mailBody.getLicenseTypeId());
             statement.execute();
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -53,10 +77,6 @@ public class FileRepository {
                 }
             }
         }
-    }
-
-    public void replaceKeywords() {
-
     }
 
     public List<MailBody> findBodies() throws SQLException {
@@ -68,8 +88,9 @@ public class FileRepository {
                         Integer id = resultSet.getInt("id");
                         String subject = resultSet.getString("subject");
                         String body = resultSet.getString("body");
+                        Integer licenseTypeId = resultSet.getInt("licenseTypeId");
 
-                        MailBody mailBody = new MailBody(id, subject, body);
+                        MailBody mailBody = new MailBody(id, subject, body, licenseTypeId);
                         bodies.add(mailBody);
                     }
                     return bodies;
@@ -77,4 +98,10 @@ public class FileRepository {
             }
         }
     }
+
+    //TODO - selle funktsiooni tulmust kuvatakse litsentsi profiili all
+    public List<MailBody> findBodiesByLicenseType() throws SQLException{
+        return null;
+    }
+
 }

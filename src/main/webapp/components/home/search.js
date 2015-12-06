@@ -3,26 +3,22 @@ angular
     .controller('SearchCtrl', function ($scope, $http, $routeParams, SearchService) {
         var ss = SearchService;
         $scope.data = {};
-
-        //
         $scope.licensesBool = ss.getLicenses();
         $scope.customersBool = ss.getCustomers();
         $scope.productsBool = ss.getProducts();
-        //console.log($scope.licensesBool);
+
 
         if($scope.licensesBool == true) {
           $scope.states = {
-            REJECTED : ss.getREJECTED(),
-            NEGOTIATED : ss.getNEGOTIATED(),
-            WAITING_FOR_SIGNATURE : ss.getWAITING_FOR_SIGNATURE(),
-            ACTIVE : ss.getACTIVE(),
-            EXPIRATION_NEARING : ss.getEXPIRATION_NEARING(),
-            TERMINATED : ss.getTERMINATED()
-            };
-            
-          console.log($scope.states);
+            rejected : ss.getREJECTED(),
+            negotiated : ss.getNEGOTIATED(),
+            waiting_for_signature : ss.getWAITING_FOR_SIGNATURE(),
+            active : ss.getACTIVE(),
+            expiration_nearing : ss.getEXPIRATION_NEARING(),
+            terminated : ss.getTERMINATED()
+          };
 
-          $http.get('rest/licenses/search/'+$routeParams.keyword, $scope.states).
+          $http.put('rest/licenses/search/'+$routeParams.keyword, $scope.states).
               then(function (response) {
                   $scope.licenses = response.data;
                   //console.log($scope.data.licenses[0]);
