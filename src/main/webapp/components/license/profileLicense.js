@@ -30,6 +30,13 @@ angular
                 console.error('There was something wrong with the view license request.');
             });
 
+        $http.get('rest/licenses/type').
+            then(function (response) {
+                $scope.types = response.data;
+            }, function (response) {
+                console.error('Something went wrong with the license types get method.');
+            });
+
         $http.get('rest/template').
             then(function (response) {
                 $scope.bodies = response.data;
@@ -37,12 +44,15 @@ angular
                 console.error('Something went wrong with the bodies get method.');
             });
 
-        $http.get('rest/licenses/type').
-            then(function (response) {
-                $scope.types = response.data;
-            }, function (response) {
-                console.error('Something went wrong with the license types get method.');
-            });
+        $scope.licenseTypeSelected = function () {
+            //päring leidmaks kõiki mailbodysid, mille litsentsitüüp on valitud tüübi id
+            $http.get('rest/template/mailbodys/' + $scope.license.type.id).
+                then(function (response) {
+
+                }, function (response) {
+
+                })
+        };
 
         $scope.openAuthorisedUserForm = function () {
             //$scope.AuthorisedUserForm = true;
@@ -75,6 +85,7 @@ angular
             console.log($scope.license);
             $http.put('rest/licenses/' + $scope.license.id, $scope.license).
                 then(function (response) {
+                    console.log("Litsents peale uuendamist:");
                     console.log($scope.license);
                     createEvent($scope.license, 0);
                 }, function (response) {
@@ -287,22 +298,22 @@ angular
             }
         };
 
-        $scope.sendMail = function() {
-          $scope.file_id = 0;       //Kui faili ei lisata, jätke $scope.file_id 0.
-          $scope.license_id = 1;    //Siia peab õige litsentsi id saama. Vale ID korral saadetakse valedele kontaktidele.
+        $scope.sendMail = function () {
+            $scope.file_id = 0;       //Kui faili ei lisata, jätke $scope.file_id 0.
+            $scope.license_id = 1;    //Siia peab õige litsentsi id saama. Vale ID korral saadetakse valedele kontaktidele.
 
-          $scope.mail = {
-            id : 1,                         //vahet ei ole, mis see on...
-            subject : "Meili pealkiri siia",       //meili pealkiri
-            body : "Sisu siia",    //meili sisu. Kontrollige, et siia satuks html kujul tekst. Muidu läheb kõik ühele reale
-            licenseTypeId : 3               //vahet ei ole, mis see on...
-          }
-          $http.put('rest/sendMail/'+$scope.file_id+'/'+$scope.license_id, $scope.mail).
-            then(function (response) {
-              console.log("Email sent");
-            }, function(response) {
-              console.error('Could not send email!');
-            })
+            $scope.mail = {
+                id: 1,                         //vahet ei ole, mis see on...
+                subject: "Meili pealkiri siia",       //meili pealkiri
+                body: "Sisu siia",    //meili sisu. Kontrollige, et siia satuks html kujul tekst. Muidu läheb kõik ühele reale
+                licenseTypeId: 3               //vahet ei ole, mis see on...
+            }
+            $http.put('rest/sendMail/' + $scope.file_id + '/' + $scope.license_id, $scope.mail).
+                then(function (response) {
+                    console.log("Email sent");
+                }, function (response) {
+                    console.error('Could not send email!');
+                })
         }
 
     });

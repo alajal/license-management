@@ -24,7 +24,7 @@ public class ContactResource {
     @GET
     @Path("bylicense/{id}")
     @Produces("application/json")
-    public List<Contact> getContactPersons(@PathParam("id") int id) throws Exception {
+    public List<Contact> getContactsByLicenseId(@PathParam("id") int id) throws Exception {
         License license = licenseRepository.findById(id);
         Customer customer = license.getCustomer();
         return contactRepository.findAll(customer);

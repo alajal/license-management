@@ -69,7 +69,7 @@ public class LicenseRepository {
                 statement.setInt(1, id);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (!resultSet.next()) {
-                        throw new SQLException("Ei leitud ühtegi rida id-ga " + id);
+                        throw new SQLException("Ei leitud ühtegi litsentsi, kus rida on id-ga " + id);
                     }
                     int releaseId = resultSet.getInt("releaseId");
                     Release release = null;
@@ -161,8 +161,10 @@ public class LicenseRepository {
                         if (releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
                         int customerId = resultSet.getInt("customerId");
                         Customer customerById = customerRepository.getCustomerById(customerId);
-                        int licenseTypeId = resultSet.getInt("licenseTypeId");
-                        LicenseType licenseType = getLicenseTypeById(conn, licenseTypeId);
+                        Integer licenseTypeId = getInteger(resultSet, "licenseTypeId");
+                        LicenseType licenseType = licenseTypeId != null
+                                ? getLicenseTypeById(conn, licenseTypeId)
+                                : null;
 
                         License license = getLicense(resultSet, productById, customerById, release, licenseType);
                         licenses.add(license);
@@ -224,8 +226,10 @@ public class LicenseRepository {
                         if (releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
                         int customerId = resultSet.getInt("customerId");
                         Customer customerById = customerRepository.getCustomerById(customerId);
-                        int licenseTypeId = resultSet.getInt("licenseTypeId");
-                        LicenseType licenseType = getLicenseTypeById(connection, licenseTypeId);
+                        Integer licenseTypeId = getInteger(resultSet, "licenseTypeId");
+                        LicenseType licenseType = licenseTypeId != null
+                                ? getLicenseTypeById(connection, licenseTypeId)
+                                : null;
 
                         License license = getLicense(resultSet, productById, customerById, release, licenseType);
                         expiringLicenses.add(license);

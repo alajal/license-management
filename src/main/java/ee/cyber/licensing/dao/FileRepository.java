@@ -100,7 +100,7 @@ public class FileRepository {
     }
 
     //TODO - selle funktsiooni tulmust kuvatakse litsentsi profiili all
-    public List<MailBody> findBodiesByLicenseType() throws SQLException{
+    public List<MailBody> findBodiesByLicenseType(Integer id) throws SQLException{
         return null;
     }
 
