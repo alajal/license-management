@@ -14,8 +14,8 @@ INSERT INTO LicenseType(name, validityPeriod, cost) VALUES('EU stiilis 3 a akade
 INSERT INTO LicenseType(name, validityPeriod, cost) VALUES('EU stiilis 1 a kommerts litsents', '1 years', 100);
 INSERT INTO LicenseType(name, validityPeriod, cost) VALUES('TestTypeWith15Days', '15', 100);
 
-INSERT INTO License (productId, releaseId, customerId, contractNumber, validFrom, validTill, state, applicationSubmitDate)
-VALUES (1, 1, 1, '1234qwer', '2015-10-17', '2015-11-20', 3, '2015-09-20');
+INSERT INTO License (productId, releaseId, customerId, contractNumber, licenseTypeId, state, applicationSubmitDate)
+VALUES (1, 1, 1, '1234qwer', 1, 3, '2015-09-20');
 
 INSERT INTO License (productId, releaseId, customerId, contractNumber, licenseTypeId, state, applicationSubmitDate)
 VALUES (1, 2, 1, 'a1b2', 3, 3, '2015-10-20');
