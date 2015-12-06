@@ -69,9 +69,10 @@
 <script>
 angular.module('LM')
 .run(function($rootScope) {
-    $rootScope.username = "<shiro:principal></shiro:principal>";
-    $rootScope.isLicensingManager = <shiro:hasRole name="licensingManager">true</shiro:hasRole><shiro:lacksRole name="licensingManager">false</shiro:lacksRole>;
-    $rootScope.isReleaseEngineer = <shiro:hasRole name="releaseEngineer">true</shiro:hasRole><shiro:lacksRole name="releaseEngineer">false</shiro:lacksRole>;
+    //TODO Change these default values back to shiro tags.
+    $rootScope.username = "testUser";//"<shiro:principal></shiro:principal>";
+    $rootScope.isLicensingManager = true;//<shiro:hasRole name="licensingManager">true</shiro:hasRole><shiro:lacksRole name="licensingManager">false</shiro:lacksRole>;
+    $rootScope.isReleaseEngineer = true;//<shiro:hasRole name="releaseEngineer">true</shiro:hasRole><shiro:lacksRole name="releaseEngineer">false</shiro:lacksRole>;
 })
 </script>
 
