@@ -76,7 +76,7 @@ public class LicenseResource {
         java.sql.Date sqlDate = new java.sql.Date(todaysDate.getTime());
         license.setLatestDeliveryDate(sqlDate);
         license.setRelease(release);
-        return licenseRepository.update(license);
+        return licenseRepository.updateLicense(license);
     }
 
     @Path("/search/{keyword}")

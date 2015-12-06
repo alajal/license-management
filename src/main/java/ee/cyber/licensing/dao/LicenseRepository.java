@@ -78,8 +78,8 @@ public class LicenseRepository {
                     LicenseType licenseType = licenseTypeId != null
                             ? getLicenseTypeById(connection, licenseTypeId)
                             : null;
-                    return getLicense(resultSet, productRepository.getProductById(resultSet.getInt("productId")), release,
-                            customerRepository.getCustomerById(resultSet.getInt("customerId")), licenseType);
+                    return getLicense(resultSet, productRepository.getProductById(resultSet.getInt("productId")),
+                            customerRepository.getCustomerById(resultSet.getInt("customerId")), release, licenseType);
                 }
             }
         }
@@ -110,7 +110,7 @@ public class LicenseRepository {
                                 ? getLicenseTypeById(conn, licenseTypeId)
                                 : null;
 
-                        License license = getLicense(resultSet, productById, release, customerById, licenseType);
+                        License license = getLicense(resultSet, productById, customerById, release, licenseType);
                         licenses.add(license);
                     }
                     return licenses;
@@ -164,7 +164,7 @@ public class LicenseRepository {
                         int licenseTypeId = resultSet.getInt("licenseTypeId");
                         LicenseType licenseType = getLicenseTypeById(conn, licenseTypeId);
 
-                        License license = getLicense(resultSet, productById, release, customerById, licenseType);
+                        License license = getLicense(resultSet, productById, customerById, release, licenseType);
                         licenses.add(license);
                     }
                     return licenses;
@@ -173,7 +173,7 @@ public class LicenseRepository {
         }
     }
 
-    private License getLicense(ResultSet resultSet, Product product, Release release, Customer customer, LicenseType type) throws SQLException {
+    private License getLicense(ResultSet resultSet, Product product, Customer customer, Release release, LicenseType type) throws SQLException {
         Integer state = resultSet.getInt("state");
 
         //resultSet.getInt("licenseTypeId");
@@ -188,16 +188,14 @@ public class LicenseRepository {
                 resultSet.getDate("validFrom"),
                 resultSet.getDate("validTill"),
                 type,
-                resultSet.getDate("applicationSubmitDate"));
+                resultSet.getDate("applicationSubmitDate"),
                 resultSet.getDate("latestDeliveryDate"));
     }
 
     public License updateLicense(License license) throws SQLException {
         try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement("UPDATE License SET " +
-                    "state = ?, licenseTypeId = ? WHERE id = ?");
-                    "releaseId = ?, state = ?, licenseTypeId = ?, latestDeliveryDate = ? WHERE id = ?");
-
+                    "releaseId = ?, state = ?, licenseTypeId = ?, latestDeliveryDate = ? WHERE id = ?;");
             State licenseState = license.getState();
             statement.setObject(1, license.getRelease() == null ? null : license.getRelease().getId());
             statement.setInt(2, licenseState.getStateNumber());
@@ -229,7 +227,7 @@ public class LicenseRepository {
                         int licenseTypeId = resultSet.getInt("licenseTypeId");
                         LicenseType licenseType = getLicenseTypeById(connection, licenseTypeId);
 
-                        License license = getLicense(resultSet, productById, release, customerById, licenseType);
+                        License license = getLicense(resultSet, productById, customerById, release, licenseType);
                         expiringLicenses.add(license);
                     }
                     return expiringLicenses;
