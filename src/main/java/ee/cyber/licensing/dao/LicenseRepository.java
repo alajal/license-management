@@ -1,23 +1,19 @@
 package ee.cyber.licensing.dao;
 
 
+import ee.cyber.licensing.entity.*;
+
+import javax.inject.Inject;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-
-import javax.inject.Inject;
-import javax.sql.DataSource;
-
-import ee.cyber.licensing.entity.Customer;
-import ee.cyber.licensing.entity.License;
-import ee.cyber.licensing.entity.LicenseType;
-import ee.cyber.licensing.entity.Product;
-import ee.cyber.licensing.entity.Release;
-import ee.cyber.licensing.entity.State;
-import ee.cyber.licensing.entity.StateHelper;
 
 public class LicenseRepository {
 
@@ -197,13 +193,17 @@ public class LicenseRepository {
     public License updateLicense(License license) throws SQLException {
         try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement("UPDATE License SET " +
-                    "releaseId = ?, state = ?, licenseTypeId = ?, latestDeliveryDate = ? WHERE id = ?;");
+                    "releaseId = ?, state = ?, licenseTypeId = ?, latestDeliveryDate = ?, validFrom = ?, validTill = ? WHERE id = ?;");
             State licenseState = license.getState();
+            LocalDate endDate = LocalDate.now().plusDays(Long.parseLong(license.getType().getValidityPeriod()));
+
             statement.setObject(1, license.getRelease() == null ? null : license.getRelease().getId());
             statement.setInt(2, licenseState.getStateNumber());
             statement.setInt(3, license.getType().getId());
             statement.setObject(4, license.getLatestDeliveryDate() == null ? null : license.getLatestDeliveryDate());
-            statement.setInt(5, license.getId());
+            statement.setObject(5, licenseState.getStateNumber() == 4 ? java.sql.Date.valueOf(LocalDate.now()) : null);
+            statement.setObject(6, licenseState.getStateNumber() == 4 ? java.sql.Date.valueOf(endDate) : null);
+            statement.setInt(7, license.getId());
 
             int rowCount = statement.executeUpdate();
             if (rowCount == 0) {

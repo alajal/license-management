@@ -12,14 +12,18 @@ VALUES ('Example University', 'example area', '123 Fake Street', 'www.example.co
 
 INSERT INTO LicenseType(name, validityPeriod, cost) VALUES('EU stiilis 3 a akadeemilist litsents', '3 years', 300);
 INSERT INTO LicenseType(name, validityPeriod, cost) VALUES('EU stiilis 1 a kommerts litsents', '1 years', 100);
+INSERT INTO LicenseType(name, validityPeriod, cost) VALUES('TestTypeWith15Days', '15', 100);
 
 INSERT INTO License (productId, releaseId, customerId, contractNumber, validFrom, validTill, state, applicationSubmitDate)
 VALUES (1, 1, 1, '1234qwer', '2015-10-17', '2015-11-20', 3, '2015-09-20');
 
+INSERT INTO License (productId, releaseId, customerId, contractNumber, licenseTypeId, state, applicationSubmitDate)
+VALUES (1, 2, 1, 'a1b2', 3, 3, '2015-10-20');
+
 INSERT INTO AuthorisedUser (licenseId, firstName, lastName, email, occupation)
 VALUES (1, 'John', 'Doe', 'johanna@test.com', 'student');
 
-INSERT INTO Contact(customerId, firstName, lastName, email, skype, phone) VALUES (1, 'Matt', 'Damon', 'matt@mit.edu', 'mat', '56892314');
+INSERT INTO Contact(customerId, firstName, lastName, email, skype, phone) VALUES (1, 'Siiri', 'Saar', 'siiri.saar1307@gmail.com', 'siiri', '56892314');
 
 INSERT INTO Event(licenseId, name, description, type, dateCreated) VALUES (1, 'New license added', 'New license added description', 'Add', GETDATE());
 
