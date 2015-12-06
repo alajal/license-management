@@ -53,7 +53,7 @@ angular
                 then(function (response) {
                     $scope.bodiesByLicenseType = response.data;
                 }, function (response) {
-
+                    console.error('Something went wrong with the bodies by license type id get method.');
                 })
         };
 

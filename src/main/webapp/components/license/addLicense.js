@@ -108,6 +108,10 @@ angular
             $scope.user.contractNumber = $scope.contractNumber;
             $scope.user.state = $scope.state;
             $scope.user.predecessorLicenseId = $scope.predecessor.contractNumber;
+            if($scope.user.predecessorLicenseId == $scope.user.contractNumber){
+                $scope.predecessorErrorMessage = 'Predecessor license is the same as contract number.';
+                return;
+            }
             //$scope.user.type = $scope.type;
 
             var applicant = LicensingService.getApplicant();

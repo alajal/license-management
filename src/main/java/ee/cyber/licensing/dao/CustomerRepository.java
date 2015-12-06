@@ -135,7 +135,7 @@ public class CustomerRepository {
         );
     }
 
-    public Customer update(Customer customer) throws SQLException {
+    public Customer updateCustomer(Customer customer) throws SQLException {
         try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement("UPDATE Customer SET organizationName=?, " +
                     "applicationArea=?, address=?, webpage=?, registrationCode=?, phone=?, bankAccount=?, fax=?, " +

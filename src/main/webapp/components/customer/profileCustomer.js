@@ -12,7 +12,7 @@ angular
 
         $http.get('rest/customers').
             then(function (response) {
-                $scope.customer = response.data[$routeParams.id-1];
+                $scope.customer = response.data[$routeParams.id - 1];
             }, function (response) {
                 console.error('[customersView.js] Error retrieving license owners.');
             });
@@ -26,30 +26,44 @@ angular
         };
 
         function createEvent(customer, event_nr) {
-          // Event numbers
-          // 0 - edit customer info
-          // 1 - remove customer
-          var customer_name = customer.organizationName;
+            // Event numbers
+            // 0 - edit customer info
+            // 1 - remove customer
+            var customer_name = customer.organizationName;
 
-          $scope.events = [
-            {
-              name: 'Modified Customer',
-              description: ' modified customer '+customer_name,
-              type: 'Modify'
-            },
-            {
-              name: 'Deleted Customer',
-              description: ' deleted customer '+customer_name,
-              type: 'Remove'
-            }
+            $scope.events = [
+                {
+                    name: 'Modified Customer',
+                    description: ' modified customer ' + customer_name,
+                    type: 'Modify'
+                },
+                {
+                    name: 'Deleted Customer',
+                    description: ' deleted customer ' + customer_name,
+                    type: 'Remove'
+                }
             ];
 
-          $http.post('rest/events/'+0, $scope.events[event_nr]).
-              then(function(response) {
-                  console.log("Event created");
-                  console.log(response.data);
-              }, function(response) {
-                  console.error(response.errors);
-              });
+            $http.post('rest/events/' + 0, $scope.events[event_nr]).
+                then(function (response) {
+                    console.log("Event created");
+                    console.log(response.data);
+                }, function (response) {
+                    console.error(response.errors);
+                });
+        }
+
+        $scope.saveProfile = function(){
+            $scope.disableEditor();
+            console.log("Customer:");
+            console.log($scope.customer);
+            $http.put('rest/customers/' + $scope.customer.id, $scope.customer).
+                then(function (response) {
+                    console.log("Customer peale uuendamist:");
+                    console.log($scope.customer);
+                    createEvent($scope.customer, 0);
+                }, function (response) {
+                    console.error(response);
+                });
         }
     });

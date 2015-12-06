@@ -27,6 +27,7 @@
                     name="selectedPredecessor">
                 <option value=""> </option>
             </select>
+            <div ng-if="predecessorErrorMessage">{{ predecessorErrorMessage }}</div>
         </div>
 
         <div class="form-group">
@@ -37,15 +38,6 @@
             </select>
         </div>
 
-<!--        <div class="form-group">
-            <label for="validFrom">Valid from</label>
-            <input type="text" class="form-control" id="validFrom" ng-model="validFrom">
-        </div>
-
-        <div class="form-group">
-            <label for="validTill">Valid till</label>
-            <input type="text" class="form-control" id="validTill" ng-model="validTill">
-        </div>-->
         <br>
 
         <div class="form-group">

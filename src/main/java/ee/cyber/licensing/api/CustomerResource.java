@@ -7,7 +7,6 @@ import ee.cyber.licensing.entity.Customer;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -50,7 +49,7 @@ public class CustomerResource {
     @PUT
     public Customer editCustomer(@PathParam("id") Integer id, Customer customer) throws Exception {
         if (Objects.equals(customer.getId(), id)) {
-            return customerRepository.update(customer);
+            return customerRepository.updateCustomer(customer);
         } else {
             throw new Exception("The customer that needs update is not the one requested by browser.");
         }
