@@ -11,15 +11,37 @@ angular
 
         $scope.sendNotification = function(release){
 
-            $http.put('rest/licenses/bylicense/' + $routeParams.id, release).
-                then(function (response) {
-                console.log(release);
-                }, function (response) {
-                    console.error('Something went wrong with License PUT request.');
-                });
-            $window.location.href = "#/deliveryLicenses";
+            $scope.sendMail = function () {
+                $scope.file_id = 0;
+                $scope.license_id = $routeParams.id;
 
+                $scope.mail = {
+                    id: 1,
+                    subject: "Meili pealkiri siia",
+                    body: $scope.mailBody.body,
+                    licenseTypeId: 3
+                };
 
+                $http.put('rest/sendMail/' + $scope.file_id + '/' + $scope.license_id, $scope.mail).
+                    then(function (response) {
+
+                        $http.put('rest/licenses/bylicense/' + $routeParams.id, release).
+                            then(function (response) {
+                                console.log(release);
+                            }, function (response) {
+                                console.error('Something went wrong with License PUT request.');
+                            });
+
+                        $window.location.href = "#/deliveryLicenses";
+
+                        console.log("Email sent");
+
+                    }, function (response) {
+                        console.error('Could not send email!');
+                    });
+            };
+
+            $scope.sendMail();
         };
 
         $http.get('rest/template').
