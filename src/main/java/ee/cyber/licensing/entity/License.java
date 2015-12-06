@@ -17,11 +17,12 @@ public class License {
     Date validTill;
     LicenseType type;
     Date applicationSubmitDate;
+    Date latestDeliveryDate;
 
     public License() {
     }
 
-    public License(Product product, Release release, Customer customer, String contractNumber, Date validFrom, Date validTill, State state, String predecessorLicenseId, Date applicationSubmitDate) {
+    public License(Product product, Release release, Customer customer, String contractNumber, Date validFrom, Date validTill, State state, String predecessorLicenseId, Date applicationSubmitDate, Date latestDeliveryDate) {
         this.product = product;
         this.release = release;
         this.customer = customer;
@@ -29,9 +30,10 @@ public class License {
         this.state = state;
         this.predecessorLicenseId = predecessorLicenseId;
         this.applicationSubmitDate = applicationSubmitDate;
+        this.latestDeliveryDate = latestDeliveryDate;
     }
 
-    public License(Integer id, Product product, Release release, Customer customer, String contractNumber, State state, String predecessorLicenseId, Date validFrom, Date validTill, Date applicationSubmitDate) {
+    public License(Integer id, Product product, Release release, Customer customer, String contractNumber, State state, String predecessorLicenseId, Date validFrom, Date validTill, Date applicationSubmitDate, Date latestDeliveryDate) {
         this.id = id;
         this.product = product;
         this.release = release;
@@ -42,6 +44,7 @@ public class License {
         this.validFrom = validFrom;
         this.validTill = validTill;
         this.applicationSubmitDate = applicationSubmitDate;
+        this.latestDeliveryDate = latestDeliveryDate;
     }
 
     //UNUSED GETTERS AND SETTERS FOR JERSEY WHEN DEALING WITH ARRAYS
@@ -132,5 +135,13 @@ public class License {
 
     public void setApplicationSubmitDate(Date applicationSubmitDate) {
         this.applicationSubmitDate = applicationSubmitDate;
+    }
+
+    public Date getLatestDeliveryDate() {
+        return latestDeliveryDate;
+    }
+
+    public void setLatestDeliveryDate(Date latestDeliveryDate) {
+        this.latestDeliveryDate = latestDeliveryDate;
     }
 }

@@ -149,19 +149,22 @@ public class LicenseRepository {
                 resultSet.getString("predecessorLicenseId"),
                 resultSet.getDate("validFrom"),
                 resultSet.getDate("validTill"),
-                resultSet.getDate("applicationSubmitDate"));
+                resultSet.getDate("applicationSubmitDate"),
+                resultSet.getDate("latestDeliveryDate"));
     }
 
     public License update(License license) throws SQLException {
         try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement("UPDATE License SET " +
-                    "licenseState = ?, validFrom = ?, validTill = ? WHERE id = ?");
+                    "releaseId = ?, state = ?, validFrom = ?, validTill = ?, latestDeliveryDate = ? WHERE id = ?");
 
             State licenseState = license.getState();
-            statement.setInt(1, licenseState.getStateNumber());
-            statement.setDate(2, license.getValidFrom());
-            statement.setDate(3, license.getValidTill());
-            statement.setInt(4, license.getId());
+            statement.setObject(1, license.getRelease() == null ? null : license.getRelease().getId());
+            statement.setInt(2, licenseState.getStateNumber());
+            statement.setDate(3, license.getValidFrom());
+            statement.setDate(4, license.getValidTill());
+            statement.setObject(5, license.getLatestDeliveryDate() == null ? null : license.getLatestDeliveryDate());
+            statement.setInt(6, license.getId());
 
             int rowCount = statement.executeUpdate();
             if (rowCount == 0) {

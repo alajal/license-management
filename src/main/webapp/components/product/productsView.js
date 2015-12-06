@@ -96,6 +96,7 @@ angular
                     then(function (response) {
                         release.editing = false;
                         release.new = false;
+                        release.id = response.id;
 
                     }, function (response) {
                         console.error('Something went wrong with post release request.');

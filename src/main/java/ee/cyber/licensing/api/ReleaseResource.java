@@ -1,5 +1,6 @@
 package ee.cyber.licensing.api;
 
+import ee.cyber.licensing.dao.LicenseRepository;
 import ee.cyber.licensing.dao.ReleaseRepository;
 import ee.cyber.licensing.entity.AuthorisedUser;
 import ee.cyber.licensing.entity.Product;
@@ -15,10 +16,21 @@ public class ReleaseResource {
     @Inject
     private ReleaseRepository releaseRepository;
 
+    @Inject
+    private LicenseRepository licenseRepository;
+
     @GET
     @Produces("application/json")
     public List<Release> getReleasesByProductId(@PathParam("id")Integer id) throws Exception {
         return releaseRepository.findByProductId(id);
+    }
+
+    @GET
+    @Path("/bylicense/{licenseId}")
+    @Produces("application/json")
+    public List<Release> getReleasesByLicenseId(@PathParam("licenseId") Integer licenseId) throws Exception {
+        Product product = licenseRepository.findById(licenseId).getProduct();
+        return getReleasesByProductId(product.getId());
     }
 
     @PUT

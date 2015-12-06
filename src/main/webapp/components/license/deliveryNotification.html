@@ -1,0 +1,20 @@
+<div class="container">
+    <h3></h3>
+
+    <div class="form-group">
+        <label>Choose release to be delivered: </label>
+        <select ng-options="release as (release.versionNumber) for release in releases"  type="text" class="form-control" id="release" ng-model="release"></select>
+        <br>
+
+        <label>Choose mail subject: </label>
+        <select ng-options="body as body.subject for body in bodies"
+                type="text" class="form-control" id="body" ng-model="mailBody" ng-change="mailBodySelected()"
+                required name="selectedTemplate">
+        </select>
+        <br>
+        <label>Chosen mail body: </label>
+        <textarea class="form-control" rows="6" ng-model="mailBody.body"></textarea>
+    </div>
+
+    <button class="btn btn-primary" ng-click="sendNotification(release)">Send</button>
+</div>

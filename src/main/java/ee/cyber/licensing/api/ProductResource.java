@@ -44,8 +44,8 @@ public class ProductResource {
     public Product saveProduct(Product product) throws Exception {
         Product productWithId = productRepository.save(product);
         Release release;
-        if(productWithId.getReleases().size() == 1){
-            releaseRepository.saveRelease(productWithId.getId(), product.getReleases().get(0));
+        for(int i = 0; i < productWithId.getReleases().size(); i++){
+            releaseRepository.saveRelease(productWithId.getId(), product.getReleases().get(i));
         }
         return productWithId;
     }

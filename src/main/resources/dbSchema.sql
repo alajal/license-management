@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS License (
   predecessorLicenseId  VARCHAR(100),
 
   applicationSubmitDate DATE,
+  latestDeliveryDate    DATE,
   FOREIGN KEY (productId) REFERENCES Product (id),
   FOREIGN KEY (customerId) REFERENCES Customer (id),
   FOREIGN KEY (releaseId) REFERENCES Release (id)

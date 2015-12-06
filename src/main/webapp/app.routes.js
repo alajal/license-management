@@ -18,6 +18,10 @@ angular
                 templateUrl: 'components/license/history.html',
                 controller: 'ViewHistoryCtrl'
             })
+            .when('/license/:id/notification', {
+                templateUrl: 'components/license/deliveryNotification.html',
+                controller: 'DeliveryNotification'
+            })
             .when('/authorisedUser/bylicense/:id', {
                 templateUrl: 'components/license/usersView.html',
                 controller: 'ProfileLicenseCtrl'

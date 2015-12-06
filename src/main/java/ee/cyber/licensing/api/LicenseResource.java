@@ -3,9 +3,11 @@ package ee.cyber.licensing.api;
 import ee.cyber.licensing.dao.LicenseRepository;
 import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.LicenseType;
+import ee.cyber.licensing.entity.Release;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -69,6 +71,17 @@ public class LicenseResource {
         } else {
             throw new Exception("The license that needs update is not the one requested by client.");
         }
+    }
+
+    @PUT //this method is reserved for delivery notification - it sets Date when the delivery date was sent
+    @Path("bylicense/{licenseId}")
+    public License updateRelease(@PathParam("licenseId") Integer licenseId, Release release) throws Exception{
+        License license = licenseRepository.findById(licenseId);
+        java.util.Date todaysDate = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(todaysDate.getTime());
+        license.setLatestDeliveryDate(sqlDate);
+        license.setRelease(release);
+        return licenseRepository.update(license);
     }
 
 }
