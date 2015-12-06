@@ -10,6 +10,9 @@ angular
 
         $scope.rowforms = {};
 
+        $scope.allStates = ['REJECTED', 'NEGOTIATED', 'WAITING_FOR_SIGNATURE', 'ACTIVE', 'EXPIRATION_NEARING', 'TERMINATED'];
+        $scope.state = {};
+
         $http.get('rest/authorisedUser/bylicense/' + $routeParams.id).
             then(function (response) {
                 $scope.authorisedUser = response.data;

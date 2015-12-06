@@ -18,7 +18,11 @@
         </div>
         <div class="form-group">
             <label>State: </label>
-            <input class="form-control" ng-model="license.state" ng-disabled="editorDisabled"/>
+            <!--<input class="form-control" ng-model="license.state" ng-disabled="editorDisabled"/>-->
+            <select ng-options="state for state in allStates track by state"
+                    type="text" class="form-control" id="state" ng-model="license.state" required name="selectedState"
+                    ng-disabled="editorDisabled">
+            </select>
         </div>
         <div class="form-group">
             <label>Predecessor License Id: </label>
