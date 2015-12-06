@@ -23,6 +23,9 @@ public class ProductResourceTest extends JerseyTest {
         return resourceConfig;
     }
 
+    @Test
+    public void runnableMethod() throws SQLException{
+    }
     //@Test
     /*public void productAddedTest() throws SQLException {
 

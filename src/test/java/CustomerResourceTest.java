@@ -25,6 +25,9 @@ public class CustomerResourceTest extends JerseyTest {
         return resourceConfig;
     }
 
+    @Test
+    public void runnableMethod() throws SQLException{
+    }
 /*    @Test
     public void customerAddedTest() throws SQLException {
         Customer testCustomer = new Customer(2, "Test University", "something area", "123 Test aadress", "www.test.com", "1TEST123", "+372 55TEST", "E10TEST", "+372 55TEST", "Test Science");

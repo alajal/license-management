@@ -130,6 +130,17 @@
                     <failOnMissingWebXml>true</failOnMissingWebXml>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <!-- Uncomment next line to run Selenium tests on local machine -->
+                        <!-- <hostName>localhost</hostName> -->
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

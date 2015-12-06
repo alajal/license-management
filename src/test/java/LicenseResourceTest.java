@@ -24,6 +24,9 @@ public class LicenseResourceTest extends JerseyTest {
         return resourceConfig;
     }
 
+    @Test
+    public void runnableMethod() throws SQLException{
+    }
   /*  @Test
     public void licenseAddedTest() throws SQLException {
         Response beforeResp = target("licenses").request("application/json").get();
