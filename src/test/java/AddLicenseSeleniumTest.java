@@ -37,11 +37,11 @@ public class AddLicenseSeleniumTest {
             driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         }
         else{
-//            baseUrl = "http://license-management.herokuapp.com/";
-//            DesiredCapabilities caps = DesiredCapabilities.chrome();
-//            caps.setCapability("platform", "Linux");
-//            caps.setCapability("version", "42.0");
-//            driver = new RemoteWebDriver(new URL(URL), caps);
+            baseUrl = "http://license-management.herokuapp.com/";
+            DesiredCapabilities caps = DesiredCapabilities.chrome();
+            caps.setCapability("platform", "Linux");
+            caps.setCapability("version", "42.0");
+            driver = new RemoteWebDriver(new URL(URL), caps);
         }
     }
 
