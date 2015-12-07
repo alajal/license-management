@@ -17,7 +17,8 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li data-ng-repeat="item in link.dropdown">
-                                <a data-ng-href="#/{{item.url}}">{{item.name}}</a>
+                                <a ng-if="item.name != 'Deliveries'" data-ng-href="#/{{item.url}}">{{item.name}}</a>
+                                <a ng-if="item.name == 'Deliveries' && isReleaseEngineer" data-ng-href="#/{{item.url}}">{{item.name}}</a>
                             </li>
                         </ul>
                     </li>

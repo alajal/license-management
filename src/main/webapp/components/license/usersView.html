@@ -20,8 +20,8 @@
                 <td>{{au.email}}</td>
                 <td>{{au.occupation}}</td>
                 <td>
-                    <button class="btn btn-primary" ng-click="editAuthorisedUser(au)">EDIT</button>
-                    <button ng-click="deleteEntry(au)" class="btn btn-danger">DELETE</button>
+                    <button ng-if="isLicensingManager" class="btn btn-primary" ng-click="editAuthorisedUser(au)">EDIT</button>
+                    <button ng-if="isLicensingManager" ng-click="deleteEntry(au)" class="btn btn-danger">DELETE</button>
                 </td>
             </script>
             <script type="text/ng-template" id="edit">
@@ -48,7 +48,7 @@
         </form>
         </tbody>
     </table>
-    <button class="btn btn-primary" ng-click="openAuthorisedUserForm()">Add user</button>
+    <button ng-if="isLicensingManager" class="btn btn-primary" ng-click="openAuthorisedUserForm()">Add user</button>
     <div ng-show="AuthorisedUserForm">
         <form novalidate class="form" name="form" ng-submit="saveData()">
             <div class="form-group">

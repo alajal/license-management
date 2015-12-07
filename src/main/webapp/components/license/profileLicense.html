@@ -48,8 +48,8 @@
             <input class="form-control" ng-model="license.validTill" disabled/>
         </div>
 
-        <button ng-click="enableEditor()">Edit</button>
-        <button ng-click="saveProfile()" ng-disabled="editorDisabled">Save</button>
+        <button ng-if="isLicensingManager" ng-click="enableEditor()">Edit</button>
+        <button ng-if="isLicensingManager" ng-click="saveProfile()" ng-disabled="editorDisabled">Save</button>
         <br>
         <!--<button ng-click="disableEditor()" ng-disabled="editorDisabled">Cancel</button>-->
     </form>
