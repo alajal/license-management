@@ -52,7 +52,7 @@ DROP TABLE IF EXISTS LicenseType;
 CREATE TABLE IF NOT EXISTS LicenseType (
   id             INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   name           VARCHAR(100),
-  validityPeriod VARCHAR(100)                   NOT NULL,
+  validityPeriod INT                            NOT NULL,
   cost           DOUBLE
 );
 

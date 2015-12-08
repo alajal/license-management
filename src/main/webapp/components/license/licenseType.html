@@ -3,7 +3,7 @@
 
     <form novalidate class="form" name="form" ng-submit="addNewType()">
         <div class="form-group">
-            <label for="typeName">Type name</label>
+            <label for="typeName">Name</label>
             <input type="text" class="form-control" id="typeName" ng-model="type.name"
                    required name="pName">
             <div ng-show="form.$submitted || form.pName.$touched">
@@ -12,7 +12,7 @@
         </div>
 
         <div class="form-group">
-            <label for="typeValidityPeriod">Type validity period</label>
+            <label for="typeValidityPeriod">Validity period in years</label>
             <input type="text" class="form-control" id="typeValidityPeriod" ng-model="type.validityPeriod"
                    required name="pValidityPeriod">
             <div ng-show="form.$submitted || form.pName.$touched">
@@ -21,7 +21,7 @@
         </div>
 
         <div class="form-group">
-            <label for="typeCost">Type cost</label>
+            <label for="typeCost">Cost</label>
             <input type="text" class="form-control" id="typeCost" ng-model="type.cost"
                    required name="pCost">
             <div ng-show="form.$submitted || form.pName.$touched">

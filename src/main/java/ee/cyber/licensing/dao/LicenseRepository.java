@@ -46,7 +46,6 @@ public class LicenseRepository {
             statement.setString(6, license.getPredecessorLicenseId());
             statement.setDate(7, license.getValidFrom());
             statement.setDate(8, license.getValidTill());
-            //statement.setInt(9, license.getType().getId());
             statement.setDate(9, license.getApplicationSubmitDate());
             statement.execute();
 
@@ -122,7 +121,7 @@ public class LicenseRepository {
                 if (!resultSet.next()) {
                     throw new SQLException("Ei leitud ühtegi litsentsi tüüpi id-ga " + licenseTypeId);
                 }
-                return new LicenseType(licenseTypeId, resultSet.getString("name"), resultSet.getString("validityPeriod"),
+                return new LicenseType(licenseTypeId, resultSet.getString("name"), resultSet.getInt("validityPeriod"),
                         resultSet.getDouble("cost"));
             }
         }
@@ -195,7 +194,7 @@ public class LicenseRepository {
             PreparedStatement statement = conn.prepareStatement("UPDATE License SET " +
                     "releaseId = ?, state = ?, licenseTypeId = ?, latestDeliveryDate = ?, validFrom = ?, validTill = ? WHERE id = ?;");
             State licenseState = license.getState();
-            LocalDate endDate = LocalDate.now().plusDays(Long.parseLong(license.getType().getValidityPeriod()));
+            LocalDate endDate = LocalDate.now().plusYears(license.getType().getValidityPeriod());
 
             statement.setObject(1, license.getRelease() == null ? null : license.getRelease().getId());
             statement.setInt(2, licenseState.getStateNumber());
@@ -246,7 +245,7 @@ public class LicenseRepository {
             try (PreparedStatement statement = connection.prepareStatement("INSERT INTO LicenseType " +
                     "(name, validityPeriod, cost) VALUES (?, ?, ?)")) {
                 statement.setString(1, type.getName());
-                statement.setString(2, type.getValidityPeriod());
+                statement.setInt(2, type.getValidityPeriod());
                 statement.setDouble(3, type.getCost());
                 statement.execute();
 
@@ -267,7 +266,7 @@ public class LicenseRepository {
                     List<LicenseType> licenseTypes = new ArrayList<>();
                     while (resultSet.next()) {
                         LicenseType type = new LicenseType(resultSet.getInt("id"), resultSet.getString("name"),
-                                resultSet.getString("validityPeriod"), resultSet.getDouble("cost"));
+                                resultSet.getInt("validityPeriod"), resultSet.getDouble("cost"));
                         licenseTypes.add(type);
                     }
                     return licenseTypes;

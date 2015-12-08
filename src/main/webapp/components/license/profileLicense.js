@@ -57,6 +57,14 @@ angular
                 })
         };
 
+        //TODO
+        $scope.ifLicenseTypeHasValue = function(){
+            //show the possible templates when page is loaded
+        };
+
+        //TODO - täida valid till ja valid from kui litsentsi tüüp on valitud
+
+
         $scope.openAuthorisedUserForm = function () {
             //$scope.AuthorisedUserForm = true;
             var newLineNotThere = true;
