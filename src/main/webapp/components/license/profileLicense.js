@@ -318,7 +318,8 @@ angular
                 subject: "Meili pealkiri siia",       //meili pealkiri
                 body: "Sisu siia",    //meili sisu. Kontrollige, et siia satuks html kujul tekst. Muidu läheb kõik ühele reale
                 licenseTypeId: 3,               //vahet ei ole, mis see on...
-                contact_ids : "2,56"          //
+                contact_ids : "1,56"          //  contacti id-d sellisel kujul nagu nad on. Kui see jätta tühjaks, ehk "" või üldse ära jätta,
+                                              // siis saadab kõikidele antud litsentsi isikutele
             }
             $http.put('rest/sendMail/' + $scope.file_id + '/' + $scope.license_id, $scope.mail).
                 then(function (response) {
