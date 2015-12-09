@@ -2,6 +2,7 @@ angular
     .module('LM')
     .controller('SearchCtrl', function ($scope, $http, $routeParams, SearchService) {
         var ss = SearchService;
+        var keyword = $routeParams.keyword;
         $scope.data = {};
         $scope.licensesBool = ss.getLicenses();
         $scope.customersBool = ss.getCustomers();
@@ -18,7 +19,7 @@ angular
             terminated : ss.getTERMINATED()
           };
 
-          $http.put('rest/licenses/search/'+$routeParams.keyword, $scope.states).
+          $http.put('rest/licenses/search/'+keyword, $scope.states).
               then(function (response) {
                   $scope.licenses = response.data;
                   //console.log($scope.data.licenses[0]);
@@ -27,8 +28,8 @@ angular
               });
         }
 
-        if($scope.customersBool == true) {
-        $http.get('rest/customers/search/'+$routeParams.keyword).
+        if($scope.customersBool == true && keyword != "sj4Ajk765Anbx") {
+        $http.get('rest/customers/search/'+keyword).
             then(function (response) {
                 // this callback will be called asynchronously
                 // when the response is available
@@ -41,8 +42,8 @@ angular
             });
         }
 
-        if($scope.productsBool == true) {
-        $http.get('rest/products/search/'+$routeParams.keyword).
+        if($scope.productsBool == true && keyword != "sj4Ajk765Anbx") {
+        $http.get('rest/products/search/'+keyword).
             then(function (response) {
 
                 $scope.products = response.data;

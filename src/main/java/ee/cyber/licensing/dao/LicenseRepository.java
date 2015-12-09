@@ -129,22 +129,46 @@ public class LicenseRepository {
     }
 
     public List<License> findByKeyword(String kword, StateHelper sh) throws SQLException {
+        String stmnt_string = "";
+
+        System.out.println(kword);
+
+        if(kword.equals("sj4Ajk765Anbx")) {
+          System.out.println("HEREE");
+          stmnt_string = "SELECT * FROM License WHERE (License.state = 1 AND ?=true) OR (License.state = 2 AND ?=true) OR (License.state = 3 AND ?=true) OR (License.state = 4 AND ?=true) OR (License.state = 5 AND ?=true) OR (License.state = 6 AND ?=true);";
+        }
+        else {
+          System.out.println("NOW HERE");
+          stmnt_string = "SELECT * FROM License LEFT JOIN Customer ON License.customerId = Customer.id LEFT JOIN Release ON License.releaseId = Release.id LEFT JOIN Product ON License.productId = Product.id LEFT JOIN LicenseType ON License.licenseTypeId = LicenseType.id WHERE (License.contractNumber LIKE (LOWER(CONCAT('%',?,'%'))) OR ( License.productId = Product.id AND LOWER(Product.name) LIKE LOWER(CONCAT('%',?,'%'))) OR ( License.releaseId = Release.id AND Release.version LIKE (CONCAT('%',?,'%')) ) OR ( License.customerId = Customer.id AND LOWER(Customer.organizationName) LIKE LOWER(CONCAT('%',?,'%')) ) OR License.validFrom LIKE (CONCAT('%',?,'%')) OR License.validTill LIKE (CONCAT('%',?,'%')) OR ( License.licenseTypeId = LicenseType.id AND LicenseType.name LIKE (CONCAT('%',?,'%')) )) AND ((License.state = 1 AND ?=true) OR (License.state = 2 AND ?=true) OR (License.state = 3 AND ?=true) OR (License.state = 4 AND ?=true) OR (License.state = 5 AND ?=true) OR (License.state = 6 AND ?=true));";
+        }
+
         try (Connection conn = ds.getConnection()) {
             try (PreparedStatement statement = conn.prepareStatement(
-                    "SELECT * FROM License LEFT JOIN Customer ON License.customerId = Customer.id LEFT JOIN Release ON License.releaseId = Release.id LEFT JOIN Product ON License.productId = Product.id LEFT JOIN LicenseType ON License.licenseTypeId = LicenseType.id WHERE (License.contractNumber LIKE (LOWER(CONCAT('%',?,'%'))) OR ( License.productId = Product.id AND LOWER(Product.name) LIKE LOWER(CONCAT('%',?,'%'))) OR ( License.releaseId = Release.id AND Release.version LIKE (CONCAT('%',?,'%')) ) OR ( License.customerId = Customer.id AND LOWER(Customer.organizationName) LIKE LOWER(CONCAT('%',?,'%')) ) OR License.validFrom LIKE (CONCAT('%',?,'%')) OR License.validTill LIKE (CONCAT('%',?,'%')) OR ( License.licenseTypeId = LicenseType.id AND LicenseType.name LIKE (CONCAT('%',?,'%')) )) AND ((License.state = 1 AND ?=true) OR (License.state = 2 AND ?=true) OR (License.state = 3 AND ?=true) OR (License.state = 4 AND ?=true) OR (License.state = 5 AND ?=true) OR (License.state = 6 AND ?=true));")) {
-                statement.setString(1, kword);
-                statement.setString(2, kword);
-                statement.setString(3, kword);
-                statement.setString(4, kword);
-                statement.setString(5, kword);
-                statement.setString(6, kword);
-                statement.setString(7, kword);
-                statement.setBoolean(8, sh.getRejected());
-                statement.setBoolean(9, sh.getNegotiated());
-                statement.setBoolean(10, sh.getWaiting_for_signature());
-                statement.setBoolean(11, sh.getActive());
-                statement.setBoolean(12, sh.getExpiration_nearing());
-                statement.setBoolean(13, sh.getTerminated());
+                    stmnt_string)) {
+                if(kword.equals("sj4Ajk765Anbx")) {
+                  statement.setBoolean(1, sh.getRejected());
+                  statement.setBoolean(2, sh.getNegotiated());
+                  statement.setBoolean(3, sh.getWaiting_for_signature());
+                  statement.setBoolean(4, sh.getActive());
+                  statement.setBoolean(5, sh.getExpiration_nearing());
+                  statement.setBoolean(6, sh.getTerminated());
+                }
+                else {
+                  statement.setString(1, kword);
+                  statement.setString(2, kword);
+                  statement.setString(3, kword);
+                  statement.setString(4, kword);
+                  statement.setString(5, kword);
+                  statement.setString(6, kword);
+                  statement.setString(7, kword);
+                  statement.setBoolean(8, sh.getRejected());
+                  statement.setBoolean(9, sh.getNegotiated());
+                  statement.setBoolean(10, sh.getWaiting_for_signature());
+                  statement.setBoolean(11, sh.getActive());
+                  statement.setBoolean(12, sh.getExpiration_nearing());
+                  statement.setBoolean(13, sh.getTerminated());
+                }
+
                 System.out.println(statement);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     List<License> licenses = new ArrayList<>();

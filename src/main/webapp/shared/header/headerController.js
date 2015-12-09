@@ -46,6 +46,12 @@ angular
           SearchService.setEXPIRATION_NEARING($scope.checkEXPIRATION_NEARING);
           SearchService.setTERMINATED($scope.checkTERMINATED);
 
-          $location.path('/search/'+keyword).replace();
+          console.log(keyword);
+          if(typeof keyword === 'undefined' || keyword === '') {
+            $location.path('/search/sj4Ajk765Anbx').replace();
+          }
+          else {
+            $location.path('/search/'+keyword).replace();
+          }
         }
     });
