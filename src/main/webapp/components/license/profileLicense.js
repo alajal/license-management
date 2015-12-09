@@ -317,7 +317,8 @@ angular
                 id: 1,                         //vahet ei ole, mis see on...
                 subject: "Meili pealkiri siia",       //meili pealkiri
                 body: "Sisu siia",    //meili sisu. Kontrollige, et siia satuks html kujul tekst. Muidu läheb kõik ühele reale
-                licenseTypeId: 3               //vahet ei ole, mis see on...
+                licenseTypeId: 3,               //vahet ei ole, mis see on...
+                contact_ids : "2,56"          //
             }
             $http.put('rest/sendMail/' + $scope.file_id + '/' + $scope.license_id, $scope.mail).
                 then(function (response) {

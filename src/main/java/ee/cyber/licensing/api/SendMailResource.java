@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import java.util.List;
 import java.util.ArrayList;
+import org.apache.commons.lang3.ArrayUtils;
 
 @Path("sendMail")
 public class SendMailResource {
@@ -45,9 +46,30 @@ public class SendMailResource {
         receivers.add(au.getEmail());
       }
       */
-      for(Contact contact : contacts) {
-        System.out.println(contact);
-        receivers.add(contact.getEmail());
+      String mb_contact_ids = mailbody.getContact_ids();
+
+      if(mb_contact_ids!=null && !(mb_contact_ids.equals(""))) {
+        String[] mb_contact_ids_split = mb_contact_ids.trim().split("\\s*,\\s*");
+        int[] split_ids = new int[mb_contact_ids_split.length];
+
+        for(int i = 0; i < mb_contact_ids_split.length;i++) {
+          split_ids[i] = Integer.parseInt(mb_contact_ids_split[i]);
+        }
+
+        for(Contact contact : contacts) {
+          System.out.println((contact.getId()).intValue());
+          if(contains(split_ids, (contact.getId()).intValue())) {
+            receivers.add(contact.getEmail());
+            System.out.println("LISAS");
+          }
+        }
+      }
+
+      else {
+        System.out.println("Saadab kõik");
+        for(Contact contact : contacts) {
+          receivers.add(contact.getEmail());
+        }
       }
 
       SendMailTLS sml = new SendMailTLS();
@@ -63,5 +85,9 @@ public class SendMailResource {
           }
         }
       }
+    }
+
+    public boolean contains(final int[] array, final int key) {
+      return ArrayUtils.contains(array, key);
     }
 }
