@@ -14,6 +14,11 @@ public class MailAttachment {
       this.fileName = fileName;
     }
 
+    public MailAttachment(Integer id, String fileName) {
+        this.id = id;
+        this.fileName = fileName;
+    }
+
     public String getData() {
         return data;
     }

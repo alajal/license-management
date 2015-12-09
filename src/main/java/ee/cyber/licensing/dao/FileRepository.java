@@ -39,13 +39,28 @@ public class FileRepository {
 
     }
 
+    public void getFileDataAsByteArray() throws SQLException {
+        try (Connection connection = ds.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM MailAttachment")) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        //byte[] fileDataAsString = resultSet.getBlob("fileData");
+
+                    }
+                }
+            }
+
+        }
+
+    }
+
     public MailAttachment findById(int id) throws SQLException {
         try (Connection connection = ds.getConnection()) {
-            try (PreparedStatement stmt = connection.prepareStatement("SELECT * FROM MailAttachment WHERE id = ?;")) {
+            try (PreparedStatement stmt = connection.prepareStatement("SELECT * FROM MailAttachment WHERE id = ?")) {
                 stmt.setInt(1, id);
                 try (ResultSet resultSet = stmt.executeQuery()) {
                     if (!resultSet.next()) {
-                        throw new SQLException("Ei leitud ühtegi rida id-ga " + id);
+                        throw new SQLException("Ei leitud ühtegi Attachmenti id-ga " + id);
                     }
                     return getFile(resultSet);
                 }
@@ -53,6 +68,7 @@ public class FileRepository {
         }
     }
 
+    //TODO FileData pole String - pärida blob, kasutada base24 convertimist
     private MailAttachment getFile(ResultSet rs) throws SQLException {
         return new MailAttachment(
                 rs.getInt("id"),
@@ -98,7 +114,6 @@ public class FileRepository {
         }
     }
 
-    //TODO - selle funktsiooni tulmust kuvatakse litsentsi profiili all
     public List<MailBody> findBodiesByLicenseType(Integer licenseTypeId) throws SQLException {
         try (Connection connection = ds.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM MailBody WHERE licenseTypeId = ?")) {
@@ -116,4 +131,20 @@ public class FileRepository {
         }
     }
 
+    public List<MailAttachment> findAttachments() throws SQLException {
+        try (Connection connection = ds.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM MailAttachment")) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    List<MailAttachment> attachments = new ArrayList<>();
+                    while (resultSet.next()) {
+                        MailAttachment attachment = new MailAttachment(resultSet.getInt("id"), resultSet.getString("fileName"));
+                        attachments.add(attachment);
+                    }
+                    return attachments;
+                }
+            }
+
+        }
+
+    }
 }
