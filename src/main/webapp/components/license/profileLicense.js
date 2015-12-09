@@ -104,6 +104,7 @@ angular
             $http.put('rest/licenses/' + $scope.license.id, $scope.license).
                 then(function (response) {
                     console.log("Litsents peale uuendamist:");
+                    $scope.license = response.data;
                     console.log($scope.license);
                     createEvent($scope.license, 0);
                 }, function (response) {

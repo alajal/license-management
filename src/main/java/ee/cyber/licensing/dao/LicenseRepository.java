@@ -215,8 +215,8 @@ public class LicenseRepository {
 
     public License updateLicense(License license) throws SQLException {
         try (Connection conn = ds.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement("UPDATE License SET " +
-                    "releaseId = ?, state = ?, licenseTypeId = ?, latestDeliveryDate = ?, validFrom = ?, validTill = ? WHERE id = ?;");
+            PreparedStatement statement = conn.prepareStatement("UPDATE License SET "
+                    + "releaseId = ?, state = ?, licenseTypeId = ?, latestDeliveryDate = ?, validFrom = ?, validTill = ? WHERE id = ?;");
             State licenseState = license.getState();
             LocalDate endDate = LocalDate.now().plusYears(license.getType().getValidityPeriod());
             boolean newValidFromAndTill = newValidFromAndTill(license.getId(), license.getState(), license.getType());
@@ -225,8 +225,12 @@ public class LicenseRepository {
             statement.setInt(2, licenseState.getStateNumber());
             statement.setInt(3, license.getType().getId());
             statement.setObject(4, license.getLatestDeliveryDate() == null ? null : license.getLatestDeliveryDate());
-            statement.setObject(5, newValidFromAndTill ? java.sql.Date.valueOf(LocalDate.now()) : null);
-            statement.setObject(6, newValidFromAndTill ? java.sql.Date.valueOf(endDate) : null);
+            java.sql.Date validFrom = newValidFromAndTill ? java.sql.Date.valueOf(LocalDate.now()) : null;
+            statement.setObject(5, validFrom);
+            license.setValidFrom(validFrom);
+            java.sql.Date validTill = newValidFromAndTill ? java.sql.Date.valueOf(endDate) : null;
+            statement.setObject(6, validTill);
+            license.setValidTill(validTill);
             statement.setInt(7, license.getId());
 
             int rowCount = statement.executeUpdate();
