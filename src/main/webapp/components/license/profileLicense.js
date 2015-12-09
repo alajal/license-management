@@ -316,9 +316,6 @@ angular
             }
         };
 
-        //$scope.mailsubject = "";
-        //$scope.mailContact = "";
-
         $scope.sendMail = function () {
             $scope.file_id = $scope.chosenAttachment.id;       //Kui faili ei lisata, jätke $scope.file_id 0.
             $scope.license_id = $scope.license.id;    //Siia peab õige litsentsi id saama. Vale ID korral saadetakse valedele kontaktidele.

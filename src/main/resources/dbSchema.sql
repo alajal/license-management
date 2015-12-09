@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS License (
   validFrom             DATE,
   validTill             DATE,
   licenseTypeId         INT,
-  state                 INT                            NOT NULL,
+  state                 INT,
   predecessorLicenseId  VARCHAR(100),
 
   applicationSubmitDate DATE,
