@@ -1,6 +1,7 @@
 package ee.cyber.licensing.dao;
 
 import ee.cyber.licensing.entity.*;
+import java.sql.Blob;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.zip.InflaterInputStream;
+import java.io.UnsupportedEncodingException;
 
 public class FileRepository {
 
@@ -54,10 +56,21 @@ public class FileRepository {
     }
 
     private MailAttachment getFile(ResultSet rs) throws SQLException {
+        Blob blob = rs.getBlob("fileData");
+        int blobLength = (int) blob.length();
+        byte[] blobAsBytes = blob.getBytes(1, blobLength);
+
+        System.out.println("Siin");
+
+        System.out.println(blobAsBytes);
+        System.out.println("Siin");
+
+
         return new MailAttachment(
                 rs.getInt("id"),
-                rs.getString("fileData"),
+                blobAsBytes,
                 rs.getString("fileName"));
+
     }
 
 

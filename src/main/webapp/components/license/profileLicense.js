@@ -310,7 +310,7 @@ angular
         };
 
         $scope.sendMail = function () {
-            $scope.file_id = 0;       //Kui faili ei lisata, jätke $scope.file_id 0.
+            $scope.file_id = 1;       //Kui faili ei lisata, jätke $scope.file_id 0.
             $scope.license_id = 1;    //Siia peab õige litsentsi id saama. Vale ID korral saadetakse valedele kontaktidele.
 
             $scope.mail = {

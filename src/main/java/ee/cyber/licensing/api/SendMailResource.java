@@ -17,6 +17,7 @@ import javax.ws.rs.*;
 import java.util.List;
 import java.util.ArrayList;
 import org.apache.commons.lang3.ArrayUtils;
+import java.util.Base64;
 
 @Path("sendMail")
 public class SendMailResource {
@@ -74,14 +75,16 @@ public class SendMailResource {
 
       SendMailTLS sml = new SendMailTLS();
       if(file_id==0 && receivers.size()>0) {
-        sml.generateAndSendEmailWithoutFile(mailbody, receivers);
+        //sml.generateAndSendEmailWithoutFile(mailbody, receivers);
       }
       else if(!(file_id==0) && receivers.size()>0) {
         MailAttachment file = fileRepository.findById(file_id);
         if(file!=null) {
-          String file_location = file.getFileName();
-          if(file_location!=null) {
-            sml.generateAndSendEmailWithFile(mailbody, receivers, file_location);
+          String file_name = file.getFileName();
+          byte[] file_data = file.getData_b();
+          System.out.println(file_data);
+          if(file_name!=null) {
+            sml.generateAndSendEmailWithFile(mailbody, receivers, file_name, file_data);
           }
         }
       }

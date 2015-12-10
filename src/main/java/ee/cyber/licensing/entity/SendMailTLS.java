@@ -11,6 +11,7 @@ import java.io.InputStream;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
+import javax.mail.util.ByteArrayDataSource;
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
@@ -29,7 +30,7 @@ import ee.cyber.licensing.entity.MailBody;
 
 import java.util.List;
 
-public class SendMailTLS {
+public class SendMailTLS{
 
 	static Properties mailServerProperties;
 	static Properties props;
@@ -37,7 +38,6 @@ public class SendMailTLS {
 	static MimeMessage generateMailMessage;
 
 	static InputStream input = null;
-
 
 	public static void generateAndSendEmailWithoutFile(MailBody mailbody, List<String> receivers) throws AddressException, MessagingException {
 
@@ -105,7 +105,7 @@ public class SendMailTLS {
 		}
 	}
 
-	public static void generateAndSendEmailWithFile(MailBody mailbody, List<String> receivers, String file_location) throws AddressException, MessagingException {
+	public static void generateAndSendEmailWithFile(MailBody mailbody, List<String> receivers, String file_name, byte[] file_bytes) throws AddressException, MessagingException {
 
 		String subject = mailbody.getSubject();
 		String body = mailbody.getBody();
@@ -144,10 +144,11 @@ public class SendMailTLS {
 					// Step3
 					System.out.println("\n\n 3rd ===> get Mail Session..");
 					getMailSession = Session.getInstance(props, authentication);
+					System.out.println(getMailSession);
 
 					try {
 			            System.out.println("\n4th ===> generateAndSendEmail() starts..");
-
+									System.out.println(getMailSession);
 			            MimeMessage crunchifyMessage = new MimeMessage(getMailSession);
 			            crunchifyMessage.addHeader("Content-type", "text/HTML; charset=UTF-8");
 			            crunchifyMessage.addHeader("format", "flowed");
@@ -166,42 +167,46 @@ public class SendMailTLS {
 										crunchifyMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(receiver));
 									}
 
+									// Create a multipart message for attachment
+									Multipart multipart = new MimeMultipart();
+
 			            // Create the message body part
 			            BodyPart messageBodyPart = new MimeBodyPart();
-			            messageBodyPart.setContent(body, "text/html");
+			            messageBodyPart.setContent("JOJOJOJJOJO", "text/html");
 
-			            // Create a multipart message for attachment
-			            Multipart multipart = new MimeMultipart();
+
+
 
 			            // Set text message part
 			            multipart.addBodyPart(messageBodyPart);
 
+									//Attachment part
 			            messageBodyPart = new MimeBodyPart();
 
 			            // Valid file location
-			            String filename = file_location;
-			            DataSource source = new FileDataSource(filename);
+									ByteArrayDataSource source = new ByteArrayDataSource(file_bytes, "application/octet-stream");
+									System.out.println(source);
 			            messageBodyPart.setDataHandler(new DataHandler(source));
-			            messageBodyPart.setFileName(filename);
-			            // Trick is to add the content-id header here
-			            messageBodyPart.setHeader("Content-ID", "image_id");
+			            messageBodyPart.setFileName(file_name);
 			            multipart.addBodyPart(messageBodyPart);
 
-			            System.out.println("\n5th ===> third part for displaying image in the email body..");
-			            messageBodyPart = new MimeBodyPart();
-			            messageBodyPart.setContent("<br><h3>Find below attached image</h3>"
-			                    + "<img src='cid:image_id'>", "text/html");
-			            multipart.addBodyPart(messageBodyPart);
-			            crunchifyMessage.setContent(multipart);
-
-			            System.out.println("\n6th ===> Finally Send message..");
+			            System.out.println("\n5th ===> Finally Send message..");
 
 			            // Finally Send message
-			            Transport.send(crunchifyMessage);
+			            //Transport.send(crunchifyMessage);
+									System.out.println(getMailSession);
+									crunchifyMessage.setContent(multipart);
+									Transport transport = getMailSession.getTransport("smtp");
+									final String host = props.getProperty("mail.smtp.host");
+									// Enter your correct gmail UserID and Password
+									// if you have 2FA enabled then provide App Specific Password
+									transport.connect(host, email, password);
+									transport.sendMessage(crunchifyMessage, crunchifyMessage.getAllRecipients());
+									transport.close();
 
 			            System.out
-			                    .println("\n7th ===> Email Sent Successfully With Image Attachment. Check your email now..");
-			            System.out.println("\n8th ===> generateAndSendEmail() ends..");
+			                    .println("\n6th ===> Email Sent Successfully With Image Attachment. Check your email now..");
+			            System.out.println("\n7th ===> generateAndSendEmail() ends..");
 
 			        } catch (MessagingException e) {
 			            e.printStackTrace();
