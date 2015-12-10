@@ -72,10 +72,12 @@ public class SendMailResource {
           receivers.add(contact.getEmail());
         }
       }
-
+      
+      System.out.println(file_id);
+      
       SendMailTLS sml = new SendMailTLS();
       if(file_id==0 && receivers.size()>0) {
-        //sml.generateAndSendEmailWithoutFile(mailbody, receivers);
+        sml.generateAndSendEmailWithoutFile(mailbody, receivers);
       }
       else if(!(file_id==0) && receivers.size()>0) {
         MailAttachment file = fileRepository.findById(file_id);

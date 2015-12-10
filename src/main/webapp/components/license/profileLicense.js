@@ -318,15 +318,19 @@ angular
         };
 
         $scope.sendMail = function () {
-            $scope.file_id = $scope.chosenAttachment.id;       //Kui faili ei lisata, jätke $scope.file_id 0.
+        	$scope.file_id = 0;
+        	if($scope.chosenAttachment != undefined) {
+        		$scope.file_id = $scope.chosenAttachment.id;       //Kui faili ei lisata, jätke $scope.file_id 0.
+        	}
+            
             $scope.license_id = $scope.license.id;    //Siia peab õige litsentsi id saama. Vale ID korral saadetakse valedele kontaktidele.
-
+            console.log($scope.file_id);
             var mail = {
                 id: 1,                         //vahet ei ole, mis see on...
                 subject: $scope.mailsubject,       //meili pealkiri
                 body: $scope.mailBody.body,    //meili sisu. Kontrollige, et siia satuks html kujul tekst. Muidu läheb kõik ühele reale
                 licenseTypeId: $scope.license.type.id,               //vahet ei ole, mis see on...
-                contact_ids : $scope.mailContact.id          //  contacti id-d sellisel kujul nagu nad on. Kui see jätta tühjaks, ehk "" või üldse ära jätta,
+                contact_ids : $scope.mailContact.id //"1,2"          //  contacti id-d sellisel kujul nagu nad on. Kui see jätta tühjaks, ehk "" või üldse ära jätta,
                                               // siis saadab kõikidele antud litsentsi isikutele
             };
 
