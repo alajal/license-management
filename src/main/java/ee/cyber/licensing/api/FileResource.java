@@ -42,4 +42,10 @@ public class FileResource {
         return fileRepository.findBodiesByLicenseType(licenseTypeId);
     }
 
+    @Path("/fileIdAndName")
+    @GET
+    public List<MailAttachment> getFileIdsAndNames() throws Exception {
+        return fileRepository.findAttachments();
+    }
+
 }

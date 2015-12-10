@@ -10,7 +10,8 @@
         </div>
         <div class="form-group">
             <label for="applicantName">Contract number: </label>
-            <input id="applicantName" class="form-control" ng-model="license.contractNumber" ng-disabled="editorDisabled"/>
+            <input id="applicantName" class="form-control" ng-model="license.contractNumber"
+                   ng-disabled="editorDisabled"/>
         </div>
         <div class="form-group">
             <label>Customer: </label>
@@ -33,7 +34,7 @@
         </div>
         <div class="form-group">
             <label>License type: </label>
-           <select ng-model="license.type" ng-options="type as type.name for type in types track by type.name"
+            <select ng-model="license.type" ng-options="type as type.name for type in types track by type.name"
                     type="text" class="form-control" id="type"
                     required name="selectedTemplate" ng-disabled="editorDisabled" ng-change="licenseTypeSelected()">
             </select>
@@ -61,6 +62,14 @@
         </div>
 
         <div class="form-group">
+            <label>Choose recipient</label>
+            <select ng-options="contact as (contact.firstName + ' ' + contact.lastName) for contact in contacts"
+                    type="text" class="form-control" id="contact" ng-model="mailContact"
+                    required name="selectedTemplate">
+            </select>
+        </div>
+
+        <div class="form-group">
             <label>Choose suitable mail template. The given templates are based on license type : </label>
             <select ng-options="body as body.subject for body in bodiesByLicenseType"
                     type="text" class="form-control" id="body" ng-model="mailBody" ng-change="mailBodySelected()"
@@ -72,8 +81,8 @@
         </div>
 
         <div class="form-group">
-            <label>Choose attachment:</label>
-            <select ng-options="attachment as attachment.title for attachment in attachments"
+            <label>Choose attachment</label>
+            <select ng-options="attachment as attachment.fileName for attachment in attachments"
                     type="text" class="form-control" id="attachment" ng-model="chosenAttachment"
                     required name="selectedTemplate">
             </select>

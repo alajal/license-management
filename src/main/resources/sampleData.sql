@@ -1,5 +1,5 @@
 INSERT INTO Product (name) VALUES ('i-Voting');
-INSERT INTO Product (name) VALUES ('Sharemind');
+INSERT INTO Product (name) VALUES ('sharemind');
 
 INSERT INTO Release (productId, version, additionDate) VALUES (1, 11.2, '2015-10-22');
 INSERT INTO Release (productId, version, additionDate) VALUES (1, 11.4, '2015-10-24');
@@ -34,3 +34,5 @@ INSERT INTO MailBody(subject, body, licenseTypeId) VALUES ('License purchasing 2
 Here is the agreement draft of our European 1 year commercial license for product ${product} wiht release ${release}.
 We will assume that the contact person is  ${contactPersonFirstName} ${contactPersonLastName} and the email of the company is ${email}.
 The agreement draft is in the attachment. Have a nice day! ', 2);
+
+INSERT INTO MailAttachment(fileName, fileData) VALUES ('TestFailBaitides', '546572652120536565206f6e206d65696520746573746661696c2e');

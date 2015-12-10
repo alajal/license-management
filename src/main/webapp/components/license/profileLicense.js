@@ -47,6 +47,13 @@ angular
                 console.error('Something went wrong with the bodies get method.');
             });
 
+        $http.get('rest/template/fileIdAndName').
+            then(function (response) {
+                $scope.attachments = response.data;
+            }, function (response) {
+                console.error('Something went wrong with the bodies get method.');
+            });
+
         $scope.licenseTypeSelected = function () {
             //päring leidmaks kõiki mailbodysid, mille litsentsitüüp on valitud tüübi id
             $http.get('rest/template/mailbodys/' + $scope.license.type.id).
@@ -97,6 +104,7 @@ angular
             $http.put('rest/licenses/' + $scope.license.id, $scope.license).
                 then(function (response) {
                     console.log("Litsents peale uuendamist:");
+                    $scope.license = response.data;
                     console.log($scope.license);
                     createEvent($scope.license, 0);
                 }, function (response) {
@@ -310,18 +318,19 @@ angular
         };
 
         $scope.sendMail = function () {
-            $scope.file_id = 1;       //Kui faili ei lisata, jätke $scope.file_id 0.
-            $scope.license_id = 1;    //Siia peab õige litsentsi id saama. Vale ID korral saadetakse valedele kontaktidele.
+            $scope.file_id = $scope.chosenAttachment.id;       //Kui faili ei lisata, jätke $scope.file_id 0.
+            $scope.license_id = $scope.license.id;    //Siia peab õige litsentsi id saama. Vale ID korral saadetakse valedele kontaktidele.
 
-            $scope.mail = {
+            var mail = {
                 id: 1,                         //vahet ei ole, mis see on...
-                subject: "Meili pealkiri siia",       //meili pealkiri
-                body: "Sisu siia",    //meili sisu. Kontrollige, et siia satuks html kujul tekst. Muidu läheb kõik ühele reale
-                licenseTypeId: 3,               //vahet ei ole, mis see on...
-                contact_ids : "1,56"          //  contacti id-d sellisel kujul nagu nad on. Kui see jätta tühjaks, ehk "" või üldse ära jätta,
+                subject: $scope.mailsubject,       //meili pealkiri
+                body: $scope.mailBody.body,    //meili sisu. Kontrollige, et siia satuks html kujul tekst. Muidu läheb kõik ühele reale
+                licenseTypeId: $scope.license.type.id,               //vahet ei ole, mis see on...
+                contact_ids : $scope.mailContact.id          //  contacti id-d sellisel kujul nagu nad on. Kui see jätta tühjaks, ehk "" või üldse ära jätta,
                                               // siis saadab kõikidele antud litsentsi isikutele
-            }
-            $http.put('rest/sendMail/' + $scope.file_id + '/' + $scope.license_id, $scope.mail).
+            };
+
+            $http.put('rest/sendMail/' + $scope.file_id + '/' + $scope.license_id, mail).
                 then(function (response) {
                     console.log("Email sent");
                 }, function (response) {
