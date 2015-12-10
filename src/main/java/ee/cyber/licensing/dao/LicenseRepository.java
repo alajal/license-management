@@ -46,7 +46,7 @@ public class LicenseRepository {
             statement.setString(6, license.getPredecessorLicenseId());
             statement.setDate(7, license.getValidFrom());
             statement.setDate(8, license.getValidTill());
-            statement.setDate(9, license.getApplicationSubmitDate());
+            statement.setDate(9, java.sql.Date.valueOf(LocalDate.now()));
             statement.execute();
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
