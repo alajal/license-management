@@ -322,8 +322,15 @@ public class LicenseRepository {
             stateNr = license.getState().getStateNumber();
             if (newState.getStateNumber() >= State.ACTIVE.getStateNumber() && stateNr < State.ACTIVE.getStateNumber())
                 stateToActive = true;
-            if (license.getType().getName().equals(newLicenseType.getName()))
+            if (newLicenseType == null) {
                 licenseTypeChange = false;
+            } else {
+                if (license.getType() == null) {
+                    licenseTypeChange = true;
+                } else if (license.getType().getName().equals(newLicenseType.getName())){
+                    licenseTypeChange = false;
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
