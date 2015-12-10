@@ -23,7 +23,7 @@ VALUES (1, 2, 1, 'a1b2', 3, 3, '2015-10-20');
 INSERT INTO AuthorisedUser (licenseId, firstName, lastName, email, occupation)
 VALUES (1, 'John', 'Doe', 'johanna@test.com', 'student');
 
-INSERT INTO Contact(customerId, firstName, lastName, email, skype, phone) VALUES (1, 'Siiri', 'Saar', 'siiri.saar1307@gmail.com', 'siiri', '56892314');
+INSERT INTO Contact(customerId, firstName, lastName, email, skype, phone) VALUES (1, 'Jens', 'Stefan', 'mikson60@gmail.com', 'jens', '55555');
 
 INSERT INTO Event(licenseId, name, description, type, dateCreated) VALUES (1, 'New license added', 'New license added description', 'Add', GETDATE());
 
@@ -34,5 +34,3 @@ INSERT INTO MailBody(subject, body, licenseTypeId) VALUES ('License purchasing 2
 Here is the agreement draft of our European 1 year commercial license for product ${product} wiht release ${release}.
 We will assume that the contact person is  ${contactPersonFirstName} ${contactPersonLastName} and the email of the company is ${email}.
 The agreement draft is in the attachment. Have a nice day! ', 2);
-
-
