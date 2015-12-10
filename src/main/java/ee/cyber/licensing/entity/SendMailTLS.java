@@ -172,7 +172,7 @@ public class SendMailTLS{
 
 			            // Create the message body part
 			            BodyPart messageBodyPart = new MimeBodyPart();
-			            messageBodyPart.setContent("JOJOJOJJOJO", "text/html");
+			            messageBodyPart.setContent(body, "text/html");
 
 
 
