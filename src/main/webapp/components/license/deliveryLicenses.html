@@ -83,8 +83,27 @@
 	            </button>
 	          </td>-->
 	          <td><a ng-href="#/license/{{license.id}}">View</a></td>
-	          <td><a ng-href="#/license/{{license.id}}/history">History</a></td>
+	          <!--<td><a ng-href="#/license/{{license.id}}/history">History</a></td>-->
+              <td><button class="btn btn-default" data-toggle="collapse" data-target="#view">See History</button></td>
               <td><a ng-href="#/license/{{license.id}}/notification">Notify</a></td>
+              <td class="collapse" id="view">
+                  <table>
+                      <thead>
+                      <tr>
+                          <th>Release Number</th>
+                          <th>Delivery Date</th>
+                          <th>User</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr ng-repeat="dr in license.deliveredReleases">
+                          <td>{{dr.release.versionNumber}}</td>
+                          <td>{{dr.deliveryDate}}</td>
+                          <td>{{dr.user}}</td>
+                      </tr>
+                      </tbody>
+                  </table>
+              </td>
 	      </tr>
 	    </tbody>
 	
@@ -113,9 +132,27 @@
 	          </button>
 	        </td>
 	        <td><a ng-href="#/license/{{license.id}}">View</a></td>
-	        <td><a ng-href="#/license/{{license.id}}/history">History</a></td>
+              <td><button class="btn btn-default" data-toggle="collapse" data-target="#view2">See History</button></td>
+	        <!--<td><a ng-href="#/license/{{license.id}}/history">History</a></td>-->
               <td><a ng-href="#/license/{{license.id}}/notification">Notify</a></td>
-
+            <td class="collapse" id="view2">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Release Number</th>
+                            <th>Delivery Date</th>
+                            <th>User</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="dr in license.deliveredReleases">
+                            <td>{{dr.release.versionNumber}}</td>
+                            <td>{{dr.deliveryDate}}</td>
+                            <td>{{dr.user}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
 	      </tr>
 	    </tbody>
 	

@@ -32,6 +32,16 @@ angular
         		break;
         	}
         };
+
+        $scope.getDeliveredReleases = function(licenseId){
+
+            $http.get('rest/deliveredReleases/bylicense/' + licenseId).
+                then(function (response) {
+                    $scope.deliveredReleases = response.data;
+                }, function (response) {
+                    console.error('Something went wrong with the GET delivered releases method.');
+                });
+        };
     });
 
 angular

@@ -2,6 +2,7 @@ package ee.cyber.licensing.entity;
 
 
 import java.sql.Date;
+import java.util.List;
 
 public class License {
     Integer id;
@@ -18,6 +19,7 @@ public class License {
     LicenseType type;
     Date applicationSubmitDate;
     Date latestDeliveryDate;
+    List<DeliveredRelease> deliveredReleases;
 
     public License() {
     }

@@ -9,6 +9,15 @@ angular
                 console.error('Something went wrong with the releases GET method by License id.');
             });
 
+        $http.get('rest/licenses').
+            then(function (response) {
+                $scope.license = response.data[$routeParams.id - 1];
+                console.log("One License");
+                console.log($scope.license);
+            }, function (response) {
+                console.error('There was something wrong with the view license request.');
+            });
+
         $scope.sendNotification = function(release){
 
             $scope.sendMail = function () {
@@ -32,6 +41,13 @@ angular
                                 console.error('Something went wrong with License PUT request.');
                             });
 
+                        $http.post('rest/deliveredReleases/bylicense/' + $routeParams.id, release).
+                            then (function(response) {
+                            console.log(release);
+                        }, function (response){
+                            console.error('Something went wrong with the Delivered Release Post method');
+                        });
+
                         $window.location.href = "#/deliveryLicenses";
 
                         console.log("Email sent");
@@ -43,6 +59,7 @@ angular
 
             $scope.sendMail();
         };
+
 
         $http.get('rest/template').
             then(function (response) {
