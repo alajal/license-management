@@ -13,16 +13,6 @@ CREATE TABLE IF NOT EXISTS Release (
   FOREIGN KEY (productId) REFERENCES Product (id),
 );
 
-DROP TABLE IF EXISTS DeliveredRelease;
-CREATE TABLE IF NOT EXISTS DeliveredRelease (
-  id           INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  licenseId    INT                            NOT NULL,
-  releaseId    INT                            NOT NULL,
-  deliveryDate DATE,
-  FOREIGN KEY (releaseId) REFERENCES Release (id),
-  FOREIGN KEY (licenseId) REFERENCES  License (id)
-);
-
 DROP TABLE IF EXISTS Customer;
 CREATE TABLE IF NOT EXISTS Customer (
   id               INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -56,6 +46,16 @@ CREATE TABLE IF NOT EXISTS License (
   FOREIGN KEY (productId) REFERENCES Product (id),
   FOREIGN KEY (customerId) REFERENCES Customer (id),
   FOREIGN KEY (releaseId) REFERENCES Release (id)
+);
+
+DROP TABLE IF EXISTS DeliveredRelease;
+CREATE TABLE IF NOT EXISTS DeliveredRelease (
+  id           INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  licenseId    INT                            NOT NULL,
+  releaseId    INT                            NOT NULL,
+  deliveryDate DATE,
+  FOREIGN KEY (releaseId) REFERENCES Release (id),
+  FOREIGN KEY (licenseId) REFERENCES License (id)
 );
 
 DROP TABLE IF EXISTS LicenseType;
