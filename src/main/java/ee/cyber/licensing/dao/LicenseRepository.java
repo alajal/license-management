@@ -196,10 +196,11 @@ public class LicenseRepository {
 
     private License getLicense(ResultSet resultSet, Product product, Customer customer, Release release, LicenseType type) throws SQLException {
         Integer state = resultSet.getInt("state");
+        Integer licenseId = resultSet.getInt("id");
 
         //resultSet.getInt("licenseTypeId");
         return new License(
-                resultSet.getInt("id"),
+                licenseId,
                 product,
                 customer,
                 release,

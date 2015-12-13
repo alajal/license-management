@@ -1,6 +1,6 @@
 angular
     .module('LM')
-    .controller('DeliveryLicensesCtrl', function ($scope, $http, $filter) {
+    .controller('DeliveryLicensesCtrl', function ($scope, $http, $filter, $window) {
 
         //used for sorting
         $scope.sortType     = 'validTill'; // set the default sort type
@@ -42,6 +42,10 @@ angular
                     console.error('Something went wrong with the GET delivered releases method.');
                 });
         };
+
+        $scope.openDeliveryPage = function(licenseId){
+            $window.location.href = '#/license/'+licenseId+'/notification'
+        }
     });
 
 angular

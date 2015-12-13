@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeliveredReleaseRepository {
+public class DeliveredReleaseRepository{
 
     @Inject
     private DataSource ds;
@@ -68,7 +68,9 @@ public class DeliveredReleaseRepository {
                 resultSet.getInt("id"),
                 license,
                 releaseRepository.getReleaseById(resultSet.getInt("releaseId")),
-                resultSet.getDate("deliveryDate").toLocalDate()
+                resultSet.getDate("deliveryDate")
         );
     }
+
+
 }

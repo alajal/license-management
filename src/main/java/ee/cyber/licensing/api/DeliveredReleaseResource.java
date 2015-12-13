@@ -11,6 +11,8 @@ import ee.cyber.licensing.entity.Release;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @Path("deliveredReleases")
@@ -32,7 +34,7 @@ public class DeliveredReleaseResource {
     @POST
     @Path("bylicense/{id}")
     public DeliveredRelease addReleaseToDeliveredReleases(@PathParam("id") int licenseId, Release release) throws Exception {
-        DeliveredRelease dr = new DeliveredRelease(licenseRepository.findById(licenseId), release, LocalDate.now());
+        DeliveredRelease dr = new DeliveredRelease(licenseRepository.findById(licenseId), release, Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         return deliveredReleaseRepository.save(dr);
     }
 

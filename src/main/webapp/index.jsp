@@ -14,6 +14,7 @@
     <!--<link rel="stylesheet" href="assets/lib/ui-select/select.css" />-->
     <link type="text/css" rel="stylesheet" media="all" href="assets/lib/bootstrap/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" media="all" href="assets/main.css">
+    <link type="text/css" rel="stylesheet" media="all" href="assets/deliveredReleases.css">
     <link href="assets/lib/angular-tooltip/angular-tooltips.css" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <title>License management</title>

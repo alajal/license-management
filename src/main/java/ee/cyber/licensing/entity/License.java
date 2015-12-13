@@ -1,8 +1,6 @@
 package ee.cyber.licensing.entity;
 
-
 import java.sql.Date;
-import java.util.List;
 
 public class License {
     Integer id;
@@ -19,7 +17,10 @@ public class License {
     LicenseType type;
     Date applicationSubmitDate;
     Date latestDeliveryDate;
-    List<DeliveredRelease> deliveredReleases;
+    //List<DeliveredRelease> deliveredReleases;
+    //commented out cause would cause circular dependency.
+    //Workaround: instead of getting delivered releases from license.deliveredReleases,
+    //deliveredReleases are requested from rest/deliveredReleases/bylicense/{id} with GET
 
     public License() {
     }
@@ -147,4 +148,5 @@ public class License {
     public void setLatestDeliveryDate(Date latestDeliveryDate) {
         this.latestDeliveryDate = latestDeliveryDate;
     }
+
 }

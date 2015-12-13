@@ -9,24 +9,24 @@ public class DeliveredRelease {
     Integer id;
     License license;
     Release release;
-    LocalDate deliveryDate;
+    Date deliveryDate;
     String user;
     String userEmail;
 
-    public DeliveredRelease(Integer id, License license, Release release, LocalDate deliveryDate) {
+    public DeliveredRelease(Integer id, License license, Release release, Date deliveryDate) {
         this.id = id;
         this.license = license;
         this.release = release;
         this.deliveryDate = deliveryDate;
     }
 
-    public DeliveredRelease(License license, Release release, LocalDate deliveryDate) {
+    public DeliveredRelease(License license, Release release, Date deliveryDate) {
         this.license = license;
         this.release = release;
         this.deliveryDate = deliveryDate;
     }
 
-    public DeliveredRelease(License license, LocalDate deliveryDate, Release release, String user, String userEmail) {
+    public DeliveredRelease(License license, Date deliveryDate, Release release, String user, String userEmail) {
         this.license = license;
         this.deliveryDate = deliveryDate;
         this.release = release;
@@ -46,7 +46,7 @@ public class DeliveredRelease {
         return release;
     }
 
-    public LocalDate getDeliveryDate() {
+    public Date getDeliveryDate() {
         return deliveryDate;
     }
 
@@ -70,7 +70,7 @@ public class DeliveredRelease {
         this.release = release;
     }
 
-    public void setDeliveryDate(LocalDate deliveryDate) {
+    public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 

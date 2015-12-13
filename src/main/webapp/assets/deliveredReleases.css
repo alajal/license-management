@@ -1,0 +1,28 @@
+.responsive-table {
+    color: #000;
+    overflow: hidden;
+    width:100%;
+    border-radius: 5px;
+    background-color:#eaebee;
+}
+.responsive-table tr {
+    border-bottom: 1px solid #dcdfe5;
+}
+.responsive-table th,.responsive-table td {
+    padding-left: 15px !important;
+}
+
+.responsive-table tr:last-child {
+    border-bottom: 0px;
+}
+
+.table-header {
+
+}
+
+.table-container {
+
+    border-radius: 5px;
+    border-color:red;
+    border-width: 2px;
+}
