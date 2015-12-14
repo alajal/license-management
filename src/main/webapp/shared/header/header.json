@@ -61,5 +61,16 @@
         "name": "Add customer"
       }
     ]
+  },
+  {
+    "type": "dropdown",
+    "name": "Templates",
+    "dropdown": [
+      {
+        "type": "link",
+        "url": "addMailTemplate",
+        "name": "View templates"
+      }
+    ]
   }
 ]
