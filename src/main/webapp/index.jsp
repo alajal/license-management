@@ -39,7 +39,8 @@
     <script src="components/customer/addSingleCustomer.js"></script>
     <script src="components/authorisedUser/add/addAuthorisedUser.js"></script>
     <script src="expiringLicense/expiringLicenses.js"></script>
-    <script src="components/template/AddMailTemplateCtrl.js"></script>
+    <script src="components/mail/AddMailTemplateCtrl.js"></script>
+    <script src="components/mail/UploadAttachmentCtrl.js"></script>
     <script src="components/license/eventsView.js"></script>
     <script src="components/license/history.js"></script>
     <script src="components/license/deliveryLicenses.js"></script>
