@@ -10,8 +10,6 @@
     <script src="assets/lib/ui-bootstrap-tpls-0.14.3.min.js"></script>
 
     <script src="assets/lib/bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script>
-    <!--<script src="assets/lib/ui-select/select.js"></script>-->
-    <!--<link rel="stylesheet" href="assets/lib/ui-select/select.css" />-->
     <link type="text/css" rel="stylesheet" media="all" href="assets/lib/bootstrap/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" media="all" href="assets/main.css">
     <link type="text/css" rel="stylesheet" media="all" href="assets/deliveredReleases.css">
@@ -24,7 +22,6 @@
     <script src="assets/lib/angular-tooltip/angular-tooltips.js"></script>
 
     <!-- Configuration -->
-    <!-- <script src="app/shared/config.js"></script> -->
 
     <!-- Controllers -->
     <script src="components/home/HomeCtrl.js"></script>
@@ -42,7 +39,8 @@
     <script src="components/customer/addSingleCustomer.js"></script>
     <script src="components/authorisedUser/add/addAuthorisedUser.js"></script>
     <script src="expiringLicense/expiringLicenses.js"></script>
-    <script src="components/template/AddMailTemplateCtrl.js"></script>
+    <script src="components/mail/AddMailTemplateCtrl.js"></script>
+    <script src="components/mail/UploadAttachmentCtrl.js"></script>
     <script src="components/license/eventsView.js"></script>
     <script src="components/license/history.js"></script>
     <script src="components/license/deliveryLicenses.js"></script>

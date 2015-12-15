@@ -30,9 +30,8 @@
                             <span class="{{link.glyph}}"></span> {{link.name}}
                         </a>
                     </li>
-
                     <li>
-                        <a href="#/addMailTemplate">Add mail template</a>
+                        <a href="#/uploadAttachment">Upload attachment</a>
                     </li>
                 </ul>
 
@@ -45,7 +44,8 @@
                                 <input type="text" class="form-control" placeholder="Search" ng-model="searchbox">
                             </div>
 
-                            <button type="submit" class="btn btn-default" ng-click="find(searchbox)"><i class="fa fa-search"></i></button>
+                            <button type="submit" class="btn btn-default" ng-click="find(searchbox)"><i
+                                    class="fa fa-search"></i></button>
 
                             <button type="submit" class="btn btn-default dropdown" data-toggle="dropdown"><i
                                     class="fa fa-level-down"></i></button>
@@ -53,7 +53,8 @@
                             <ul class="dropdown-menu search-list" role="menu">
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="checkbox1" ng-model="checkLicense" ng-init="checkLicense=true">
+                                        <input type="checkbox" id="checkbox1" ng-model="checkLicense"
+                                               ng-init="checkLicense=true">
                                         <label for="checkbox1">
                                             Licenses
                                         </label>
@@ -61,7 +62,17 @@
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="checkbox3" ng-model="checkCustomer" ng-init="checkCustomer=true">
+                                        <input type="checkbox" id="checkbox2" ng-model="checkProduct"
+                                               ng-init="checkProduct=true">
+                                        <label for="checkbox2">
+                                            Products
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="checkbox3" ng-model="checkCustomer"
+                                               ng-init="checkCustomer=true">
                                         <label for="checkbox3">
                                             Customers
                                         </label>
@@ -69,58 +80,68 @@
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="checkbox2" ng-model="checkProduct" ng-init="checkProduct=true">
-                                        <label for="checkbox2">
-                                            Products
+                                        <input type="checkbox" id="checkbox4" ng-model="checkCustomer"
+                                               ng-init="checkCustomer=true">
+                                        <label for="checkbox4">
+                                            Templates
                                         </label>
                                     </div>
                                 </li>
-                              </br>
-                                Search by license status</br>
+
+                                <p>
+                                    Search by license status:
+                                </p>
+
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="checkbox2" ng-model="checkREJECTED" ng-init="checkREJECTED=true">
-                                        <label for="checkbox2">
+                                        <input type="checkbox" ng-model="checkREJECTED"
+                                               ng-init="checkREJECTED=true">
+                                        <label>
                                             REJECTED
                                         </label>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="checkbox2" ng-model="checkNEGOTIATED" ng-init="checkNEGOTIATED=true">
-                                        <label for="checkbox2">
+                                        <input type="checkbox" ng-model="checkNEGOTIATED"
+                                               ng-init="checkNEGOTIATED=true">
+                                        <label>
                                             NEGOTIATED
                                         </label>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="checkbox2" ng-model="checkWAITING_FOR_SIGNATURE" ng-init="checkWAITING_FOR_SIGNATURE=true">
-                                        <label for="checkbox2">
+                                        <input type="checkbox" ng-model="checkWAITING_FOR_SIGNATURE"
+                                               ng-init="checkWAITING_FOR_SIGNATURE=true">
+                                        <label>
                                             WAITING_FOR_SIGNATURE
                                         </label>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="checkbox2" ng-model="checkACTIVE" ng-init="checkACTIVE=true">
-                                        <label for="checkbox2">
+                                        <input type="checkbox" ng-model="checkACTIVE"
+                                               ng-init="checkACTIVE=true">
+                                        <label>
                                             ACTIVE
                                         </label>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="checkbox2" ng-model="checkEXPIRATION_NEARING" ng-init="checkEXPIRATION_NEARING=true">
-                                        <label for="checkbox2">
+                                        <input type="checkbox"ng-model="checkEXPIRATION_NEARING"
+                                               ng-init="checkEXPIRATION_NEARING=true">
+                                        <label>
                                             EXPIRATION_NEARING
                                         </label>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="checkbox2" ng-model="checkTERMINATED" ng-init="checkTERMINATED=true">
-                                        <label for="checkbox2">
+                                        <input type="checkbox" ng-model="checkTERMINATED"
+                                               ng-init="checkTERMINATED=true">
+                                        <label>
                                             TERMINATED
                                         </label>
                                     </div>
@@ -129,7 +150,9 @@
                         </form>
                     </li>
                     <li>
-                        <a data-ng-href="#/expiring-licenses" tooltips tooltip-class="tooltip-for-me" tooltip-title= '{{numberOfExpiringLicenses}} {{numberOfExpiringLicenses === 1 ? "license is expiring in 31 days" : "licenses are expiring in 31 days"}}' tooltip-side="bottom" tooltip-try="false">
+                        <a data-ng-href="#/expiring-licenses" tooltips tooltip-class="tooltip-for-me"
+                           tooltip-title='{{numberOfExpiringLicenses}} {{numberOfExpiringLicenses === 1 ? "license is expiring in 31 days" : "licenses are expiring in 31 days"}}'
+                           tooltip-side="bottom" tooltip-try="false">
                             <span class="fa-stack fa-lg">
                             <i class="fa fa-circle fa-stack-2x"></i>
                             <i data-ng-class='["fa", "fa-bell", "fa-stack-1x", {"notification-on":expiringLicenses}]'>

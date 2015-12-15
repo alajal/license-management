@@ -71,8 +71,12 @@ angular
                 controller: 'ExpiringLicensesCtrl'
             })
             .when('/addMailTemplate',{
-                templateUrl: 'components/template/addMailTemplate.html',
+                templateUrl: 'components/mail/addMailTemplate.html',
                 controller: 'TemplateCtrl'
+            })
+            .when('/uploadAttachment',{
+                templateUrl: 'components/mail/uploadAttachment.html',
+                controller: 'FileCtrl'
             })
             .when('/eventsLicense',{
                 templateUrl: 'components/license/eventsView.html',
