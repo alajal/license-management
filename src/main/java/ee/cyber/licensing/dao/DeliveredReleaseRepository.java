@@ -29,10 +29,11 @@ public class DeliveredReleaseRepository{
     public DeliveredRelease save(DeliveredRelease dr) throws SQLException {
 
         try (Connection conn = ds.getConnection()) {
-            PreparedStatement stmnt = conn.prepareStatement("INSERT INTO DeliveredRelease (licenseId, releaseId, deliveryDate) VALUES (?, ?, ?)");
+            PreparedStatement stmnt = conn.prepareStatement("INSERT INTO DeliveredRelease (licenseId, releaseId, deliveryDate, user) VALUES (?, ?, ?, ?)");
             stmnt.setInt(1, dr.getLicense().getId());
             stmnt.setInt(2, dr.getRelease().getId());
             stmnt.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
+            stmnt.setString(4, dr.getUser());
             stmnt.execute();
 
             try (ResultSet generatedKeys = stmnt.getGeneratedKeys()) {
@@ -68,7 +69,8 @@ public class DeliveredReleaseRepository{
                 resultSet.getInt("id"),
                 license,
                 releaseRepository.getReleaseById(resultSet.getInt("releaseId")),
-                resultSet.getDate("deliveryDate")
+                resultSet.getDate("deliveryDate"),
+                resultSet.getString("user")
         );
     }
 

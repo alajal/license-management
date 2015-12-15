@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS Release (
   productId    INT                            NOT NULL,
   version      VARCHAR(100),
   additionDate DATE,
+  user         VARCHAR(100),
   FOREIGN KEY (productId) REFERENCES Product (id),
 );
 
@@ -54,6 +55,7 @@ CREATE TABLE IF NOT EXISTS DeliveredRelease (
   licenseId    INT                            NOT NULL,
   releaseId    INT                            NOT NULL,
   deliveryDate DATE,
+  user         VARCHAR,
   FOREIGN KEY (releaseId) REFERENCES Release (id),
   FOREIGN KEY (licenseId) REFERENCES License (id)
 );

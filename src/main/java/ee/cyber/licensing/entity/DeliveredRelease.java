@@ -13,17 +13,19 @@ public class DeliveredRelease {
     String user;
     String userEmail;
 
-    public DeliveredRelease(Integer id, License license, Release release, Date deliveryDate) {
+    public DeliveredRelease(Integer id, License license, Release release, Date deliveryDate, String user) {
         this.id = id;
         this.license = license;
         this.release = release;
         this.deliveryDate = deliveryDate;
+        this.user = user;
     }
 
-    public DeliveredRelease(License license, Release release, Date deliveryDate) {
+    public DeliveredRelease(License license, Release release, Date deliveryDate, String user) {
         this.license = license;
         this.release = release;
         this.deliveryDate = deliveryDate;
+        this.user = user;
     }
 
     public DeliveredRelease(License license, Date deliveryDate, Release release, String user, String userEmail) {

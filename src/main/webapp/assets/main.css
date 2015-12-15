@@ -138,3 +138,7 @@
     margin-left: -1.1em;
     margin-top:-1em;
 }
+
+.panel-heading {
+    text-decoration: none;
+}

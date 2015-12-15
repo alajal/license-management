@@ -38,7 +38,8 @@ public class ReleaseRepository {
         return new Release(
                 rs.getInt("id"),
                 rs.getString("version"),
-                rs.getDate("additionDate"));
+                rs.getDate("additionDate"),
+                rs.getString("user"));
     }
 
     public Release editRelease(Release release) throws SQLException {
@@ -83,10 +84,11 @@ public class ReleaseRepository {
 
     public Release saveRelease(int productId, Release release) throws SQLException {
         try (Connection conn = ds.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO Release (productId, version, additionDate) VALUES (?, ?, ?)");
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO Release (productId, version, additionDate) VALUES (?, ?, ?, ?)");
             statement.setInt(1, productId); // release.product.getId()
             statement.setString(2, release.getVersionNumber());
             statement.setDate(3, new java.sql.Date(release.getAdditionDate().getTime()));
+            statement.setString(4, release.getUser());
             statement.execute();
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {

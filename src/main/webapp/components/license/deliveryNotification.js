@@ -41,9 +41,11 @@ angular
                                 console.error('Something went wrong with License PUT request.');
                             });
 
+                        release.user = $scope.username;
                         $http.post('rest/deliveredReleases/bylicense/' + $routeParams.id, release).
                             then (function(response) {
-                            console.log(release);
+                            console.log($scope.username);
+                            console.log(release)
                         }, function (response){
                             console.error('Something went wrong with the Delivered Release Post method');
                         });

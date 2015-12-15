@@ -12,11 +12,13 @@ public class Release {
     Integer id;
     String versionNumber;
     Date additionDate;
+    String user;
 
-    public Release(Integer id, String vn, Date date){
+    public Release(Integer id, String vn, Date date, String user){
         this.id = id;
         this.versionNumber = vn;
         this.additionDate = date;
+        this.user = user;
     }
 
     public Release(){}
@@ -44,5 +46,13 @@ public class Release {
 
     public Date getAdditionDate() {
         return additionDate;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

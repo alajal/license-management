@@ -34,7 +34,9 @@ public class DeliveredReleaseResource {
     @POST
     @Path("bylicense/{id}")
     public DeliveredRelease addReleaseToDeliveredReleases(@PathParam("id") int licenseId, Release release) throws Exception {
-        DeliveredRelease dr = new DeliveredRelease(licenseRepository.findById(licenseId), release, Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        System.out.println("Vaata siia:");
+        System.out.println(release.getUser());
+        DeliveredRelease dr = new DeliveredRelease(licenseRepository.findById(licenseId), release, Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()),release.getUser());
         return deliveredReleaseRepository.save(dr);
     }
 
