@@ -286,6 +286,17 @@ angular
             cp.editing = false;
         };
 
+        $scope.deleteContactPerson = function(cp) {
+
+            $http.delete('rest/contactPersons/bylicense/' + $routeParams.id + '/' + cp.id).
+                then(function (response) {
+                    var deletableContactPersonIndex = $scope.contacts.indexOf(cp);
+                    $scope.contacts.splice(deletableContactPersonIndex, 1);
+                }, function (response) {
+                    console.error('HTTP delete contact person request failed');
+                });
+        };
+
         $scope.openContactPersonForm = function (cp) {
             var emptyRowNotOpened = true;
 

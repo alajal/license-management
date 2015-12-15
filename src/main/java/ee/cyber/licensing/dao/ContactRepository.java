@@ -1,5 +1,6 @@
 package ee.cyber.licensing.dao;
 
+import ee.cyber.licensing.entity.AuthorisedUser;
 import ee.cyber.licensing.entity.Contact;
 import ee.cyber.licensing.entity.Customer;
 
@@ -37,6 +38,15 @@ public class ContactRepository {
         }
     }
 
+    public Contact getById(Customer customer, Integer id) throws SQLException {
+        List<Contact> contactPersons = findAll(customer);
+        for(Contact cp : contactPersons){
+            if(cp.getId().equals(id)){
+                return cp;
+            }
+        }
+        throw new IllegalArgumentException("No suitable contact person found");
+    }
 
     private Contact getContact(ResultSet resultSet) throws SQLException {
         return new Contact(
@@ -84,4 +94,19 @@ public class ContactRepository {
         return contactPerson;
     }
 
+    public Contact delete(Customer customer, Contact cp) throws SQLException {
+        try (Connection conn = ds.getConnection()) {
+            PreparedStatement stmnt = conn.prepareStatement("DELETE from Contact where email=? and customerId =?;");
+            stmnt.setString(1, cp.getEmail());
+            stmnt.setInt(2, customer.getId());
+            stmnt.execute();
+
+            try (ResultSet generatedKeys = stmnt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    cp.setId(generatedKeys.getInt(1));
+                }
+            }
+        }
+        return cp;
+    }
 }

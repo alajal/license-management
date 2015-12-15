@@ -32,7 +32,6 @@ public class AuthorisedUserResource {
     @Consumes("text/plain")
     public AuthorisedUser deleteUserByEmail(@PathParam("licenseId") int licenseId, @PathParam("userId") int userId) throws Exception {
         return authorisedUserRepository.deleteAuthorisedUser(licenseId, authorisedUserRepository.findById(licenseId, userId));
-
     }
 
     @PUT

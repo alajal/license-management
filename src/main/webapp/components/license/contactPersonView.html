@@ -21,7 +21,7 @@
                 <td ng-if="!cp.editing">{{cp.phone}}</td>
                 <td ng-if="!cp.editing">
                     <button class="btn btn-primary" ng-click="editContactPerson(cp)">EDIT</button>
-                    <button ng-click="deleteEntry(cp)" class="btn btn-danger">DELETE</button>
+                    <button ng-click="deleteContactPerson(cp)" class="btn btn-danger">DELETE</button>
                 </td>
                 <form ng-if="cp.editing" id ="row-form" novalidate class="form" name="rowforms.form" ng-submit="saveContactPerson(cp)" >
                     <td ng-if="cp.editing"><input form="row-form" type="text" ng-model="cp.firstName" class="form-control input-sm"/></td>
