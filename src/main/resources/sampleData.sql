@@ -3,6 +3,10 @@ INSERT INTO Product (name) VALUES ('sharemind');
 
 INSERT INTO Release (productId, version, additionDate) VALUES (1, 11.2, '2015-10-22');
 INSERT INTO Release (productId, version, additionDate) VALUES (1, 11.4, '2015-10-24');
+INSERT INTO Release (productId, version, additionDate) VALUES (2, 1.0, '2015-10-09');
+INSERT INTO Release (productId, version, additionDate) VALUES (2, 2.0, '2015-12-07');
+
+
 //INSERT INTO Release (productId, version, additionDate) VALUES (1, 11.6, '2015-10-26');
 
 INSERT INTO Customer (organizationName, applicationArea, address, webpage, registrationCode, phone, bankAccount, fax, unitOrFaculty)
@@ -27,6 +31,9 @@ INSERT INTO Contact(customerId, firstName, lastName, email, skype, phone) VALUES
 INSERT INTO Event(licenseId, name, description, type, dateCreated) VALUES (1, 'New license added', 'New license added description', 'Add', GETDATE());
 
 INSERT INTO Event(name, description, type, dateCreated) VALUES ('New customer added', 'New customer added description', 'Add', GETDATE());
+
+INSERT INTO DeliveredRelease(licenseId, releaseId, deliveryDate, user) VALUES (1, 1, '2015-11-10', 'admin');
+INSERT INTO DeliveredRelease(licenseId, releaseId, deliveryDate, user) VALUES (1, 2, '2015-12-12', 'testuser');
 
 INSERT INTO MailBody(subject, body, licenseTypeId) VALUES ('License purchasing 2', 'Dear interested customer from ${organizationName}!
 Here is the agreement draft of our European commercial license for product ${product} (latest release ${release}).
