@@ -20,7 +20,7 @@ INSERT INTO LicenseType(name, validityPeriod, cost) VALUES('TestTypeWith15Days',
 INSERT INTO License (productId, releaseId, customerId, contractNumber, licenseTypeId, state, applicationSubmitDate)
 VALUES (1, 1, 1, 'AA-4456-87', 1, 3, '2015-09-20');
 
-INSERT INTO License (productId, releaseId, customerId, contractNumber, licenseTypeId, state, applicationSubmitDate)
+INSERT INTO License(productId, releaseId, customerId, contractNumber, licenseTypeId, state, applicationSubmitDate)
 VALUES (1, 2, 1, 'AB-4457-90', 3, 3, '2015-10-20');
 
 INSERT INTO AuthorisedUser (licenseId, firstName, lastName, email, occupation)
@@ -43,6 +43,10 @@ Best wishes,
 Thomas McConnell
 thomas@itfuture.com
 Licensing manager', 2);
+
+INSERT INTO MailBody(subject, body, licenseTypeId) VALUES ('First Delivery', 'Hello!
+Here comes the first delivery of the software!', 2);
+
 INSERT INTO MailBody(subject, body, licenseTypeId) VALUES ('License expiring in 1 month', 'Dear ${contactPersonFirstName} ${contactPersonLastName},
 This e-mail is a reminder that your license for ${product} (${release}) is expiring in 1 month. In order to keep using the software in your work,
 please contact your license manager Thomas McConnell at thomas@itfuture.com.
