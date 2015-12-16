@@ -18,10 +18,10 @@ INSERT INTO LicenseType(name, validityPeriod, cost) VALUES('EU stiilis 3 a komme
 INSERT INTO LicenseType(name, validityPeriod, cost) VALUES('TestTypeWith15Days', 15, 100);
 
 INSERT INTO License (productId, releaseId, customerId, contractNumber, licenseTypeId, state, applicationSubmitDate)
-VALUES (1, 1, 1, '1234qwer', 1, 3, '2015-09-20');
+VALUES (1, 1, 1, 'AA-4456-87', 1, 3, '2015-09-20');
 
 INSERT INTO License (productId, releaseId, customerId, contractNumber, licenseTypeId, state, applicationSubmitDate)
-VALUES (1, 2, 1, 'a1b2', 3, 3, '2015-10-20');
+VALUES (1, 2, 1, 'AB-4457-90', 3, 3, '2015-10-20');
 
 INSERT INTO AuthorisedUser (licenseId, firstName, lastName, email, occupation)
 VALUES (1, 'John', 'Doe', 'johanna@test.com', 'student');
