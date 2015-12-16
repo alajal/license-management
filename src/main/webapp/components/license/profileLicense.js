@@ -264,7 +264,9 @@ angular
 
             var bodyAsString = $scope.mailBody.body;
             for (var key in map) {
-                console.log(key);
+                //var re = new RegExp(key, 'g');
+                //loe kokku sõnad mis on selle keyga
+
                 bodyAsString = bodyAsString.replace(key, map[key]);
             }
             $scope.mailBody.body = bodyAsString;
@@ -333,7 +335,7 @@ angular
         	if($scope.chosenAttachment != undefined) {
         		$scope.file_id = $scope.chosenAttachment.id;       //Kui faili ei lisata, jätke $scope.file_id 0.
         	}
-            
+
             $scope.license_id = $scope.license.id;    //Siia peab õige litsentsi id saama. Vale ID korral saadetakse valedele kontaktidele.
             console.log($scope.file_id);
             var mail = {
