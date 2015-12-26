@@ -3,15 +3,12 @@ angular
     .controller('ProfileLicenseCtrl', function ($scope, $http, $routeParams, $location) {
 
         $scope.licenseId = $routeParams.id;
-
         $scope.editorDisabled = true;
-
         $scope.AuthorisedUserForm = false;
-
         $scope.rowforms = {};
-
         $scope.allStates = ['REJECTED', 'NEGOTIATED', 'WAITING_FOR_SIGNATURE', 'ACTIVE', 'EXPIRATION_NEARING', 'TERMINATED'];
         $scope.state = {};
+        $scope.mailbody = {};
 
         $http.get('rest/authorisedUser/bylicense/' + $routeParams.id).
             then(function (response) {
@@ -68,9 +65,6 @@ angular
         $scope.ifLicenseTypeHasValue = function(){
             //show the possible templates when page is loaded
         };
-
-        //TODO - täida valid till ja valid from kui litsentsi tüüp on valitud
-
 
         $scope.openAuthorisedUserForm = function () {
             //$scope.AuthorisedUserForm = true;
@@ -254,20 +248,17 @@ angular
         //todo võtta esimene kontakt - teeme eelduse, et esimene kontakt on main contact
         $scope.mailBodySelected = function () {
             var map = {
-                "${organizationName}": $scope.license.customer.organizationName,
-                "${contactPersonFirstName}": $scope.license.customer.contacts[0].firstName,
-                "${contactPersonLastName}": $scope.license.customer.contacts[0].lastName,
-                "${email}": $scope.license.customer.contacts[0].email,
-                "${product}": $scope.license.product.name,
-                "${release}": $scope.license.release.versionNumber
+                "organizationName": $scope.license.customer.organizationName,
+                "contactPersonFirstName": $scope.license.customer.contacts[0].firstName,
+                "contactPersonLastName": $scope.license.customer.contacts[0].lastName,
+                "email": $scope.license.customer.contacts[0].email,
+                "product": $scope.license.product.name,
+                "release": $scope.license.release.versionNumber
             };
-
             var bodyAsString = $scope.mailBody.body;
             for (var key in map) {
-                //var re = new RegExp(key, 'g');
-                //loe kokku sõnad mis on selle keyga
-
-                bodyAsString = bodyAsString.replace(key, map[key]);
+                var regex = new RegExp("\\$"+ "\\{" + key + "\\}", "g");
+                bodyAsString = bodyAsString.replace(regex, map[key]);
             }
             $scope.mailBody.body = bodyAsString;
         };
