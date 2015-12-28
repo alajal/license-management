@@ -1,3 +1,5 @@
+'use strict'
+
 angular
     .module('LM')
     .controller('ViewLicensesCtrl', function ($scope, $http) {

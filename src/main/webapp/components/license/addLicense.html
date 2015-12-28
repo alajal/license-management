@@ -1,8 +1,7 @@
-<!-- Add license form -->
 <div class="container">
-    <h3>Create license</h3>
+    <h3 class="custom-h3">Create license</h3>
 
-    <form novalidate class="form" name="form" ng-submit="saveData()">
+    <form novalidate class="form" name="form" ng-submit="saveNewLicense()">
         <div class="form-group">
             <label for="product">Product</label>
             <input type="text" class="form-control" id="product"
@@ -17,6 +16,7 @@
         <div class="form-group">
             <label for="contractNumber">License contract number</label>
             <input type="text" class="form-control" id="contractNumber" ng-model="contractNumber" required>
+
             <div ng-if="errorMessage">{{ errorMessage }}</div>
         </div>
 
@@ -25,8 +25,9 @@
             <select type="text" class="form-control" id="predecessor" ng-model="predecessor"
                     ng-options="license as license.contractNumber for license in licenses"
                     name="selectedPredecessor">
-                <option value=""> </option>
+                <option value=""></option>
             </select>
+
             <div ng-if="predecessorErrorMessage">{{ predecessorErrorMessage }}</div>
         </div>
 
@@ -37,12 +38,53 @@
                     selected="">
             </select>
         </div>
-
-        <br>
+        <div class="form-group">
+            <label>License type: </label>
+            <select ng-model="license.type" ng-options="type as type.name for type in types track by type.name"
+                    type="text" class="form-control" id="type"
+                    required name="selectedTemplate" ng-disabled="editorDisabled" ng-change="licenseTypeSelected()">
+            </select>
+        </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-default" id="addLicenseSubmit">SUBMIT</button>
+            <button type="submit" class="btn btn-default" id="addLicenseSubmit">CREATE</button>
         </div>
+    </form>
+
+    <form novalidate class="form" data-ng-if="licenseSaved">
+        <div class="form-group">
+            <h3>Send email</h3>
+            <label>Enter subject</label>
+            <input class="form-control" ng-model="mailsubject">
+        </div>
+
+        <div class="form-group">
+            <label>Choose recipient</label>
+            <select ng-options="contact as (contact.firstName + ' ' + contact.lastName) for contact in contacts"
+                    type="text" class="form-control" id="contact" ng-model="mailContact"
+                    required name="selectedTemplate">
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Choose suitable mail template. The given templates are based on license type : </label>
+            <select ng-options="body as body.subject for body in bodiesByLicenseType"
+                    type="text" class="form-control" id="body" ng-model="mailTemplate" ng-change="mailBodySelected()"
+                    required name="selectedTemplate">
+            </select>
+            <br>
+            <label>Chosen mail body: </label>
+            <textarea class="form-control" rows="8" ng-model="mailBodyFormatted"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Choose attachment</label>
+            <select ng-options="attachment as attachment.fileName for attachment in attachments"
+                    type="text" class="form-control" id="attachment" ng-model="chosenAttachment"
+                    required name="selectedTemplate">
+            </select>
+        </div>
+        <button ng-click="sendMail()">Send</button>
     </form>
 
 </div>

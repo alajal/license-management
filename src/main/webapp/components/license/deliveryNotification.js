@@ -1,3 +1,5 @@
+'use strict'
+
 angular
     .module('LM')
     .controller('DeliveryNotification', function ($scope, $http, $routeParams, $window) {
@@ -18,7 +20,7 @@ angular
                 console.error('There was something wrong with the view license request.');
             });
 
-        $scope.sendNotification = function(release){
+        $scope.sendNotification = function (release) {
 
             $scope.sendMail = function () {
                 $scope.file_id = 0;
@@ -43,10 +45,10 @@ angular
 
                         release.user = $scope.username;
                         $http.post('rest/deliveredReleases/bylicense/' + $routeParams.id, release).
-                            then (function(response) {
+                            then(function (response) {
                             console.log($scope.username);
                             console.log(release)
-                        }, function (response){
+                        }, function (response) {
                             console.error('Something went wrong with the Delivered Release Post method');
                         });
 

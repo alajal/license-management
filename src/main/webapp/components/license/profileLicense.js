@@ -1,3 +1,5 @@
+'use strict'
+
 angular
     .module('LM')
     .controller('ProfileLicenseCtrl', function ($scope, $http, $routeParams, $location) {
@@ -8,7 +10,7 @@ angular
         $scope.rowforms = {};
         $scope.allStates = ['REJECTED', 'NEGOTIATED', 'WAITING_FOR_SIGNATURE', 'ACTIVE', 'EXPIRATION_NEARING', 'TERMINATED'];
         $scope.state = {};
-        $scope.mailbody = {};
+        $scope.mailBody = {};
 
         $http.get('rest/authorisedUser/bylicense/' + $routeParams.id).
             then(function (response) {
@@ -19,14 +21,8 @@ angular
 
         $http.get('rest/licenses').
             then(function (response) {
-                // this callback will be called asynchronously
-                // when the response is available
                 $scope.license = response.data[$routeParams.id - 1];
-                console.log("One License");
-                console.log($scope.license);
             }, function (response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
                 console.error('There was something wrong with the view license request.');
             });
 
@@ -62,7 +58,7 @@ angular
         };
 
         //TODO
-        $scope.ifLicenseTypeHasValue = function(){
+        $scope.ifLicenseTypeHasValue = function () {
             //show the possible templates when page is loaded
         };
 
@@ -97,9 +93,8 @@ angular
             console.log($scope.license);
             $http.put('rest/licenses/' + $scope.license.id, $scope.license).
                 then(function (response) {
-                    console.log("Litsents peale uuendamist:");
+                    //Updating license
                     $scope.license = response.data;
-                    console.log($scope.license);
                     createEvent($scope.license, 0);
                 }, function (response) {
                     console.error(response);
@@ -257,10 +252,35 @@ angular
             };
             var bodyAsString = $scope.mailBody.body;
             for (var key in map) {
-                var regex = new RegExp("\\$"+ "\\{" + key + "\\}", "g");
+                var regex = new RegExp("\\$" + "\\{" + key + "\\}", "g");
                 bodyAsString = bodyAsString.replace(regex, map[key]);
             }
             $scope.mailBody.body = bodyAsString;
+        };
+
+        $scope.sendMail = function () {
+            $scope.file_id = 0;
+            if ($scope.chosenAttachment != undefined) {
+                $scope.file_id = $scope.chosenAttachment.id;       //Kui faili ei lisata, jätke $scope.file_id 0.
+            }
+
+            $scope.license_id = $scope.license.id;    //Siia peab õige litsentsi id saama. Vale ID korral saadetakse valedele kontaktidele.
+            console.log($scope.file_id);
+            var mail = {
+                id: 1,                         //vahet ei ole, mis see on...
+                subject: $scope.mailsubject,       //meili pealkiri
+                body: $scope.mailBody.body,    //meili sisu. Kontrollige, et siia satuks html kujul tekst. Muidu läheb kõik ühele reale
+                licenseTypeId: $scope.license.type.id,               //vahet ei ole, mis see on...
+                contact_ids: $scope.mailContact.id //"1,2"          //  contacti id-d sellisel kujul nagu nad on. Kui see jätta tühjaks, ehk "" või üldse ära jätta,
+                // siis saadab kõikidele antud litsentsi isikutele
+            };
+
+            $http.put('rest/sendMail/' + $scope.file_id + '/' + $scope.license_id, mail).
+                then(function (response) {
+                    console.log("Email sent");
+                }, function (response) {
+                    console.error('Could not send email!');
+                })
         };
 
         //CONTACT PERSON METHODS
@@ -279,7 +299,7 @@ angular
             cp.editing = false;
         };
 
-        $scope.deleteContactPerson = function(cp) {
+        $scope.deleteContactPerson = function (cp) {
 
             $http.delete('rest/contactPersons/bylicense/' + $routeParams.id + '/' + cp.id).
                 then(function (response) {
@@ -320,30 +340,5 @@ angular
                 cp.editing = false;
             }
         };
-
-        $scope.sendMail = function () {
-        	$scope.file_id = 0;
-        	if($scope.chosenAttachment != undefined) {
-        		$scope.file_id = $scope.chosenAttachment.id;       //Kui faili ei lisata, jätke $scope.file_id 0.
-        	}
-
-            $scope.license_id = $scope.license.id;    //Siia peab õige litsentsi id saama. Vale ID korral saadetakse valedele kontaktidele.
-            console.log($scope.file_id);
-            var mail = {
-                id: 1,                         //vahet ei ole, mis see on...
-                subject: $scope.mailsubject,       //meili pealkiri
-                body: $scope.mailBody.body,    //meili sisu. Kontrollige, et siia satuks html kujul tekst. Muidu läheb kõik ühele reale
-                licenseTypeId: $scope.license.type.id,               //vahet ei ole, mis see on...
-                contact_ids : $scope.mailContact.id //"1,2"          //  contacti id-d sellisel kujul nagu nad on. Kui see jätta tühjaks, ehk "" või üldse ära jätta,
-                                              // siis saadab kõikidele antud litsentsi isikutele
-            };
-
-            $http.put('rest/sendMail/' + $scope.file_id + '/' + $scope.license_id, mail).
-                then(function (response) {
-                    console.log("Email sent");
-                }, function (response) {
-                    console.error('Could not send email!');
-                })
-        }
 
     });

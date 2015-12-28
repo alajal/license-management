@@ -26,7 +26,7 @@ app.service('LicensingService', function () {
     this.addRelease = function (releaseV) {
         releaseL = releaseV;
         console.log(releaseL);
-    }
+    };
 
     this.addProductNew = function(productV){
         productL = productV;
@@ -45,7 +45,7 @@ app.service('LicensingService', function () {
         return customerL;
     };
 
-    this.getproduct = function () {
+    this.getProduct = function () {
         return productL;
     };
 
@@ -53,7 +53,7 @@ app.service('LicensingService', function () {
         return releaseL;
     };
 
-    this.getproductNew = function () {
+    this.getProductNew = function () {
         return productL;
     };
 
