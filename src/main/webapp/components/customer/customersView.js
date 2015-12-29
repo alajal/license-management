@@ -1,4 +1,5 @@
-// Add controller to module.
+'use strict'
+
 angular
     .module('LM')
     .controller('ViewCustomerCtrl', function ($scope, $http) {

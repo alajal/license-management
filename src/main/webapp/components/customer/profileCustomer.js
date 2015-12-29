@@ -1,4 +1,5 @@
-// Add controller to module.
+'use strict'
+
 angular
     .module('LM')
     .controller('ProfileCustomerCtrl', function ($scope, $http, $routeParams) {
@@ -46,14 +47,12 @@ angular
 
             $http.post('rest/events/' + 0, $scope.events[event_nr]).
                 then(function (response) {
-                    console.log("Event created");
-                    console.log(response.data);
                 }, function (response) {
                     console.error(response.errors);
                 });
         }
 
-        $scope.saveProfile = function(){
+        $scope.saveProfile = function () {
             $scope.disableEditor();
             console.log("Customer:");
             console.log($scope.customer);

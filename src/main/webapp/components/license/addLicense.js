@@ -50,6 +50,9 @@ angular
         }
 
         function createCustomerAndLicense(applicant) {
+            //todo leida parem lahendus, kus applicant objektil poleks kunagi sellist välja, mis serverile ei sobiks
+            // hetkel tuleb see addCustomer failis oleva inputi väärtusest, kuhu binditakse tglt kas objekti või fieldi
+            delete applicant["organizationNameOrObject"];
             $http.post('rest/customers', applicant).
                 then(function (response) {
                     // new customer/applicant has id now

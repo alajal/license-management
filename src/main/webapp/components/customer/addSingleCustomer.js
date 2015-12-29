@@ -1,3 +1,5 @@
+'use strict'
+
 angular
     .module('LM')
     .controller('AddSingleCustomerCtrl', function ($scope, $http, $window) {
@@ -21,7 +23,7 @@ angular
         function createEvent(customer) {
             $scope.event = {
                 name: 'New Customer Added',
-                description: '*user name* added customer '+customer.organizationName,
+                description: '*user name* added customer ' + customer.organizationName,
                 type: 'Add'
             };
 

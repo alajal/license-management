@@ -9,23 +9,19 @@ app.service('LicensingService', function () {
     this.addApplicant = function (applicantV) {
         applicantL = applicantV;
         customerL = undefined;
-        console.log(applicantL);
     };
 
-    this.addCustomer = function (customerV) {
+    this.chooseCustomer = function (customerV) {
         customerL = customerV;
         applicantL = undefined;
-        console.log(customerL);
     };
 
     this.addProduct = function (productV) {
         productL = productV;
-        console.log(productL);
     };
 
     this.addRelease = function (releaseV) {
         releaseL = releaseV;
-        console.log(releaseL);
     };
 
     this.addProductNew = function(productV){
@@ -34,7 +30,6 @@ app.service('LicensingService', function () {
 
     this.addLicense = function (licenseV) {
         licenseL = licenseV;
-        console.log(licenseL)
     };
 
     this.getApplicant = function () {

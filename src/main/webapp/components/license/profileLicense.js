@@ -135,11 +135,6 @@ angular
                 });
         }
 
-        $scope.openAuthorisedUsersForm = function () {
-            var a = $location.param1;
-            $location.path('/authorisedUser/add/addAuthorisedUser');
-        };
-
         $scope.deleteEntry = function (au) {
             $http.delete('rest/authorisedUser/bylicense/' + $routeParams.id + '/' + au.id).
                 then(function (response) {

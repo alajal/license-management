@@ -39,7 +39,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label>License type: </label>
+            <label>License type</label>
             <select ng-model="license.type" ng-options="type as type.name for type in types track by type.name"
                     type="text" class="form-control" id="type"
                     required name="selectedTemplate" ng-disabled="editorDisabled" ng-change="licenseTypeSelected()">
