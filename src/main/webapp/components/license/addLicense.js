@@ -133,6 +133,7 @@ angular
             });
 
         $scope.licenseTypeSelected = function () {
+            //TODO ng-change tuleb asendada millegi muuga
             //päring leidmaks kõiki mailbodysid, mille litsentsitüüp on valitud tüübi id
             $http.get('rest/template/mailbodys/' + $scope.license.type.id).
                 then(function (response) {
@@ -143,17 +144,27 @@ angular
         };
 
         $scope.mailBodySelected = function () {
-            var org = $scope.license.customer;
-            var pro = $scope.license.product;
+            var customer = $scope.license.customer;
+            var product = $scope.license.product;
+            var latestRelease = "";
+            console.log("pro");
+            console.log(product);
+            var lastReleaseIndex = product.releases.length - 1;
+            if (lastReleaseIndex != undefined) {
+                latestRelease = product.releases[lastReleaseIndex].versionNumber;
+            }
             var map = {
-                "organizationName": org.organizationName,
-                "contactPersonFirstName": org.contacts[0].firstName,
-                "contactPersonLastName": org.contacts[0].lastName,
-                "email": org.contacts[0].email,
-                "product": pro.name
+                "organizationName": customer.organizationName,
+                "contactPersonFirstName": customer.contacts[0].firstName,
+                "contactPersonLastName": customer.contacts[0].lastName,
+                "email": customer.contacts[0].email,
+                "product": product.name,
+                "release": latestRelease
             };
             var bodyAsString = this.mailTemplate.body;
             for (var key in map) {
+                /*while (bodyAsString.find(key) != -1)
+                 bodyAsString = bodyAsString.replace(key, map[key]);*/
                 var regex = new RegExp("\\$" + "\\{" + key + "\\}", "g");
                 bodyAsString = bodyAsString.replace(regex, map[key]);
             }
@@ -170,7 +181,7 @@ angular
             console.log($scope.file_id);
             var mail = {
                 id: 1,                         //vahet ei ole, mis see on...
-                subject: this.mailsubject,       //meili pealkiri
+                subject: this.mailTemplate.subject,       //meili pealkiri
                 body: $scope.mailBodyFormatted,    //meili sisu. Kontrollige, et siia satuks html kujul tekst. Muidu läheb kõik ühele reale
                 licenseTypeId: $scope.license.type.id,               //vahet ei ole, mis see on...
                 contact_ids: this.mailContact.id //"1,2"          //  contacti id-d sellisel kujul nagu nad on. Kui see jätta tühjaks, ehk "" või üldse ära jätta,

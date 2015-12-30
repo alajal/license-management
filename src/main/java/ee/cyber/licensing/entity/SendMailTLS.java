@@ -106,9 +106,8 @@ public abstract class SendMailTLS {
         crunchifyMessage.addHeader("Content-type", "text/html; charset=UTF-8");
         crunchifyMessage.addHeader("format", "flowed");
         crunchifyMessage.addHeader("Content-Transfer-Encoding", "8bit");
-        crunchifyMessage.setFrom(new InternetAddress("ametliktest@gmail.com",
-                "NoReply-Crunchify"));
-        crunchifyMessage.setReplyTo(InternetAddress.parse("ametliktest@gmail.com", false));
+        crunchifyMessage.setFrom(new InternetAddress(email, "NoReply-Crunchify"));
+        crunchifyMessage.setReplyTo(InternetAddress.parse(email, false));
         crunchifyMessage.setSubject(subject, "UTF-8");
         crunchifyMessage.setSentDate(new Date());
 

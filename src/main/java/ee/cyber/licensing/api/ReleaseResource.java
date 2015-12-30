@@ -21,7 +21,7 @@ public class ReleaseResource {
 
     @GET
     @Produces("application/json")
-    public List<Release> getReleasesByProductId(@PathParam("id")Integer id) throws Exception {
+    public List<Release> getReleasesByProductId(@PathParam("id") Integer id) throws Exception {
         return releaseRepository.findByProductId(id);
     }
 
@@ -39,14 +39,13 @@ public class ReleaseResource {
     }
 
     @POST
-    public boolean saveRelease(Product product) throws Exception {
-        for(int i = 0; i < product.getReleases().size(); i++){
-            if(product.getReleases().get(i).getId() == null){
-                releaseRepository.saveRelease(product.getId(), product.getReleases().get(i));
+    public Release saveRelease(Product product) throws Exception {
+        for (int i = 0; i < product.getReleases().size(); i++) {
+            if (product.getReleases().get(i).getId() == null) {
+                return releaseRepository.saveRelease(product.getId(), product.getReleases().get(i));
             }
-
         }
-        return true;
+        return null;
     }
 
     @DELETE
