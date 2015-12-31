@@ -12,13 +12,6 @@ angular
         $scope.state = {};
         $scope.mailBody = {};
 
-        $http.get('rest/authorisedUser/bylicense/' + $routeParams.id).
-            then(function (response) {
-                $scope.authorisedUser = response.data;
-            }, function (response) {
-                console.error('Something went wrong with the authorised users get method.');
-            });
-
         $http.get('rest/licenses').
             then(function (response) {
                 $scope.license = response.data[$routeParams.id - 1];
@@ -62,6 +55,14 @@ angular
             //show the possible templates when page is loaded
         };
 
+        //AUTHORISED USERS METHODS
+        $http.get('rest/authorisedUser/bylicense/' + $routeParams.id).
+            then(function (response) {
+                $scope.authorisedUser = response.data;
+            }, function (response) {
+                console.error('Something went wrong with the authorised users get method.');
+            });
+        
         $scope.openAuthorisedUserForm = function () {
             //$scope.AuthorisedUserForm = true;
             var newLineNotThere = true;
@@ -149,24 +150,6 @@ angular
             return viewLocation === $location.path();
         };
 
-        $scope.saveData = function () {
-            console.log($scope.authorised);
-            if (!$scope.form.$valid) {
-                return;
-            }
-
-            $http.post('rest/authorisedUser/bylicense/' + $routeParams.id, $scope.authorised).
-                then(function (response) {
-                    $scope.authorisedUser.push(response.data);
-                    $scope.form.$setUntouched();
-                    $scope.form.$setPristine();
-                    $scope.authorised = null;
-                    $scope.AuthorisedUserForm = false;
-                }, function (response) {
-                    console.error('Something went wrong with post authorised users request.');
-                });
-        };
-
         $scope.getScriptId = function (au) {
             if ($scope.selected && au.id === $scope.selected.id) { // or au.id == null
                 return 'edit';
@@ -206,20 +189,6 @@ angular
 
                 $scope.selected = {};
             }
-        };
-
-
-        $scope.updateAuthorisedUser = function (au) {
-            $.extend(au, $scope.selected); //jQuery extend method to save the changes made in $scope.selected to au
-            $http.put('rest/authorisedUser/bylicense/' + $routeParams.id, au).then(function (response) {
-                console.log($scope.selected);
-            }, function (response) {
-                console.error(response);
-
-            });
-
-            $scope.selected = {};
-
         };
 
         $scope.reset = function (au) {
