@@ -36,7 +36,7 @@ public class DeliveredReleaseResource {
     public DeliveredRelease addReleaseToDeliveredReleases(@PathParam("id") int licenseId, Release release) throws Exception {
         System.out.println("Vaata siia:");
         System.out.println(release.getUser());
-        DeliveredRelease dr = new DeliveredRelease(licenseRepository.findById(licenseId), release, Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()),release.getUser());
+        DeliveredRelease dr = new DeliveredRelease(licenseRepository.findById(licenseId), release, Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()), release.getUser());
         return deliveredReleaseRepository.save(dr);
     }
 

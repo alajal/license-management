@@ -34,7 +34,7 @@ public class CustomerResource {
     @GET
     @Produces("application/json")
     public List<Customer> getCustomersSearch(@PathParam("keyword") String keyword) throws Exception {
-      return customerRepository.findByKeyword(keyword);
+        return customerRepository.findByKeyword(keyword);
     }
 
     @POST

@@ -1,4 +1,5 @@
 package ee.cyber.licensing.api;
+
 import ee.cyber.licensing.dao.EventRepository;
 import ee.cyber.licensing.entity.Event;
 

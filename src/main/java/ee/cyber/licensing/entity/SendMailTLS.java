@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 public abstract class SendMailTLS {
 
@@ -106,8 +107,8 @@ public abstract class SendMailTLS {
         crunchifyMessage.addHeader("Content-type", "text/html; charset=UTF-8");
         crunchifyMessage.addHeader("format", "flowed");
         crunchifyMessage.addHeader("Content-Transfer-Encoding", "8bit");
-        crunchifyMessage.setFrom(new InternetAddress(email, "NoReply-Crunchify"));
-        crunchifyMessage.setReplyTo(InternetAddress.parse(email, false));
+        crunchifyMessage.setFrom(new InternetAddress(email, "License dude"));
+        //crunchifyMessage.setReplyTo(InternetAddress.parse(email, false));
         crunchifyMessage.setSubject(subject, "UTF-8");
         crunchifyMessage.setSentDate(new Date());
 

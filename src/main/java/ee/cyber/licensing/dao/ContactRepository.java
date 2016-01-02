@@ -40,8 +40,8 @@ public class ContactRepository {
 
     public Contact getById(Customer customer, Integer id) throws SQLException {
         List<Contact> contactPersons = findAll(customer);
-        for(Contact cp : contactPersons){
-            if(cp.getId().equals(id)){
+        for (Contact cp : contactPersons) {
+            if (cp.getId().equals(id)) {
                 return cp;
             }
         }

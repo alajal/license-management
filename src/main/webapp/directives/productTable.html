@@ -1,31 +1,30 @@
 <form>
-    <div class="form-group">
-        <div class="input-group">
-            <div class="input-group-addon"><i class="fa fa-search"></i></div>
-            <input type="text" class="form-control" placeholder="Search products" ng-model="searchProduct">
-        </div>
+    <div class="form-group input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        <input type="text" class="form-control" placeholder="Search products" data-data-ng-model="searchProduct">
     </div>
 </form>
 <uib-accordion close-others="oneAtATime">
-    <uib-accordion-group ng-repeat="product in products">
+    <uib-accordion-group data-ng-repeat="product in products">
         <uib-accordion-heading>
-            <div ng-if="!product.editing">{{product.name}}
-                <button ng-if="!product.editing" class="btn btn-small btn-primary" ng-click="editProduct(product)">
+            <div data-ng-if="!product.editing">{{product.name}}
+                <button data-ng-if="!product.editing" class="btn btn-small btn-primary"
+                        data-ng-click="editProduct(product)">
                     Edit
                 </button>
-                <button ng-if="!product.editing" tooltip-enable="showProductDeleteNotification"
+                <button data-ng-if="!product.editing" tooltip-enable="showProductDeleteNotification"
                         popover-placement="right"
                         uib-popover="This product is connected with license(s). To delete this product, delete the licenses for this product first."
                         type="button" id="productDeleteButton" class="btn btn-small btn-danger"
-                        ng-click="deleteProduct(product)">Delete
+                        data-ng-click="deleteProduct(product)">Delete
                 </button>
             </div>
-            <div ng-if="product.editing"><input type="text" ng-model="product.name"></div>
-            <div ng-if="product.editing">
-                <button class="btn btn-default" ng-click="saveProduct(product)">SAVE</button>
+            <div data-ng-if="product.editing"><input type="text" data-ng-model="product.name"/></div>
+            <div data-ng-if="product.editing">
+                <button class="btn btn-default" data-ng-click="saveProduct(product)">SAVE</button>
             </div>
-            <div ng-if="product.editing">
-                <button class="btn btn-default" ng-click="cancelProductEditing(product)">CANCEL</button>
+            <div data-ng-if="product.editing">
+                <button class="btn btn-default" data-ng-click="cancelProductEditing(product)">CANCEL</button>
             </div>
         </uib-accordion-heading>
         <table class="table-condensed">
@@ -36,32 +35,34 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="release in product.releases">
-                <td ng-if="!release.editing">{{release.versionNumber}}</td>
+            <tr data-ng-repeat="release in product.releases">
+                <td data-ng-if="!release.editing">{{release.versionNumber}}</td>
                 <!-- TODO release.additionDate peaks tulema tänase kuupäeva järgi automaatselt, see hoiab ka releaseid arrays õiges järjekorras, mida on vaja mailbody muutmisel (seal võetakse alati viimane release arrayst)-->
-                <td ng-if="!release.editing">{{release.additionDate}}</td>
-                <td ng-if="!release.editing">
-                    <button class="btn btn-default" ng-click="editRelease(release)">EDIT</button>
+                <td data-ng-if="!release.editing">{{release.additionDate}}</td>
+                <td data-ng-if="!release.editing">
+                    <button class="btn btn-default" data-ng-click="editRelease(release)">EDIT</button>
                 </td>
-                <td ng-if="!release.editing">
-                    <button class="btn btn-default" ng-click="deleteRelease(release,product)"
+                <td data-ng-if="!release.editing">
+                    <button class="btn btn-default" data-ng-click="deleteRelease(release,product)"
                             tooltip-enable="showReleaseDeleteNotification" popover-placement="right"
                             uib-popover="This release is connected with license(s). To delete this release, delete the licenses that have this release first."
                             type="button">DELETE
                     </button>
                 </td>
-                <form ng-if="release.editing" id="row-form" novalidate class="form" name="rowforms.form"
-                      ng-submit="saveRelease(product, release)">
-                    <td ng-if="release.editing"><input form="row-form" type="text" ng-model="release.versionNumber"
-                                                       class="form-control input-sm"/></td>
-                    <td ng-if="release.editing">
-                        <input form="row-form" type="text" ng-model="release.additionDate" class="form-control input-sm"
+                <form data-ng-if="release.editing" id="row-form" novalidate class="form" name="rowforms.form"
+                      data-ng-submit="saveRelease(product, release)">
+                    <td data-ng-if="release.editing"><input form="row-form" type="text"
+                                                            data-ng-model="release.versionNumber"
+                                                            class="form-control input-sm"/></td>
+                    <td data-ng-if="release.editing">
+                        <input form="row-form" type="text" data-ng-model="release.additionDate"
+                               class="form-control input-sm"
                                placeholder="YYYY-MM-DD"/>
                     </td>
 
-                    <td ng-if="release.editing">
+                    <td data-ng-if="release.editing">
                         <button form="row-form" class="btn btn-default">SAVE</button>
-                        <button form="row-form" class="btn btn-default" ng-click="cancelReleaseEditing(release)">
+                        <button form="row-form" class="btn btn-default" data-ng-click="cancelReleaseEditing(release)">
                             CANCEL
                         </button>
                     </td>
@@ -69,7 +70,7 @@
             </tr>
             </tbody>
         </table>
-        <button class="btn btn-primary" ng-click="openReleaseForm(product)">Add release</button>
+        <button class="btn btn-primary" data-ng-click="openReleaseForm(product)">Add release</button>
     </uib-accordion-group>
 </uib-accordion>
 

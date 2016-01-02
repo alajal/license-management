@@ -1,11 +1,9 @@
 package ee.cyber.licensing.dao;
 
-import ee.cyber.licensing.entity.AuthorisedUser;
 import ee.cyber.licensing.entity.Product;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
-import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -75,11 +73,11 @@ public class ProductRepository {
 
     public Product getProductById(int id) throws SQLException {
         try (Connection connection = ds.getConnection()) {
-            try (PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Product WHERE id = ?;")) {
+            try (PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Product WHERE id = ?")) {
                 stmt.setInt(1, id);
                 try (ResultSet resultSet = stmt.executeQuery()) {
                     if (!resultSet.next()) {
-                        throw new SQLException("Ei leitud ühtegi rida id-ga " + id);
+                        throw new SQLException("Didn't find any row with product id " + id);
                     }
                     return getProduct(resultSet);
                 }
@@ -92,7 +90,7 @@ public class ProductRepository {
         return new Product(
                 id,
                 rs.getString("name"),
-                releaseRepository.findByProductId(id));
+                releaseRepository.findReleasesByProductId(id));
     }
 
 
@@ -106,19 +104,27 @@ public class ProductRepository {
         return product;
     }
 
-    public boolean deleteProduct(Product product) {
-        try (Connection conn = ds.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement("DELETE from Product where id=?");
-            statement.setInt(1, product.getId());
-            statement.execute();
-
-            return true;
-
-        } catch (SQLException e) {
-
-            return false;
-
+    public boolean deleteReleases(int productId) throws SQLException {
+        try (Connection connection = ds.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement("DELETE from Release WHERE productId=?");
+            statement.setInt(1, productId);
+            return statement.executeUpdate() != 0;
         }
-
     }
+
+    public boolean deleteProductAndReleases(int productId) throws SQLException {
+        //Enne tuleb kustutada releasid ja siis alles toode
+        boolean b = deleteReleases(productId);
+        if (b){
+            try (Connection conn = ds.getConnection()) {
+                PreparedStatement statement = conn.prepareStatement("DELETE from Product where id=?");
+                statement.setInt(1, productId);
+                int i = statement.executeUpdate();
+                return i != 0;
+            }
+        }
+        return false;
+    }
+
+
 }

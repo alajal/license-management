@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeliveredReleaseRepository{
+public class DeliveredReleaseRepository {
 
     @Inject
     private DataSource ds;
@@ -49,7 +49,7 @@ public class DeliveredReleaseRepository{
     public List<DeliveredRelease> getAllDeliveredReleases(int id) throws SQLException {
         try (Connection conn = ds.getConnection()) {
             try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM DeliveredRelease where licenseId = ?;")) {
-                statement.setInt(1,id);
+                statement.setInt(1, id);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     List<DeliveredRelease> deliveredReleases = new ArrayList<>();
                     while (resultSet.next()) {

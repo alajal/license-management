@@ -43,7 +43,7 @@ public class AuthorisedUserRepository {
     public List<AuthorisedUser> findAll(Integer licId) throws SQLException {
         try (Connection conn = ds.getConnection()) {
             try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM AuthorisedUser where licenseId = ?;")) {
-                statement.setInt(1,licId);
+                statement.setInt(1, licId);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     List<AuthorisedUser> authorisedUsers = new ArrayList<>();
                     while (resultSet.next()) {
@@ -60,8 +60,8 @@ public class AuthorisedUserRepository {
 
     public AuthorisedUser findById(Integer licenseId, Integer id) throws SQLException {
         List<AuthorisedUser> users = findAll(licenseId);
-        for(AuthorisedUser user : users){
-            if(user.getId().equals(id)){
+        for (AuthorisedUser user : users) {
+            if (user.getId().equals(id)) {
                 return user;
             }
         }

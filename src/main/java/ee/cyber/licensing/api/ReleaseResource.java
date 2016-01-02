@@ -2,7 +2,6 @@ package ee.cyber.licensing.api;
 
 import ee.cyber.licensing.dao.LicenseRepository;
 import ee.cyber.licensing.dao.ReleaseRepository;
-import ee.cyber.licensing.entity.AuthorisedUser;
 import ee.cyber.licensing.entity.Product;
 import ee.cyber.licensing.entity.Release;
 
@@ -22,7 +21,7 @@ public class ReleaseResource {
     @GET
     @Produces("application/json")
     public List<Release> getReleasesByProductId(@PathParam("id") Integer id) throws Exception {
-        return releaseRepository.findByProductId(id);
+        return releaseRepository.findReleasesByProductId(id);
     }
 
     @GET
@@ -51,6 +50,6 @@ public class ReleaseResource {
     @DELETE
     @Path("/{releaseId}")
     public boolean deleteReleaseById(@PathParam("releaseId") int releaseId) throws Exception {
-        return releaseRepository.deleteRelease(releaseRepository.getReleaseById(releaseId));
+        return releaseRepository.deleteRelease(releaseId);
     }
 }

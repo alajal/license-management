@@ -1,7 +1,5 @@
 package ee.cyber.licensing.dao;
 
-
-
 import ee.cyber.licensing.entity.Release;
 
 import javax.inject.Inject;
@@ -19,9 +17,9 @@ public class ReleaseRepository {
         this.ds = ds;
     }
 
-    public List<Release> findByProductId(int productId) throws SQLException {
+    public List<Release> findReleasesByProductId(int productId) throws SQLException {
         try (Connection conn = ds.getConnection()) {
-            try (PreparedStatement stmt = conn.prepareStatement("SELECT * from Release WHERE productId = ?;")) {
+            try (PreparedStatement stmt = conn.prepareStatement("SELECT * from Release WHERE productId = ?")) {
                 stmt.setInt(1, productId);
                 try (ResultSet rs = stmt.executeQuery()) {
                     List<Release> releases = new ArrayList<>();
@@ -67,17 +65,11 @@ public class ReleaseRepository {
         }
     }
 
-    public boolean deleteRelease(Release release) {
+    public boolean deleteRelease(int releaseId) throws SQLException {
         try (Connection conn = ds.getConnection()) {
             PreparedStatement statement = conn.prepareStatement("DELETE from Release where id=?");
-            statement.setInt(1, release.getId());
-            statement.execute();
-
-            return true;
-
-        } catch (SQLException e) {
-
-            return false;
+            statement.setInt(1, releaseId);
+            return statement.executeUpdate() != 0;
         }
     }
 

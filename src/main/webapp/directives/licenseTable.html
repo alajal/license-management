@@ -1,113 +1,102 @@
 <form>
- <div class="form-group">
-   <div class="input-group">
-     <div class="input-group-addon"><i class="fa fa-search"></i></div>
-
-     <input type="text" class="form-control" placeholder="Search licenses" ng-model="searchLicense">
-
-   </div>
- </div>
+    <div class="form-group input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        <input type="text" class="form-control" placeholder="Search licenses" data-ng-model="searchLicense"/>
+    </div>
 </form>
 
 
 <table class="table table-condensed table-striped" id="licensesTable">
     <thead>
-        <tr>
-            <th>
-                <a href="" ng-click="sortType = 'contractNumber'; sortReverse = !sortReverse">Contract Nr
-                    <span ng-show="sortType == 'contractNumber' && !sortReverse" class="fa fa-caret-down"></span>
-                    <span ng-show="sortType == 'contractNumber' && sortReverse" class="fa fa-caret-up"></span>
-                </a>
-            </th>
-            <th>
-              <a href="" ng-click="sortType = 'product.name'; sortReverse = !sortReverse">Product name
-                <span ng-show="sortType == 'product.name' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'product.name' && sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </th>
-            <th>
-                <a href="" ng-click="sortType = 'release.versionNumber'; sortReverse = !sortReverse">Release
-                    <span ng-show="sortType == 'release.versionNumber' && !sortReverse" class="fa fa-caret-down"></span>
-                    <span ng-show="sortType == 'release.versionNumber' && sortReverse" class="fa fa-caret-up"></span>
-                </a>
-            </th>
-            <th>
-              <a href="" ng-click="sortType = 'customer.organizationName'; sortReverse = !sortReverse">Customer
-                <span ng-show="sortType == 'customer.name' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'customer.name' && sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </th>
+    <tr>
+        <th>
+            <a href="" data-ng-click="sortType = 'contractNumber'; sortReverse = !sortReverse">Contract Nr
+                <span data-ng-show="sortType == 'contractNumber' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'contractNumber' && sortReverse" class="fa fa-caret-up"></span>
+            </a>
+        </th>
+        <th>
+            <a href="" data-ng-click="sortType = 'product.name'; sortReverse = !sortReverse">Product name
+                <span data-ng-show="sortType == 'product.name' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'product.name' && sortReverse" class="fa fa-caret-up"></span>
+            </a>
+        </th>
+        <th>
+            <a href="" data-ng-click="sortType = 'release.versionNumber'; sortReverse = !sortReverse">Release
+                <span data-ng-show="sortType == 'release.versionNumber' && !sortReverse"
+                      class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'release.versionNumber' && sortReverse"
+                      class="fa fa-caret-up"></span>
+            </a>
+        </th>
+        <th>
+            <a href="" data-ng-click="sortType = 'customer.organizationName'; sortReverse = !sortReverse">Customer
+                <span data-ng-show="sortType == 'customer.name' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'customer.name' && sortReverse" class="fa fa-caret-up"></span>
+            </a>
+        </th>
 
-            <th>
-              <a href="" ng-click="sortType = 'state'; sortReverse = !sortReverse">State
-                <span ng-show="sortType == 'state' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'state' && sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </th>
-            <th>
-              <a href="" ng-click="sortType = 'predecessorLicenseId'; sortReverse = !sortReverse">Predecessor Nr
-                <span ng-show="sortType == 'predecessorLicenseId' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'predecessorLicenseId' && sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </th>
-            <th>
-              <a href="" ng-click="sortType = 'validFrom'; sortReverse = !sortReverse">Activation date
-                <span ng-show="sortType == 'validFrom' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'validFrom' && sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </th>
-            <th>
-              <a href="" ng-click="sortType = 'validTill'; sortReverse = !sortReverse">Expiration Date
-                <span ng-show="sortType == 'validTill' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'validTill' && sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </th>
-            <th>
-                <a href="" ng-click="sortType = 'applicationSubmitDate'; sortReverse = !sortReverse">Submit date
-                    <span ng-show="sortType == 'applicationSubmitDate' && !sortReverse" class="fa fa-caret-down"></span>
-                    <span ng-show="sortType == 'applicationSubmitDate' && sortReverse" class="fa fa-caret-up"></span>
-                </a>
-            </th>
-            <!--<th>Status</th>-->
-        </tr>
+        <th>
+            <a href="" data-ng-click="sortType = 'state'; sortReverse = !sortReverse">State
+                <span data-ng-show="sortType == 'state' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'state' && sortReverse" class="fa fa-caret-up"></span>
+            </a>
+        </th>
+        <th>
+            <a href="" data-ng-click="sortType = 'predecessorLicenseId'; sortReverse = !sortReverse">Predecessor Nr
+                <span data-ng-show="sortType == 'predecessorLicenseId' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'predecessorLicenseId' && sortReverse" class="fa fa-caret-up"></span>
+            </a>
+        </th>
+        <th>
+            <a href="" data-ng-click="sortType = 'validFrom'; sortReverse = !sortReverse">Activation date
+                <span data-ng-show="sortType == 'validFrom' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'validFrom' && sortReverse" class="fa fa-caret-up"></span>
+            </a>
+        </th>
+        <th>
+            <a href="" data-ng-click="sortType = 'validTill'; sortReverse = !sortReverse">Expiration Date
+                <span data-ng-show="sortType == 'validTill' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'validTill' && sortReverse" class="fa fa-caret-up"></span>
+            </a>
+        </th>
+        <th>
+            <a href="" data-ng-click="sortType = 'applicationSubmitDate'; sortReverse = !sortReverse">Submit date
+                <span data-ng-show="sortType == 'applicationSubmitDate' && !sortReverse"
+                      class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'applicationSubmitDate' && sortReverse" class="fa fa-caret-up"></span>
+            </a>
+        </th>
+        <!--<th>Status</th>-->
+    </tr>
     </thead>
-    <tbody ng-if="customer == Null">
-      <tr ng-repeat="license in licenses | orderBy:sortType:sortReverse | filter:searchLicense">
-          <td>{{ license.contractNumber }}</td>
-          <td>{{ license.product.name }}</td>
-          <td>{{ license.release.versionNumber }}</td>
-          <td>{{ license.customer.organizationName }}</td>
-          <td>{{ license.state}}</td>
-          <td>{{ license.predecessorLicenseId }}</td>
-          <td>{{ license.validFrom }}</td>
-          <td>{{ license.validTill}}</td>
-          <td>{{ license.applicationSubmitDate }}</td>
-
-          <!-- if more than 2 days remain for expiration -->
-<!--          <td ng-if="currentDate < compare(license.validTill) && (compare(license.validTill) - currentDate)/1000 > 172800">
-            <button class="btn btn-success btn-xs">Active
-            </button>
-          </td>-->
-          <!-- if less than 2 days remain for expiration -->
-          <td ng-if="(compare(license.validTill) - currentDate)/1000 < 172800 && (compare(license.validTill) - currentDate)/1000 > 0">
-            <button class="btn btn-warning btn-xs">Will Expire
-            </button>
-          </td>
-          <!-- if expired -->
-<!--          <td ng-if="currentDate > compare(license.validTill) ">
-            <button class="btn btn-danger btn-xs">Expired
-            </button>
-          </td>-->
-          <td><a ng-href="#/license/{{license.id}}">View</a></td>
-          <td><a ng-href="#/license/{{license.id}}/history">History</a></td>
-      </tr>
-    </tbody>
-
-    <tbody ng-if="customer != Null">
-      <tr ng-repeat="license in licenses | orderBy:sortType:sortReverse | filter:searchLicense" ng-if="license.customer.name==customer.name">
+    <tbody data-ng-if="customer == Null">
+    <tr data-ng-repeat="license in licenses | orderBy:sortType:sortReverse | filter:searchLicense">
         <td>{{ license.contractNumber }}</td>
         <td>{{ license.product.name }}</td>
-          <td>{{ license.release.versionNumber }}</td>
+        <td>{{ license.release.versionNumber }}</td>
+        <td>{{ license.customer.organizationName }}</td>
+        <td>{{ license.state}}</td>
+        <td>{{ license.predecessorLicenseId }}</td>
+        <td>{{ license.validFrom }}</td>
+        <td>{{ license.validTill}}</td>
+        <td>{{ license.applicationSubmitDate }}</td>
+
+        <td data-ng-if="(compare(license.validTill) - currentDate)/1000 < 172800 && (compare(license.validTill) - currentDate)/1000 > 0">
+            <button class="btn btn-warning btn-xs">Will Expire
+            </button>
+        </td>
+        <td><a data-ng-href="#/license/{{license.id}}">View</a></td>
+        <td><a data-ng-href="#/license/{{license.id}}/history">History</a></td>
+    </tr>
+    </tbody>
+
+    <tbody data-ng-if="customer != Null">
+    <tr data-ng-repeat="license in licenses | orderBy:sortType:sortReverse | filter:searchLicense"
+        data-ng-if="license.customer.name==customer.name">
+        <td>{{ license.contractNumber }}</td>
+        <td>{{ license.product.name }}</td>
+        <td>{{ license.release.versionNumber }}</td>
         <td>{{ license.customer.organizationName }}</td>
         <td>{{ license.state}}</td>
         <td>{{ license.predecessorLicenseId }}</td>
@@ -116,23 +105,23 @@
         <td>{{ license.applicationSubmitDate }}</td>
 
         <!-- if more than 2 days remain for expiration -->
-        <td ng-if="currentDate < compare(license.validTill) && (compare(license.validTill) - currentDate)/1000 > 172800">
-          <button class="btn btn-success btn-xs">Active
-          </button>
+        <td data-ng-if="currentDate < compare(license.validTill) && (compare(license.validTill) - currentDate)/1000 > 172800">
+            <button class="btn btn-success btn-xs">Active
+            </button>
         </td>
         <!-- if less than 2 days remain for expiration -->
-        <td ng-if="(compare(license.validTill) - currentDate)/1000 < 172800 && (compare(license.validTill) - currentDate)/1000 > 0">
-          <button class="btn btn-warning btn-xs">Will Expire
-          </button>
+        <td data-ng-if="(compare(license.validTill) - currentDate)/1000 < 172800 && (compare(license.validTill) - currentDate)/1000 > 0">
+            <button class="btn btn-warning btn-xs">Will Expire
+            </button>
         </td>
         <!-- if expired -->
-        <td ng-if="currentDate > compare(license.validTill) ">
-          <button class="btn btn-danger btn-xs">Expired
-          </button>
+        <td data-ng-if="currentDate > compare(license.validTill) ">
+            <button class="btn btn-danger btn-xs">Expired
+            </button>
         </td>
-        <td><a ng-href="#/license/{{license.id}}">View</a></td>
-        <td><a ng-href="#/license/{{license.id}}/history">History</a></td>
-      </tr>
+        <td><a data-ng-href="#/license/{{license.id}}">View</a></td>
+        <td><a data-ng-href="#/license/{{license.id}}/history">History</a></td>
+    </tr>
     </tbody>
 
 </table>

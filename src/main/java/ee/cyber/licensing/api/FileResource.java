@@ -38,7 +38,7 @@ public class FileResource {
 
     @Path("/mailbodys/{licenseTypeId}")
     @GET
-    public List<MailBody> getMailBodysByLicenseTypeId(@PathParam("licenseTypeId")Integer licenseTypeId) throws Exception{
+    public List<MailBody> getMailBodysByLicenseTypeId(@PathParam("licenseTypeId") Integer licenseTypeId) throws Exception {
         return fileRepository.findBodiesByLicenseType(licenseTypeId);
     }
 

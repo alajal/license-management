@@ -54,7 +54,7 @@ public class LicenseResource {
     @Path("/type")
     @GET
     @Produces("application/json")
-    public List<LicenseType> getLicenseTypes() throws Exception{
+    public List<LicenseType> getLicenseTypes() throws Exception {
         return licenseRepository.findLicenseTypes();
     }
 
@@ -70,7 +70,7 @@ public class LicenseResource {
 
     @PUT //this method is reserved for delivery notification - it sets Date when the delivery date was sent
     @Path("bylicense/{licenseId}")
-    public License updateRelease(@PathParam("licenseId") Integer licenseId, Release release) throws Exception{
+    public License updateRelease(@PathParam("licenseId") Integer licenseId, Release release) throws Exception {
         License license = licenseRepository.findById(licenseId);
         java.util.Date todaysDate = new java.util.Date();
         java.sql.Date sqlDate = new java.sql.Date(todaysDate.getTime());

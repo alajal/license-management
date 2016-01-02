@@ -15,14 +15,14 @@ public class LicensingLdapRealm extends JndiLdapRealm {
             .getLogger(LicensingLdapRealm.class);
 
     protected AuthorizationInfo queryForAuthorizationInfo(PrincipalCollection principals,
-            LdapContextFactory ldapContextFactory) throws NamingException {
+                                                          LdapContextFactory ldapContextFactory) throws NamingException {
         SimpleAuthorizationInfo sInfo = new SimpleAuthorizationInfo();
 
         //USERNAME
         Object username = principals.asSet().iterator().next().toString();
 
         //TODO Add roles to users here:
-        if(username.equals("someUser")){
+        if (username.equals("someUser")) {
             sInfo.addRole("licensingManager");
 //            sInfo.addRole("releaseEngineer");
         }

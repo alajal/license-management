@@ -44,7 +44,7 @@ public class ContactResource {
 
     @DELETE
     @Path("bylicense/{licenseId}/{contactPersonId}")
-    public Contact deleteContactPerson(@PathParam ("licenseId") int licenseId, @PathParam ("contactPersonId") int cpId) throws Exception {
+    public Contact deleteContactPerson(@PathParam("licenseId") int licenseId, @PathParam("contactPersonId") int cpId) throws Exception {
         License license = licenseRepository.findById(licenseId);
         Customer customer = license.getCustomer();
         return contactRepository.delete(customer, contactRepository.getById(customer, cpId));
