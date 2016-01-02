@@ -31,61 +31,21 @@
                     <div ng-show="rowforms.form.$submitted || rowforms.form.firstName.$touched">
                         <div ng-show="rowforms.form.firstName.$error.required">First name is needed.</div>
                     </div>
-
                 </td>
                 <td><input form="row-form" type="text" ng-model="selected.lastName" class="form-control input-sm" size="4"/></td>
                 <td><input form="row-form" type="text" ng-model="selected.email" class="form-control input-sm" size="4"/></td>
                 <td><input form="row-form" type="text" ng-model="selected.occupation" class="form-control input-sm" size="4"/></td>
                 <td>
-                    <!--<button class="btn btn-default" ng-click="updateAuthorisedUser(au)">Save</button>-->
                     <button form="row-form" type="submit" class="btn btn-primary" >Save</button>
                     <button class="btn btn-default" ng-click="reset(au)">Cancel</button>
                 </td>
                 </form>
             </script>
-
         </tr>
         </form>
         </tbody>
     </table>
     <button ng-if="isLicensingManager" class="btn btn-primary" ng-click="openAuthorisedUserForm()">Add user</button>
-    <div ng-show="AuthorisedUserForm">
-        <form novalidate class="form" name="form" ng-submit="saveData()">
-            <div class="form-group">
-                <label for="firstName">First name</label>
-                <input type="text" class="form-control" id="firstName" ng-model="authorised.firstName" required name="authName" size="4">
-                <div ng-show="form.$submitted || form.authName.$touched">
-                    <div ng-show="form.authName.$error.required">First name is needed.</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="surname">Surname</label>
-                <input type="text" class="form-control" id="surname" ng-model="authorised.lastName" required
-                       name="authSurname" size="4">
-
-                <div ng-show="form.$submitted || form.authSurname.$touched">
-                    <!--<div ng-show="form.pRelease.$error.required">Release number is needed.</div>-->
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="text" class="form-control" id="email" ng-model="authorised.email" required
-                       name="authEmail" size="4">
-
-                <div ng-show="form.$submitted || form.authEmail.$touched">
-                    <div ng-show="form.authEmail.$error.required">Email is needed.</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="occupation">Occupation</label>
-                <input type="text" class="form-control" id="occupation" ng-model="authorised.occupation" required
-                       name="authOccupation" size="4">
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">SAVE</button>
-            </div>
-        </form>
-    </div>
 
 </div>
 </div>
