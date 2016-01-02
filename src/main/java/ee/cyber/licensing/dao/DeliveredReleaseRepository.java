@@ -1,12 +1,9 @@
 package ee.cyber.licensing.dao;
 
-import ee.cyber.licensing.entity.AuthorisedUser;
 import ee.cyber.licensing.entity.DeliveredRelease;
 import ee.cyber.licensing.entity.License;
-import ee.cyber.licensing.entity.Release;
 
 import javax.inject.Inject;
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +15,7 @@ import java.util.List;
 public class DeliveredReleaseRepository {
 
     @Inject
-    private DataSource ds;
+    private Connection conn;
 
     @Inject
     private LicenseRepository licenseRepository;
@@ -27,39 +24,35 @@ public class DeliveredReleaseRepository {
     private ReleaseRepository releaseRepository;
 
     public DeliveredRelease save(DeliveredRelease dr) throws SQLException {
+        PreparedStatement stmnt = conn.prepareStatement("INSERT INTO DeliveredRelease (licenseId, releaseId, deliveryDate, user) VALUES (?, ?, ?, ?)");
+        stmnt.setInt(1, dr.getLicense().getId());
+        stmnt.setInt(2, dr.getRelease().getId());
+        stmnt.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
+        stmnt.setString(4, dr.getUser());
+        stmnt.execute();
 
-        try (Connection conn = ds.getConnection()) {
-            PreparedStatement stmnt = conn.prepareStatement("INSERT INTO DeliveredRelease (licenseId, releaseId, deliveryDate, user) VALUES (?, ?, ?, ?)");
-            stmnt.setInt(1, dr.getLicense().getId());
-            stmnt.setInt(2, dr.getRelease().getId());
-            stmnt.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
-            stmnt.setString(4, dr.getUser());
-            stmnt.execute();
-
-            try (ResultSet generatedKeys = stmnt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    dr.setId(generatedKeys.getInt(1));
-                }
+        try (ResultSet generatedKeys = stmnt.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                dr.setId(generatedKeys.getInt(1));
             }
         }
+
 
         return dr;
     }
 
     public List<DeliveredRelease> getAllDeliveredReleases(int id) throws SQLException {
-        try (Connection conn = ds.getConnection()) {
-            try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM DeliveredRelease where licenseId = ?;")) {
-                statement.setInt(1, id);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    List<DeliveredRelease> deliveredReleases = new ArrayList<>();
-                    while (resultSet.next()) {
-                        int licenseId = resultSet.getInt("licenseId");
-                        License license = licenseRepository.findById(licenseId);
-                        DeliveredRelease dr = getDeliveredRelease(resultSet, license);
-                        deliveredReleases.add(dr);
-                    }
-                    return deliveredReleases;
+        try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM DeliveredRelease where licenseId = ?;")) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                List<DeliveredRelease> deliveredReleases = new ArrayList<>();
+                while (resultSet.next()) {
+                    int licenseId = resultSet.getInt("licenseId");
+                    License license = licenseRepository.findById(licenseId);
+                    DeliveredRelease dr = getDeliveredRelease(resultSet, license);
+                    deliveredReleases.add(dr);
                 }
+                return deliveredReleases;
             }
         }
     }

@@ -39,7 +39,7 @@ public class ProductResource {
     }
 
     @POST
-    public Product saveProduct(Product product) throws Exception {
+    public Product saveProductWithRelease(Product product) throws Exception {
         Product productWithId = productRepository.save(product);
         for (int i = 0; i < productWithId.getReleases().size(); i++) {
             releaseRepository.saveRelease(productWithId.getId(), product.getReleases().get(i));

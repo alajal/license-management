@@ -5,7 +5,6 @@ import ee.cyber.licensing.entity.Event;
 import ee.cyber.licensing.entity.License;
 
 import javax.inject.Inject;
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,14 +15,12 @@ import java.util.List;
 public class EventRepository {
 
     @Inject
-    private DataSource ds;
+    private Connection conn;
 
     @Inject
     private LicenseRepository licenseRepository;
 
     public Event save(Event ev) throws SQLException {
-        try (Connection conn = ds.getConnection()) {
-
             if (ev.getLicense() == null) {
                 PreparedStatement stmnt = conn.prepareStatement("INSERT INTO Event (name, description, type, dateCreated) VALUES (?, ?, ?, GETDATE())");
 
@@ -54,12 +51,11 @@ public class EventRepository {
             }
 
 
-        }
+
         return ev;
     }
 
     public List<Event> findAll() throws SQLException {
-        try (Connection conn = ds.getConnection()) {
             try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM Event")) {
                 try (ResultSet resultSet = statement.executeQuery()) {
                     List<Event> events = new ArrayList<>();
@@ -77,7 +73,7 @@ public class EventRepository {
                     }
                     return events;
                 }
-            }
+
         }
     }
 
