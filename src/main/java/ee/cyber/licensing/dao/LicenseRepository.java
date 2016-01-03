@@ -156,7 +156,6 @@ public class LicenseRepository {
                 statement.setBoolean(13, sh.getTerminated());
             }
 
-            System.out.println(statement);
             try (ResultSet resultSet = statement.executeQuery()) {
                 List<License> licenses = new ArrayList<>();
                 while (resultSet.next()) {

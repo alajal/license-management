@@ -6,6 +6,7 @@ import ee.cyber.licensing.entity.Product;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import java.sql.Connection;
 import java.util.List;
 
 @Path("products")
@@ -56,7 +57,6 @@ public class ProductResource {
     @Path("/{productId}")
     public boolean deleteProductById(@PathParam("productId") int productId) throws Exception {
         return productRepository.deleteProductAndReleases(productId);
-
     }
 
 }

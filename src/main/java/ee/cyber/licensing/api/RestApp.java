@@ -3,6 +3,7 @@ package ee.cyber.licensing.api;
 import ee.cyber.licensing.dao.*;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.glassfish.hk2.api.Factory;
+import org.glassfish.hk2.api.InterceptionService;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.process.internal.RequestScoped;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -63,7 +64,8 @@ public class RestApp extends ResourceConfig {
                 bind(FileRepository.class).to(FileRepository.class);
                 bind(ContactRepository.class).to(ContactRepository.class);
                 bind(DeliveredReleaseRepository.class).to(DeliveredReleaseRepository.class);
-                bindFactory(getConnectionFactory()).to(Connection.class).in(RequestScoped.class);
+                bindFactory(getConnectionFactory()).to(Connection.class).in(RequestScoped.class).proxy(true);
+                bind(TransactionInterceptionService.class).to(InterceptionService.class).in(Singleton.class);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
