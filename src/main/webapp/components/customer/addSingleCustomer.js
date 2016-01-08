@@ -11,7 +11,6 @@ angular
 
             $http.post('rest/customers', $scope.applicant).
                 then(function (response) {
-                    console.log(response.data);
                     createEvent(response.data);
                     $window.location.href = '#/';
                 }, function (response) {
@@ -29,8 +28,6 @@ angular
 
             $http.post('rest/events/' + 0, $scope.event).
                 then(function (response) {
-                    console.log("Event created");
-                    console.log(response.data);
                 }, function (response) {
                     console.error(response.errors);
                 });

@@ -62,7 +62,7 @@ angular
             }, function (response) {
                 console.error('Something went wrong with the authorised users get method.');
             });
-        
+
         $scope.openAuthorisedUserForm = function () {
             //$scope.AuthorisedUserForm = true;
             var newLineNotThere = true;

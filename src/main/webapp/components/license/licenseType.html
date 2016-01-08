@@ -1,31 +1,34 @@
 <div class="container">
     <h3>Create license type</h3>
 
-    <form novalidate class="form" name="form" ng-submit="addNewType()">
+    <form novalidate class="form" name="form" data-ng-submit="addNewType()">
         <div class="form-group">
             <label for="typeName">Name</label>
-            <input type="text" class="form-control" id="typeName" ng-model="type.name"
+            <input type="text" class="form-control" id="typeName" data-ng-model="type.name"
                    required name="pName">
-            <div ng-show="form.$submitted || form.pName.$touched">
-                <div ng-show="form.pName.$error.required">Type name is needed.</div>
+
+            <div data-ng-show="form.$submitted || form.pName.$touched">
+                <div data-ng-show="form.pName.$error.required">Type name is needed.</div>
             </div>
         </div>
 
         <div class="form-group">
             <label for="typeValidityPeriod">Validity period in years</label>
-            <input type="text" class="form-control" id="typeValidityPeriod" ng-model="type.validityPeriod"
+            <input type="text" class="form-control" id="typeValidityPeriod" data-ng-model="type.validityPeriod"
                    required name="pValidityPeriod">
-            <div ng-show="form.$submitted || form.pName.$touched">
-                <div ng-show="form.pValidityPeriod.$error.required">Type validity period is needed.</div>
+
+            <div data-ng-show="form.$submitted || form.pName.$touched">
+                <div data-ng-show="form.pValidityPeriod.$error.required">Type validity period is needed.</div>
             </div>
         </div>
 
         <div class="form-group">
             <label for="typeCost">Cost</label>
-            <input type="text" class="form-control" id="typeCost" ng-model="type.cost"
-                   required name="pCost">
-            <div ng-show="form.$submitted || form.pName.$touched">
-                <div ng-show="form.pCost.$error.required">Type cost is needed.</div>
+            <input type="text" class="form-control" id="typeCost" data-ng-model="type.cost"
+                   required name="pCost"/>
+
+            <div data-ng-show="form.$submitted || form.pName.$touched">
+                <div data-ng-show="form.pCost.$error.required">Type cost is needed.</div>
             </div>
         </div>
 

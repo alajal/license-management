@@ -1,51 +1,54 @@
 <div class="container">
-    <!-- Header -->
-    <div data-ng-include="'components/license/profileNavigation.html'"></div>
+    <div data-data-ng-include="'components/license/profileNavigation.html'"></div>
     <h3>Authorised Users</h3>
     <table class="table table-striped" id="authorisedUsersTable">
         <thead>
-            <tr>
-                <th>First name</th>
-                <th>Surname</th>
-                <th>Email</th>
-                <th>Occupation</th>
-            </tr>
+        <tr>
+            <th>First name</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Occupation</th>
+        </tr>
         </thead>
         <tbody>
 
-        <tr ng-repeat="au in authorisedUser" ng-include="getScriptId(au)">
+        <tr data-ng-repeat="au in authorisedUser" data-ng-include="getScriptId(au)">
             <script type="text/ng-template" id="display">
                 <td>{{au.firstName}}</td>
                 <td>{{au.lastName}}</td>
                 <td>{{au.email}}</td>
                 <td>{{au.occupation}}</td>
                 <td>
-                    <button ng-if="isLicensingManager" class="btn btn-primary" ng-click="editAuthorisedUser(au)">EDIT</button>
-                    <button ng-if="isLicensingManager" ng-click="deleteEntry(au)" class="btn btn-danger">DELETE</button>
+                    <button data-ng-if="isLicensingManager" class="btn btn-primary" data-ng-click="editAuthorisedUser(au)">EDIT
+                    </button>
+                    <button data-ng-if="isLicensingManager" data-ng-click="deleteEntry(au)" class="btn btn-danger">DELETE</button>
                 </td>
             </script>
             <script type="text/ng-template" id="edit">
                 <td>
-                    <form id ="row-form" novalidate class="form" name="rowforms.form" ng-submit="save(au)" >
-                    <input form="row-form" type="text" ng-model="selected.firstName" class="form-control input-sm" required="" name="firstName" size="4"/></form>
-                    <div ng-show="rowforms.form.$submitted || rowforms.form.firstName.$touched">
-                        <div ng-show="rowforms.form.firstName.$error.required">First name is needed.</div>
+                    <form id="row-form" novalidate class="form" name="rowforms.form" data-ng-submit="save(au)">
+                        <input form="row-form" type="text" data-ng-model="selected.firstName" class="form-control input-sm"
+                               required="" name="firstName" size="4"/></form>
+                    <div data-ng-show="rowforms.form.$submitted || rowforms.form.firstName.$touched">
+                        <div data-ng-show="rowforms.form.firstName.$error.required">First name is needed.</div>
                     </div>
                 </td>
-                <td><input form="row-form" type="text" ng-model="selected.lastName" class="form-control input-sm" size="4"/></td>
-                <td><input form="row-form" type="text" ng-model="selected.email" class="form-control input-sm" size="4"/></td>
-                <td><input form="row-form" type="text" ng-model="selected.occupation" class="form-control input-sm" size="4"/></td>
+                <td><input form="row-form" type="text" data-ng-model="selected.lastName" class="form-control input-sm"
+                           size="4"/></td>
+                <td><input form="row-form" type="text" data-ng-model="selected.email" class="form-control input-sm"
+                           size="4"/></td>
+                <td><input form="row-form" type="text" data-ng-model="selected.occupation" class="form-control input-sm"
+                           size="4"/></td>
                 <td>
-                    <button form="row-form" type="submit" class="btn btn-primary" >Save</button>
-                    <button class="btn btn-default" ng-click="reset(au)">Cancel</button>
+                    <button form="row-form" type="submit" class="btn btn-primary">Save</button>
+                    <button class="btn btn-default" data-ng-click="reset(au)">Cancel</button>
                 </td>
                 </form>
             </script>
         </tr>
-        </form>
+
         </tbody>
     </table>
-    <button ng-if="isLicensingManager" class="btn btn-primary" ng-click="openAuthorisedUserForm()">Add user</button>
+    <button data-ng-if="isLicensingManager" class="btn btn-primary" data-ng-click="openAuthorisedUserForm()">Add user</button>
 
-</div>
 </div>

@@ -17,8 +17,8 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li data-ng-repeat="item in link.dropdown">
-                                <a ng-if="item.name != 'Deliveries'" data-ng-href="#/{{item.url}}">{{item.name}}</a>
-                                <a ng-if="item.name == 'Deliveries' && isReleaseEngineer" data-ng-href="#/{{item.url}}">{{item.name}}</a>
+                                <a data-ng-if="item.name != 'Deliveries'" data-ng-href="#/{{item.url}}">{{item.name}}</a>
+                                <a data-ng-if="item.name == 'Deliveries' && isReleaseEngineer" data-ng-href="#/{{item.url}}">{{item.name}}</a>
                             </li>
                         </ul>
                     </li>
@@ -41,7 +41,7 @@
                         <form class="navbar-form" role="search">
 
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search" ng-model="searchbox">
+                                <input type="text" class="form-control" placeholder="Search" data-ng-model="searchbox">
                             </div>
 
                             <button type="submit" class="btn btn-default" ng-click="find(searchbox)"><i
@@ -53,8 +53,8 @@
                             <ul class="dropdown-menu search-list" role="menu">
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="checkbox1" ng-model="checkLicense"
-                                               ng-init="checkLicense=true">
+                                        <input type="checkbox" id="checkbox1" data-data-ng-model="checkLicense"
+                                               data-data-ng-init="checkLicense=true">
                                         <label for="checkbox1">
                                             Licenses
                                         </label>
@@ -62,8 +62,8 @@
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="checkbox2" ng-model="checkProduct"
-                                               ng-init="checkProduct=true">
+                                        <input type="checkbox" id="checkbox2" data-ng-model="checkProduct"
+                                               data-ng-init="checkProduct=true">
                                         <label for="checkbox2">
                                             Products
                                         </label>
@@ -71,8 +71,8 @@
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="checkbox3" ng-model="checkCustomer"
-                                               ng-init="checkCustomer=true">
+                                        <input type="checkbox" id="checkbox3" data-ng-model="checkCustomer"
+                                               data-ng-init="checkCustomer=true">
                                         <label for="checkbox3">
                                             Customers
                                         </label>
@@ -80,8 +80,8 @@
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" id="checkbox4" ng-model="checkCustomer"
-                                               ng-init="checkCustomer=true">
+                                        <input type="checkbox" id="checkbox4" data-ng-model="checkCustomer"
+                                               data-ng-init="checkCustomer=true">
                                         <label for="checkbox4">
                                             Templates
                                         </label>
@@ -94,8 +94,8 @@
 
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" ng-model="checkREJECTED"
-                                               ng-init="checkREJECTED=true">
+                                        <input type="checkbox" data-ng-model="checkREJECTED"
+                                               data-ng-init="checkREJECTED=true">
                                         <label>
                                             REJECTED
                                         </label>
@@ -103,8 +103,8 @@
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" ng-model="checkNEGOTIATED"
-                                               ng-init="checkNEGOTIATED=true">
+                                        <input type="checkbox" data-ng-model="checkNEGOTIATED"
+                                               data-ng-init="checkNEGOTIATED=true">
                                         <label>
                                             NEGOTIATED
                                         </label>
@@ -112,8 +112,8 @@
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" ng-model="checkWAITING_FOR_SIGNATURE"
-                                               ng-init="checkWAITING_FOR_SIGNATURE=true">
+                                        <input type="checkbox" data-ng-model="checkWAITING_FOR_SIGNATURE"
+                                               data-ng-init="checkWAITING_FOR_SIGNATURE=true">
                                         <label>
                                             WAITING_FOR_SIGNATURE
                                         </label>
@@ -121,8 +121,8 @@
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" ng-model="checkACTIVE"
-                                               ng-init="checkACTIVE=true">
+                                        <input type="checkbox" data-ng-model="checkACTIVE"
+                                               data-ng-init="checkACTIVE=true">
                                         <label>
                                             ACTIVE
                                         </label>
@@ -130,8 +130,8 @@
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox"ng-model="checkEXPIRATION_NEARING"
-                                               ng-init="checkEXPIRATION_NEARING=true">
+                                        <input type="checkbox"data-ng-model="checkEXPIRATION_NEARING"
+                                               data-ng-init="checkEXPIRATION_NEARING=true">
                                         <label>
                                             EXPIRATION_NEARING
                                         </label>
@@ -139,8 +139,8 @@
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox" ng-model="checkTERMINATED"
-                                               ng-init="checkTERMINATED=true">
+                                        <input type="checkbox" data-ng-model="checkTERMINATED"
+                                               data-ng-init="checkTERMINATED=true">
                                         <label>
                                             TERMINATED
                                         </label>

@@ -1,21 +1,21 @@
 <div class="container">
     <h3>Expiring licenses</h3>
 
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Contract Number</th>
-                <th>Valid From</th>
-                <th>Valid Till</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="clickable" ng-repeat="license in expiring" ng-click="goToLicenseProfile(license)">
-                <td>{{license.contractNumber}}</td>
-                <td>{{license.validFrom}}</td>
-                <td>{{license.validTill}}</td>
-            </tr>
-            </tbody>
-        </table>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Contract Number</th>
+            <th>Valid From</th>
+            <th>Valid Till</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="clickable" data-ng-repeat="license in expiring" data-ng-click="goToLicenseProfile(license)">
+            <td>{{license.contractNumber}}</td>
+            <td>{{license.validFrom}}</td>
+            <td>{{license.validTill}}</td>
+        </tr>
+        </tbody>
+    </table>
 
 </div>

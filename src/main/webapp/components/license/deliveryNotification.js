@@ -46,11 +46,11 @@ angular
                         release.user = $scope.username;
                         $http.post('rest/deliveredReleases/bylicense/' + $routeParams.id, release).
                             then(function (response) {
-                            console.log($scope.username);
-                            console.log(release)
-                        }, function (response) {
-                            console.error('Something went wrong with the Delivered Release Post method');
-                        });
+                                console.log($scope.username);
+                                console.log(release)
+                            }, function (response) {
+                                console.error('Something went wrong with the Delivered Release Post method');
+                            });
 
                         $window.location.href = "#/deliveryLicenses";
 

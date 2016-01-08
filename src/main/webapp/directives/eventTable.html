@@ -11,35 +11,35 @@
     <thead>
     <tr>
         <th>
-            <a href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">Name
-                <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+            <a href="" data-ng-click="sortType = 'name'; sortReverse = !sortReverse">Name
+                <span data-ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
             </a>
         </th>
         <th>
-            <a href="" ng-click="sortType = 'description'; sortReverse = !sortReverse">Description
-                <span ng-show="sortType == 'description' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-up"></span>
+            <a href="" data-ng-click="sortType = 'description'; sortReverse = !sortReverse">Description
+                <span data-ng-show="sortType == 'description' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-up"></span>
             </a>
         </th>
         <th>
-            <a href="" ng-click="sortType = 'dateCreated'; sortReverse = !sortReverse">Date created
-                <span ng-show="sortType == 'dateCreated' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'dateCreated' && sortReverse" class="fa fa-caret-up"></span>
+            <a href="" data-ng-click="sortType = 'dateCreated'; sortReverse = !sortReverse">Date created
+                <span data-ng-show="sortType == 'dateCreated' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'dateCreated' && sortReverse" class="fa fa-caret-up"></span>
             </a>
         </th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="event in data.events | orderBy:sortType:sortReverse | filter:searchEvent"
-        ng-if="event.license != null && data.type ==0">
+    <tr data-ng-repeat="event in data.events | orderBy:sortType:sortReverse | filter:searchEvent"
+        data-ng-if="event.license != null && data.type ==0">
         <td>{{ event.name }}</td>
         <td>{{ event.description }}</td>
         <td>{{ event.dateCreated }}</td>
     </tr>
 
-    <tr ng-repeat="event in data.events | orderBy:sortType:sortReverse | filter:searchEvent"
-        ng-if="event.license == null && data.type ==1">
+    <tr data-ng-repeat="event in data.events | orderBy:sortType:sortReverse | filter:searchEvent"
+        data-ng-if="event.license == null && data.type ==1">
         <td>{{ event.name }}</td>
         <td>{{ event.description }}</td>
         <td>{{ event.dateCreated }}</td>

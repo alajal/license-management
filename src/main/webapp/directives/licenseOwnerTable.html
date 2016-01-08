@@ -2,7 +2,7 @@
     <div class="form-group">
         <div class="input-group">
             <div class="input-group-addon"><i class="fa fa-search"></i></div>
-            <input type="text" class="form-control" placeholder="Search customers" ng-model="searchCustomers">
+            <input type="text" class="form-control" placeholder="Search customers" data-ng-model="searchCustomers">
         </div>
     </div>
 </form>
@@ -11,63 +11,63 @@
     <thead>
     <tr>
         <th>
-            <a href="" ng-click="sortType = 'organizationName'; sortReverse = !sortReverse">Name
-                <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+            <a href="" data-ng-click="sortType = 'organizationName'; sortReverse = !sortReverse">Name
+                <span data-ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
             </a>
         </th>
         <th>
-            <a href="" ng-click="sortType = 'address'; sortReverse = !sortReverse">Address
-                <span ng-show="sortType == 'address' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'address' && sortReverse" class="fa fa-caret-up"></span>
+            <a href="" data-ng-click="sortType = 'address'; sortReverse = !sortReverse">Address
+                <span data-ng-show="sortType == 'address' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'address' && sortReverse" class="fa fa-caret-up"></span>
             </a>
         </th>
         <th>
-            <a href="" ng-click="sortType = 'applicationArea'; sortReverse = !sortReverse">Application area
-                <span ng-show="sortType == 'webpage' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'webpage' && sortReverse" class="fa fa-caret-up"></span>
+            <a href="" data-ng-click="sortType = 'applicationArea'; sortReverse = !sortReverse">Application area
+                <span data-ng-show="sortType == 'webpage' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'webpage' && sortReverse" class="fa fa-caret-up"></span>
             </a>
         </th>
         <th>
-            <a href="" ng-click="sortType = 'webpage'; sortReverse = !sortReverse">Webpage
-                <span ng-show="sortType == 'webpage' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'webpage' && sortReverse" class="fa fa-caret-up"></span>
+            <a href="" data-ng-click="sortType = 'webpage'; sortReverse = !sortReverse">Webpage
+                <span data-ng-show="sortType == 'webpage' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'webpage' && sortReverse" class="fa fa-caret-up"></span>
             </a>
         </th>
         <th>
-            <a href="" ng-click="sortType = 'registrationCode'; sortReverse = !sortReverse">Registration code
-                <span ng-show="sortType == 'registrationCode' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'registrationCode' && sortReverse" class="fa fa-caret-up"></span>
+            <a href="" data-ng-click="sortType = 'registrationCode'; sortReverse = !sortReverse">Registration code
+                <span data-ng-show="sortType == 'registrationCode' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'registrationCode' && sortReverse" class="fa fa-caret-up"></span>
             </a>
         </th>
         <th>
-            <a href="" ng-click="sortType = 'Phone'; sortReverse = !sortReverse">Phone
-                <span ng-show="sortType == 'Phone' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'Phone' && sortReverse" class="fa fa-caret-up"></span>
+            <a href="" data-ng-click="sortType = 'Phone'; sortReverse = !sortReverse">Phone
+                <span data-ng-show="sortType == 'Phone' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'Phone' && sortReverse" class="fa fa-caret-up"></span>
             </a>
         </th>
         <th>
-            <a href="" ng-click="sortType = 'bankAccount'; sortReverse = !sortReverse">Bank account
-                <span ng-show="sortType == 'bankAccount' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'bankAccount' && sortReverse" class="fa fa-caret-up"></span>
+            <a href="" data-ng-click="sortType = 'bankAccount'; sortReverse = !sortReverse">Bank account
+                <span data-ng-show="sortType == 'bankAccount' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'bankAccount' && sortReverse" class="fa fa-caret-up"></span>
             </a>
         </th>
         <th>
-            <a href="" ng-click="sortType = 'fax'; sortReverse = !sortReverse">Fax
-                <span ng-show="sortType == 'fax' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'fax' && sortReverse" class="fa fa-caret-up"></span>
+            <a href="" data-ng-click="sortType = 'fax'; sortReverse = !sortReverse">Fax
+                <span data-ng-show="sortType == 'fax' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'fax' && sortReverse" class="fa fa-caret-up"></span>
             </a>
         </th>
         <th>
-            <a href="" ng-click="sortType = 'unitOrFaculty'; sortReverse = !sortReverse">Unit or faculty
-                <span ng-show="sortType == 'unitOrFaculty' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'unitOrFaculty' && sortReverse" class="fa fa-caret-up"></span>
+            <a href="" data-ng-click="sortType = 'unitOrFaculty'; sortReverse = !sortReverse">Unit or faculty
+                <span data-ng-show="sortType == 'unitOrFaculty' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'unitOrFaculty' && sortReverse" class="fa fa-caret-up"></span>
             </a>
         </th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="customer in customers | orderBy:sortType:sortReverse | filter:searchCustomers">
+    <tr data-ng-repeat="customer in customers | orderBy:sortType:sortReverse | filter:searchCustomers">
         <td>{{ customer.organizationName }}</td>
         <td>{{ customer.address }}</td>
         <td>{{ customer.applicationArea }}</td>
@@ -77,8 +77,8 @@
         <td>{{ customer.bankAccount }}</td>
         <td>{{ customer.fax }}</td>
         <td>{{ customer.unitOrFaculty }}</td>
-        <td><a ng-href="#/customer/{{customer.id}}">View</a></td>
-        <td><a ng-href="#/customer/{{customer.id}}/history">History</a></td>
+        <td><a data-ng-href="#/customer/{{customer.id}}">View</a></td>
+        <td><a data-ng-href="#/customer/{{customer.id}}/history">History</a></td>
     </tr>
     </tbody>
 </table>

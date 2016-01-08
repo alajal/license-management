@@ -4,43 +4,43 @@
     <form novalidate class="form">
         <div class="form-group">
             <label for="organization">Organization</label>
-            <input id="organization" class="form-control" ng-model="customer.organizationName" ng-disabled="editorDisabled">
+            <input id="organization" class="form-control" data-ng-model="customer.organizationName" data-ng-disabled="editorDisabled">
         </div>
         <div class="form-group">
             <label for="applicationArea">Application area</label>
-            <input id="applicationArea" class="form-control" ng-model="customer.applicationArea"  ng-disabled="editorDisabled">
+            <input id="applicationArea" class="form-control" data-ng-model="customer.applicationArea"  data-ng-disabled="editorDisabled">
         </div>
         <div class="form-group">
             <label for="address">Address</label>
-            <input id="address" class="form-control" ng-model="customer.address"  ng-disabled="editorDisabled">
+            <input id="address" class="form-control" data-ng-model="customer.address"  data-ng-disabled="editorDisabled">
         </div>
         <div class="form-group">
             <label for="webpage">Webpage</label>
-            <input id="webpage" class="form-control" ng-model="customer.webpage"  ng-disabled="editorDisabled">
+            <input id="webpage" class="form-control" data-ng-model="customer.webpage"  data-ng-disabled="editorDisabled">
         </div>
         <div class="form-group">
             <label for="registrationCode">Registration code</label>
-            <input id="registrationCode" class="form-control" ng-model="customer.registrationCode"  ng-disabled="editorDisabled">
+            <input id="registrationCode" class="form-control" data-ng-model="customer.registrationCode"  data-ng-disabled="editorDisabled">
         </div>
         <div class="form-group">
             <label for="phone">Phone</label>
-            <input id="phone" class="form-control" ng-model="customer.phone"  ng-disabled="editorDisabled">
+            <input id="phone" class="form-control" data-ng-model="customer.phone"  data-ng-disabled="editorDisabled">
         </div>
         <div class="form-group">
             <label for="bankAccount">Bank account</label>
-            <input id="bankAccount" class="form-control" ng-model="customer.bankAccount"  ng-disabled="editorDisabled">
+            <input id="bankAccount" class="form-control" data-ng-model="customer.bankAccount"  data-ng-disabled="editorDisabled">
         </div>
         <div class="form-group">
             <label for="fax">Fax</label>
-            <input id="fax" class="form-control" ng-model="customer.fax"  ng-disabled="editorDisabled">
+            <input id="fax" class="form-control" data-ng-model="customer.fax"  data-ng-disabled="editorDisabled">
         </div>
         <div class="form-group">
             <label for="unitOrFaculty">Unit or faculty</label>
-            <input id="unitOrFaculty" class="form-control" ng-model="customer.unitOrFaculty"  ng-disabled="editorDisabled">
+            <input id="unitOrFaculty" class="form-control" data-ng-model="customer.unitOrFaculty"  data-ng-disabled="editorDisabled">
         </div>
 
-        <button ng-click="enableEditor()">Edit</button>
-        <button ng-click="saveProfile()" ng-disabled="editorDisabled">Save</button>
+        <button data-ng-click="enableEditor()">Edit</button>
+        <button data-ng-click="saveProfile()" data-ng-disabled="editorDisabled">Save</button>
         <br>
     </form>
 

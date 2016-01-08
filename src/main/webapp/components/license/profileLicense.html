@@ -10,84 +10,84 @@
         </div>
         <div class="form-group">
             <label for="applicantName">Contract number: </label>
-            <input id="applicantName" class="form-control" ng-model="license.contractNumber"
-                   ng-disabled="editorDisabled"/>
+            <input id="applicantName" class="form-control" data-ng-model="license.contractNumber"
+                   data-ng-disabled="editorDisabled"/>
         </div>
         <div class="form-group">
             <label>Customer: </label>
-            <input class="form-control" ng-model="license.customer.organizationName" disabled/>
+            <input class="form-control" data-ng-model="license.customer.organizationName" disabled/>
         </div>
         <div class="form-group">
             <label>State: </label>
-            <select ng-options="state for state in allStates track by state"
-                    type="text" class="form-control" id="state" ng-model="license.state" required name="selectedState"
-                    ng-disabled="editorDisabled">
+            <select data-ng-options="state for state in allStates track by state"
+                    type="text" class="form-control" id="state" data-ng-model="license.state" required name="selectedState"
+                    data-ng-disabled="editorDisabled">
             </select>
         </div>
         <div class="form-group">
             <label>Predecessor License Id: </label>
-            <input class="form-control" ng-model="license.predecessorLicenseId" ng-disabled="editorDisabled"/>
+            <input class="form-control" data-ng-model="license.predecessorLicenseId" data-ng-disabled="editorDisabled"/>
         </div>
         <div class="form-group">
             <label>Application submit date: </label>
-            <input class="form-control" ng-model="license.applicationSubmitDate" ng-disabled="editorDisabled"/>
+            <input class="form-control" data-ng-model="license.applicationSubmitDate" data-ng-disabled="editorDisabled"/>
         </div>
         <div class="form-group">
             <label>License type: </label>
-            <select ng-model="license.type" ng-options="type as type.name for type in types track by type.name"
+            <select data-ng-model="license.type" data-ng-options="type as type.name for type in types track by type.name"
                     type="text" class="form-control" id="type"
-                    required name="selectedTemplate" ng-disabled="editorDisabled" ng-change="licenseTypeSelected()">
+                    required name="selectedTemplate" data-ng-disabled="editorDisabled" data-ng-change="licenseTypeSelected()">
             </select>
         </div>
         <div class="form-group">
             <label>Valid from: </label>
-            <input class="form-control" ng-model="license.validFrom" disabled/>
+            <input class="form-control" data-ng-model="license.validFrom" disabled/>
         </div>
         <div class="form-group">
             <label>Valid till: </label>
-            <input class="form-control" ng-model="license.validTill" disabled/>
+            <input class="form-control" data-ng-model="license.validTill" disabled/>
         </div>
 
-        <button ng-if="isLicensingManager" ng-click="enableEditor()">Edit</button>
-        <button ng-if="isLicensingManager" ng-click="saveProfile()" ng-disabled="editorDisabled">Save</button>
+        <button data-ng-if="isLicensingManager" data-ng-click="enableEditor()">Edit</button>
+        <button data-ng-if="isLicensingManager" data-ng-click="saveProfile()" data-ng-disabled="editorDisabled">Save</button>
         <br>
-        <!--<button ng-click="disableEditor()" ng-disabled="editorDisabled">Cancel</button>-->
+        <!--<button data-ng-click="disableEditor()" data-ng-disabled="editorDisabled">Cancel</button>-->
     </form>
 
     <form novalidate class="form">
         <div class="form-group">
             <h4>Create E-mail</h4>
             <label>Enter subject</label>
-            <input class="form-control" ng-model="mailsubject">
+            <input class="form-control" data-ng-model="mailsubject">
         </div>
 
         <div class="form-group">
             <label>Choose recipient</label>
-            <select ng-options="contact as (contact.firstName + ' ' + contact.lastName) for contact in contacts"
-                    type="text" class="form-control" id="contact" ng-model="mailContact"
+            <select data-ng-options="contact as (contact.firstName + ' ' + contact.lastName) for contact in contacts"
+                    type="text" class="form-control" id="contact" data-ng-model="mailContact"
                     required name="selectedTemplate">
             </select>
         </div>
 
         <div class="form-group">
             <label>Choose suitable mail template. The given templates are based on license type : </label>
-            <select ng-options="body as body.subject for body in bodiesByLicenseType"
-                    type="text" class="form-control" id="body" ng-model="mailBody" ng-change="mailBodySelected()"
+            <select data-ng-options="body as body.subject for body in bodiesByLicenseType"
+                    type="text" class="form-control" id="body" data-ng-model="mailBody" data-ng-change="mailBodySelected()"
                     required name="selectedTemplate">
             </select>
             <br>
             <label>Chosen mail body: </label>
-            <textarea class="form-control" rows="6" ng-model="mailBody.body"></textarea>
+            <textarea class="form-control" rows="6" data-ng-model="mailBody.body"></textarea>
         </div>
 
         <div class="form-group">
             <label>Choose attachment</label>
-            <select ng-options="attachment as attachment.fileName for attachment in attachments"
-                    type="text" class="form-control" id="attachment" ng-model="chosenAttachment"
+            <select data-ng-options="attachment as attachment.fileName for attachment in attachments"
+                    type="text" class="form-control" id="attachment" data-ng-model="chosenAttachment"
                     required name="selectedTemplate">
             </select>
         </div>
-        <button ng-click="sendMail()">Send</button>
+        <button data-ng-click="sendMail()">Send</button>
     </form>
 
 </div>

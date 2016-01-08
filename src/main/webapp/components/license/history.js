@@ -6,10 +6,8 @@ angular
 
         $http.get('rest/events').
             then(function (response) {
-
                 $scope.events = response.data;
             }, function (response) {
-
                 console.error('Error occured.');
             });
 
@@ -17,6 +15,6 @@ angular
 
         //used for sorting
         $scope.sortType = 'name'; // set the default sort type
-        $scope.sortReverse = false;  // set the default sort order
+        $scope.sortReverse = true;  // set the default sort order
         $scope.searchLicense = '';     // set the default search/filter term
     });

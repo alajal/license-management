@@ -12,12 +12,6 @@ function searchDirectiveLink(scope, element, attrs, parse) {
         scope.searchResult = val;
 
     });
-
-    /*input.bind('blur', function () {
-     scope.$apply(function () {
-     modelSetter(scope, input.val());
-     });
-     });*/
 }
 
 function searchDirectiveController($scope, $http, restUrl, displayKey) {

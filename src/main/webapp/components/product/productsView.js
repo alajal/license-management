@@ -58,8 +58,7 @@ angular
 
         //RELEASE METHODS
         $scope.editRelease = function (release) {
-            var releaseCopy = $.extend({}, release);
-            release.copy = releaseCopy;
+            release.copy = $.extend({}, release);
             release.editing = true;
 
         };

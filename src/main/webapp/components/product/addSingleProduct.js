@@ -1,4 +1,3 @@
-// Add controller to module.
 angular
     .module('LM')
     .controller('AddSingleProductCtrl', function ($scope, $http, $window) {

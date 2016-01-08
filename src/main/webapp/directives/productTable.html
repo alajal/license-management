@@ -12,9 +12,9 @@
                         data-ng-click="editProduct(product)">
                     Edit
                 </button>
-                <button data-ng-if="!product.editing" tooltip-enable="showProductDeleteNotification"
-                        popover-placement="right"
-                        uib-popover="This product is connected with license(s). To delete this product, delete the licenses for this product first."
+                <button data-ng-if="!product.editing" data-tooltip-enable="showProductDeleteNotification"
+                        data-popover-placement="right"
+                        data-uib-popover="This product is connected with license(s). To delete this product, delete the licenses for this product first."
                         type="button" id="productDeleteButton" class="btn btn-small btn-danger"
                         data-ng-click="deleteProduct(product)">Delete
                 </button>
@@ -44,16 +44,18 @@
                 </td>
                 <td data-ng-if="!release.editing">
                     <button class="btn btn-default" data-ng-click="deleteRelease(release,product)"
-                            tooltip-enable="showReleaseDeleteNotification" popover-placement="right"
-                            uib-popover="This release is connected with license(s). To delete this release, delete the licenses that have this release first."
+                            data-tooltip-enable="showReleaseDeleteNotification" data-popover-placement="right"
+                            data-uib-popover="This release is connected with license(s). To delete this release, delete the licenses that have this release first."
                             type="button">DELETE
                     </button>
                 </td>
                 <form data-ng-if="release.editing" id="row-form" novalidate class="form" name="rowforms.form"
                       data-ng-submit="saveRelease(product, release)">
-                    <td data-ng-if="release.editing"><input form="row-form" type="text"
-                                                            data-ng-model="release.versionNumber"
-                                                            class="form-control input-sm"/></td>
+                    <td data-ng-if="release.editing">
+                        <input form="row-form" type="text"
+                               data-ng-model="release.versionNumber"
+                               class="form-control input-sm"/>
+                    </td>
                     <td data-ng-if="release.editing">
                         <input form="row-form" type="text" data-ng-model="release.additionDate"
                                class="form-control input-sm"

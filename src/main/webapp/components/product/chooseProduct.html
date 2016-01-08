@@ -5,12 +5,13 @@
         <div class="form-group">
             <label for="product">Choose Product</label>
             <select data-ng-options="product as (product.name + ' ' + product.release) for product in products | orderBy: 'name'"
-                    type="text" class="form-control" id="product" data-ng-model="product" required name="selectedProduct"
+                    type="text" class="form-control" id="product" data-ng-model="product" required
+                    name="selectedProduct"
                     selected="">
             </select>
 
-            <div ng-show="chooseProductForm.$submitted || chooseProductForm.uselectedProduct.$touched">
-                <div ng-show="chooseProductForm.uselectedProduct.$error.required">Product is needed.</div>
+            <div data-ng-show="chooseProductForm.$submitted || chooseProductForm.uselectedProduct.$touched">
+                <div data-ng-show="chooseProductForm.uselectedProduct.$error.required">Product is needed.</div>
             </div>
         </div>
 

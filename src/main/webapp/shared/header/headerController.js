@@ -1,8 +1,6 @@
 /**
  * Controller for getting navigation bar (header) links from header.json.
  */
-
-// Add controller to module.
 angular
     .module('LM')
     .controller('HeaderController', function ($http, $scope, $location, expiringLicenses, SearchService) {
@@ -20,37 +18,37 @@ angular
         };
 
         $scope.$watch(function () {
-            return expiringLicenses.isExpiring
+                return expiringLicenses.isExpiring
             },
-                function(newVal, oldVal) {
-                    $scope.expiringLicenses = newVal;
-                }, true);
+            function (newVal, oldVal) {
+                $scope.expiringLicenses = newVal;
+            }, true);
 
         $scope.$watch(function () {
                 return expiringLicenses.numberOfExpiringLicenses
             },
-            function(newVal, oldVal) {
+            function (newVal, oldVal) {
                 $scope.numberOfExpiringLicenses = newVal;
             }, true);
 
-        $scope.find = function(keyword) {
-          SearchService.setLicenses($scope.checkLicense);
-          SearchService.setCustomers($scope.checkCustomer);
-          SearchService.setProducts($scope.checkProduct);
+        $scope.find = function (keyword) {
+            SearchService.setLicenses($scope.checkLicense);
+            SearchService.setCustomers($scope.checkCustomer);
+            SearchService.setProducts($scope.checkProduct);
 
-          // Set states
-          SearchService.setREJECTED($scope.checkREJECTED);
-          SearchService.setNEGOTIATED($scope.checkNEGOTIATED);
-          SearchService.setWAITING_FOR_SIGNATURE($scope.checkWAITING_FOR_SIGNATURE);
-          SearchService.setACTIVE($scope.checkACTIVE);
-          SearchService.setEXPIRATION_NEARING($scope.checkEXPIRATION_NEARING);
-          SearchService.setTERMINATED($scope.checkTERMINATED);
+            // Set states
+            SearchService.setREJECTED($scope.checkREJECTED);
+            SearchService.setNEGOTIATED($scope.checkNEGOTIATED);
+            SearchService.setWAITING_FOR_SIGNATURE($scope.checkWAITING_FOR_SIGNATURE);
+            SearchService.setACTIVE($scope.checkACTIVE);
+            SearchService.setEXPIRATION_NEARING($scope.checkEXPIRATION_NEARING);
+            SearchService.setTERMINATED($scope.checkTERMINATED);
 
-          if(typeof keyword === 'undefined' || keyword === '') {
-            $location.path('/search/sj4Ajk765Anbx').replace();
-          }
-          else {
-            $location.path('/search/'+keyword).replace();
-          }
+            if (typeof keyword === 'undefined' || keyword === '') {
+                $location.path('/search/sj4Ajk765Anbx').replace();
+            }
+            else {
+                $location.path('/search/' + keyword).replace();
+            }
         }
     });

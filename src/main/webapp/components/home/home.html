@@ -4,13 +4,13 @@
             <div class="jumbotron">
                 <h1>Hello, {{username}}!</h1>
 
-                <p ng-if="isLicensingManager"><a class="btn btn-primary btn-lg" href="#/customer/add" role="button">Start
+                <p data-ng-if="isLicensingManager"><a class="btn btn-primary btn-lg" href="#/customer/add" role="button">Start
                     licensing process</a></p>
             </div>
         </div>
         <div class="col-lg-4">
-            <ul style="list-style-type: none;" ng-repeat="event in events">
-                <li ng-if="event.type=='Add'">
+            <ul class="eventAtHome" data-ng-repeat="event in events">
+                <li data-ng-if="event.type=='Add'">
                     <div class="bs-callout bs-callout-success">
                         <h4> {{ event.name }}
                             (<a href="#/license/{{event.license.id}}">{{ event.license.contractNumber }}</a>)
@@ -21,7 +21,7 @@
                         <p><i>{{ event.dateCreated }}</i></p>
                     </div>
                 </li>
-                <li ng-if="event.type=='Remove'">
+                <li data-ng-if="event.type=='Remove'">
                     <div class="bs-callout bs-callout-danger">
                         <h4> {{ event.name }}</h4>
 
@@ -30,7 +30,7 @@
                         <p><i>{{ event.dateCreated }}</i></p>
                     </div>
                 </li>
-                <li ng-if="event.type=='Modify'">
+                <li data-ng-if="event.type=='Modify'">
                     <div class="bs-callout bs-callout-danger">
                         <h4> {{ event.name }}
                             (<a href="#/license/{{event.license.id}}">{{ event.license.contractNumber }}</a>)

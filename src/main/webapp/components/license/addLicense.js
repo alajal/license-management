@@ -156,8 +156,6 @@ angular
                 var customer = $scope.license.customer;
                 var product = $scope.license.product;
                 var latestRelease = "";
-                console.log("pro");
-                console.log(product);
                 var lastReleaseIndex = product.releases.length - 1;
                 if (lastReleaseIndex != undefined) {
                     latestRelease = product.releases[lastReleaseIndex].versionNumber;

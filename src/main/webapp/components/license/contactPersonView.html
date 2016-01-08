@@ -13,30 +13,32 @@
         </thead>
         <tbody>
 
-        <tr ng-repeat="cp in contacts">
-                <td ng-if="!cp.editing">{{cp.firstName}}</td>
-                <td ng-if="!cp.editing">{{cp.lastName}}</td>
-                <td ng-if="!cp.editing">{{cp.email}}</td>
-                <td ng-if="!cp.editing">{{cp.skype}}</td>
-                <td ng-if="!cp.editing">{{cp.phone}}</td>
-                <td ng-if="!cp.editing">
-                    <button class="btn btn-primary" ng-click="editContactPerson(cp)">EDIT</button>
-                    <button ng-click="deleteContactPerson(cp)" class="btn btn-danger">DELETE</button>
+        <tr data-ng-repeat="cp in contacts">
+            <td data-ng-if="!cp.editing">{{cp.firstName}}</td>
+            <td data-ng-if="!cp.editing">{{cp.lastName}}</td>
+            <td data-ng-if="!cp.editing">{{cp.email}}</td>
+            <td data-ng-if="!cp.editing">{{cp.skype}}</td>
+            <td data-ng-if="!cp.editing">{{cp.phone}}</td>
+            <td data-ng-if="!cp.editing">
+                <button class="btn btn-primary" data-ng-click="editContactPerson(cp)">EDIT</button>
+                <button data-ng-click="deleteContactPerson(cp)" class="btn btn-danger">DELETE</button>
+            </td>
+            <form data-ng-if="cp.editing" id="row-form" novalidate class="form" name="rowforms.form"
+                  data-ng-submit="saveContactPerson(cp)">
+                <td data-ng-if="cp.editing"><input form="row-form" type="text" data-ng-model="cp.firstName" class="form-control input-sm"/></td>
+                <td data-ng-if="cp.editing"><input form="row-form" type="text" data-ng-model="cp.lastName" class="form-control input-sm"/></td>
+                <td data-ng-if="cp.editing"><input form="row-form" type="text" data-ng-model="cp.email" class="form-control input-sm"/></td>
+                <td data-ng-if="cp.editing"><input form="row-form" type="text" data-ng-model="cp.skype" class="form-control input-sm"/></td>
+                <td data-ng-if="cp.editing"><input form="row-form" type="text" data-ng-model="cp.phone" class="form-control input-sm"/></td>
+                <td data-ng-if="cp.editing">
+                    <button form="row-form" class="btn btn-default">SAVE</button>
+                    <button form="row-form" class="btn btn-default" data-ng-click="cancelContactPersonEditing(cp)">
+                        CANCEL
+                    </button>
                 </td>
-                <form ng-if="cp.editing" id ="row-form" novalidate class="form" name="rowforms.form" ng-submit="saveContactPerson(cp)" >
-                    <td ng-if="cp.editing"><input form="row-form" type="text" ng-model="cp.firstName" class="form-control input-sm"/></td>
-                    <td ng-if="cp.editing"><input form="row-form" type="text" ng-model="cp.lastName" class="form-control input-sm"/></td>
-                    <td ng-if="cp.editing"><input form="row-form" type="text" ng-model="cp.email" class="form-control input-sm"/></td>
-                    <td ng-if="cp.editing"><input form="row-form" type="text" ng-model="cp.skype" class="form-control input-sm"/></td>
-                    <td ng-if="cp.editing"><input form="row-form" type="text" ng-model="cp.phone" class="form-control input-sm"/></td>
-                    <td ng-if="cp.editing">
-                        <button form="row-form" class="btn btn-default">SAVE</button>
-                        <button form="row-form" class="btn btn-default" ng-click="cancelContactPersonEditing(cp)">CANCEL</button></td>
-                </form>
+            </form>
         </tr>
-        </form>
         </tbody>
     </table>
-    <button class="btn btn-primary" ng-click="openContactPersonForm(cp)">Add Contact Person</button>
-</div>
+    <button class="btn btn-primary" data-ng-click="openContactPersonForm(cp)">Add Contact Person</button>
 </div>

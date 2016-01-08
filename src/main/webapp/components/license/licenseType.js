@@ -14,7 +14,6 @@ angular
                     $window.location.href = '#/';
                 }, function (response) {
                     $scope.errorMessage = 'Something went wrong with adding type.';
-                    //console.error(response);
                 });
         }
     });
