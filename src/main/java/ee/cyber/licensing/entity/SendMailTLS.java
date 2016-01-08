@@ -51,9 +51,9 @@ public abstract class SendMailTLS {
             generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(receiver));
         }
         generateMailMessage.setSubject(subject);
-        String emailBody = body + "<br><br> Regards, <br>Jens-Stefan";
-        generateMailMessage.setContent(emailBody, "text/html");
-        System.out.println("Mail Session has been created successfully..");
+
+        //String emailBody = body + "<br><br> Regards, <br>Cybernetica team";
+        generateMailMessage.setContent(body, "text/html");
 
         // Step4
         System.out.println("\n\n 4th ===> Get Session and Send mail");

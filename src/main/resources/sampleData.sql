@@ -39,32 +39,33 @@ VALUES ('New customer added', 'New customer added description', 'Add', GETDATE()
 INSERT INTO DeliveredRelease (licenseId, releaseId, deliveryDate, user) VALUES (1, 1, '2015-11-10', 'admin');
 INSERT INTO DeliveredRelease (licenseId, releaseId, deliveryDate, user) VALUES (1, 2, '2015-12-12', 'testuser');
 
-INSERT INTO MailBody (subject, body, licenseTypeId) VALUES ('License purchasing 2', 'Dear interested customer from ${organizationName}!
+INSERT INTO MailBody (subject, body, licenseTypeId) VALUES ('License purchasing 2', 'Dear interested customer from ${organizationName}!<br><br>
 Here is the agreement draft of our European commercial license for product ${product} (latest release ${release}).
 We will assume that the contact person is ${contactPersonFirstName} ${contactPersonLastName}.
 You can find the agreement draft from the attachment.
-Best wishes,
-Thomas McConnell
-thomas@itfuture.com
+<br><br>
+Best wishes,<br>
+Thomas McConnell<br>
+thomas@itfuture.com<br>
 ${product} licensing manager', 2);
 
 INSERT INTO MailBody (subject, body, licenseTypeId) VALUES ('First Delivery', 'Hello!
 Here comes the first delivery of the software!', 2);
 
-INSERT INTO MailBody (subject, body, licenseTypeId) VALUES ('License expiring in 1 month', 'Dear ${contactPersonFirstName} ${contactPersonLastName},
+INSERT INTO MailBody (subject, body, licenseTypeId) VALUES ('License expiring in 1 month', 'Dear ${contactPersonFirstName} ${contactPersonLastName},<br><br>
 This e-mail is a reminder that your license for ${product} (${release}) is expiring in 1 month. In order to keep using the software in your work,
-please contact your license manager Thomas McConnell at thomas@itfuture.com.
-Best wishes,
-Thomas McConnell
-thomas@itfuture.com
+please contact your license manager Thomas McConnell at thomas@itfuture.com.<br><br>
+Best wishes,<br>
+Thomas McConnell<br>
+thomas@itfuture.com<br>
 ${product} licensing manager', 1);
 
-INSERT INTO MailBody (subject, body, licenseTypeId) VALUES ('License has expired', 'Dear ${contactPersonFirstName} ${contactPersonLastName},
-This e-mail is to notify you that your license for ${product} (${release}) has expired as of <expirationdate>. In order to keep using the
-software in your work, please contact your license manager Thomas McConnell at thomas@itfuture.com.
-Best wishes,
-Thomas McConnell
-thomas@itfuture.com
+INSERT INTO MailBody (subject, body, licenseTypeId) VALUES ('License has expired', 'Dear ${contactPersonFirstName} ${contactPersonLastName},<br><br>
+This e-mail is to notify you that your license for ${product} (${release}) has expired as of ${expirationDate}. In order to keep using the
+software in your work, please contact your license manager Thomas McConnell at thomas@itfuture.com.<br><br>
+Best wishes,<br>
+Thomas McConnell<br>
+thomas@itfuture.com<br>
 ${product} licensing manager', 2);
 
 INSERT INTO MailAttachment (fileName, fileData)

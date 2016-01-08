@@ -64,11 +64,9 @@ public class SendMailResource {
                 System.out.println((contact.getId()).intValue());
                 if (contains(split_ids, contact.getId())) {
                     receivers.add(contact.getEmail());
-                    System.out.println("LISAS");
                 }
             }
         } else {
-            System.out.println("Saadab kõik");
             for (Contact contact : contacts) {
                 receivers.add(contact.getEmail());
             }
