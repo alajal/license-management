@@ -15,6 +15,7 @@ import org.h2.tools.RunScript;
 
 import javax.inject.Singleton;
 import javax.ws.rs.ApplicationPath;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,6 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 @ApplicationPath("rest")
 public class RestApp extends ResourceConfig {
@@ -103,16 +105,31 @@ public class RestApp extends ResourceConfig {
             return myDataSource;
         }
 
-        private org.apache.tomcat.jdbc.pool.DataSource getPlaceToSaveData() {
-            Path path = Paths.get(System.getProperty("java.io.tmpdir"), "h2-licence-db");
-            //Windows users have "\", linux users have "/" but h2-database needs always "/" -> replacement
-            String replace = path.toString().replace("\\", "/");
-            String url = "jdbc:h2:" + replace;
+        private org.apache.tomcat.jdbc.pool.DataSource getPlaceToSaveData() throws IOException {
+            String databaseLocation = getDatabaseLocation();
+            String url;
+            if (databaseLocation.equals("temporary")) {
+                Path path = Paths.get(System.getProperty("java.io.tmpdir"), "h2-licence-db");
+                //Windows users have "\", linux users have "/" but h2-database needs always "/" -> replacement
+                String replace = path.toString().replace("\\", "/");
+                url = "jdbc:h2:" + replace;
+            } else {
+                Path path2 = Paths.get(databaseLocation, "h2-license-db");
+                url = "jdbc:h2:" + path2;
+            }
             System.out.println("DATABASE LOCATION IN: " + url);
             PoolProperties pp = new PoolProperties();
             pp.setUrl(url);
             pp.setDriverClassName("org.h2.Driver");
             return new org.apache.tomcat.jdbc.pool.DataSource(pp);
+        }
+
+        private String getDatabaseLocation() throws IOException {
+            InputStream input = RestApp.class.getClassLoader().getResourceAsStream("config.properties");
+            Properties properties = new Properties();
+            properties.load(input);
+            input.close();
+            return properties.getProperty("databaseLocation");
         }
 
         protected void executeScriptFromClasspath(Connection conn, String fileName) throws SQLException, IOException {

@@ -18,7 +18,7 @@ angular
             $http.post('rest/products', $scope.product).
                 then(function (response) {
                     $scope.product = response;
-                    $window.location.href = '#/';
+                    $window.location.href = '#/products';
                 }, function (response) {
                     $scope.errorMessage = 'Something went wrong. Maybe product with this name already exists?';
                     console.error(response);
