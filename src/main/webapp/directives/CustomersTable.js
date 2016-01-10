@@ -1,7 +1,7 @@
 app.directive('licenseOwnerTable', function () {
     return {
         restrict: 'E',
-        templateUrl: 'directives/licenseOwnerTable.html',
+        templateUrl: 'directives/customersTable.html',
         link: function (scope, element, attrs) {
             //Could be used later to write less code in html(theaders to be precise)
             //scope.heads = { h:['name', 'address', 'webpage', 'registrationCode', 'phone', 'bankAccount', 'fax', 'unitOrFaculty']};

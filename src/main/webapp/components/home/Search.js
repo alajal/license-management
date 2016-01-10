@@ -34,7 +34,7 @@ angular
                 then(function (response) {
                     $scope.customers = response.data;
                 }, function (response) {
-                    console.error('[customersView.js] Error retrieving license owners.');
+                    console.error('[CustomersView.js] Error retrieving license owners.');
                 });
         }
 

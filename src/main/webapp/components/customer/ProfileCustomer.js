@@ -15,7 +15,7 @@ angular
             then(function (response) {
                 $scope.customer = response.data[$routeParams.id - 1];
             }, function (response) {
-                console.error('[customersView.js] Error retrieving license owners.');
+                console.error('[CustomersView.js] Error retrieving license owners.');
             });
 
         $scope.enableEditor = function () {

@@ -26,25 +26,25 @@
 
     <!-- Controllers -->
     <script src="components/home/HomeCtrl.js"></script>
-    <script src="components/home/search.js"></script>
-    <script src="shared/header/headerController.js"></script>
-    <script src="components/license/licensesView.js"></script>
+    <script src="components/home/Search.js"></script>
+    <script src="shared/header/HeaderController.js"></script>
+    <script src="components/license/LicensesView.js"></script>
     <script src="components/license/AddLicense.js"></script>
-    <script src="components/license/profileLicense.js"></script>
-    <script src="components/product/chooseProduct.js"></script>
-    <script src="components/product/productsView.js"></script>
-    <script src="components/product/addSingleProduct.js"></script>
-    <script src="components/customer/customersView.js"></script>
-    <script src="components/customer/addCustomer.js"></script>
-    <script src="components/customer/profileCustomer.js"></script>
-    <script src="components/customer/addSingleCustomer.js"></script>
-    <script src="expiringLicense/expiringLicenses.js"></script>
+    <script src="components/license/ProfileLicense.js"></script>
+    <script src="components/product/ChooseProduct.js"></script>
+    <script src="components/product/ProductsView.js"></script>
+    <script src="components/product/AddSingleProduct.js"></script>
+    <script src="components/customer/CustomersView.js"></script>
+    <script src="components/customer/AddCustomer.js"></script>
+    <script src="components/customer/ProfileCustomer.js"></script>
+    <script src="components/customer/AddSingleCustomer.js"></script>
+    <script src="expiringLicense/ExpiringLicenses.js"></script>
     <script src="components/mail/AddMailTemplateCtrl.js"></script>
     <script src="components/mail/UploadAttachmentCtrl.js"></script>
     <script src="components/license/EventsView.js"></script>
-    <script src="components/license/history.js"></script>
+    <script src="components/license/History.js"></script>
     <script src="components/license/DeliveryLicenses.js"></script>
-    <script src="components/license/licenseType.js"></script>
+    <script src="components/license/LicenseType.js"></script>
     <script src="components/license/DeliveryNotification.js"></script>
     <script src="components/license/ShowEmail.js"></script>
 
@@ -54,10 +54,10 @@
     <!-- Filters -->
 
     <!-- Directives -->
-    <script src="directives/licenseTable.js"></script>
-    <script src="directives/licenseOwnerTable.js"></script>
-    <script src="directives/productTable.js"></script>
-    <script src="directives/eventTable.js"></script>
+    <script src="directives/LicenseTable.js"></script>
+    <script src="directives/CustomersTable.js"></script>
+    <script src="directives/ProductTable.js"></script>
+    <script src="directives/EventTable.js"></script>
     <script src="directives/SearchOrganization.js"></script>
 
 </head>
