@@ -1,0 +1,10 @@
+<notifications-bar class="notifications" closeIcon="fa fa-times-circle"></notifications-bar>
+
+<div class="container">
+    <h3 class="custom-h3">Email to be sent:</h3>
+    <div>
+        <p>To: {{contact.email}}</p>
+    </div>
+    <div data-ng-bind-html="formattedBody"></div>
+    <button data-ng-click="sendMail()">Send mail</button>
+</div>

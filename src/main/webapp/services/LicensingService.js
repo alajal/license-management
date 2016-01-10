@@ -24,7 +24,7 @@ app.service('LicensingService', function () {
         releaseL = releaseV;
     };
 
-    this.addProductNew = function(productV){
+    this.addProductNew = function (productV) {
         productL = productV;
     };
 
@@ -65,5 +65,60 @@ app.service('LicensingService', function () {
 
         return text;
     };
+
+    var mailSubject;
+    var mailBody;
+    var mailLicenseTypeId;
+    var mailContact;
+    var mailAttachmentId;
+    var mailLicenseId;
+
+    this.setSubject = function (subject) {
+        mailSubject = subject;
+    };
+
+    this.setBody = function (body) {
+        mailBody = body;
+    };
+
+    this.setLicenseTypeId = function (licenseTypeId) {
+        mailLicenseTypeId = licenseTypeId;
+    };
+
+    this.setMailContact = function (contact) {
+        mailContact = contact;
+    };
+
+    this.setAttachmentId = function (attachmentId) {
+        mailAttachmentId = attachmentId;
+    };
+
+    this.setLicenseId = function (licenseId) {
+        mailLicenseId = licenseId;
+    };
+
+    this.getSubject = function () {
+        return mailSubject;
+    };
+
+    this.getBody = function () {
+        return mailBody;
+    };
+
+    this.getLicenseTypeId = function () {
+        return mailLicenseTypeId;
+    };
+
+    this.getContact = function () {
+        return mailContact;
+    };
+
+    this.getAttachmentId = function () {
+        return mailAttachmentId;
+    };
+
+    this.getLicenseId = function () {
+        return mailLicenseId;
+    }
 
 });

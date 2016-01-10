@@ -97,6 +97,10 @@ angular
             .when('/licenseType',{
                 templateUrl: 'components/license/licenseType.html',
                 controller: 'LicenseTypeCtrl'
+            })
+            .when('/license/:id/mail',{
+                templateUrl: 'components/license/showEmail.html',
+                controller: 'ShowEmail'
             });
 
             //.when('/search/:keyword/'... kohta

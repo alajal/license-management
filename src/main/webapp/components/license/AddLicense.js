@@ -162,6 +162,7 @@ angular
                 }
                 var map = {
                     "organizationName": customer.organizationName,
+                    //kui maili bodys on kontakti andmed, siis eeldatakse, et valitakse esmane kontakt, kellele meil saata
                     "contactPersonFirstName": customer.contacts[0].firstName,
                     "contactPersonLastName": customer.contacts[0].lastName,
                     "email": customer.contacts[0].email,
@@ -186,7 +187,6 @@ angular
                 }
 
                 $scope.license_id = $scope.savedLicense.id;    //Siia peab õige litsentsi id saama. Vale ID korral saadetakse valedele kontaktidele.
-                console.log($scope.file_id);
                 var mail = {
                     id: 1,                         //vahet ei ole, mis see on...
                     subject: this.mailTemplate.subject,       //meili pealkiri
@@ -204,5 +204,22 @@ angular
                     })
             };
 
+            $scope.saveAndShowMail = function () {
+                $scope.mail = $scope.mail || {};
+                LicensingService.setSubject(this.mailTemplate.subject);
+                LicensingService.setBody($scope.mailBodyFormatted);
+                LicensingService.setLicenseTypeId($scope.license.type.id);
+                LicensingService.setMailContact(this.mailContact);
+
+                $scope.file_id = 0;
+                if (this.chosenAttachment != undefined) {
+                    $scope.file_id = this.chosenAttachment.id;       //Kui faili ei lisata, jätke $scope.file_id 0.
+                }
+                LicensingService.setAttachmentId($scope.file_id);
+                $scope.license_id = $scope.savedLicense.id;
+                LicensingService.setLicenseId($scope.license_id);
+
+                $window.location.href = '#/license/' + $scope.savedLicense.id + '/mail';
+            };
 
         }]);

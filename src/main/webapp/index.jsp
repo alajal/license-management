@@ -29,7 +29,7 @@
     <script src="components/home/search.js"></script>
     <script src="shared/header/headerController.js"></script>
     <script src="components/license/licensesView.js"></script>
-    <script src="components/license/addLicense.js"></script>
+    <script src="components/license/AddLicense.js"></script>
     <script src="components/license/profileLicense.js"></script>
     <script src="components/product/chooseProduct.js"></script>
     <script src="components/product/productsView.js"></script>
@@ -41,11 +41,12 @@
     <script src="expiringLicense/expiringLicenses.js"></script>
     <script src="components/mail/AddMailTemplateCtrl.js"></script>
     <script src="components/mail/UploadAttachmentCtrl.js"></script>
-    <script src="components/license/eventsView.js"></script>
+    <script src="components/license/EventsView.js"></script>
     <script src="components/license/history.js"></script>
-    <script src="components/license/deliveryLicenses.js"></script>
+    <script src="components/license/DeliveryLicenses.js"></script>
     <script src="components/license/licenseType.js"></script>
-    <script src="components/license/deliveryNotification.js"></script>
+    <script src="components/license/DeliveryNotification.js"></script>
+    <script src="components/license/ShowEmail.js"></script>
 
     <!-- Services -->
     <script src="services/LicensingService.js"></script>

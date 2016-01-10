@@ -34,16 +34,35 @@ public class SendMailResource {
     @Inject
     private FileRepository fileRepository;
 
-
     @Path("/{file_id}/{license_id}")
     @PUT
-    public void sendMailWithoutFile(@PathParam("file_id") Integer file_id, @PathParam("license_id") Integer license_id, MailBody mailbody) throws Exception {
+    public void sendMail(@PathParam("file_id") Integer file_id, @PathParam("license_id") Integer license_id, MailBody mailbody) throws Exception {
 
         License license = licenseRepository.findById(license_id);
         List<Contact> contacts = contactRepository.findAll(license.getCustomer());
+        List<String> receivers = getReceivers(mailbody, contacts);
+
+        System.out.println("File id: " + file_id);
+
+        if (file_id == 0 && receivers.size() > 0) {
+            SendMailTLS.generateAndSendEmailWithoutFile(mailbody, receivers);
+        } else if (!(file_id == 0) && receivers.size() > 0) {
+            MailAttachment file = fileRepository.findById(file_id);
+            if (file != null) {
+                String file_name = file.getFileName();
+                byte[] file_data = file.getData_b();
+                System.out.println("Faili pikkus on: " + file_data.length);
+                if (file_name != null) {
+                    SendMailTLS.generateAndSendEmailWithFile(mailbody, receivers, file_name, file_data);
+                }
+            }
+        }
+    }
+
+    private List<String> getReceivers(MailBody mailbody, List<Contact> contacts) {
+        List<String> receivers = new ArrayList<String>();
         //List<AuthorisedUser> au_users = authorisedUserRepository.findAll(license_id);
 
-        List<String> receivers = new ArrayList<String>();
       /* Kui soov on ka authorised useritele saata, siis uncommenti see.
       for(AuthorisedUser au : au_users) {
         System.out.println(au);
@@ -71,25 +90,12 @@ public class SendMailResource {
                 receivers.add(contact.getEmail());
             }
         }
-
-        System.out.println(file_id);
-
-        if (file_id == 0 && receivers.size() > 0) {
-            SendMailTLS.generateAndSendEmailWithoutFile(mailbody, receivers);
-        } else if (!(file_id == 0) && receivers.size() > 0) {
-            MailAttachment file = fileRepository.findById(file_id);
-            if (file != null) {
-                String file_name = file.getFileName();
-                byte[] file_data = file.getData_b();
-                System.out.println("Faili pikkus on: " + file_data.length);
-                if (file_name != null) {
-                    SendMailTLS.generateAndSendEmailWithFile(mailbody, receivers, file_name, file_data);
-                }
-            }
-        }
+        //saadan ka default iseendale:
+        receivers.add("anulajal@ut.ee");
+        return receivers;
     }
 
-    public boolean contains(final int[] array, final int key) {
+    private boolean contains(final int[] array, final int key) {
         return ArrayUtils.contains(array, key);
     }
 }

@@ -1,4 +1,4 @@
-<notifications-bar class="notifications"  closeIcon="fa fa-times-circle"></notifications-bar>
+<notifications-bar class="notifications" closeIcon="fa fa-times-circle"></notifications-bar>
 
 <div class="container">
     <h3 class="custom-h3">Create license</h3>
@@ -12,7 +12,8 @@
 
         <div class="form-group">
             <label for="customer">Customer</label>
-            <input type="text" class="form-control" id="customer" data-ng-model="prefillCustomer.organizationName" disabled>
+            <input type="text" class="form-control" id="customer" data-ng-model="prefillCustomer.organizationName"
+                   disabled>
         </div>
 
         <div class="form-group">
@@ -42,9 +43,11 @@
         </div>
         <div class="form-group">
             <label>License type</label>
-            <select data-ng-model="license.type" data-ng-options="type as type.name for type in types track by type.name"
+            <select data-ng-model="license.type"
+                    data-ng-options="type as type.name for type in types track by type.name"
                     type="text" class="form-control" id="type"
-                    required name="selectedTemplate" data-ng-disabled="editorDisabled" ng-change="licenseTypeSelected()">
+                    required name="selectedTemplate" data-ng-disabled="editorDisabled"
+                    data-ng-change="licenseTypeSelected()">
             </select>
         </div>
 
@@ -68,7 +71,8 @@
             <!-- Choose suitable mail template/subject. The given templates are based on license type -->
             <label>Subject:</label>
             <select data-ng-options="body as body.subject for body in bodiesByLicenseType"
-                    type="text" class="form-control" id="body" data-ng-model="mailTemplate" data-ng-change="mailBodySelected()"
+                    type="text" class="form-control" id="body" data-ng-model="mailTemplate"
+                    data-ng-change="mailBodySelected()"
                     required name="selectedTemplate">
             </select>
             <br>
@@ -83,6 +87,6 @@
                     required name="selectedTemplate">
             </select>
         </div>
-        <button data-ng-click="sendMail()">Send</button>
+        <button data-ng-click="saveAndShowMail()">Show mail and send</button>
     </form>
 </div>
