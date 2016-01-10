@@ -1,4 +1,4 @@
-app.directive('licenseOwnerTable', function () {
+app.directive('customersTable', function () {
     return {
         restrict: 'E',
         templateUrl: 'directives/customersTable.html',

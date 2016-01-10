@@ -179,3 +179,7 @@
 .eventAtHome{
     list-style-type: none;
 }
+
+.form-control {
+    margin-bottom: 15px;
+}

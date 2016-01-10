@@ -2,19 +2,19 @@
 
     <div class="form-group mail" id="mailBodyUpload">
         <form novalidate class="form" name="addTemplateForm" data-ng-submit="saveMailBody()">
-            <div class="form-group">
+            <div>
 
-                <label class="control-label">Mail subject/mailbody name</label><br>
-                <input type="text" id="mailBodyName" value="" data-ng-model="mailBody.subject"><br>
+                <label class="control-label">Mail subject/mailbody name</label>
+                <input class="form-control" type="text" id="mailBodyName" value="" data-ng-model="mailBody.subject">
 
-                <label class="control-label">Connect mail body/template with choosing license type:</label><br>
+                <label class="control-label">Connect mail body/template with choosing license type:</label>
                 <select data-ng-options="type as type.name for type in types"
                         type="text" class="form-control" id="type" data-ng-model="licenseType"
                         required name="selectedTemplate">
                 </select>
 
-                <label class="control-label">Paste mail body</label><br>
-                <textarea rows="4" cols="50" data-ng-model="mailBody.body" value="" required></textarea><br>
+                <label class="control-label">Paste mail body</label>
+                <textarea class="form-control" rows="4" cols="50" data-ng-model="mailBody.body" required></textarea>
 
                 <button type="submit" id="mailBody-button">Add</button>
             </div>
