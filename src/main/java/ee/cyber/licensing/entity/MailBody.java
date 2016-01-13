@@ -1,29 +1,27 @@
 package ee.cyber.licensing.entity;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
 public class MailBody {
     private Integer id;
     private String subject;
     private String body;
     private String contact_ids;
-    private Integer licenseTypeId;
+    private LicenseType licenseType;
 
 
     public MailBody() {
     }
 
-    public MailBody(Integer id, String subject, String body, Integer licenseTypeId) {
+    public MailBody(Integer id, String subject, String body, LicenseType licenseType) {
         this.id = id;
         this.subject = subject;
         this.body = body;
-        this.licenseTypeId = licenseTypeId;
+        this.licenseType = licenseType;
     }
-    public MailBody(Integer id, String subject, String body, Integer licenseTypeId, String contact_ids) {
+    public MailBody(Integer id, String subject, String body, LicenseType licenseType, String contact_ids) {
         this.id = id;
         this.subject = subject;
         this.body = body;
-        this.licenseTypeId = licenseTypeId;
+        this.licenseType = licenseType;
         this.contact_ids = contact_ids;
     }
 
@@ -52,12 +50,12 @@ public class MailBody {
         this.body = body;
     }
 
-    public int getLicenseTypeId() {
-        return licenseTypeId;
+    public LicenseType getLicenseType() {
+        return licenseType;
     }
 
-    public void setLicenseTypeId(int licenseTypeId) {
-        this.licenseTypeId = licenseTypeId;
+    public void setLicenseType(LicenseType licenseType) {
+        this.licenseType = licenseType;
     }
 
     public String getContact_ids() {

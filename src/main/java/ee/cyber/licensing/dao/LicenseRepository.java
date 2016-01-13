@@ -315,4 +315,18 @@ public class LicenseRepository {
 
         return (stateToActive || (newState.getStateNumber() >= State.ACTIVE.getStateNumber() && licenseTypeChange));
     }
+
+    public LicenseType getLicenseTypeById(int licenseTypeId) throws SQLException {
+        try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM LicenseType WHERE id = ?")) {
+            statement.setInt(1, licenseTypeId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (!resultSet.next()) {
+                    throw new SQLException("Ei leitud ühtegi litsentsi tüüpi id-ga " + licenseTypeId);
+                }
+                return new LicenseType(licenseTypeId, resultSet.getString("name"), resultSet.getInt("validityPeriod"),
+                        resultSet.getDouble("cost"));
+            }
+        }
+
+    }
 }

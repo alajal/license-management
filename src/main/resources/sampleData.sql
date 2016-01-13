@@ -53,7 +53,7 @@ INSERT INTO DeliveredRelease (licenseId, releaseId, deliveryDate, user) VALUES (
 INSERT INTO MailBody (subject, body, licenseTypeId) VALUES ('License purchasing 2', 'Dear interested customer from ${organizationName}!<br><br>Here is the agreement draft of our European commercial license for product ${product} (latest release ${release}).
 We will assume that the contact person is ${contactPersonFirstName} ${contactPersonLastName}. You can find the agreement draft from the attachment.<br><br>Best wishes,<br>Thomas McConnell<br>thomas@itfuture.com<br>${product} licensing manager', 2);
 
-INSERT INTO MailBody (subject, body, licenseTypeId) VALUES ('First Delivery', 'Hello!
+INSERT INTO MailBody (subject, body, licenseTypeId) VALUES ('First Delivery', 'Hello! <br>
 Here comes the first delivery of the software!', 2);
 
 INSERT INTO MailBody (subject, body, licenseTypeId) VALUES ('License expiring in 1 month', 'Dear ${contactPersonFirstName} ${contactPersonLastName},<br><br>

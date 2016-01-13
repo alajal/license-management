@@ -13,7 +13,7 @@ angular.module('LM')
 
         $scope.saveMailBody = function () {
             console.log($scope.mailBody);
-            $scope.mailBody.licenseTypeId = $scope.licenseType.id;
+            $scope.mailBody.licenseType = $scope.licenseType;
             console.log("licensetypeid");
             console.log($scope.licenseType.id);
             $http.post('rest/template/mailBody', $scope.mailBody).

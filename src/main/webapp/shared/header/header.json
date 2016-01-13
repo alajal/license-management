@@ -69,6 +69,11 @@
       {
         "type": "link",
         "url": "addMailTemplate",
+        "name": "Add templates"
+      },
+      {
+        "type": "link",
+        "url": "viewMailTemplates",
         "name": "View templates"
       }
     ]

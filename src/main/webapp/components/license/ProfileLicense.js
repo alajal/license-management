@@ -42,7 +42,7 @@ angular
 
         $scope.licenseTypeSelected = function () {
             //päring leidmaks kõiki mailbodysid, mille litsentsitüüp on valitud tüübi id
-            $http.get('rest/template/mailbodys/' + $scope.license.type.id).
+            $http.get('rest/template/mailbodies/' + $scope.license.type.id).
                 then(function (response) {
                     $scope.bodiesByLicenseType = response.data;
                 }, function (response) {
@@ -264,7 +264,7 @@ angular
         };
 
         $scope.deleteContactPerson = function (cp) {
-
+            //$routeParams.id on license.id
             $http.delete('rest/contactPersons/bylicense/' + $routeParams.id + '/' + cp.id).
                 then(function (response) {
                     var deletableContactPersonIndex = $scope.contacts.indexOf(cp);

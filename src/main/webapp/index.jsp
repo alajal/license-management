@@ -47,6 +47,8 @@
     <script src="components/license/LicenseType.js"></script>
     <script src="components/license/DeliveryNotification.js"></script>
     <script src="components/license/ShowEmail.js"></script>
+    <script src="components/mail/MailTemplatesView.js"></script>
+    <script src="components/mail/MailTemplateProfile.js"></script>
 
     <!-- Services -->
     <script src="services/LicensingService.js"></script>
@@ -59,6 +61,7 @@
     <script src="directives/ProductTable.js"></script>
     <script src="directives/EventTable.js"></script>
     <script src="directives/SearchOrganization.js"></script>
+    <script src="directives/TemplatesTable.js"></script>
 
 </head>
 <body>

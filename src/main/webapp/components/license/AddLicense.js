@@ -136,7 +136,7 @@ angular
             $scope.licenseTypeSelected = function () {
                 //TODO ng-change tuleb asendada millegi muuga
                 //päring leidmaks kõiki mailbodysid, mille litsentsitüüp on valitud tüübi id
-                $http.get('rest/template/mailbodys/' + $scope.license.type.id).
+                $http.get('rest/template/mailbodies/' + $scope.license.type.id).
                     then(function (response) {
                         $scope.bodiesByLicenseType = response.data;
                     }, function (response) {

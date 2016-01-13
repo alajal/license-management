@@ -183,3 +183,7 @@
 .form-control {
     margin-bottom: 15px;
 }
+
+table th {
+    width: auto !important;
+}

@@ -51,7 +51,7 @@ public class CustomerResource {
         if (Objects.equals(customer.getId(), id)) {
             return customerRepository.updateCustomer(customer);
         } else {
-            throw new Exception("The customer that needs update is not the one requested by browser.");
+            throw new Exception("The customer with id" + id + " that needs update is not the one requested by browser.");
         }
     }
 }

@@ -19,6 +19,9 @@ public class FileRepository {
     @Inject
     private Connection conn;
 
+    @Inject
+    private LicenseRepository licenseRepository;
+
     public void saveFile(MailAttachment attachment) throws SQLException {
         byte[] fileData = Base64.getDecoder().decode(attachment.getData());
         //lisada fail andmebaasi blob tulpa
@@ -84,7 +87,7 @@ public class FileRepository {
                 "VALUES (?, ?, ?);");
         statement.setString(1, mailBody.getSubject());
         statement.setString(2, mailBody.getBody());
-        statement.setInt(3, mailBody.getLicenseTypeId());
+        statement.setInt(3, mailBody.getLicenseType().getId());
         statement.execute();
 
         try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -104,8 +107,8 @@ public class FileRepository {
                     String subject = resultSet.getString("subject");
                     String body = resultSet.getString("body");
                     Integer licenseTypeId = resultSet.getInt("licenseTypeId");
-
-                    MailBody mailBody = new MailBody(id, subject, body, licenseTypeId);
+                    LicenseType licenseTypeById = licenseRepository.getLicenseTypeById(licenseTypeId);
+                    MailBody mailBody = new MailBody(id, subject, body, licenseTypeById);
                     bodies.add(mailBody);
                 }
                 return bodies;
@@ -121,7 +124,7 @@ public class FileRepository {
                 List<MailBody> mailBodies = new ArrayList<>();
                 while (resultSet.next()) {
                     MailBody body = new MailBody(resultSet.getInt("id"), resultSet.getString("subject"), resultSet.getString("body"),
-                            licenseTypeId);
+                            licenseRepository.getLicenseTypeById(licenseTypeId));
                     mailBodies.add(body);
                 }
                 return mailBodies;
@@ -139,6 +142,39 @@ public class FileRepository {
                     attachments.add(attachment);
                 }
                 return attachments;
+            }
+        }
+    }
+
+    public MailBody updatetemplate(MailBody template) throws SQLException {
+        try (PreparedStatement statement = conn.prepareStatement("UPDATE MailBody SET subject=?, " +
+                "body=?, licenseTypeId=? WHERE id=?")) {
+            statement.setString(1, template.getSubject());
+            statement.setString(2, template.getBody());
+            statement.setInt(3, template.getLicenseType().getId());
+            statement.setInt(4, template.getId());
+            statement.executeUpdate();
+        }
+        return template;
+    }
+
+    public void deleteTemplate(Integer templateId) throws SQLException {
+        try (PreparedStatement statement = conn.prepareStatement("DELETE from MailBody where id=?")){
+            statement.setInt(1, templateId);
+            statement.executeUpdate();
+        }
+    }
+
+    public MailBody findTemplateById(Integer templateId) throws SQLException {
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM MailBody WHERE id = ?")) {
+            stmt.setInt(1, templateId);
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (!resultSet.next()) {
+                    throw new SQLException("Ei leitud ühtegi Attachmenti id-ga " + templateId);
+                }
+                Integer licenseTypeId = resultSet.getInt("licenseTypeId");
+                return new MailBody(templateId, resultSet.getString("subject"), resultSet.getString("body"),
+                        licenseRepository.getLicenseTypeById(licenseTypeId));
             }
         }
     }

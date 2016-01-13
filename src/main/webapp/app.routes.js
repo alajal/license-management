@@ -101,6 +101,14 @@ angular
             .when('/license/:id/mail',{
                 templateUrl: 'components/license/showEmail.html',
                 controller: 'ShowEmail'
+            })
+            .when('/viewMailTemplates',{
+                templateUrl: 'components/mail/mailTemplatesView.html',
+                controller: 'ViewMailTemplatesCtrl'
+            })
+            .when('/templates/:id', {
+                templateUrl: 'components/mail/mailTemplateProfile.html',
+                controller: 'ProfileTemplateCtrl'
             });
 
             //.when('/search/:keyword/'... kohta

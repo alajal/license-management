@@ -1,0 +1,33 @@
+<table class="table table-sm table-condensed table-striped" id="templatesTable">
+    <thead>
+    <tr>
+        <th>
+            <a href="" data-ng-click="sortType = 'id'; sortReverse = !sortReverse">Id
+                <span data-ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-up"></span>
+            </a>
+        </th>
+        <th>
+            <a href="" data-ng-click="sortType = 'licenseType'; sortReverse = !sortReverse">License type
+                <span data-ng-show="sortType == 'licenseType' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'licenseType' && sortReverse" class="fa fa-caret-up"></span>
+            </a>
+        </th>
+        <th>
+            <a href="" data-ng-click="sortType = 'subject'; sortReverse = !sortReverse">Subject
+                <span data-ng-show="sortType == 'subject' && !sortReverse" class="fa fa-caret-down"></span>
+                <span data-ng-show="sortType == 'subject' && sortReverse" class="fa fa-caret-up"></span>
+            </a>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr data-ng-repeat="template in templates | orderBy:sortType:sortReverse">
+        <td>{{ template.id }}</td>
+        <td>{{ template.licenseType.name }}</td>
+        <td>{{ template.subject }}</td>
+
+        <td><a data-ng-href="#/templates/{{template.id}}">View</a></td>
+    </tr>
+    </tbody>
+</table>

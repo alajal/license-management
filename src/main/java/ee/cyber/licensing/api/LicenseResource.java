@@ -58,6 +58,14 @@ public class LicenseResource {
         return licenseRepository.findLicenseTypes();
     }
 
+    @Path("/type/{licenseTypeId}")
+    @GET
+    @Produces("application/json")
+    public LicenseType getLicenseTypeById(@PathParam("licenseTypeId") Integer id) throws Exception {
+        return licenseRepository.getLicenseTypeById(id);
+    }
+
+
     @Path("/{id}")
     @PUT
     public License editLicense(@PathParam("id") Integer id, License license) throws Exception {
