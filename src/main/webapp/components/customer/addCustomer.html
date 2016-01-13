@@ -12,12 +12,6 @@
                        data-ng-model="applicant.organizationNameOrObject"
                        data-uib-typeahead="customer as customer.organizationName for customer in customers |
                        filter:$viewValue | limitTo:8" autocomplete="off"/>
-                <span class="input-group-btn">
-                    <button data-ng-disabled="applicant.organizationNameOrObject.id === undefined"
-                            data-ng-click="chooseCustomer()"
-                            class="btn btn-default">CHOOSE
-                    </button>
-                </span>
             </div>
             <div data-ng-show="form.$submitted || form.pName.$touched">
                 <div data-ng-show="form.pName.$error.required">Organization name is needed.</div>
@@ -135,8 +129,12 @@
 
         <div class="form-group">
             <button
-                    data-ng-disabled="applicant.organizationNameOrObject.id !== undefined"
+                    data-ng-if="applicant.organizationNameOrObject.id === undefined"
                     data-ng-click="addNewCustomer()" class="btn btn-default">CREATE
+            </button>
+            <button data-ng-if="applicant.organizationNameOrObject.id !== undefined"
+                    data-ng-click="chooseCustomer()"
+                    class="btn btn-default">CHOOSE
             </button>
         </div>
 
