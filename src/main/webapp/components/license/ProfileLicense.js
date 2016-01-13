@@ -290,6 +290,7 @@ angular
                 //delete cp.copy;
                 $http.post('rest/contactPersons/bylicense/' + $routeParams.id, cp).
                     then(function (response) {
+                        cp.id = response.data.id;
                         cp.editing = false;
                         cp.new = false;
                     }, function (response) {
