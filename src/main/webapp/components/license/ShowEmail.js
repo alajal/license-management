@@ -5,7 +5,7 @@ angular
 
             $scope.subject = LicensingService.getSubject();
             $scope.formattedBody = LicensingService.getBody();
-            $scope.licenseTypeId = LicensingService.getLicenseTypeId();
+            $scope.licenseType = LicensingService.getLicenseType();
             $scope.contact = LicensingService.getContact();   //need kontaktid, mis meili saatmisel valitakse - kuigi hetkel saab valida eianult ühte kontakti
             $scope.attachmentId = LicensingService.getAttachmentId();
             $scope.licenseId = LicensingService.getLicenseId();
@@ -24,7 +24,7 @@ angular
                     id: 1,                         //vahet ei ole, mis see on...
                     subject: $scope.subject,
                     body: $scope.formattedBody,
-                    licenseTypeId: $scope.licenseTypeId,
+                    licenseType: $scope.licenseType,
                     contact_ids: $scope.contact.id
                 };
 

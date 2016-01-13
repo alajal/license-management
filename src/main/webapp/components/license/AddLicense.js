@@ -144,14 +144,6 @@ angular
                     })
             };
 
-            $scope.showSuccess = function () {
-                notifications.showSuccess({
-                    message: 'Email has been sent successfully!',
-                    hideDelay: 1000,
-                    hide: true
-                });
-            };
-
             $scope.mailBodySelected = function () {
                 var customer = $scope.license.customer;
                 var product = $scope.license.product;
@@ -179,36 +171,11 @@ angular
                 $scope.mailBodyFormatted = bodyAsString;
             };
 
-
-            $scope.sendMail = function () {
-                $scope.file_id = 0;
-                if (this.chosenAttachment != undefined) {
-                    $scope.file_id = this.chosenAttachment.id;       //Kui faili ei lisata, jätke $scope.file_id 0.
-                }
-
-                $scope.license_id = $scope.savedLicense.id;    //Siia peab õige litsentsi id saama. Vale ID korral saadetakse valedele kontaktidele.
-                var mail = {
-                    id: 1,                         //vahet ei ole, mis see on...
-                    subject: this.mailTemplate.subject,       //meili pealkiri
-                    body: $scope.mailBodyFormatted,    //meili sisu. Kontrollige, et siia satuks html kujul tekst. Muidu läheb kõik ühele reale
-                    licenseTypeId: $scope.license.type.id,               //vahet ei ole, mis see on...
-                    contact_ids: this.mailContact.id //"1,2"          //  contacti id-d sellisel kujul nagu nad on. Kui see jätta tühjaks, ehk "" või üldse ära jätta,
-                };
-
-                $http.put('rest/sendMail/' + $scope.file_id + '/' + $scope.license_id, mail).
-                    then(function (response) {
-                        console.log("Email sent");
-                        $scope.showSuccess();
-                    }, function (response) {
-                        console.error('Could not send email!');
-                    })
-            };
-
             $scope.saveAndShowMail = function () {
                 $scope.mail = $scope.mail || {};
                 LicensingService.setSubject(this.mailTemplate.subject);
                 LicensingService.setBody($scope.mailBodyFormatted);
-                LicensingService.setLicenseTypeId($scope.license.type.id);
+                LicensingService.setLicenseType($scope.license.type);
                 LicensingService.setMailContact(this.mailContact);
 
                 $scope.file_id = 0;

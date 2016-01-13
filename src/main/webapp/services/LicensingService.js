@@ -81,7 +81,7 @@ app.service('LicensingService', function () {
         mailBody = body;
     };
 
-    this.setLicenseTypeId = function (licenseTypeId) {
+    this.setLicenseType = function (licenseTypeId) {
         mailLicenseTypeId = licenseTypeId;
     };
 
@@ -105,7 +105,7 @@ app.service('LicensingService', function () {
         return mailBody;
     };
 
-    this.getLicenseTypeId = function () {
+    this.getLicenseType = function () {
         return mailLicenseTypeId;
     };
 
