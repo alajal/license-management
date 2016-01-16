@@ -54,40 +54,4 @@
         <!--<button data-ng-click="disableEditor()" data-ng-disabled="editorDisabled">Cancel</button>-->
     </form>
 
-    <form novalidate class="form">
-        <div class="form-group">
-            <h4>Create E-mail</h4>
-            <label>Enter subject</label>
-            <input class="form-control" data-ng-model="mailsubject">
-        </div>
-
-        <div class="form-group">
-            <label>Choose recipient</label>
-            <select data-ng-options="contact as (contact.firstName + ' ' + contact.lastName) for contact in contacts"
-                    type="text" class="form-control" id="contact" data-ng-model="mailContact"
-                    required name="selectedTemplate">
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Choose suitable mail template. The given templates are based on license type : </label>
-            <select data-ng-options="body as body.subject for body in bodiesByLicenseType"
-                    type="text" class="form-control" id="body" data-ng-model="mailBody" data-ng-change="mailBodySelected()"
-                    required name="selectedTemplate">
-            </select>
-            <br>
-            <label>Chosen mail body: </label>
-            <textarea class="form-control" rows="6" data-ng-model="mailBody.body"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Choose attachment</label>
-            <select data-ng-options="attachment as attachment.fileName for attachment in attachments"
-                    type="text" class="form-control" id="attachment" data-ng-model="chosenAttachment"
-                    required name="selectedTemplate">
-            </select>
-        </div>
-        <button data-ng-click="sendMail()">Send</button>
-    </form>
-
 </div>

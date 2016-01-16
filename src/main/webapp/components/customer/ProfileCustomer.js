@@ -1,22 +1,24 @@
-'use strict'
+'use strict';
 
 angular
     .module('LM')
     .controller('ProfileCustomerCtrl', function ($scope, $http, $routeParams) {
         $scope.editorDisabled = true;
-        $http.get('rest/licenses').
-            then(function (response) {
-                $scope.licenses = response.data;
-            }, function (response) {
-                console.error('Mis iganes.');
-            });
 
         $http.get('rest/customers').
             then(function (response) {
                 $scope.customer = response.data[$routeParams.id - 1];
+                $http.get('rest/licenses/customer/' + $scope.customer.id).
+                    then(function (response) {
+                        $scope.licenses = response.data;
+                    }, function (response) {
+                        console.error(response);
+                    });
+
             }, function (response) {
                 console.error('[CustomersView.js] Error retrieving license owners.');
             });
+
 
         $scope.enableEditor = function () {
             $scope.editorDisabled = false;

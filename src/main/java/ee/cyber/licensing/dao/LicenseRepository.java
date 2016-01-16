@@ -329,4 +329,32 @@ public class LicenseRepository {
         }
 
     }
+
+
+
+    public List<License> getCustomerLicenses(Integer customerId) throws SQLException {
+        try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM License where customerId = ?")) {
+            statement.setInt(1, customerId);
+            try (ResultSet resultSet = statement.executeQuery()){
+                List<License> customerLicenses = new ArrayList<>();
+                while (resultSet.next()) {
+                    int productId = resultSet.getInt("productId");
+                    Product productById = productRepository.getProductById(productId);
+                    int releaseId = resultSet.getInt("releaseId");
+                    Release release = null;
+                    if (releaseId != 0) release = releaseRepository.getReleaseById(releaseId);
+                    Customer customerById = customerRepository.getCustomerById(customerId);
+                    Integer licenseTypeId = getInteger(resultSet, "licenseTypeId");
+                    LicenseType licenseType = licenseTypeId != null
+                            ? getLicenseTypeById(conn, licenseTypeId)
+                            : null;
+
+                    License license = getLicense(resultSet, productById, customerById, release, licenseType);
+                    customerLicenses.add(license);
+                }
+                return customerLicenses;
+            }
+        }
+
+    }
 }

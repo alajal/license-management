@@ -24,8 +24,10 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li data-ng-repeat="item in link.dropdown">
-                                <a data-ng-if="item.name != 'Deliveries'" data-ng-href="#/{{item.url}}">{{item.name}}</a>
-                                <a data-ng-if="item.name == 'Deliveries' && isReleaseEngineer" data-ng-href="#/{{item.url}}">{{item.name}}</a>
+                                <a data-ng-if="item.name != 'Deliveries'"
+                                   data-ng-href="#/{{item.url}}">{{item.name}}</a>
+                                <a data-ng-if="item.name == 'Deliveries' && isReleaseEngineer"
+                                   data-ng-href="#/{{item.url}}">{{item.name}}</a>
                             </li>
                         </ul>
                     </li>
@@ -137,7 +139,7 @@
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <input type="checkbox"data-ng-model="checkEXPIRATION_NEARING"
+                                        <input type="checkbox" data-ng-model="checkEXPIRATION_NEARING"
                                                data-ng-init="checkEXPIRATION_NEARING=true">
                                         <label>
                                             EXPIRATION_NEARING

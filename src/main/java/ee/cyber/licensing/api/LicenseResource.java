@@ -92,4 +92,11 @@ public class LicenseResource {
     public List<License> getLicensesSearch(@PathParam("keyword") String keyword, StateHelper sh) throws Exception {
         return licenseRepository.findByKeyword(keyword, sh);
     }
+
+    @Path("/customer/{customerId}")
+    @GET
+    public List<License> getLicensesByCustomer(@PathParam("customerId") Integer customerId) throws Exception{
+        return licenseRepository.getCustomerLicenses(customerId);
+    }
+
 }

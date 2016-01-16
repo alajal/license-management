@@ -62,6 +62,7 @@
     <script src="directives/EventTable.js"></script>
     <script src="directives/SearchOrganization.js"></script>
     <script src="directives/TemplatesTable.js"></script>
+    <script src="directives/CustomerLicensesTable.js"></script>
 
 </head>
 <body>
