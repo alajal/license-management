@@ -12,7 +12,11 @@ app.directive('customerLicensesTable', function () {
             // used for calculating expiration
             scope.currentDate = new Date().getTime();
             scope.compare = function (expDate) {
+
                 var eDate = new Date(expDate);
+                console.log("edate");
+                console.log(eDate.getTime());
+
                 return eDate.getTime();
             };
         }
