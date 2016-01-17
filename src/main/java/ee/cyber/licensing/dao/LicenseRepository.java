@@ -29,7 +29,7 @@ public class LicenseRepository {
     public License save(License license) throws SQLException {
         PreparedStatement statement = conn.prepareStatement(
                 "INSERT INTO License (productId, releaseId, customerId, contractNumber, state, predecessorLicenseId, " +
-                        "validFrom, validTill, applicationSubmitDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                        "validFrom, validTill, applicationSubmitDate, licenseTypeId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         statement.setInt(1, license.getProduct().getId());
         if (license.getRelease() == null) {
             statement.setNull(2, java.sql.Types.INTEGER);
@@ -43,6 +43,7 @@ public class LicenseRepository {
         statement.setDate(7, license.getValidFrom());
         statement.setDate(8, license.getValidTill());
         statement.setDate(9, java.sql.Date.valueOf(LocalDate.now()));
+        statement.setInt(10, license.getType().getId());
         statement.execute();
 
         try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -199,31 +200,70 @@ public class LicenseRepository {
                 resultSet.getDate("latestDeliveryDate"));
     }
 
-    public License updateLicense(License license) throws SQLException {
+    public License updateLicense(License newLicense) throws SQLException {
         PreparedStatement statement = conn.prepareStatement("UPDATE License SET "
                 + "releaseId = ?, state = ?, licenseTypeId = ?, latestDeliveryDate = ?, validFrom = ?, validTill = ? WHERE id = ?;");
-        State licenseState = license.getState();
-        LocalDate endDate = LocalDate.now().plusYears(license.getType().getValidityPeriod());
-        boolean newValidFromAndTill = newValidFromAndTill(license.getId(), license.getState(), license.getType());
+        //seti valid till ja from siis kui status muudetakse Activiks, kui see muudetakse terminated või expiringiks, siis
+        //jäta need väärtused alles ja ära muuda neid enam
+        LocalDate licenseEndDate = LocalDate.now().plusYears(newLicense.getType().getValidityPeriod());
+        boolean newValidFromAndTill = newValidFromAndTill(newLicense.getId(), newLicense.getState(), newLicense.getType());
 
-        statement.setObject(1, license.getRelease() == null ? null : license.getRelease().getId());
-        statement.setInt(2, licenseState.getStateNumber());
-        statement.setInt(3, license.getType().getId());
-        statement.setObject(4, license.getLatestDeliveryDate() == null ? null : license.getLatestDeliveryDate());
-        java.sql.Date validFrom = newValidFromAndTill ? java.sql.Date.valueOf(LocalDate.now()) : null;
+        statement.setObject(1, newLicense.getRelease() == null ? null : newLicense.getRelease().getId());
+        statement.setInt(2, newLicense.getState().getStateNumber());
+        statement.setInt(3, newLicense.getType().getId());
+        statement.setObject(4, newLicense.getLatestDeliveryDate() == null ? null : newLicense.getLatestDeliveryDate());
+
+        License oldLicense = findById(newLicense.getId());
+
+        //Kui valid till ja valid from on juba olemas, siis neid enam muuta ei saa ja kirjutame lihtsalt sama väärtusega üle updatei korral
+
+        java.sql.Date validFrom = newValidFromAndTill ? java.sql.Date.valueOf(LocalDate.now()) : oldLicense.getValidFrom();
+        newLicense.setValidFrom(validFrom);
         statement.setObject(5, validFrom);
-        license.setValidFrom(validFrom);
-        java.sql.Date validTill = newValidFromAndTill ? java.sql.Date.valueOf(endDate) : null;
+
+        java.sql.Date validTill = newValidFromAndTill ? java.sql.Date.valueOf(licenseEndDate) : oldLicense.getValidTill();
+        newLicense.setValidTill(validTill);
         statement.setObject(6, validTill);
-        license.setValidTill(validTill);
-        statement.setInt(7, license.getId());
+
+        statement.setInt(7, newLicense.getId());
 
         int rowCount = statement.executeUpdate();
         if (rowCount == 0) {
-            throw new RuntimeException("No license with id: " + license.getId());
+            throw new RuntimeException("No license with id: " + newLicense.getId());
         }
 
-        return license;
+        return newLicense;
+    }
+
+    /**
+     * If license changes from a non-active state to one of the active states, calculate new valid till.
+     * If license is in one of the active states and license type changes, calculate new valid till.
+     *
+     * @param licenseId
+     * @param newState       - see mis sisse tuli
+     * @param newLicenseType - see mis sisse tuli
+     * @return
+     */
+    private boolean newValidFromAndTill(int licenseId, State newState, LicenseType newLicenseType) throws SQLException {
+        boolean stateToActive = false;
+        boolean licenseTypeChange = true;
+
+        License oldLicense = findById(licenseId);
+        int oldStateNr = oldLicense.getState().getStateNumber();
+        //kontroll, kas uus state on ACTIVE või TERMINATED või EXPIRING ja vana state on NEGOTIATED või WAITING või REJECTED
+        if (newState.getStateNumber() >= State.ACTIVE.getStateNumber() && oldStateNr < State.ACTIVE.getStateNumber())
+            stateToActive = true;
+        if (newLicenseType == null) {
+            licenseTypeChange = false;
+        } else {
+            if (oldLicense.getType() == null) {
+                licenseTypeChange = true;
+            } else if (oldLicense.getType().getName().equals(newLicenseType.getName())) {
+                licenseTypeChange = false;
+            }
+        }
+
+        return (stateToActive || (newState.getStateNumber() >= State.ACTIVE.getStateNumber() && licenseTypeChange));
     }
 
     public List<License> findExpiringLicenses() throws SQLException {
@@ -286,35 +326,6 @@ public class LicenseRepository {
 
     }
 
-    /**
-     * If license changes from a non-active state to one of the active states, calculate new valid till.
-     * If license is in one of the active states and license type changes, calculate new valid till.
-     *
-     * @param licenseId
-     * @param newState
-     * @param newLicenseType
-     * @return
-     */
-    private boolean newValidFromAndTill(int licenseId, State newState, LicenseType newLicenseType) throws SQLException {
-        boolean stateToActive = false;
-        boolean licenseTypeChange = true;
-
-        License license = findById(licenseId);
-        int stateNr = license.getState().getStateNumber();
-        if (newState.getStateNumber() >= State.ACTIVE.getStateNumber() && stateNr < State.ACTIVE.getStateNumber())
-            stateToActive = true;
-        if (newLicenseType == null) {
-            licenseTypeChange = false;
-        } else {
-            if (license.getType() == null) {
-                licenseTypeChange = true;
-            } else if (license.getType().getName().equals(newLicenseType.getName())) {
-                licenseTypeChange = false;
-            }
-        }
-
-        return (stateToActive || (newState.getStateNumber() >= State.ACTIVE.getStateNumber() && licenseTypeChange));
-    }
 
     public LicenseType getLicenseTypeById(int licenseTypeId) throws SQLException {
         try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM LicenseType WHERE id = ?")) {
@@ -331,11 +342,10 @@ public class LicenseRepository {
     }
 
 
-
     public List<License> getCustomerLicenses(Integer customerId) throws SQLException {
         try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM License where customerId = ?")) {
             statement.setInt(1, customerId);
-            try (ResultSet resultSet = statement.executeQuery()){
+            try (ResultSet resultSet = statement.executeQuery()) {
                 List<License> customerLicenses = new ArrayList<>();
                 while (resultSet.next()) {
                     int productId = resultSet.getInt("productId");

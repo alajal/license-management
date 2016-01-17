@@ -5,9 +5,9 @@ angular
     .controller('ProfileCustomerCtrl', function ($scope, $http, $routeParams) {
         $scope.editorDisabled = true;
 
-        $http.get('rest/customers').
+        $http.get('rest/customers/' + $routeParams.id).
             then(function (response) {
-                $scope.customer = response.data[$routeParams.id - 1];
+                $scope.customer = response.data;
                 $http.get('rest/licenses/customer/' + $scope.customer.id).
                     then(function (response) {
                         $scope.licenses = response.data;

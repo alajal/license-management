@@ -11,9 +11,9 @@ angular
                 console.error('Something went wrong with the releases GET method by License id.');
             });
 
-        $http.get('rest/licenses').
+        $http.get('rest/licenses/' + $routeParams.id).
             then(function (response) {
-                $scope.license = response.data[$routeParams.id - 1];
+                $scope.license = response.data;
                 console.log("One License");
                 console.log($scope.license);
             }, function (response) {

@@ -6,7 +6,7 @@ angular
 
         $scope.licenseId = $routeParams.id;
         $scope.editorDisabled = true;
-        //$scope.stateEditorDisabled = true;
+        $scope.stateEditorDisabled = true;
         $scope.typeEditorDisabled = true;
         $scope.AuthorisedUserForm = false;
         $scope.rowforms = {};
@@ -14,9 +14,9 @@ angular
         $scope.state = {};
         $scope.mailBody = {};
 
-        $http.get('rest/licenses').
+        $http.get('rest/licenses/' + $routeParams.id).
             then(function (response) {
-                $scope.license = response.data[$routeParams.id - 1];
+                $scope.license = response.data;
             }, function (response) {
                 console.error('There was something wrong with the view license request.');
             });
@@ -100,12 +100,14 @@ angular
 
         $scope.saveProfile = function () {
             $scope.disableEditor();
-            console.log("Litsents:");
+            console.log("License 1");
             console.log($scope.license);
             $http.put('rest/licenses/' + $scope.license.id, $scope.license).
                 then(function (response) {
                     //Updating license
                     $scope.license = response.data;
+                    console.log("License 2");
+                    console.log($scope.license);
                     createEvent($scope.license, 0);
                 }, function (response) {
                     console.error(response);
@@ -174,9 +176,7 @@ angular
 
         $scope.save = function (au) {
             if (typeof au.id === "undefined") {
-                console.log(au);
                 if (!$scope.rowforms.form.$valid) {
-                    console.log(au, " not valid");
                     return;
                 }
 
