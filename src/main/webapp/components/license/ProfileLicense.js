@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 angular
     .module('LM')
@@ -6,6 +6,8 @@ angular
 
         $scope.licenseId = $routeParams.id;
         $scope.editorDisabled = true;
+        //$scope.stateEditorDisabled = true;
+        $scope.typeEditorDisabled = true;
         $scope.AuthorisedUserForm = false;
         $scope.rowforms = {};
         $scope.allStates = ['REJECTED', 'NEGOTIATED', 'WAITING_FOR_SIGNATURE', 'ACTIVE', 'EXPIRATION_NEARING', 'TERMINATED'];
@@ -82,10 +84,18 @@ angular
 
         $scope.enableEditor = function () {
             $scope.editorDisabled = false;
+            $scope.stateEditorDisabled = false;
+            var s = $scope.license.state;
+            //$scope.stateEditorDisabled = !(s == 'REJECTED' || s == 'NEGOTIATED' || s == 'WAITING_FOR_SIGNATURE');
+            $scope.typeEditorDisabled = !!(s == 'ACTIVE' || s == 'EXPIRATION_NEARING' || s == 'TERMINATED');
         };
 
         $scope.disableEditor = function () {
             $scope.editorDisabled = true;
+            $scope.stateEditorDisabled = true;
+            var s = $scope.license.state;
+            //$scope.stateEditorDisabled = !(s == 'REJECTED' || s == 'NEGOTIATED' || s == 'WAITING_FOR_SIGNATURE');
+            $scope.typeEditorDisabled = !!(s == 'ACTIVE' || s == 'EXPIRATION_NEARING' || s == 'TERMINATED');
         };
 
         $scope.saveProfile = function () {
