@@ -55,7 +55,7 @@
             </a>
         </th>
         <th>
-            <a href="" data-ng-click="sortType = 'validTill'; sortReverse = !sortReverse">Expiration Date
+            <a href="" data-ng-click="sortType = 'validTill'; sortReverse = !sortReverse">Expiration date
                 <span data-ng-show="sortType == 'validTill' && !sortReverse" class="fa fa-caret-down"></span>
                 <span data-ng-show="sortType == 'validTill' && sortReverse" class="fa fa-caret-up"></span>
             </a>
@@ -86,9 +86,9 @@
         <td>{{ license.customer.organizationName }}</td>
         <td>{{ license.state}}</td>
         <td>{{ license.predecessorLicenseId }}</td>
-        <td>{{ license.validFrom }}</td>
-        <td>{{license.validTill}}</td>
-        <td>{{ license.applicationSubmitDate }}</td>
+        <td>{{ license.validFrom | date:'yyyy-MM-dd' }}</td>
+        <td>{{ license.validTill | date:'yyyy-MM-dd' }}</td>
+        <td>{{ license.applicationSubmitDate | date:'yyyy-MM-dd HH:mm:ss' }}</td>
 
         <!-- if license is not active -->
         <td data-ng-if="license.validFrom == null">

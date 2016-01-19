@@ -1,6 +1,6 @@
 package ee.cyber.licensing.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class License {
     Integer id;

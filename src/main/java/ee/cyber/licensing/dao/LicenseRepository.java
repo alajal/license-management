@@ -1,16 +1,28 @@
 package ee.cyber.licensing.dao;
 
 
-import ee.cyber.licensing.entity.*;
+import ee.cyber.licensing.entity.Customer;
+import ee.cyber.licensing.entity.License;
+import ee.cyber.licensing.entity.LicenseType;
+import ee.cyber.licensing.entity.Product;
+import ee.cyber.licensing.entity.Release;
+import ee.cyber.licensing.entity.State;
+import ee.cyber.licensing.entity.StateHelper;
 
 import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class LicenseRepository {
 
@@ -26,6 +38,10 @@ public class LicenseRepository {
     @Inject
     private ReleaseRepository releaseRepository;
 
+    static Calendar utc() {
+        return Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+    }
+
     public License save(License license) throws SQLException {
         PreparedStatement statement = conn.prepareStatement(
                 "INSERT INTO License (productId, releaseId, customerId, contractNumber, state, predecessorLicenseId, " +
@@ -40,9 +56,9 @@ public class LicenseRepository {
         statement.setString(4, license.getContractNumber());
         statement.setInt(5, license.getState().getStateNumber());
         statement.setString(6, license.getPredecessorLicenseId());
-        statement.setDate(7, license.getValidFrom());
-        statement.setDate(8, license.getValidTill());
-        statement.setDate(9, java.sql.Date.valueOf(LocalDate.now()));
+        setTimestamp(statement, 7, license.getValidFrom());
+        setTimestamp(statement, 8, license.getValidTill());
+        setTimestamp(statement, 9, new Date());
         statement.setInt(10, license.getType().getId());
         statement.execute();
 
@@ -53,6 +69,11 @@ public class LicenseRepository {
         }
 
         return license;
+    }
+
+    private void setTimestamp(PreparedStatement statement, int parameterIndex, Date date) throws SQLException {
+        Timestamp timestamp = date != null ? new Timestamp(date.getTime()) : null;
+        statement.setTimestamp(parameterIndex, timestamp, utc());
     }
 
     public License findById(int id) throws SQLException {
@@ -193,11 +214,20 @@ public class LicenseRepository {
                 resultSet.getString("contractNumber"),
                 State.getByStateNumber(state),
                 resultSet.getString("predecessorLicenseId"),
-                resultSet.getDate("validFrom"),
-                resultSet.getDate("validTill"),
+                getDate(resultSet, "validFrom"),
+                getDate(resultSet, "validTill"),
                 type,
-                resultSet.getDate("applicationSubmitDate"),
-                resultSet.getDate("latestDeliveryDate"));
+                getDate(resultSet, "applicationSubmitDate"),
+                getDate(resultSet, "latestDeliveryDate"));
+    }
+
+    private Date getDate(ResultSet resultSet, String columnLabel) throws SQLException {
+        Timestamp timestamp = resultSet.getTimestamp(columnLabel, utc());
+        //Timestamp.valueOf(Instant.now().atOffset(ZoneOffset.UTC).toLocalDateTime());
+        if (timestamp == null) {
+            return null;
+        }
+        return new Date(timestamp.getTime());
     }
 
     public License updateLicense(License newLicense) throws SQLException {
@@ -205,25 +235,26 @@ public class LicenseRepository {
                 + "releaseId = ?, state = ?, licenseTypeId = ?, latestDeliveryDate = ?, validFrom = ?, validTill = ? WHERE id = ?;");
         //seti valid till ja from siis kui status muudetakse Activiks, kui see muudetakse terminated või expiringiks, siis
         //jäta need väärtused alles ja ära muuda neid enam
-        LocalDate licenseEndDate = LocalDate.now().plusYears(newLicense.getType().getValidityPeriod());
+        Instant licenseEndDate = Instant.now().atOffset(ZoneOffset.UTC).plus(newLicense.getType().getValidityPeriod(),
+                ChronoUnit.YEARS).toInstant();
         boolean newValidFromAndTill = newValidFromAndTill(newLicense.getId(), newLicense.getState(), newLicense.getType());
 
         statement.setObject(1, newLicense.getRelease() == null ? null : newLicense.getRelease().getId());
         statement.setInt(2, newLicense.getState().getStateNumber());
         statement.setInt(3, newLicense.getType().getId());
-        statement.setObject(4, newLicense.getLatestDeliveryDate() == null ? null : newLicense.getLatestDeliveryDate());
+        setTimestamp(statement, 4, newLicense.getLatestDeliveryDate());
 
         License oldLicense = findById(newLicense.getId());
 
         //Kui valid till ja valid from on juba olemas, siis neid enam muuta ei saa ja kirjutame lihtsalt sama väärtusega üle updatei korral
 
-        java.sql.Date validFrom = newValidFromAndTill ? java.sql.Date.valueOf(LocalDate.now()) : oldLicense.getValidFrom();
+        Timestamp validFrom = newValidFromAndTill ? Timestamp.from(Instant.now()) : new Timestamp(oldLicense.getValidFrom().getTime());
         newLicense.setValidFrom(validFrom);
-        statement.setObject(5, validFrom);
+        setTimestamp(statement, 5, validFrom);
 
-        java.sql.Date validTill = newValidFromAndTill ? java.sql.Date.valueOf(licenseEndDate) : oldLicense.getValidTill();
+        Timestamp validTill = newValidFromAndTill ? Timestamp.from(licenseEndDate) : new Timestamp(oldLicense.getValidTill().getTime());
         newLicense.setValidTill(validTill);
-        statement.setObject(6, validTill);
+        setTimestamp(statement, 6, validTill);
 
         statement.setInt(7, newLicense.getId());
 

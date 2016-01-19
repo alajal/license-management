@@ -2,7 +2,7 @@
 
 angular
     .module('LM')
-    .controller('ProfileLicenseCtrl', function ($scope, $http, $routeParams, $location) {
+    .controller('ProfileLicenseCtrl', function ($scope, $http, $routeParams, $location, $filter) {
 
         $scope.licenseId = $routeParams.id;
         $scope.editorDisabled = true;

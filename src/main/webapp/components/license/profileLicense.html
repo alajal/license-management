@@ -9,16 +9,16 @@
                    disabled/>
         </div>
         <div class="form-group">
-            <label for="applicantName">Contract number: </label>
+            <label for="applicantName">Contract number:</label>
             <input id="applicantName" class="form-control" data-ng-model="license.contractNumber"
                    data-ng-disabled="editorDisabled"/>
         </div>
         <div class="form-group">
-            <label>Customer: </label>
+            <label>Customer:</label>
             <input class="form-control" data-ng-model="license.customer.organizationName" disabled/>
         </div>
         <div class="form-group">
-            <label>State: </label>
+            <label>State:</label>
             <select
                     data-ng-options="state for state in allStates track by state"
                     type="text" class="form-control" id="state" data-ng-model="license.state" required name="selectedState"
@@ -26,12 +26,13 @@
             </select>
         </div>
         <div class="form-group">
-            <label>Predecessor license Id: </label>
+            <label>Predecessor license Id:</label>
             <input class="form-control" data-ng-model="license.predecessorLicenseId" data-ng-disabled="editorDisabled"/>
         </div>
         <div class="form-group">
-            <label>Application submit date: </label>
-            <input class="form-control" data-ng-model="license.applicationSubmitDate" disabled/>
+            <label>Application submit date:</label>
+            <input class="form-control" disabled value="{{license.applicationSubmitDate | date:'dd-MM-yyyy HH:mm:ss'}}"/>
+
         </div>
         <div class="form-group">
             <label>License type: </label>
@@ -41,12 +42,12 @@
             </select>
         </div>
         <div class="form-group">
-            <label>Valid from: </label>
-            <input class="form-control" data-ng-model="license.validFrom" disabled/>
+            <label>Valid from:</label>
+            <input class="form-control" value="{{license.validFrom | date:'yyyy-MM-dd HH:mm:ss'}}" disabled/>
         </div>
         <div class="form-group">
-            <label>Valid till: </label>
-            <input class="form-control" data-ng-model="license.validTill" disabled/>
+            <label>Valid till:</label>
+            <input class="form-control" value="{{license.validTill | date:'yyyy-MM-dd HH:mm:ss'}}" disabled/>
         </div>
 
         <button data-ng-if="isLicensingManager" data-ng-click="enableEditor()">Edit</button>

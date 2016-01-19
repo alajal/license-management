@@ -8,11 +8,23 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.GenericType;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class ProductResourceTest extends JerseyTest {
 
     ObjConf component;
+
+    @Test
+    public void testName() throws Exception {
+        System.out.println(Instant.now().atOffset(ZoneOffset.UTC).plus(3, ChronoUnit.YEARS).toInstant());
+    }
 
     @Override
     protected Application configure() {

@@ -36,14 +36,14 @@ CREATE TABLE IF NOT EXISTS License (
   releaseId             INT,
   customerId            INT                            NOT NULL,
   contractNumber        VARCHAR(100) UNIQUE            NOT NULL,
-  validFrom             DATE,
-  validTill             DATE,
+  validFrom             TIMESTAMP,
+  validTill             TIMESTAMP,
   licenseTypeId         INT,
   state                 INT,
   predecessorLicenseId  VARCHAR(100),
 
-  applicationSubmitDate DATE,
-  latestDeliveryDate    DATE,
+  applicationSubmitDate TIMESTAMP,
+  latestDeliveryDate    TIMESTAMP,
   FOREIGN KEY (productId) REFERENCES Product (id),
   FOREIGN KEY (customerId) REFERENCES Customer (id),
   FOREIGN KEY (releaseId) REFERENCES Release (id)

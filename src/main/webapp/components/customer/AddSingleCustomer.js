@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 angular
     .module('LM')
@@ -11,7 +11,10 @@ angular
 
             $http.post('rest/customers', $scope.applicant).
                 then(function (response) {
-                    createEvent(response.data);
+                    var c = response.data;
+                    console.log("c");
+                    console.log(c);
+                    createEvent(c);
                     $window.location.href = '#/';
                 }, function (response) {
                     $scope.errorMessage = 'Something went wrong. Maybe customer with this name already exists?';
@@ -21,7 +24,7 @@ angular
 
         function createEvent(customer) {
             $scope.event = {
-                name: 'New Customer Added',
+                name: 'New Customer added',
                 description: '*user name* added customer ' + customer.organizationName,
                 type: 'Add'
             };

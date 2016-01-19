@@ -29,7 +29,7 @@ public class CustomerRepository {
                 customer.setId(generatedKeys.getInt(1));
             }
         }
-        //todo transaction needed - kas sama nimega customer on juba olemas?
+        //todo kas sama nimega customer on juba olemas?
         for (Contact contact : customer.getContacts()) {
             save(contact, customer, conn);
         }
@@ -68,7 +68,11 @@ public class CustomerRepository {
 
     public List<Customer> findByKeyword(String kword) throws SQLException {
         try (PreparedStatement statement = conn.prepareStatement(
-                "SELECT * FROM Customer WHERE LOWER(organizationName) LIKE LOWER(CONCAT('%',?,'%')) OR LOWER(applicationArea) LIKE LOWER(CONCAT('%',?,'%')) OR LOWER(address) LIKE LOWER(CONCAT('%',?,'%')) OR LOWER(webpage) LIKE LOWER(CONCAT('%',?,'%')) OR LOWER(registrationCode) LIKE LOWER(CONCAT('%',?,'%')) OR phone LIKE (CONCAT('%',?,'%')) OR LOWER(bankaccount) LIKE LOWER(CONCAT('%',?,'%')) OR fax LIKE (CONCAT('%',?,'%')) OR LOWER(unitOrFaculty) LIKE LOWER(CONCAT('%',?,'%'));")) {
+                "SELECT * FROM Customer WHERE LOWER(organizationName) LIKE LOWER(CONCAT('%',?,'%')) OR LOWER(applicationArea)" +
+                        " LIKE LOWER(CONCAT('%',?,'%')) OR LOWER(address) LIKE LOWER(CONCAT('%',?,'%')) OR LOWER(webpage) " +
+                        "LIKE LOWER(CONCAT('%',?,'%')) OR LOWER(registrationCode) LIKE LOWER(CONCAT('%',?,'%')) OR phone " +
+                        "LIKE (CONCAT('%',?,'%')) OR LOWER(bankaccount) LIKE LOWER(CONCAT('%',?,'%')) OR fax " +
+                        "LIKE (CONCAT('%',?,'%')) OR LOWER(unitOrFaculty) LIKE LOWER(CONCAT('%',?,'%'));")) {
             statement.setString(1, kword);
             statement.setString(2, kword);
             statement.setString(3, kword);
@@ -79,7 +83,7 @@ public class CustomerRepository {
             statement.setString(8, kword);
             statement.setString(9, kword);
             try (ResultSet resultSet = statement.executeQuery()) {
-                List<Customer> customers = new ArrayList();
+                List<Customer> customers = new ArrayList<>();
                 while (resultSet.next()) {
                     Customer customer = getCustomer(conn, resultSet);
                     customers.add(customer);

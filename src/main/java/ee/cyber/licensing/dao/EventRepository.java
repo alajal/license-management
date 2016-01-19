@@ -22,7 +22,8 @@ public class EventRepository {
 
     public Event save(Event ev) throws SQLException {
             if (ev.getLicense() == null) {
-                PreparedStatement stmnt = conn.prepareStatement("INSERT INTO Event (name, description, type, dateCreated) VALUES (?, ?, ?, GETDATE())");
+                PreparedStatement stmnt = conn.prepareStatement("INSERT INTO Event (name, description, type, dateCreated) " +
+                        "VALUES (?, ?, ?, CURRENT_TIMESTAMP())");
 
                 stmnt.setString(1, ev.getName());
                 stmnt.setString(2, ev.getDescription());
@@ -35,7 +36,8 @@ public class EventRepository {
                     }
                 }
             } else {
-                PreparedStatement stmnt = conn.prepareStatement("INSERT INTO Event (licenseId, name, description, type, dateCreated) VALUES (?, ?, ?, ?, GETDATE())");
+                PreparedStatement stmnt = conn.prepareStatement("INSERT INTO Event (licenseId, name, description, type, " +
+                        "dateCreated) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP())");
 
                 stmnt.setInt(1, ev.getLicense().getId());
                 stmnt.setString(2, ev.getName());

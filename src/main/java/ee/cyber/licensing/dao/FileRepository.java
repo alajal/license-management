@@ -68,12 +68,6 @@ public class FileRepository {
         int blobLength = (int) blob.length();
         byte[] blobAsBytes = blob.getBytes(1, blobLength);
 
-        System.out.println("Siin");
-
-        System.out.println(blobAsBytes);
-        System.out.println("Siin");
-
-
         return new MailAttachment(
                 rs.getInt("id"),
                 blobAsBytes,

@@ -27,14 +27,25 @@
         <label>CONTACT</label>
 
         <div class="form-group">
-            <label for="nameContact">Name</label>
-            <input type="text" class="form-control" id="nameContact" data-ng-model="applicant.contactName" required
-                   name="uName">
+            <label for="firstNameContact">First name</label>
+            <input type="text" class="form-control" id="firstNameContact" data-ng-model="applicant.contactFirstName" required
+                   name="firstname">
 
-            <div data-ng-show="form.$submitted || form.uName.$touched">
-                <div data-ng-show="form.uName.$error.required">Contact name is needed.</div>
+            <div data-ng-show="form.$submitted || form.firstname.$touched">
+                <div data-ng-show="form.firstname.$error.required">Contact first name is needed.</div>
             </div>
         </div>
+
+        <div class="form-group">
+            <label for="lastNameContact">Last name</label>
+            <input type="text" class="form-control" id="lastNameContact" data-ng-model="applicant.contactLastName" required
+                   name="lastname">
+
+            <div data-ng-show="form.$submitted || form.lastname.$touched">
+                <div data-ng-show="form.lastname.$error.required">Contact last name is needed.</div>
+            </div>
+        </div>
+
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" required data-ng-model="applicant.email"
