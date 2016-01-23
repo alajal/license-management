@@ -50,7 +50,7 @@ public class ReleaseRepository {
     }
 
     public Release getReleaseById(int id) throws SQLException {
-        try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Release WHERE id = ?;")) {
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Release WHERE id = ?")) {
             stmt.setInt(1, id);
             try (ResultSet resultSet = stmt.executeQuery()) {
                 if (id != 0 && !resultSet.next()) {

@@ -6,9 +6,7 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.glassfish.hk2.api.Descriptor;
 import org.glassfish.hk2.api.Filter;
 import org.glassfish.hk2.api.InterceptionService;
-import org.omg.CORBA.RepositoryIdHelper;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -17,7 +15,6 @@ import javax.ws.rs.PUT;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.sql.Connection;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

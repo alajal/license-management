@@ -42,7 +42,7 @@ public class DeliveredReleaseRepository {
     }
 
     public List<DeliveredRelease> getAllDeliveredReleases(int id) throws SQLException {
-        try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM DeliveredRelease where licenseId = ?;")) {
+        try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM DeliveredRelease where licenseId = ?")) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 List<DeliveredRelease> deliveredReleases = new ArrayList<>();

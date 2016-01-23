@@ -42,7 +42,7 @@ public class CustomerResource {
         //Customer == Organization == Applicant
         Contact contact = new Contact(applicant.getContactFirstName(), applicant.getContactLastName(), applicant.getEmail(), applicant.getSkype(), applicant.getPhone());
         Customer customer = new Customer(applicant.getOrganizationName(), applicant.getApplicationArea(), Arrays.asList(contact));
-        return customerRepository.save(customer);
+        return customerRepository.saveCustomerWithContact(customer);
     }
 
     @Path("/{id}")

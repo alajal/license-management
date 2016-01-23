@@ -17,7 +17,7 @@ public class CustomerRepository {
     @Inject
     private Connection conn;
 
-    public Customer save(Customer customer) throws SQLException {
+    public Customer saveCustomerWithContact(Customer customer) throws SQLException {
         PreparedStatement statement = conn.prepareStatement("INSERT INTO Customer " +
                 "(organizationName, applicationArea) VALUES (?, ?)");
         statement.setString(1, customer.getOrganizationName());
@@ -31,7 +31,7 @@ public class CustomerRepository {
         }
         //todo kas sama nimega customer on juba olemas?
         for (Contact contact : customer.getContacts()) {
-            save(contact, customer, conn);
+            saveContact(contact, customer, conn);
         }
 
         return customer;
@@ -154,7 +154,7 @@ public class CustomerRepository {
     }
 
 
-    private Contact save(Contact contact, Customer customer, Connection conn) throws SQLException {
+    private Contact saveContact(Contact contact, Customer customer, Connection conn) throws SQLException {
         PreparedStatement statement = conn.prepareStatement("INSERT INTO Contact " +
                 "(customerId, firstName, lastName, email, skype, phone) VALUES (?, ?, ?, ?, ?, ?)");
         statement.setInt(1, customer.getId());

@@ -34,8 +34,6 @@ public class FileResource {
     @Path("/mailBody")
     @POST
     public void saveBody(MailBody mailBody) throws Exception {
-        List<String> keywords = Arrays.asList("$(organizationName)", "$(contactName)", "$(phone)", "$(email)", "$(product)",
-                "$(release)");
         fileRepository.saveMailBody(mailBody);
     }
 

@@ -148,9 +148,20 @@ public class LicenseRepository {
         String stmnt_string;
 
         if (kword.equals("sj4Ajk765Anbx")) {
-            stmnt_string = "SELECT * FROM License WHERE (License.state = 1 AND ?=true) OR (License.state = 2 AND ?=true) OR (License.state = 3 AND ?=true) OR (License.state = 4 AND ?=true) OR (License.state = 5 AND ?=true) OR (License.state = 6 AND ?=true);";
+            stmnt_string = "SELECT * FROM License WHERE (License.state = 1 AND ?=true) OR (License.state = 2 AND ?=true) " +
+                    "OR (License.state = 3 AND ?=true) OR (License.state = 4 AND ?=true) OR (License.state = 5 AND ?=true) " +
+                    "OR (License.state = 6 AND ?=true)";
         } else {
-            stmnt_string = "SELECT * FROM License LEFT JOIN Customer ON License.customerId = Customer.id LEFT JOIN Release ON License.releaseId = Release.id LEFT JOIN Product ON License.productId = Product.id LEFT JOIN LicenseType ON License.licenseTypeId = LicenseType.id WHERE (License.contractNumber LIKE (LOWER(CONCAT('%',?,'%'))) OR ( License.productId = Product.id AND LOWER(Product.name) LIKE LOWER(CONCAT('%',?,'%'))) OR ( License.releaseId = Release.id AND Release.version LIKE (CONCAT('%',?,'%')) ) OR ( License.customerId = Customer.id AND LOWER(Customer.organizationName) LIKE LOWER(CONCAT('%',?,'%')) ) OR License.validFrom LIKE (CONCAT('%',?,'%')) OR License.validTill LIKE (CONCAT('%',?,'%')) OR ( License.licenseTypeId = LicenseType.id AND LicenseType.name LIKE (CONCAT('%',?,'%')) )) AND ((License.state = 1 AND ?=true) OR (License.state = 2 AND ?=true) OR (License.state = 3 AND ?=true) OR (License.state = 4 AND ?=true) OR (License.state = 5 AND ?=true) OR (License.state = 6 AND ?=true));";
+            stmnt_string = "SELECT * FROM License LEFT JOIN Customer ON License.customerId = Customer.id LEFT JOIN Release " +
+                    "ON License.releaseId = Release.id LEFT JOIN Product ON License.productId = Product.id LEFT JOIN LicenseType " +
+                    "ON License.licenseTypeId = LicenseType.id WHERE (License.contractNumber LIKE (LOWER(CONCAT('%',?,'%'))) " +
+                    "OR ( License.productId = Product.id AND LOWER(Product.name) LIKE LOWER(CONCAT('%',?,'%'))) " +
+                    "OR ( License.releaseId = Release.id AND Release.version LIKE (CONCAT('%',?,'%')) ) " +
+                    "OR ( License.customerId = Customer.id AND LOWER(Customer.organizationName) LIKE LOWER(CONCAT('%',?,'%')) ) " +
+                    "OR License.validFrom LIKE (CONCAT('%',?,'%')) OR License.validTill LIKE (CONCAT('%',?,'%')) " +
+                    "OR ( License.licenseTypeId = LicenseType.id AND LicenseType.name LIKE (CONCAT('%',?,'%')) )) AND ((License.state = 1 AND ?=true) " +
+                    "OR (License.state = 2 AND ?=true) OR (License.state = 3 AND ?=true) OR (License.state = 4 AND ?=true) " +
+                    "OR (License.state = 5 AND ?=true) OR (License.state = 6 AND ?=true))";
         }
 
         try (PreparedStatement statement = conn.prepareStatement(
@@ -232,7 +243,7 @@ public class LicenseRepository {
 
     public License updateLicense(License newLicense) throws SQLException {
         PreparedStatement statement = conn.prepareStatement("UPDATE License SET "
-                + "releaseId = ?, state = ?, licenseTypeId = ?, latestDeliveryDate = ?, validFrom = ?, validTill = ? WHERE id = ?;");
+                + "releaseId = ?, state = ?, licenseTypeId = ?, latestDeliveryDate = ?, validFrom = ?, validTill = ? WHERE id = ?");
         //seti valid till ja from siis kui status muudetakse Activiks, kui see muudetakse terminated või expiringiks, siis
         //jäta need väärtused alles ja ära muuda neid enam
         Instant licenseEndDate = Instant.now().atOffset(ZoneOffset.UTC).plus(newLicense.getType().getValidityPeriod(),
@@ -298,7 +309,8 @@ public class LicenseRepository {
     }
 
     public List<License> findExpiringLicenses() throws SQLException {
-        try (PreparedStatement stmnt = conn.prepareStatement("Select *, DATEDIFF('DAY', CURRENT_DATE, validTill),CURRENT_DATE from License where DATEDIFF('DAY', CURRENT_DATE, validTill) < 31 AND DATEDIFF('DAY', CURRENT_DATE, validTill) > 0")) {
+        try (PreparedStatement stmnt = conn.prepareStatement("Select *, DATEDIFF('DAY', CURRENT_DATE, validTill),CURRENT_DATE " +
+                "from License where DATEDIFF('DAY', CURRENT_DATE, validTill) < 31 AND DATEDIFF('DAY', CURRENT_DATE, validTill) > 0")) {
             try (ResultSet resultSet = stmnt.executeQuery()) {
                 List<License> expiringLicenses = new ArrayList<>();
                 while (resultSet.next()) {
@@ -373,7 +385,7 @@ public class LicenseRepository {
     }
 
 
-    public List<License> getCustomerLicenses(Integer customerId) throws SQLException {
+    public List<License> getCustomerLicenses(int customerId) throws SQLException {
         try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM License where customerId = ?")) {
             statement.setInt(1, customerId);
             try (ResultSet resultSet = statement.executeQuery()) {

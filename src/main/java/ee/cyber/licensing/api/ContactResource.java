@@ -1,9 +1,7 @@
 package ee.cyber.licensing.api;
 
 import ee.cyber.licensing.dao.ContactRepository;
-import ee.cyber.licensing.dao.CustomerRepository;
 import ee.cyber.licensing.dao.LicenseRepository;
-import ee.cyber.licensing.entity.AuthorisedUser;
 import ee.cyber.licensing.entity.Contact;
 import ee.cyber.licensing.entity.Customer;
 import ee.cyber.licensing.entity.License;

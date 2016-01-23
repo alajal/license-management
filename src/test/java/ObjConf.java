@@ -1,4 +1,5 @@
-import ee.cyber.licensing.api.RestApp;
+import ee.cyber.licensing.setup.Initialization;
+import ee.cyber.licensing.setup.RestApp;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 
@@ -6,7 +7,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class ObjConf extends RestApp.InjectableObjectConfig {
+public class ObjConf extends Initialization {
 
     @Override
     protected org.apache.tomcat.jdbc.pool.DataSource createAndInitDatasource() throws SQLException, IOException {

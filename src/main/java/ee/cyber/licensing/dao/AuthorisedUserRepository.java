@@ -38,7 +38,7 @@ public class AuthorisedUserRepository {
     }
 
     public List<AuthorisedUser> findAll(Integer licId) throws SQLException {
-        try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM AuthorisedUser where licenseId = ?;")) {
+        try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM AuthorisedUser where licenseId = ?")) {
             statement.setInt(1, licId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 List<AuthorisedUser> authorisedUsers = new ArrayList<>();
@@ -81,7 +81,7 @@ public class AuthorisedUserRepository {
     }
 
     public AuthorisedUser deleteAuthorisedUser(Integer licenseId, AuthorisedUser au) throws SQLException {
-        PreparedStatement stmnt = conn.prepareStatement("DELETE from AuthorisedUser where email=? and licenseId =?;");
+        PreparedStatement stmnt = conn.prepareStatement("DELETE from AuthorisedUser where email=? and licenseId =?");
         stmnt.setString(1, au.getEmail());
         stmnt.setInt(2, licenseId);
         stmnt.execute();
