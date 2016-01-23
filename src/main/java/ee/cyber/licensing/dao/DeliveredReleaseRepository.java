@@ -8,9 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class DeliveredReleaseRepository {
 
@@ -23,11 +26,15 @@ public class DeliveredReleaseRepository {
     @Inject
     private ReleaseRepository releaseRepository;
 
+    static Calendar utc() {
+        return Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+    }
+
     public DeliveredRelease save(DeliveredRelease dr) throws SQLException {
         PreparedStatement stmnt = conn.prepareStatement("INSERT INTO DeliveredRelease (licenseId, releaseId, deliveryDate, user) VALUES (?, ?, ?, ?)");
         stmnt.setInt(1, dr.getLicense().getId());
         stmnt.setInt(2, dr.getRelease().getId());
-        stmnt.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
+        setTimestamp(stmnt, 3, new Date());
         stmnt.setString(4, dr.getUser());
         stmnt.execute();
 
@@ -39,6 +46,11 @@ public class DeliveredReleaseRepository {
 
 
         return dr;
+    }
+
+    private void setTimestamp(PreparedStatement statement, int parameterIndex, Date date) throws SQLException {
+        Timestamp timestamp = date != null ? new Timestamp(date.getTime()) : null;
+        statement.setTimestamp(parameterIndex, timestamp, utc());
     }
 
     public List<DeliveredRelease> getAllDeliveredReleases(int id) throws SQLException {
@@ -62,7 +74,7 @@ public class DeliveredReleaseRepository {
                 resultSet.getInt("id"),
                 license,
                 releaseRepository.getReleaseById(resultSet.getInt("releaseId")),
-                resultSet.getDate("deliveryDate"),
+                resultSet.getTimestamp("deliveryDate"),
                 resultSet.getString("user")
         );
     }

@@ -9,6 +9,8 @@ import ee.cyber.licensing.entity.Release;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -80,9 +82,7 @@ public class LicenseResource {
     @Path("bylicense/{licenseId}")
     public License updateRelease(@PathParam("licenseId") Integer licenseId, Release release) throws Exception {
         License license = licenseRepository.findById(licenseId);
-        java.util.Date todaysDate = new java.util.Date();
-        java.sql.Date sqlDate = new java.sql.Date(todaysDate.getTime());
-        license.setLatestDeliveryDate(sqlDate);
+        license.setLatestDeliveryDate(Timestamp.from(Instant.now()));
         license.setRelease(release);
         return licenseRepository.updateLicense(license);
     }

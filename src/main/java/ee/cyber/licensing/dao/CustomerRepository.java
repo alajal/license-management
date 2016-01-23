@@ -109,7 +109,7 @@ public class CustomerRepository {
                 getContacts(conn, resultSet.getInt("id")));
     }
 
-    private List<Contact> getContacts(Connection conn, Integer customerId) throws SQLException {
+    private List<Contact> getContacts(Connection conn, int customerId) throws SQLException {
         PreparedStatement statement = conn.prepareStatement("SELECT * FROM Contact WHERE customerId = ?");
         statement.setInt(1, customerId);
         try (ResultSet resultSet = statement.executeQuery()) {

@@ -9,18 +9,14 @@ import ee.cyber.licensing.entity.SendMailTLS;
 import ee.cyber.licensing.entity.MailBody;
 import ee.cyber.licensing.entity.MailAttachment;
 import ee.cyber.licensing.entity.License;
-import ee.cyber.licensing.entity.AuthorisedUser;
 import ee.cyber.licensing.entity.Contact;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
 import org.apache.commons.lang3.ArrayUtils;
-
-import java.util.Base64;
 
 @Path("sendMail")
 public class SendMailResource {
@@ -34,26 +30,26 @@ public class SendMailResource {
     @Inject
     private FileRepository fileRepository;
 
-    @Path("/{file_id}/{license_id}")
+    @Path("/{fileId}/{licenseId}")
     @PUT
-    public void sendMail(@PathParam("file_id") Integer file_id, @PathParam("license_id") Integer license_id, MailBody mailbody) throws Exception {
+    public void sendMail(@PathParam("fileId") Integer fileId, @PathParam("licenseId") Integer licenseId, MailBody mailbody) throws Exception {
 
-        License license = licenseRepository.findById(license_id);
+        License license = licenseRepository.findById(licenseId);
         List<Contact> contacts = contactRepository.findAll(license.getCustomer());
         List<String> receivers = getReceivers(mailbody, contacts);
 
-        System.out.println("File id: " + file_id);
+        System.out.println("File id: " + fileId);
 
-        if (file_id == 0 && receivers.size() > 0) {
+        if (fileId == 0 && receivers.size() > 0) {
             SendMailTLS.generateAndSendEmailWithoutFile(mailbody, receivers);
-        } else if (!(file_id == 0) && receivers.size() > 0) {
-            MailAttachment file = fileRepository.findById(file_id);
+        } else if (!(fileId == 0) && receivers.size() > 0) {
+            MailAttachment file = fileRepository.findById(fileId);
             if (file != null) {
-                String file_name = file.getFileName();
-                byte[] file_data = file.getData_b();
-                System.out.println("Faili pikkus on: " + file_data.length);
-                if (file_name != null) {
-                    SendMailTLS.generateAndSendEmailWithFile(mailbody, receivers, file_name, file_data);
+                String fileName = file.getFileName();
+                byte[] fileData = file.getData_b();
+                System.out.println("Faili pikkus on: " + fileData.length);
+                if (fileName != null) {
+                    SendMailTLS.generateAndSendEmailWithFile(mailbody, receivers, fileName, fileData);
                 }
             }
         }
@@ -69,19 +65,19 @@ public class SendMailResource {
         receivers.add(au.getEmail());
       }
       */
-        String mb_contact_ids = mailbody.getContact_ids();
+        String contactIds = mailbody.getContactIds();
 
-        if (mb_contact_ids != null && !(mb_contact_ids.equals(""))) {
-            String[] mb_contact_ids_split = mb_contact_ids.trim().split("\\s*,\\s*");
-            int[] split_ids = new int[mb_contact_ids_split.length];
+        if (contactIds != null && !(contactIds.equals(""))) {
+            String[] contactIdsSplitted = contactIds.trim().split("\\s*,\\s*");
+            int[] splitIds = new int[contactIdsSplitted.length];
 
-            for (int i = 0; i < mb_contact_ids_split.length; i++) {
-                split_ids[i] = Integer.parseInt(mb_contact_ids_split[i]);
+            for (int i = 0; i < contactIdsSplitted.length; i++) {
+                splitIds[i] = Integer.parseInt(contactIdsSplitted[i]);
             }
 
             for (Contact contact : contacts) {
                 System.out.println((contact.getId()).intValue());
-                if (contains(split_ids, contact.getId())) {
+                if (contains(splitIds, contact.getId())) {
                     receivers.add(contact.getEmail());
                 }
             }
@@ -91,7 +87,7 @@ public class SendMailResource {
             }
         }
         //saadan ka default iseendale:
-        receivers.add("anulajal@ut.ee");
+        receivers.add("ametliktest@gmail.com");
         return receivers;
     }
 

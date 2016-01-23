@@ -4,6 +4,7 @@ import ee.cyber.licensing.entity.Product;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.ws.rs.client.Entity;
@@ -25,9 +26,11 @@ public class LicenseResourceTest extends JerseyTest {
     }
 
     @Test
-    public void runnableMethod() throws SQLException{
+    public void runnableMethod() throws SQLException {
     }
-  /*  @Test
+
+    @Ignore
+    @Test
     public void licenseAddedTest() throws SQLException {
         Response beforeResp = target("licenses").request("application/json").get();
         String beforeRespInString = beforeResp.readEntity(String.class);
@@ -36,8 +39,8 @@ public class LicenseResourceTest extends JerseyTest {
         Assert.assertFalse(beforeRespInString.contains("test@mail.com"));
 
         License license = new License();
-        license.setProduct(new Product(1, "i-Voting", "11.2"));
-        license.setCustomer(new Customer(1, "Example University", "example area", "123 Fake Street", "www.example.com", "1A2B", "+372 555555", "E100101", "+372 555555", "Example Science"));
+        //license.setProduct(new Product(1, "i-Voting", "11.2"));
+        //license.setCustomer(new Customer(1, "Example University", "example area", "123 Fake Street", "www.example.com", "1A2B", "+372 555555", "E100101", "+372 555555", "Example Science"));
         Entity<License> licenseEntity = Entity.entity(license, "application/json");
         target("licenses").request("application/json").post(licenseEntity);
 
@@ -46,7 +49,7 @@ public class LicenseResourceTest extends JerseyTest {
         Assert.assertTrue(responseInString.contains("test@mail.ee"));
         Assert.assertTrue(responseInString.contains("i-Voting"));
         Assert.assertTrue(responseInString.contains("Example University"));
-    }*/
+    }
 
    /* @Test
     public void licenseEditTest() throws SQLException {

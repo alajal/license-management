@@ -4,7 +4,7 @@ public class MailBody {
     private Integer id;
     private String subject;
     private String body;
-    private String contact_ids;
+    private String contactIds;
     private LicenseType licenseType;
 
 
@@ -17,12 +17,12 @@ public class MailBody {
         this.body = body;
         this.licenseType = licenseType;
     }
-    public MailBody(Integer id, String subject, String body, LicenseType licenseType, String contact_ids) {
+    public MailBody(Integer id, String subject, String body, LicenseType licenseType, String contactIds) {
         this.id = id;
         this.subject = subject;
         this.body = body;
         this.licenseType = licenseType;
-        this.contact_ids = contact_ids;
+        this.contactIds = contactIds;
     }
 
 
@@ -58,11 +58,11 @@ public class MailBody {
         this.licenseType = licenseType;
     }
 
-    public String getContact_ids() {
-        return contact_ids;
+    public String getContactIds() {
+        return contactIds;
     }
 
-    public void setContact_ids(String contact_ids) {
-        this.contact_ids = contact_ids;
+    public void setContactIds(String contact_ids) {
+        this.contactIds = contact_ids;
     }
 }

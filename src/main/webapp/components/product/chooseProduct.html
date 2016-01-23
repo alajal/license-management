@@ -1,7 +1,7 @@
 <div class="container">
     <h3>Product form</h3>
 
-    <form novalidate class="form productForm" name="chooseProductForm" data-ng-submit="chooseProductAndRelease()">
+    <form novalidate class="form" name="chooseProductForm" data-ng-submit="chooseProductAndRelease()">
         <div class="form-group">
             <label for="product">Choose Product</label>
             <select data-ng-options="product as (product.name + ' ' + product.release) for product in products | orderBy: 'name'"

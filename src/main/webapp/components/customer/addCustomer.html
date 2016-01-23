@@ -1,13 +1,12 @@
 <div class="container">
     <h3>Create or choose customer</h3>
 
-    <form novalidate class="form customerForm" name="form"
-          data-ng-submit="addNewCustomer()">
+    <form novalidate class="form" name="form" data-ng-submit="addNewCustomer()">
         <div class="form-group">
 
             <label for="organization">Organization name</label>
 
-            <div class="input-group">
+            <div>
                 <input class="form-control" type="text" id="organization"
                        data-ng-model="applicant.organizationNameOrObject"
                        data-uib-typeahead="customer as customer.organizationName for customer in customers |

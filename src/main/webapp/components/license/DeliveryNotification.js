@@ -1,8 +1,12 @@
-'use strict'
+'use strict';
 
 angular
     .module('LM')
     .controller('DeliveryNotification', function ($scope, $http, $routeParams, $window) {
+
+        $scope.mailTemplate = {};
+        $scope.mailBody = {};
+        $scope.mailContact = {};
 
         $http.get('rest/releases/bylicense/' + $routeParams.id).
             then(function (response) {
@@ -14,6 +18,7 @@ angular
         $http.get('rest/licenses/' + $routeParams.id).
             then(function (response) {
                 $scope.license = response.data;
+                $scope.contacts = $scope.license.customer.contacts;
                 console.log("One License");
                 console.log($scope.license);
             }, function (response) {
@@ -23,17 +28,17 @@ angular
         $scope.sendNotification = function (release) {
 
             $scope.sendMail = function () {
-                $scope.file_id = 0;
-                $scope.license_id = $routeParams.id;
+                $scope.fileId = 0;
+                $scope.licenseId = $scope.license.id;
 
-                $scope.mail = {
+                var mail = {
                     id: 1,
-                    subject: "Meili pealkiri siia",
-                    body: $scope.mailBody.body,
-                    licenseTypeId: 3
+                    subject: $scope.mailTemplate.subject,
+                    body: $scope.mailBodyFormatted,
+                    contactIds: $scope.mailContact.id
                 };
 
-                $http.put('rest/sendMail/' + $scope.file_id + '/' + $scope.license_id, $scope.mail).
+                $http.put('rest/sendMail/' + $scope.fileId + '/' + $scope.licenseId, mail).
                     then(function (response) {
 
                         $http.put('rest/licenses/bylicense/' + $routeParams.id, release).
@@ -73,20 +78,30 @@ angular
             });
 
         $scope.mailBodySelected = function () {
+            var customer = $scope.license.customer;
+            var product = $scope.license.product;
+            var latestRelease = "";
+            var lastReleaseIndex = product.releases.length - 1;
+            if (lastReleaseIndex != undefined) {
+                latestRelease = product.releases[lastReleaseIndex].versionNumber;
+            }
+
             var map = {
-                "${organizationName}": $scope.license.customer.organizationName,
-                "${contactPerson}": $scope.license.customer.contacts[0].contactName,
-                "${email}": $scope.license.customer.contacts[0].email,
-                "${product}": $scope.license.product.name,
-                "${release}": $scope.license.release.versionNumber
+                "organizationName": customer.organizationName,
+                //kui maili bodys on kontakti andmed, siis eeldatakse, et valitakse esmane kontakt, kellele meil saata
+                "contactPersonFirstName": customer.contacts[0].firstName,
+                "contactPersonLastName": customer.contacts[0].lastName,
+                "email": customer.contacts[0].email,
+                "product": product.name,
+                "release": latestRelease
             };
 
-            var bodyAsString = $scope.mailBody.body;
+            var bodyAsString = this.mailTemplate.body;
             for (var key in map) {
-                console.log(key);
-                bodyAsString = bodyAsString.replace(key, map[key]);
+                var regex = new RegExp("\\$" + "\\{" + key + "\\}", "g");
+                bodyAsString = bodyAsString.replace(regex, map[key]);
             }
-            $scope.mailBody.body = bodyAsString;
+            $scope.mailBodyFormatted = bodyAsString;
         };
 
 

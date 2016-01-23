@@ -1,20 +1,30 @@
 <div class="container">
-    <h3></h3>
+    <h4>Send mail about new release</h4>
 
     <div class="form-group">
+
+        <div class="form-group">
+            <label>Choose recipent:</label>
+            <select data-ng-options="contact as (contact.firstName + ' ' + contact.lastName) for contact in contacts"
+                    type="text" class="form-control" id="contact" data-ng-model="mailContact"
+                    required name="selectedTemplate">
+            </select>
+        </div>
+
         <label>Choose release to be delivered: </label>
         <select data-ng-options="release as (release.versionNumber) for release in releases" type="text"
                 class="form-control" id="release" data-ng-model="release"></select>
-        <br>
 
+        {{release}}
         <label>Choose mail subject: </label>
         <select data-ng-options="body as body.subject for body in bodies"
-                type="text" class="form-control" id="body" data-ng-model="mailBody" data-ng-change="mailBodySelected()"
+                type="text" class="form-control" id="body" data-ng-model="mailTemplate" data-ng-change="mailBodySelected()"
                 required name="selectedTemplate">
         </select>
-        <br>
+
+        {{license}}
         <label>Chosen mail body: </label>
-        <textarea class="form-control" rows="6" data-ng-model="mailBody.body"></textarea>
+        <textarea class="form-control" rows="8" data-ng-model="mailBodyFormatted"></textarea>
     </div>
 
     <button class="btn btn-primary" data-ng-click="sendNotification(release)">Send</button>

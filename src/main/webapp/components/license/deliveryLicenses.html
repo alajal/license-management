@@ -1,10 +1,13 @@
 <div class="container">
     <h3>Licenses</h3>
 
-    <input type="radio" data-ng-model="deliveryFilterType" value="delivery" ng-change='newValue("delivery")'/> Needs
+    <input type="radio" data-ng-model="deliveryFilterType" value="delivery" data-ng-change='newValue("delivery")'/>
+    Needs
     delivery
-    <input type="radio" data-ng-model="deliveryFilterType" value="update" ng-change='newValue("update")'/> Needs update
-    <input type="radio" data-ng-model="deliveryFilterType" value="upToDate" ng-change='newValue("upToDate")'/> Up to date
+    <input type="radio" data-ng-model="deliveryFilterType" value="update" data-ng-change='newValue("update")'/> Needs
+    update
+    <input type="radio" data-ng-model="deliveryFilterType" value="upToDate" data-ng-change='newValue("upToDate")'/> Up
+    to date
 
     <form>
         <div class="form-group">
@@ -31,12 +34,6 @@
                     <span data-ng-show="sortType == 'product.name' && sortReverse" class="fa fa-caret-up"></span>
                 </a>
             </div>
-            <!--     <div class="col-md-1">
-                     <a href="" data-ng-click="sortType = 'release.versionNumber'; sortReverse = !sortReverse">Release
-                         <span data-ng-show="sortType == 'release.versionNumber' && !sortReverse" class="fa fa-caret-down"></span>
-                         <span data-ng-show="sortType == 'release.versionNumber' && sortReverse" class="fa fa-caret-up"></span>
-                     </a>
-                 </div>-->
             <div class="col-md-2">
                 <a href="" data-ng-click="sortType = 'customer.organizationName'; sortReverse = !sortReverse">Customer
                     <span data-ng-show="sortType == 'customer.organizationName' && !sortReverse"
@@ -51,12 +48,7 @@
                     <span data-ng-show="sortType == 'state' && sortReverse" class="fa fa-caret-up"></span>
                 </a>
             </div>
-            <!--    <div class="col-md-1">
-                    <a href="" data-ng-click="sortType = 'state'; sortReverse = !sortReverse">Delivery Date
-                        <span data-ng-show="sortType == 'state' && !sortReverse" class="fa fa-caret-down"></span>
-                        <span data-ng-show="sortType == 'state' && sortReverse" class="fa fa-caret-up"></span>
-                    </a>
-                </div>-->
+
             <div class="col-md-2">History</div>
             <div class="col-md-2">Notify</div>
         </div>
@@ -64,10 +56,8 @@
             <div class="row panel panel-body">
                 <div class="col-md-2" data-ng-bind="license.contractNumber"></div>
                 <div class="col-md-2" data-ng-bind="license.product.name"></div>
-                <!--<div class="col-md-1" data-ng-bind="license.release.versionNumber"></div>-->
                 <div class="col-md-2" data-ng-bind="license.customer.organizationName"></div>
                 <div class="col-md-2" data-ng-bind="license.state"></div>
-                <!--<div class="col-md-1" data-ng-bind="license.latestDeliveryDate"></div>-->
                 <div class="col-md-2">
                     <button class="btn btn-primary btn-sm" data-ng-click="getDeliveredReleases(license.id)"
                             data-toggle="collapse" data-target="#view_{{license.id}}">See History
@@ -89,7 +79,7 @@
                     <tbody>
                     <tr class="row" data-ng-repeat="dr in deliveredReleases">
                         <td data-ng-bind="dr.release.versionNumber"></td>
-                        <td data-ng-bind="dr.deliveryDate"></td>
+                        <td>{{dr.deliveryDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td data-ng-bind="dr.user"></td>
                     </tr>
                     </tbody>

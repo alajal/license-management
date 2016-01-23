@@ -1,13 +1,13 @@
-'use strict'
+'use strict';
 
 angular
     .module('LM')
     .controller('DeliveryLicensesCtrl', function ($scope, $http, $filter, $window) {
 
         //used for sorting
-        $scope.sortType = 'validTill'; // set the default sort type
-        $scope.sortReverse = false;  // set the default sort order
-        $scope.searchLicense = '';     // set the default search/filter term
+        $scope.sortType = 'validTill';
+        $scope.sortReverse = false;
+        $scope.searchLicense = '';
 
         $http.get('rest/licenses').
             then(function (response) {

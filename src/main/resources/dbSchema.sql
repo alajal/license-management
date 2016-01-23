@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS Release (
   id           INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   productId    INT                            NOT NULL,
   version      VARCHAR(100),
-  additionDate DATE,
+  additionDate TIMESTAMP,
   user         VARCHAR(100),
   FOREIGN KEY (productId) REFERENCES Product (id),
 );
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS DeliveredRelease (
   id           INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   licenseId    INT                            NOT NULL,
   releaseId    INT                            NOT NULL,
-  deliveryDate DATE,
+  deliveryDate TIMESTAMP,
   user         VARCHAR,
   FOREIGN KEY (releaseId) REFERENCES Release (id),
   FOREIGN KEY (licenseId) REFERENCES License (id)
@@ -113,6 +113,6 @@ CREATE TABLE IF NOT EXISTS Event (
   name        VARCHAR(100),
   description VARCHAR(200),
   type        VARCHAR(100),
-  dateCreated DATETIME,
+  dateCreated TIMESTAMP,
   FOREIGN KEY (licenseId) REFERENCES License (id)
 );

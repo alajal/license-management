@@ -111,7 +111,7 @@ public class FileRepository {
     }
 
 
-    public List<MailBody> findBodiesByLicenseType(Integer licenseTypeId) throws SQLException {
+    public List<MailBody> findBodiesByLicenseType(int licenseTypeId) throws SQLException {
         try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM MailBody WHERE licenseTypeId = ?")) {
             statement.setInt(1, licenseTypeId);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -152,14 +152,14 @@ public class FileRepository {
         return template;
     }
 
-    public void deleteTemplate(Integer templateId) throws SQLException {
+    public void deleteTemplate(int templateId) throws SQLException {
         try (PreparedStatement statement = conn.prepareStatement("DELETE from MailBody where id=?")){
             statement.setInt(1, templateId);
             statement.executeUpdate();
         }
     }
 
-    public MailBody findTemplateById(Integer templateId) throws SQLException {
+    public MailBody findTemplateById(int templateId) throws SQLException {
         try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM MailBody WHERE id = ?")) {
             stmt.setInt(1, templateId);
             try (ResultSet resultSet = stmt.executeQuery()) {

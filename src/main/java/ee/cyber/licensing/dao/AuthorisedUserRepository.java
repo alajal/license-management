@@ -37,7 +37,7 @@ public class AuthorisedUserRepository {
         return au;
     }
 
-    public List<AuthorisedUser> findAll(Integer licId) throws SQLException {
+    public List<AuthorisedUser> findAll(int licId) throws SQLException {
         try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM AuthorisedUser where licenseId = ?")) {
             statement.setInt(1, licId);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -53,10 +53,10 @@ public class AuthorisedUserRepository {
         }
     }
 
-    public AuthorisedUser findById(Integer licenseId, Integer id) throws SQLException {
+    public AuthorisedUser findById(int licenseId, int userId) throws SQLException {
         List<AuthorisedUser> users = findAll(licenseId);
         for (AuthorisedUser user : users) {
-            if (user.getId().equals(id)) {
+            if (user.getId().equals(userId)) {
                 return user;
             }
         }
@@ -80,7 +80,7 @@ public class AuthorisedUserRepository {
         return save(au);
     }
 
-    public AuthorisedUser deleteAuthorisedUser(Integer licenseId, AuthorisedUser au) throws SQLException {
+    public AuthorisedUser deleteAuthorisedUser(int licenseId, AuthorisedUser au) throws SQLException {
         PreparedStatement stmnt = conn.prepareStatement("DELETE from AuthorisedUser where email=? and licenseId =?");
         stmnt.setString(1, au.getEmail());
         stmnt.setInt(2, licenseId);
@@ -94,7 +94,7 @@ public class AuthorisedUserRepository {
         return au;
     }
 
-    public AuthorisedUser editAuthorisedUser(Integer licenseId, AuthorisedUser au) throws SQLException {
+    public AuthorisedUser editAuthorisedUser(int licenseId, AuthorisedUser au) throws SQLException {
         PreparedStatement statement = conn.prepareStatement("UPDATE AuthorisedUser SET firstName=?, lastName=?, email=?, occupation=? WHERE licenseId=? and id=?");
         statement.setString(1, au.getFirstName());
         statement.setString(2, au.getLastName());

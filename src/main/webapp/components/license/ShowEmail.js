@@ -25,7 +25,7 @@ angular
                     subject: $scope.subject,
                     body: $scope.formattedBody,
                     licenseType: $scope.licenseType,
-                    contact_ids: $scope.contact.id
+                    contactIds: $scope.contact.id
                 };
 
                 $http.put('rest/sendMail/' + $scope.attachmentId + '/' + $scope.licenseId, mail).

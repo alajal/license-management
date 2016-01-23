@@ -34,7 +34,7 @@ public class ContactRepository {
 
     }
 
-    public Contact getById(Customer customer, Integer id) throws SQLException {
+    public Contact getById(Customer customer, int id) throws SQLException {
         List<Contact> contactPersons = findAll(customer);
         for (Contact cp : contactPersons) {
             if (cp.getId().equals(id)) {
