@@ -12,16 +12,10 @@ import ee.cyber.licensing.dao.ReleaseRepository;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 
 public class RepositoryBinder extends AbstractBinder {
-    //hk2 teeb objekte ja injectib ka
-    //bindimine: kui on vaja klassi(to osa), siis tee see objekt (bindi sees)
-    //There are to types of DataSources: tomcat's and sql's. We use both. This is the reason for long field names.
-    //Pool'i loomine
+
     @Override
     protected void configure() {
         try {
-            //injectitav objekt ->bind()
-            //SIIN SAAB INJECTIDA JA LUUA INJECTITAVAT
-            //bind(new LicenseRepository(dataSource));    //newga ei saa hk2 injectida
             bind(LicenseRepository.class).to(LicenseRepository.class);
             bind(ProductRepository.class).to(ProductRepository.class);
             bind(CustomerRepository.class).to(CustomerRepository.class);

@@ -25,48 +25,44 @@ angular
                 console.error('There was something wrong with the view license request.');
             });
 
-        $scope.sendNotification = function (release) {
 
-            $scope.sendMail = function () {
-                $scope.fileId = 0;
-                $scope.licenseId = $scope.license.id;
+        $scope.sendMail = function (release) {
+            $scope.fileId = 0;
+            $scope.licenseId = $scope.license.id;
 
-                var mail = {
-                    id: 1,
-                    subject: $scope.mailTemplate.subject,
-                    body: $scope.mailBodyFormatted,
-                    contactIds: $scope.mailContact.id
-                };
-
-                $http.put('rest/sendMail/' + $scope.fileId + '/' + $scope.licenseId, mail).
-                    then(function (response) {
-
-                        $http.put('rest/licenses/bylicense/' + $routeParams.id, release).
-                            then(function (response) {
-                                console.log(release);
-                            }, function (response) {
-                                console.error('Something went wrong with License PUT request.');
-                            });
-
-                        release.user = $scope.username;
-                        $http.post('rest/deliveredReleases/bylicense/' + $routeParams.id, release).
-                            then(function (response) {
-                                console.log($scope.username);
-                                console.log(release)
-                            }, function (response) {
-                                console.error('Something went wrong with the Delivered Release Post method');
-                            });
-
-                        $window.location.href = "#/deliveryLicenses";
-
-                        console.log("Email sent");
-
-                    }, function (response) {
-                        console.error('Could not send email!');
-                    });
+            var mail = {
+                id: 1,
+                subject: $scope.mailTemplate.subject,
+                body: $scope.mailBodyFormatted,
+                contactIds: $scope.mailContact.id
             };
 
-            $scope.sendMail();
+            $http.put('rest/sendMail/' + $scope.fileId + '/' + $scope.licenseId, mail).
+                then(function (response) {
+
+                    $http.put('rest/licenses/bylicense/' + $routeParams.id, release).
+                        then(function (response) {
+                            console.log(release);
+                        }, function (response) {
+                            console.error('Something went wrong with License PUT request.');
+                        });
+
+                    release.user = $scope.username;
+                    console.log("release user:");
+                    console.log($scope.username);
+                    $http.post('rest/deliveredReleases/bylicense/' + $routeParams.id, release).
+                        then(function (response) {
+                            console.log("Release:");
+                            console.log(release)
+                        }, function (response) {
+                            console.error('Something went wrong with the Delivered Release Post method');
+                        });
+
+                    $window.location.href = "#/deliveryLicenses";
+                    console.log("Email sent");
+                }, function (response) {
+                    console.error('Could not send email!');
+                });
         };
 
 

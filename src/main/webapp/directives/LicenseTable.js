@@ -15,8 +15,6 @@ app.directive('licenseTable', function () {
             console.log(scope.currentDate);
             scope.compare = function (expDate) {
                 var eDate = new Date(expDate);
-                console.log("edate");
-                console.log(eDate.getTime());
                 return eDate.getTime();
             };
         }

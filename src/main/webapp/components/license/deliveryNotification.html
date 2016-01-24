@@ -15,17 +15,15 @@
         <select data-ng-options="release as (release.versionNumber) for release in releases" type="text"
                 class="form-control" id="release" data-ng-model="release"></select>
 
-        {{release}}
         <label>Choose mail subject: </label>
         <select data-ng-options="body as body.subject for body in bodies"
                 type="text" class="form-control" id="body" data-ng-model="mailTemplate" data-ng-change="mailBodySelected()"
                 required name="selectedTemplate">
         </select>
 
-        {{license}}
         <label>Chosen mail body: </label>
         <textarea class="form-control" rows="8" data-ng-model="mailBodyFormatted"></textarea>
     </div>
 
-    <button class="btn btn-primary" data-ng-click="sendNotification(release)">Send</button>
+    <button class="btn btn-primary" data-ng-click="sendMail(release)">Send</button>
 </div>

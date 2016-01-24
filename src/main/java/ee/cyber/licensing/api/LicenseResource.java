@@ -4,14 +4,12 @@ import ee.cyber.licensing.dao.LicenseRepository;
 import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.StateHelper;
 import ee.cyber.licensing.entity.LicenseType;
-import ee.cyber.licensing.entity.SendMailTLS;
 import ee.cyber.licensing.entity.Release;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 

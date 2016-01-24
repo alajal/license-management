@@ -1,5 +1,7 @@
 package ee.cyber.licensing.setup;
 
+/* Class for checking license status and changing it automatically if necessary, after every 12 hours. */
+
 import ee.cyber.licensing.dao.LicenseRepository;
 import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.State;

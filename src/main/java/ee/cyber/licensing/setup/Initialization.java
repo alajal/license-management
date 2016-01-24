@@ -1,8 +1,11 @@
 package ee.cyber.licensing.setup;
 
+/* Class that sets h2 database */
+
 import ee.cyber.licensing.api.TransactionInterceptionService;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
+import org.apache.xpath.operations.Bool;
 import org.glassfish.hk2.api.Factory;
 import org.glassfish.hk2.api.InterceptionService;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
@@ -27,13 +30,8 @@ public class Initialization extends AbstractBinder implements ApplicationEventLi
 
     private DataSource dataSource;
 
-    //enne Resource'ide tekitamist
-    //ühenduste lahtitegemine
-    //andmebaasi seadistamine
-    //emailide teavituste threadi töölepanemine
+    private Boolean ifUseSampleData;
 
-    //server->annan web applicationi(war), mille jetty leiab ülesse, seda hakatakse deployma->tekitab RestApp objekt tekitatakse jersey poolt-
-    //<listenerid, servletid, nende eventid -nüüd on deploytud
     @Override
     protected void configure() {
         try {
@@ -50,7 +48,9 @@ public class Initialization extends AbstractBinder implements ApplicationEventLi
         org.apache.tomcat.jdbc.pool.DataSource myDataSource = getPlaceToSaveData();
         try (Connection dbConnection = myDataSource.getConnection()) {
             executeScriptFromClasspath(dbConnection, "dbSchema.sql");
-            executeScriptFromClasspath(dbConnection, "sampleData.sql"); // optional
+            if (ifUseSampleData) {
+                executeScriptFromClasspath(dbConnection, "sampleData.sql");
+            }
         }
         return myDataSource;
     }
@@ -58,14 +58,16 @@ public class Initialization extends AbstractBinder implements ApplicationEventLi
     private org.apache.tomcat.jdbc.pool.DataSource getPlaceToSaveData() throws IOException {
         String databaseLocation = getDatabaseLocation();
         String url;
-        if (databaseLocation.equals("temporary")) {
+        if (databaseLocation.equals("")) {
             Path path = Paths.get(System.getProperty("java.io.tmpdir"), "h2-licence-db");
-            //Windows users have "\", linux users have "/" but h2-database needs always "/"
+            //Windows users have "\", linux users have "/" but h2-database needs "/"
             String replace = path.toString().replace("\\", "/");
             url = "jdbc:h2:" + replace;
+            ifUseSampleData = true;
         } else {
             Path path2 = Paths.get(databaseLocation, "h2-license-db");
             url = "jdbc:h2:" + path2;
+            ifUseSampleData = false;
         }
         System.out.println("DATABASE LOCATION IN: " + url);
         PoolProperties pp = new PoolProperties();
@@ -78,7 +80,7 @@ public class Initialization extends AbstractBinder implements ApplicationEventLi
         InputStream input = RestApp.class.getClassLoader().getResourceAsStream("config.properties");
         Properties properties = new Properties();
         properties.load(input);
-        input.close(); // finally
+        input.close();
         return properties.getProperty("databaseLocation");
     }
 
@@ -112,15 +114,12 @@ public class Initialization extends AbstractBinder implements ApplicationEventLi
         };
     }
 
-
-    //Pool'i kinni panemine: siin pannakse datasource ka kinni
     @Override
     public void onEvent(ApplicationEvent event) {
         if (event.getType() == ApplicationEvent.Type.DESTROY_FINISHED) {
             dataSource.close();
         }
     }
-
 
     @Override
     public RequestEventListener onRequest(RequestEvent requestEvent) {
