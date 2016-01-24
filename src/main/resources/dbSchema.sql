@@ -1,10 +1,8 @@
-DROP TABLE IF EXISTS Product;
 CREATE TABLE IF NOT EXISTS Product (
   id   INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   name VARCHAR(100) UNIQUE            NOT NULL
 );
 
-DROP TABLE IF EXISTS Release;
 CREATE TABLE IF NOT EXISTS Release (
   id           INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   productId    INT                            NOT NULL,
@@ -14,7 +12,6 @@ CREATE TABLE IF NOT EXISTS Release (
   FOREIGN KEY (productId) REFERENCES Product (id),
 );
 
-DROP TABLE IF EXISTS Customer;
 CREATE TABLE IF NOT EXISTS Customer (
   id               INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   organizationName VARCHAR(200) UNIQUE            NOT NULL,
@@ -29,7 +26,6 @@ CREATE TABLE IF NOT EXISTS Customer (
   unitOrFaculty    VARCHAR(100)
 );
 
-DROP TABLE IF EXISTS License;
 CREATE TABLE IF NOT EXISTS License (
   id                    INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   productId             INT                            NOT NULL,
@@ -46,10 +42,10 @@ CREATE TABLE IF NOT EXISTS License (
   latestDeliveryDate    TIMESTAMP,
   FOREIGN KEY (productId) REFERENCES Product (id),
   FOREIGN KEY (customerId) REFERENCES Customer (id),
-  FOREIGN KEY (releaseId) REFERENCES Release (id)
+  FOREIGN KEY (releaseId) REFERENCES Release (id),
+  FOREIGN KEY (predecessorLicenseId) REFERENCES License (id)
 );
 
-DROP TABLE IF EXISTS DeliveredRelease;
 CREATE TABLE IF NOT EXISTS DeliveredRelease (
   id           INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   licenseId    INT                            NOT NULL,
@@ -60,7 +56,6 @@ CREATE TABLE IF NOT EXISTS DeliveredRelease (
   FOREIGN KEY (licenseId) REFERENCES License (id)
 );
 
-DROP TABLE IF EXISTS LicenseType;
 CREATE TABLE IF NOT EXISTS LicenseType (
   id             INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   name           VARCHAR(100),
@@ -68,14 +63,12 @@ CREATE TABLE IF NOT EXISTS LicenseType (
   cost           DOUBLE
 );
 
-DROP TABLE IF EXISTS MailAttachment;
 CREATE TABLE IF NOT EXISTS MailAttachment (
   id       INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   fileName VARCHAR(100)                   NOT NULL,
   fileData BLOB                           NOT NULL
 );
 
-DROP TABLE IF EXISTS MailBody;
 CREATE TABLE IF NOT EXISTS MailBody (
   id            INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   subject       VARCHAR(100)                   NOT NULL,
@@ -83,18 +76,16 @@ CREATE TABLE IF NOT EXISTS MailBody (
   licenseTypeId INT
 );
 
-DROP TABLE IF EXISTS AuthorisedUser;
 CREATE TABLE IF NOT EXISTS AuthorisedUser (
   id         INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   licenseId  INT                            NOT NULL,
   firstName  VARCHAR(200)                   NOT NULL,
   lastName   VARCHAR(100)                   NOT NULL,
-  email      VARCHAR(100)                   NOT NULL,
-  occupation VARCHAR(100)                   NOT NULL,
+  email      VARCHAR(100),
+  occupation VARCHAR(100),
   FOREIGN KEY (licenseId) REFERENCES License (id)
 );
 
-DROP TABLE IF EXISTS Contact;
 CREATE TABLE IF NOT EXISTS Contact (
   id         INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   customerId INT                            NOT NULL,
@@ -106,7 +97,6 @@ CREATE TABLE IF NOT EXISTS Contact (
   FOREIGN KEY (customerId) REFERENCES Customer (id)
 );
 
-DROP TABLE IF EXISTS Event;
 CREATE TABLE IF NOT EXISTS Event (
   id          INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   licenseId   INT,

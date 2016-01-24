@@ -10,10 +10,10 @@
                 <input class="form-control" type="text" id="organization"
                        data-ng-model="applicant.organizationNameOrObject"
                        data-uib-typeahead="customer as customer.organizationName for customer in customers |
-                       filter:$viewValue | limitTo:8" autocomplete="off"/>
+                       filter:$viewValue | limitTo:8" autocomplete="off" name="oName"/>
             </div>
-            <div data-ng-show="form.$submitted || form.pName.$touched">
-                <div data-ng-show="form.pName.$error.required">Organization name is needed.</div>
+            <div data-ng-show="form.$submitted || form.oName.$touched">
+                <div data-ng-show="form.oName.$error.required">Organization name is needed.</div>
             </div>
             <div data-ng-show="applicant.organizationNameOrObject.id !== undefined">
                 <small>Existing customer</small>

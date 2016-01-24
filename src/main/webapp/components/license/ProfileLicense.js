@@ -52,11 +52,6 @@ angular
                 })
         };
 
-        //TODO
-        $scope.ifLicenseTypeHasValue = function () {
-            //show the possible templates when page is loaded
-        };
-
         //AUTHORISED USERS METHODS
         $http.get('rest/authorisedUser/bylicense/' + $routeParams.id).
             then(function (response) {
@@ -66,7 +61,6 @@ angular
             });
 
         $scope.openAuthorisedUserForm = function () {
-            //$scope.AuthorisedUserForm = true;
             var newLineNotThere = true;
             for (var i = 0; i < $scope.authorisedUser.length; i++) {
                 if (typeof $scope.authorisedUser[i].id === "undefined") {
@@ -83,10 +77,11 @@ angular
         };
 
         $scope.enableEditor = function () {
-            $scope.editorDisabled = false;
-            $scope.stateEditorDisabled = false;
             var s = $scope.license.state;
-            //$scope.stateEditorDisabled = !(s == 'REJECTED' || s == 'NEGOTIATED' || s == 'WAITING_FOR_SIGNATURE');
+            $scope.editorDisabled = false;
+            if(s == 'REJECTED' || s == 'NEGOTIATED' || s == 'WAITING_FOR_SIGNATURE') {
+                $scope.stateEditorDisabled = false;
+            }
             $scope.typeEditorDisabled = !!(s == 'ACTIVE' || s == 'EXPIRATION_NEARING' || s == 'TERMINATED');
         };
 
@@ -94,27 +89,22 @@ angular
             $scope.editorDisabled = true;
             $scope.stateEditorDisabled = true;
             var s = $scope.license.state;
-            //$scope.stateEditorDisabled = !(s == 'REJECTED' || s == 'NEGOTIATED' || s == 'WAITING_FOR_SIGNATURE');
             $scope.typeEditorDisabled = !!(s == 'ACTIVE' || s == 'EXPIRATION_NEARING' || s == 'TERMINATED');
         };
 
         $scope.saveProfile = function () {
             $scope.disableEditor();
-            console.log("License 1");
-            console.log($scope.license);
             $http.put('rest/licenses/' + $scope.license.id, $scope.license).
                 then(function (response) {
                     //Updating license
                     $scope.license = response.data;
-                    console.log("License 2");
-                    console.log($scope.license);
                     createEvent($scope.license, 0);
                 }, function (response) {
                     console.error(response);
                 });
         };
 
-        function createEvent(license, event_nr) {
+        function createEvent(license, eventNumber) {
             var contract_nr = license.contractNumber;
             // Event numbers
             // 0 - edit license info
@@ -139,7 +129,7 @@ angular
                 }
             ];
 
-            $http.post('rest/events/' + license.id, $scope.events[event_nr]).
+            $http.post('rest/events/' + license.id, $scope.events[eventNumber]).
                 then(function (response) {
                     console.log("Event created");
                     console.log(response.data);

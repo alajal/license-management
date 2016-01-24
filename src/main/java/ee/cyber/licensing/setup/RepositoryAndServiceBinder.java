@@ -9,9 +9,10 @@ import ee.cyber.licensing.dao.FileRepository;
 import ee.cyber.licensing.dao.LicenseRepository;
 import ee.cyber.licensing.dao.ProductRepository;
 import ee.cyber.licensing.dao.ReleaseRepository;
+import ee.cyber.licensing.service.MailService;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 
-public class RepositoryBinder extends AbstractBinder {
+public class RepositoryAndServiceBinder extends AbstractBinder {
 
     @Override
     protected void configure() {
@@ -25,6 +26,7 @@ public class RepositoryBinder extends AbstractBinder {
             bind(FileRepository.class).to(FileRepository.class);
             bind(ContactRepository.class).to(ContactRepository.class);
             bind(DeliveredReleaseRepository.class).to(DeliveredReleaseRepository.class);
+            bind(MailService.class).to(MailService.class);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

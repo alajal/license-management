@@ -5,6 +5,7 @@ package ee.cyber.licensing.setup;
 import ee.cyber.licensing.dao.LicenseRepository;
 import ee.cyber.licensing.entity.License;
 import ee.cyber.licensing.entity.State;
+import ee.cyber.licensing.service.MailService;
 import org.glassfish.jersey.process.internal.RequestScope;
 import org.glassfish.jersey.server.monitoring.ApplicationEvent;
 import org.glassfish.jersey.server.monitoring.ApplicationEventListener;
@@ -12,6 +13,8 @@ import org.glassfish.jersey.server.monitoring.RequestEvent;
 import org.glassfish.jersey.server.monitoring.RequestEventListener;
 
 import javax.inject.Inject;
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Instant;
@@ -32,6 +35,9 @@ public class StatusChecker implements ApplicationEventListener {
 
     @Inject
     private Connection connection;
+
+    @Inject
+    private MailService mailService;
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
@@ -62,19 +68,19 @@ public class StatusChecker implements ApplicationEventListener {
         }
     }
 
-    private void updateStatus() throws SQLException {
+    private void updateStatus() throws SQLException, IOException, MessagingException {
         List<License> licenses = licenseRepository.findAll();
-        for (License license: licenses){
+        for (License license : licenses) {
             State currentState = license.getState();
             getLicenseWithNewState(license);
             State newState = license.getState();
-            if (currentState != newState){
+            if (currentState != newState) {
                 licenseRepository.updateLicense(license);
             }
         }
     }
 
-    private void getLicenseWithNewState(License license) {
+    private void getLicenseWithNewState(License license) throws IOException, MessagingException {
         Date validFrom = license.getValidFrom();
         Date validTill = license.getValidTill();
 
@@ -87,6 +93,8 @@ public class StatusChecker implements ApplicationEventListener {
             }
             if (now.isAfter(lastActive) && now.isBefore(lastValid)) {
                 license.setState(State.EXPIRATION_NEARING);
+                //send mail to Admin notifying about soon expiring license
+                mailService.sendExpirationNearingMail(license);
             }
             if (now.isAfter(lastValid)) {
                 license.setState(State.TERMINATED);

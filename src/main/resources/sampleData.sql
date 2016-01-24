@@ -41,10 +41,10 @@ INSERT INTO Contact (customerId, firstName, lastName, email, skype, phone)
 VALUES (2, 'Susanna', 'Carpenter', 'anulajal@hotmail.com', 'carpenters', '452267788');
 
 INSERT INTO Event (licenseId, name, description, type, dateCreated)
-VALUES (1, 'New license added', 'New license added description', 'Add', GETDATE());
+VALUES (1, 'New license added', 'New license added description', 'Add', CURRENT_TIMESTAMP());
 
 INSERT INTO Event (name, description, type, dateCreated)
-VALUES ('New customer added', 'New customer added description', 'Add', GETDATE());
+VALUES ('New customer added', 'New customer added description', 'Add', CURRENT_TIMESTAMP());
 
 INSERT INTO DeliveredRelease (licenseId, releaseId, deliveryDate, user) VALUES (1, 1, '2015-11-10', 'admin');
 INSERT INTO DeliveredRelease (licenseId, releaseId, deliveryDate, user) VALUES (1, 2, '2015-12-12', 'testuser');

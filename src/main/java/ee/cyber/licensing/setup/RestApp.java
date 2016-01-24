@@ -11,7 +11,7 @@ public class RestApp extends ResourceConfig {
         packages("ee.cyber.licensing");
         register(new Initialization());
         register(StatusChecker.class);
-        register(new RepositoryBinder());
+        register(new RepositoryAndServiceBinder());
     }
 
 }

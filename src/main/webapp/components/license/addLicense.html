@@ -7,20 +7,28 @@
         <div class="form-group">
             <label for="product">Product</label>
             <input type="text" class="form-control" id="product"
-                   value="{{prefillProduct.name + ' ' + prefillProduct.release}}" disabled>
+                   value="{{prefillProduct.name + ' ' + prefillProduct.release}}" disabled name="product">
+
+            <div data-ng-show="form.$submitted || form.product.$touched">
+                <div data-ng-show="form.product.$error.required">Product is needed.</div>
+            </div>
         </div>
 
         <div class="form-group">
             <label for="customer">Customer</label>
             <input type="text" class="form-control" id="customer" data-ng-model="prefillCustomer.organizationName"
-                   disabled>
+                   disabled name="customer">
+
+            <div data-ng-show="form.$submitted || form.customer.$touched">
+                <div data-ng-show="form.customer.$error.required">Customer is needed.</div>
+            </div>
         </div>
 
         <div class="form-group">
             <label for="contractNumber">License contract number</label>
             <input type="text" class="form-control" id="contractNumber" data-ng-model="contractNumber" required>
 
-            <div ng-if="errorMessage">{{ errorMessage }}</div>
+            <div data-ng-if="errorMessage">{{ errorMessage }}</div>
         </div>
 
         <div class="form-group">

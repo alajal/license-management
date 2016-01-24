@@ -17,10 +17,6 @@ public class License {
     LicenseType type;
     Date applicationSubmitDate;
     Date latestDeliveryDate;
-    //List<DeliveredRelease> deliveredReleases;
-    //commented out cause would cause circular dependency.
-    //Workaround: instead of getting delivered releases from license.deliveredReleases,
-    //deliveredReleases are requested from rest/deliveredReleases/bylicense/{id} with GET
 
     public License() {
     }
